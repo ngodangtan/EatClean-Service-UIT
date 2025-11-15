@@ -6,6 +6,8 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import { connectDB } from './config/db.js';
 import api from './routes/index.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swagger.js';
 
 async function bootstrap() {
   await connectDB();
@@ -21,6 +23,9 @@ async function bootstrap() {
 
   // rate limit cơ bản
   app.use('/api', rateLimit({ windowMs: 60_000, max: 100 }), api);
+
+  // Swagger UI for API documentation (minimal)
+  app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   app.use((req, res) => res.status(404).json({ message: 'Route not found' }));
   app.use((err, req, res, _next) => {
