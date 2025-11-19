@@ -7,12 +7,14 @@ function sign(user) {
 
 export async function register(req, res) {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, name, username, phone, fullName } = req.body;
+    // support old `name` param as `username` for backwards-compat
+    const requestedUsername = username || name;
     const exists = await User.findOne({ email });
     if (exists) return res.status(409).json({ message: 'Email already registered' });
 
-    const user = await User.create({ email, password, name });
-    return res.status(201).json({ token: sign(user), user: { id: user._id, email: user.email, name: user.name } });
+    const user = await User.create({ email, password, username: requestedUsername, phone, fullName });
+    return res.status(201).json({ token: sign(user), user: { id: user._id, email: user.email, username: user.username, fullName: user.fullName, phone: user.phone } });
   } catch (e) {
     return res.status(500).json({ message: e.message });
   }
@@ -25,7 +27,7 @@ export async function login(req, res) {
     if (!user || !(await user.comparePassword(password)))
       return res.status(401).json({ message: 'Invalid credentials' });
 
-    return res.json({ token: sign(user), user: { id: user._id, email: user.email, name: user.name } });
+    return res.json({ token: sign(user), user: { id: user._id, email: user.email, username: user.username, fullName: user.fullName, phone: user.phone } });
   } catch (e) {
     return res.status(500).json({ message: e.message });
   }
@@ -53,3 +55,4 @@ export async function removeUser(req, res) {
     return res.status(500).json({ message: e.message });
   }
 }
+

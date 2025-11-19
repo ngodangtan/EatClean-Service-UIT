@@ -22,14 +22,16 @@ const swaggerSpec = {
         properties: {
           id: { type: 'string' },
           email: { type: 'string' },
-          name: { type: 'string' },
+          username: { type: 'string' },
+          fullName: { type: 'string' },
+          phone: { type: 'string' },
           role: { type: 'string' }
         }
       },
       Register: {
         type: 'object',
         required: ['email', 'password'],
-        properties: { email: { type: 'string' }, password: { type: 'string' }, name: { type: 'string' } }
+        properties: { email: { type: 'string' }, password: { type: 'string' }, username: { type: 'string' }, fullName: { type: 'string' }, phone: { type: 'string' } }
       },
       Login: {
         type: 'object',
