@@ -4,9 +4,15 @@ import bcrypt from 'bcrypt';
 const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-    password: { type: String, required: true, minlength: 6 },
-    name: { type: String, trim: true },
-    role: { type: String, enum: ['user', 'admin'], default: 'user' }
+      password: { type: String, required: true, minlength: 6 },
+      // username replaces previous `name` field
+      username: { type: String, trim: true, unique: true, sparse: true },
+      // full name and phone for customers
+      fullName: { type: String, trim: true },
+      phone: { type: String, trim: true },
+      birthday: { type: Date },
+      gender: { type: String, enum: ['male', 'female', 'other'] },
+      role: { type: String, enum: ['user', 'admin'], default: 'user' }
   },
   { timestamps: true }
 );
