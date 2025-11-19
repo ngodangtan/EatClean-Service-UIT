@@ -25,13 +25,15 @@ const swaggerSpec = {
           username: { type: 'string' },
           fullName: { type: 'string' },
           phone: { type: 'string' },
+          birthday: { type: 'string', format: 'date' },
+          gender: { type: 'string', enum: ['male', 'female', 'other'] },
           role: { type: 'string' }
         }
       },
       Register: {
         type: 'object',
         required: ['email', 'password'],
-        properties: { email: { type: 'string' }, password: { type: 'string' }, username: { type: 'string' }, fullName: { type: 'string' }, phone: { type: 'string' } }
+        properties: { email: { type: 'string' }, password: { type: 'string' }, username: { type: 'string' }, fullName: { type: 'string' }, phone: { type: 'string' }, birthday: { type: 'string', format: 'date' }, gender: { type: 'string', enum: ['male', 'female', 'other'] } }
       },
       Login: {
         type: 'object',

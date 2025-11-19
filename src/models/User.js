@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema(
       // full name and phone for customers
       fullName: { type: String, trim: true },
       phone: { type: String, trim: true },
+      birthday: { type: Date },
+      gender: { type: String, enum: ['male', 'female', 'other'] },
       role: { type: String, enum: ['user', 'admin'], default: 'user' }
   },
   { timestamps: true }
