@@ -109,6 +109,59 @@ const swaggerSpec = {
         security: [{ bearerAuth: [] }],
         responses: { '200': { description: 'Deleted' }, '401': { description: 'Unauthorized' }, '404': { description: 'Health profile not found' } }
       }
+    },
+    '/api/meal-plans/generate': {
+      post: {
+        tags: ['Meal Plans'],
+        summary: 'Generate personalized meal plan using LM Studio AI',
+        security: [{ bearerAuth: [] }],
+        responses: { 
+          '201': { description: 'Meal plan generated successfully' }, 
+          '401': { description: 'Unauthorized' }, 
+          '404': { description: 'Health profile not found' },
+          '500': { description: 'LM Studio error' }
+        }
+      }
+    },
+    '/api/meal-plans/latest': {
+      get: {
+        tags: ['Meal Plans'],
+        summary: 'Get most recent meal plan',
+        security: [{ bearerAuth: [] }],
+        responses: { 
+          '200': { description: 'OK' }, 
+          '401': { description: 'Unauthorized' }, 
+          '404': { description: 'Meal plan not found' }
+        }
+      }
+    },
+    '/api/meal-plans': {
+      get: {
+        tags: ['Meal Plans'],
+        summary: 'Get all meal plans (paginated)',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'limit', in: 'query', schema: { type: 'integer', default: 10 } },
+          { name: 'skip', in: 'query', schema: { type: 'integer', default: 0 } }
+        ],
+        responses: { 
+          '200': { description: 'OK' }, 
+          '401': { description: 'Unauthorized' }
+        }
+      }
+    },
+    '/api/meal-plans/{id}': {
+      delete: {
+        tags: ['Meal Plans'],
+        summary: 'Delete a meal plan',
+        security: [{ bearerAuth: [] }],
+        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+        responses: { 
+          '200': { description: 'Deleted' }, 
+          '401': { description: 'Unauthorized' }, 
+          '404': { description: 'Meal plan not found' }
+        }
+      }
     }
   }
 };
