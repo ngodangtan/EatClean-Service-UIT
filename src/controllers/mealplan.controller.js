@@ -19,8 +19,9 @@ async function callLMStudio(prompt) {
             content: prompt
           }
         ],
-        temperature: 0.7,
-        max_tokens: 4000
+        temperature: 0.5, // Lower temperature for more consistent output
+        max_tokens: 8000, // Increased from 4000 to allow full response
+        top_p: 0.9
       })
     });
 
@@ -56,49 +57,50 @@ function buildMealPlanPrompt(healthProfile) {
   const cuisineList = (cuisinePreference || []).join(', ') || 'diverse';
   const diseasesList = (diseases || []).length > 0 ? diseases.join(', ') : 'none';
 
-  return `You are a professional nutritionist and meal planner. Generate a detailed 7-day personalized meal plan based on the following user profile:
+  return `You are a professional nutritionist. Generate a 3-day personalized meal plan. Return ONLY valid JSON, nothing else.
 
-**User Profile:**
+User Profile:
 - Goal: ${goal}
-- Height: ${height} cm
-- Current Weight: ${currentWeight} kg
-- Desired Weight: ${desiredWeight} kg
-- Activity Level: ${activityLevel}
-- Sleep Duration: ${sleepDuration} hours/day
-- Diet Preference: ${dietPreference}
-- Meals per Day: ${mealsPerDay}
-- Cuisine Preferences: ${cuisineList}
-- Favorite Meal: ${favoriteMeal}
-- Health Conditions: ${diseasesList}
-- Work Schedule: ${workSchedule}
+- Height: ${height}cm, Current: ${currentWeight}kg, Desired: ${desiredWeight}kg
+- Activity: ${activityLevel}, Sleep: ${sleepDuration}h
+- Diet: ${dietPreference}, Meals/day: ${mealsPerDay}
+- Cuisines: ${cuisineList}
+- Favorite: ${favoriteMeal}
+- Conditions: ${diseasesList}
+- Schedule: ${workSchedule}
 
-**Format your response as a JSON object with this exact structure (very important - return ONLY valid JSON):**
+Return ONLY this JSON (no markdown, no text):
 {
-  "title": "7-Day Personalized Meal Plan",
+  "title": "3-Day Meal Plan",
   "days": [
     {
       "day": 1,
       "title": "Day 1",
-      "theme": "brief theme description",
-      "macros": { "protein": number, "carbs": number, "fat": number },
-      "totalCalories": number,
+      "theme": "balanced nutrition",
+      "macros": {"protein": 100, "carbs": 200, "fat": 50},
+      "totalCalories": 1800,
       "meals": [
         {
-          "mealType": "breakfast|lunch|dinner|snack",
+          "mealType": "breakfast",
           "name": "meal name",
-          "description": "brief description",
-          "ingredients": ["ingredient1", "ingredient2"],
-          "benefits": ["benefit1", "benefit2"],
-          "calories": number,
-          "macros": { "protein": number, "carbs": number, "fat": number }
+          "description": "short description",
+          "ingredients": ["item1", "item2"],
+          "benefits": ["benefit1"],
+          "calories": 400,
+          "macros": {"protein": 20, "carbs": 50, "fat": 10}
         }
       ],
-      "tips": ["tip1", "tip2"]
+      "tips": ["tip1"]
     }
   ]
 }
 
-Make sure the meal plan respects the user's dietary preferences, health conditions, and goals. Include detailed ingredients and health benefits for each meal. Return ONLY valid JSON, no additional text.`;
+STRICT RULES:
+1. Return JSON ONLY - no code blocks, no markdown, no text
+2. All strings must have double quotes: "value" not value
+3. No trailing commas
+4. Valid numbers only: 100, 50.5 (not "100")
+5. Ensure complete, valid JSON - no truncated strings`;
 }
 
 // Generate meal plan by calling LM Studio
@@ -123,18 +125,85 @@ export async function generateMealPlan(req, res) {
     // Parse AI response as JSON
     let parsedPlan;
     try {
-      // Try to extract JSON from response (in case there's extra text)
-      const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
-      if (!jsonMatch) {
-        throw new Error('No JSON found in response');
+      // Extract JSON from response, handling markdown code blocks
+      let jsonText = aiResponse.trim();
+      
+      // Remove markdown code block markers if present
+      if (jsonText.startsWith('```json')) {
+        jsonText = jsonText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+      } else if (jsonText.startsWith('```')) {
+        jsonText = jsonText.replace(/^```\s*/, '').replace(/\s*```$/, '');
       }
-      parsedPlan = JSON.parse(jsonMatch[0]);
+      
+      jsonText = jsonText.trim();
+      
+      // If still not valid JSON, try to extract JSON object
+      if (!jsonText.startsWith('{')) {
+        const jsonMatch = jsonText.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) {
+          throw new Error('No JSON found in response');
+        }
+        jsonText = jsonMatch[0];
+      }
+      
+      // Validate JSON before parsing - check for common issues
+      // Look for unterminated strings by checking quote pairs
+      let inString = false;
+      let escapeNext = false;
+      for (let i = 0; i < jsonText.length; i++) {
+        const char = jsonText[i];
+        if (escapeNext) {
+          escapeNext = false;
+          continue;
+        }
+        if (char === '\\') {
+          escapeNext = true;
+          continue;
+        }
+        if (char === '"') {
+          inString = !inString;
+        }
+      }
+      
+      if (inString) {
+        // Unterminated string detected - try to fix by removing last incomplete section
+        const lastBracketIndex = jsonText.lastIndexOf('}');
+        if (lastBracketIndex > 0) {
+          jsonText = jsonText.substring(0, lastBracketIndex + 1);
+        }
+      }
+      
+      // Try to parse with standard JSON parser
+      try {
+        parsedPlan = JSON.parse(jsonText);
+      } catch (firstAttemptError) {
+        // If first attempt fails, try to clean up the JSON
+        // Remove any trailing commas before closing brackets
+        jsonText = jsonText.replace(/,(\s*[}\]])/g, '$1');
+        
+        // Try parsing again
+        try {
+          parsedPlan = JSON.parse(jsonText);
+        } catch (secondAttemptError) {
+          // Log detailed error info
+          console.error('JSON parsing failed:', firstAttemptError.message);
+          const errorMatch = firstAttemptError.message.match(/position (\d+)/);
+          const errorPos = errorMatch ? parseInt(errorMatch[1]) : 0;
+          
+          const contextStart = Math.max(0, errorPos - 80);
+          const contextEnd = Math.min(jsonText.length, errorPos + 80);
+          console.error('Problem area:', jsonText.substring(contextStart, contextEnd));
+          
+          throw secondAttemptError;
+        }
+      }
     } catch (parseError) {
       console.error('Failed to parse LM Studio response:', parseError);
+      console.error('Raw response length:', aiResponse.length);
       return res.status(500).json({ 
         message: 'Failed to parse meal plan from AI response',
         error: parseError.message,
-        rawResponse: aiResponse.substring(0, 500) // Show first 500 chars for debugging
+        rawResponse: aiResponse.substring(0, 300)
       });
     }
 
