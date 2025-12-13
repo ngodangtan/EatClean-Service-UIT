@@ -131,7 +131,30 @@ curl -X POST http://localhost:4000/api/auth/login \
 }
 ```
 
-### 2.3 DELETE /auth/{id}
+### 2.3 POST /auth/logout
+Logout the authenticated user.
+
+#### Request
+```bash
+curl -X POST http://localhost:4000/api/auth/logout \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+#### Success Response (200 OK)
+```json
+{
+  "ok": true
+}
+```
+
+#### Error Response (401 Unauthorized)
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+### 2.4 DELETE /auth/{id}
 Delete a user account (self or admin only).
 
 #### Request
@@ -974,6 +997,17 @@ async function login(email: string, password: string) {
   });
   const data = await response.json();
   if (data.token) localStorage.setItem('token', data.token);
+  return data;
+}
+
+// Logout
+async function logout(token: string) {
+  const response = await fetch('/api/auth/logout', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  const data = await response.json();
+  if (data.ok) localStorage.removeItem('token');
   return data;
 }
 

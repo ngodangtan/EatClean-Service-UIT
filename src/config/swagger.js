@@ -80,6 +80,14 @@ const swaggerSpec = {
         responses: { '200': { description: 'OK' }, '401': { description: 'Invalid credentials' } }
       }
     },
+    '/api/auth/logout': {
+      post: {
+        tags: ['Auth'],
+        summary: 'Logout user',
+        security: [{ bearerAuth: [] }],
+        responses: { '200': { description: 'Logged out successfully' }, '401': { description: 'Unauthorized' } }
+      }
+    },
     '/api/auth/{id}': {
       delete: {
         tags: ['Auth'],

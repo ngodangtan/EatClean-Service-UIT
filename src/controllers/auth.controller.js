@@ -33,6 +33,16 @@ export async function login(req, res) {
   }
 }
 
+export async function logout(req, res) {
+  try {
+    // For JWT, logout is typically client-side by removing the token
+    // If implementing token blacklist, add logic here
+    return res.json({ ok: true });
+  } catch (e) {
+    return res.status(500).json({ message: e.message });
+  }
+}
+
 export async function removeUser(req, res) {
   try {
     const targetId = req.params.id;
