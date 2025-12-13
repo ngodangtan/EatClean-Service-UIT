@@ -2,6 +2,7 @@ import { Router } from 'express';
 import authRoutes from './auth.routes.js';
 import recipeRoutes from './recipe.routes.js';
 import healthRoutes from './health.routes.js';
+import mealplanRoutes from './mealplan.routes.js';
 
 const api = Router();
 
@@ -9,6 +10,6 @@ api.get('/health', (req, res) => res.json({ ok: true, time: new Date().toISOStri
 api.use('/auth', authRoutes);
 api.use('/recipes', recipeRoutes);
 api.use('/health-profile', healthRoutes);
+api.use('/meal-plans', mealplanRoutes);
 
-// TODO: thêm /meals, /plans sau
 export default api;
