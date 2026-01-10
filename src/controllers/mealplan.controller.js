@@ -302,3 +302,17 @@ export async function deleteMealPlan(req, res) {
     return res.status(500).json({ message: error.message });
   }
 }
+
+// Delete all meal plans for user
+export async function deleteAllMealPlans(req, res) {
+  try {
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+    await MealPlan.deleteMany({ userId });
+    return res.json({ ok: true, message: 'All meal plans deleted successfully' });
+  } catch (error) {
+    console.error('Delete all meal plans error:', error);
+    return res.status(500).json({ message: error.message });
+  }
+}

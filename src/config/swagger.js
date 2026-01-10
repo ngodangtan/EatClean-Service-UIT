@@ -156,6 +156,15 @@ const swaggerSpec = {
           '200': { description: 'OK' }, 
           '401': { description: 'Unauthorized' }
         }
+      },
+      delete: {
+        tags: ['Meal Plans'],
+        summary: 'Delete all meal plans for authenticated user',
+        security: [{ bearerAuth: [] }],
+        responses: { 
+          '200': { description: 'All meal plans deleted successfully' }, 
+          '401': { description: 'Unauthorized' }
+        }
       }
     },
     '/api/meal-plans/{id}': {
