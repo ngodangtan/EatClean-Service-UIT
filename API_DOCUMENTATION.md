@@ -194,6 +194,45 @@ curl -X DELETE http://localhost:4000/api/auth/6737d5f8c1e2a4b5c6d7e8f0 \
 }
 ```
 
+### 2.5 GET /auth/profile
+Get the authenticated user's profile information.
+
+#### Request
+```bash
+curl -X GET http://localhost:4000/api/auth/profile \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+#### Success Response (200 OK)
+```json
+{
+  "id": "6737d5f8c1e2a4b5c6d7e8f0",
+  "email": "user@example.com",
+  "username": "username",
+  "fullName": "Full Name",
+  "phone": "+1234567890",
+  "birthday": "1990-01-01T00:00:00.000Z",
+  "gender": "male",
+  "role": "user",
+  "createdAt": "2025-12-13T12:00:00.000Z",
+  "updatedAt": "2025-12-13T12:00:00.000Z"
+}
+```
+
+#### Error Response (401 Unauthorized)
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+#### Error Response (404 Not Found)
+```json
+{
+  "message": "User not found"
+}
+```
+
 ---
 
 ## 3. Health Profile Endpoints
@@ -1009,6 +1048,14 @@ async function logout(token: string) {
   const data = await response.json();
   if (data.ok) localStorage.removeItem('token');
   return data;
+}
+
+// Get user profile
+async function getProfile(token: string) {
+  const response = await fetch('/api/auth/profile', {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  return response.json();
 }
 
 // Create health profile

@@ -27,7 +27,9 @@ const swaggerSpec = {
           phone: { type: 'string' },
           birthday: { type: 'string', format: 'date' },
           gender: { type: 'string', enum: ['male', 'female', 'other'] },
-          role: { type: 'string' }
+          role: { type: 'string' },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time' }
         }
       },
       Register: {
@@ -86,6 +88,18 @@ const swaggerSpec = {
         summary: 'Logout user',
         security: [{ bearerAuth: [] }],
         responses: { '200': { description: 'Logged out successfully' }, '401': { description: 'Unauthorized' } }
+      }
+    },
+    '/api/auth/profile': {
+      get: {
+        tags: ['Auth'],
+        summary: 'Get user profile',
+        security: [{ bearerAuth: [] }],
+        responses: { 
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } } }, 
+          '401': { description: 'Unauthorized' }, 
+          '404': { description: 'User not found' } 
+        }
       }
     },
     '/api/auth/{id}': {

@@ -43,6 +43,31 @@ export async function logout(req, res) {
   }
 }
 
+export async function getProfile(req, res) {
+  try {
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+    const user = await User.findById(userId).select('-password'); // Exclude password
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    return res.json({
+      id: user._id,
+      email: user.email,
+      username: user.username,
+      fullName: user.fullName,
+      phone: user.phone,
+      birthday: user.birthday,
+      gender: user.gender,
+      role: user.role,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt
+    });
+  } catch (e) {
+    return res.status(500).json({ message: e.message });
+  }
+}
+
 export async function removeUser(req, res) {
   try {
     const targetId = req.params.id;
