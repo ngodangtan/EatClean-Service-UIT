@@ -3,6 +3,12 @@ import mongoose from 'mongoose';
 const healthProfileSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
+    // Gender (required for BMR calculation)
+    gender: { type: String, enum: ['male', 'female'], required: true },
+
+    // Age (required for BMR calculation)
+    age: { type: Number, min: 1, max: 120, required: true },
+
     // 1) Mục tiêu ăn uống
     goal: { type: String, enum: ['lose-weight', 'gain-weight', 'improve-health'], default: 'improve-health' },
     
@@ -37,7 +43,7 @@ const healthProfileSchema = new mongoose.Schema(
     sleepDuration: { type: Number },
     
     // 12) Do you have any of these diseases? (array of disease names)
-    diseases: [{ type: String }], // e.g., ['diabetes', 'hypertension', 'heart-disease']
+    diseases: [{ type: String, enum: ['diabetes', 'kidney-disease', 'high-uric-acid', 'hypertension'] }],
     
     // 13) Pick your primary diet preference
     dietPreference: { type: String }, // e.g., 'omnivore', 'vegetarian', 'vegan', 'keto', 'paleo'

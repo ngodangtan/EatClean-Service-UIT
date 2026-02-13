@@ -5,6 +5,8 @@ This API provides endpoints for user authentication, health profile management, 
 
 Base URL: `http://localhost:4000/api`
 
+Rate limiting: 100 requests per minute is applied to routes under `/api`.
+
 ## Authentication
 Most endpoints require authentication via JWT token in the Authorization header:
 ```
@@ -878,6 +880,29 @@ curl -X DELETE http://localhost:4000/api/meal-plans/6737d5f8c1e2a4b5c6d7e8f9 \
 ```json
 {
   "message": "Meal plan not found"
+}
+```
+
+### 5.5 DELETE /meal-plans
+Delete all meal plans for the authenticated user.
+
+#### Request
+```bash
+curl -X DELETE http://localhost:4000/api/meal-plans \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+#### Success Response (200 OK)
+```json
+{
+  "ok": true
+}
+```
+
+#### Error Response (401 Unauthorized)
+```json
+{
+  "message": "Unauthorized"
 }
 ```
 

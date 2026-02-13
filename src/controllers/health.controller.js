@@ -6,6 +6,8 @@ export async function createOrUpdateHealthProfile(req, res) {
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
     const {
+      gender,
+      age,
       goal,
       triedHealthyBefore,
       hungryTime,
@@ -25,9 +27,11 @@ export async function createOrUpdateHealthProfile(req, res) {
 
     // Find and update or create if not exists
     let profile = await HealthProfile.findOne({ userId });
-    
+
     if (profile) {
       // Update existing profile
+      profile.gender = gender ?? profile.gender;
+      profile.age = age ?? profile.age;
       profile.goal = goal ?? profile.goal;
       profile.triedHealthyBefore = triedHealthyBefore ?? profile.triedHealthyBefore;
       profile.hungryTime = hungryTime ?? profile.hungryTime;
@@ -43,13 +47,15 @@ export async function createOrUpdateHealthProfile(req, res) {
       profile.dietPreference = dietPreference ?? profile.dietPreference;
       profile.mealsPerDay = mealsPerDay ?? profile.mealsPerDay;
       profile.cuisinePreference = cuisinePreference ?? profile.cuisinePreference;
-      
+
       await profile.save();
       return res.json({ ok: true, profile });
     } else {
       // Create new profile
       profile = await HealthProfile.create({
         userId,
+        gender,
+        age,
         goal,
         triedHealthyBefore,
         hungryTime,
