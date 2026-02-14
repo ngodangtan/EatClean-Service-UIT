@@ -3,14 +3,14 @@ import MealPlan from '../models/MealPlan.js';
 import { validateMealPlan } from '../validators/mealPlan.schema.js';
 import { validateFullMealPlan } from '../services/mealValidationService.js';
 import { generateNutritionPlan } from '../services/nutrition/nutritionEngine.js';
+import { calculatePlanDuration } from '../services/nutrition/durationCalculator.js';
 import { generateMeal } from '../services/ai/mealGenerator.js';
 import { runWithConcurrency } from '../services/ai/concurrency.js';
 import { applyDiseaseAdjustments, validateGeneratedMeal } from '../services/disease/diseaseEngine.js';
 import { getForbiddenIngredients, getLimitedIngredients, getPreferredIngredients } from '../services/disease/diseaseRules.js';
 
 const MAX_RETRIES = 2;
-const PLAN_DAYS = 3;
-const AI_CALL_BUDGET = 20;
+const TEMPLATE_DAYS = 7;
 const CONCURRENCY_LIMIT = 3;
 // Allows 2 regeneration attempts per meal (validate → regen → validate → regen → validate)
 const MAX_MEAL_REGEN_ATTEMPTS = 2;
@@ -57,15 +57,21 @@ export async function generateMealPlan(req, res) {
       console.log('Disease-adjusted macros:', nutritionPlan.macros);
     }
 
-    // Step 3: Get ingredient lists for prompt
+    // Step 3: Calculate plan duration based on goal and weight delta
+    const duration = calculatePlanDuration(healthProfile);
+    console.log('Plan duration:', duration);
+
+    // Step 4: Get ingredient lists for prompt
     const forbiddenIngredients = getForbiddenIngredients(diseases);
     const limitedIngredients = getLimitedIngredients(diseases);
     const preferredIngredients = getPreferredIngredients(diseases);
 
-    // Shared call budget across all retries
-    const callBudget = { remaining: AI_CALL_BUDGET };
+    // Shared call budget across all retries (dynamic based on meals per day)
+    const mealsPerDay = nutritionPlan.mealDistribution.length;
+    const aiCallBudget = Math.min(60, TEMPLATE_DAYS * mealsPerDay * 2 + 10);
+    const callBudget = { remaining: aiCallBudget };
 
-    // Step 4: Retry loop — generate per-meal content, assemble with backend nutrition
+    // Step 5: Retry loop — generate 7-day template, then replicate across weeks
     let assembledPlan = null;
     let lastErrors = null;
 
@@ -80,11 +86,11 @@ export async function generateMealPlan(req, res) {
       }
 
       try {
-        // Build all meal generation tasks (PLAN_DAYS x mealsPerDay)
+        // Build all meal generation tasks (TEMPLATE_DAYS x mealsPerDay)
         const mealTasks = [];
         const mealMeta = []; // track dayIndex + dist for assembly
 
-        for (let dayIndex = 0; dayIndex < PLAN_DAYS; dayIndex++) {
+        for (let dayIndex = 0; dayIndex < TEMPLATE_DAYS; dayIndex++) {
           for (const dist of nutritionPlan.mealDistribution) {
             mealMeta.push({ dayIndex, dist });
             mealTasks.push(() => {
@@ -111,7 +117,7 @@ export async function generateMealPlan(req, res) {
         // Run meal generation with concurrency limit
         const mealResults = await runWithConcurrency(mealTasks, CONCURRENCY_LIMIT);
 
-        // Step 5: Post-AI safety validation per meal (with per-meal retries)
+        // Step 6: Post-AI safety validation per meal (with per-meal retries)
         const validatedMeals = [];
         let safetyFailed = false;
 
@@ -172,11 +178,10 @@ export async function generateMealPlan(req, res) {
 
         if (safetyFailed) continue;
 
-        // Assemble days from validated results
-        const days = [];
-        const mealsPerDay = nutritionPlan.mealDistribution.length;
+        // Assemble 7-day template from validated results
+        const templateDays = [];
 
-        for (let dayIndex = 0; dayIndex < PLAN_DAYS; dayIndex++) {
+        for (let dayIndex = 0; dayIndex < TEMPLATE_DAYS; dayIndex++) {
           const dayMeals = [];
           for (let mealIdx = 0; mealIdx < mealsPerDay; mealIdx++) {
             const resultIndex = dayIndex * mealsPerDay + mealIdx;
@@ -198,7 +203,7 @@ export async function generateMealPlan(req, res) {
             });
           }
 
-          days.push({
+          templateDays.push({
             day: dayIndex + 1,
             title: `Day ${dayIndex + 1}`,
             theme: '',
@@ -209,29 +214,55 @@ export async function generateMealPlan(req, res) {
           });
         }
 
-        const fullPlan = {
-          title: `${PLAN_DAYS}-Day Meal Plan`,
-          days
+        // Validate the 7-day template (schema + logical)
+        const templatePlan = {
+          title: '7-Day Meal Plan',
+          days: templateDays
         };
 
-        // Schema validation
-        const schemaResult = validateMealPlan(fullPlan);
+        const schemaResult = validateMealPlan(templatePlan);
         if (!schemaResult.valid) {
           console.error(`Attempt ${attempt + 1}: Schema validation failed -`, schemaResult.errors);
           lastErrors = schemaResult.errors;
           continue;
         }
 
-        // Logical validation
-        const logicResult = validateFullMealPlan(fullPlan, healthProfile);
+        const logicResult = validateFullMealPlan(templatePlan, healthProfile);
         if (!logicResult.valid) {
           console.error(`Attempt ${attempt + 1}: Logical validation failed -`, logicResult.errors);
           lastErrors = logicResult.errors;
           continue;
         }
 
-        // All validations passed
-        assembledPlan = fullPlan;
+        // Template validated — replicate across weeks
+        const allDays = [];
+        for (let week = 0; week < duration.weeks; week++) {
+          for (const templateDay of templateDays) {
+            const globalDay = week * TEMPLATE_DAYS + templateDay.day;
+            allDays.push({
+              ...templateDay,
+              day: globalDay,
+              title: `Day ${globalDay}`,
+              macros: { ...templateDay.macros },
+              meals: templateDay.meals.map(m => ({
+                ...m,
+                macros: { ...m.macros },
+                ingredients: [...m.ingredients],
+                benefits: [...m.benefits]
+              })),
+              tips: [...templateDay.tips]
+            });
+          }
+        }
+
+        const planTitle = duration.weeks === 1
+          ? '7-Day Meal Plan'
+          : `${duration.weeks}-Week Meal Plan`;
+
+        assembledPlan = {
+          title: planTitle,
+          days: allDays
+        };
         break;
       } catch (genError) {
         console.error(`Attempt ${attempt + 1}: Meal generation failed -`, genError.message);
@@ -270,6 +301,7 @@ export async function generateMealPlan(req, res) {
       healthProfileId: healthProfile._id,
       title: assembledPlan.title,
       days: assembledPlan.days,
+      duration: { weeks: duration.weeks, totalDays: duration.totalDays },
       aiModel: 'lm-studio',
       prompt: 'per-meal-generation',
       rawAiResponse: null

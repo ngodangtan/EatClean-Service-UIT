@@ -38,7 +38,11 @@ const mealPlanSchema = new mongoose.Schema(
     aiModel: { type: String, default: 'lm-studio' }, // which AI generated this
     prompt: { type: String }, // the prompt sent to LM Studio
     rawAiResponse: { type: String }, // raw response from LM Studio
-    notes: { type: String }
+    notes: { type: String },
+    duration: {
+      weeks: { type: Number },
+      totalDays: { type: Number }
+    }
   },
   { timestamps: true }
 );
