@@ -12,7 +12,12 @@ const userSchema = new mongoose.Schema(
       phone: { type: String, trim: true },
       birthday: { type: Date },
       gender: { type: String, enum: ['male', 'female', 'other'] },
-      role: { type: String, enum: ['user', 'admin'], default: 'user' }
+      role: { type: String, enum: ['user', 'admin'], default: 'user' },
+      refreshTokens: [{
+        token: { type: String, required: true },
+        expiresAt: { type: Date, required: true },
+        createdAt: { type: Date, default: Date.now }
+      }]
   },
   { timestamps: true }
 );

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { generateMealPlan, getMealPlan, getMealPlans, deleteMealPlan, deleteAllMealPlans } from '../controllers/mealplan.controller.js';
+import { generateMealPlan, getMealPlan, getMealPlans, deleteMealPlan, deleteAllMealPlans, swapMeal, getShoppingList } from '../controllers/mealplan.controller.js';
 import { requireAuth } from '../middleware/auth.js';
 
 const router = Router();
@@ -12,6 +12,12 @@ router.get('/latest', requireAuth, getMealPlan);
 
 // Get all meal plans for user (with pagination)
 router.get('/', requireAuth, getMealPlans);
+
+// Swap a meal in a plan
+router.post('/:planId/swap', requireAuth, swapMeal);
+
+// Get shopping list for a plan
+router.get('/:planId/shopping-list', requireAuth, getShoppingList);
 
 // Delete all meal plans for user
 router.delete('/', requireAuth, deleteAllMealPlans);

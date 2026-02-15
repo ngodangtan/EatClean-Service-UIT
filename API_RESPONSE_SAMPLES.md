@@ -530,6 +530,23 @@ curl -X DELETE http://localhost:4000/api/meal-plans \
 
 ---
 
+## Favorite Object Structure
+
+```json
+{
+  "_id": "MongoDB ObjectId",
+  "userId": "User's MongoDB ObjectId",
+  "targetType": "meal-plan|recipe",
+  "targetId": "MongoDB ObjectId of the favorited item",
+  "note": "Optional personal note (max 500 chars)",
+  "createdAt": "ISO 8601 timestamp",
+  "updatedAt": "ISO 8601 timestamp",
+  "__v": 0
+}
+```
+
+---
+
 ## Complete Meal Object Structure
 
 Each meal in a meal plan has this structure:
@@ -626,6 +643,196 @@ Each day in a meal plan has this structure:
 
 ---
 
+## 7. POST /api/meal-plans/{planId}/swap
+Swap a specific meal in a plan with a newly AI-generated replacement.
+
+### Request
+```bash
+curl -X POST http://localhost:4000/api/meal-plans/6737d5f8c1e2a4b5c6d7e8f9/swap \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -d '{ "day": 1, "mealIndex": 0 }'
+```
+
+### Success Response (200 OK)
+```json
+{
+  "ok": true,
+  "message": "Meal swapped successfully",
+  "swapCount": 1,
+  "swappedMeal": {
+    "mealType": "breakfast",
+    "name": "Avocado & egg toast",
+    "description": "Whole-grain toast topped with mashed avocado, poached egg, and cherry tomatoes.",
+    "ingredients": [
+      "Whole-grain bread",
+      "Avocado",
+      "Egg",
+      "Cherry tomatoes",
+      "Extra-virgin olive oil"
+    ],
+    "benefits": [
+      "Heart-healthy monounsaturated fats",
+      "Complete protein from egg",
+      "Fiber from whole grains",
+      "Vitamins E, K, B6"
+    ],
+    "calories": 450,
+    "macros": {
+      "protein": 15,
+      "carbs": 65,
+      "fat": 15
+    }
+  }
+}
+```
+
+### Error Response (400 - Missing Fields)
+```json
+{
+  "message": "day and mealIndex are required"
+}
+```
+
+### Error Response (400 - Swap Limit)
+```json
+{
+  "message": "Maximum swap limit (5) reached for this plan"
+}
+```
+
+---
+
+## 8. GET /api/meal-plans/{planId}/shopping-list
+Generate a shopping list from a meal plan's ingredients.
+
+### Request
+```bash
+curl -X GET "http://localhost:4000/api/meal-plans/6737d5f8c1e2a4b5c6d7e8f9/shopping-list?startDay=1&endDay=3" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+### Success Response (200 OK)
+```json
+{
+  "ok": true,
+  "shoppingList": [
+    "Whole-grain bread",
+    "Fresh tomato",
+    "Extra-virgin olive oil",
+    "Feta cheese",
+    "Fresh fruit",
+    "Chickpeas (canned)",
+    "Cherry tomato",
+    "Cucumber",
+    "Kalamata olives",
+    "Red onion",
+    "Lemon juice",
+    "Salmon fillet",
+    "Bulgur wheat",
+    "Fresh herbs (dill, parsley)",
+    "Arugula",
+    "Garlic"
+  ]
+}
+```
+
+---
+
+## 9. Favorite Endpoints
+
+### 9.1 POST /api/favorites
+```bash
+curl -X POST http://localhost:4000/api/favorites \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -d '{ "targetType": "recipe", "targetId": "6737d5f8c1e2a4b5c6d7e8f2", "note": "Love this salad" }'
+```
+
+### Success Response (201 Created)
+```json
+{
+  "_id": "6737d5f8c1e2a4b5c6d7e900",
+  "userId": "6737d5f8c1e2a4b5c6d7e8f0",
+  "targetType": "recipe",
+  "targetId": "6737d5f8c1e2a4b5c6d7e8f2",
+  "note": "Love this salad",
+  "createdAt": "2025-12-13T12:00:00.000Z",
+  "updatedAt": "2025-12-13T12:00:00.000Z",
+  "__v": 0
+}
+```
+
+### 9.2 GET /api/favorites
+```bash
+curl -X GET "http://localhost:4000/api/favorites?targetType=recipe&limit=10&skip=0" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+### Success Response (200 OK)
+```json
+{
+  "favorites": [
+    {
+      "_id": "6737d5f8c1e2a4b5c6d7e900",
+      "userId": "6737d5f8c1e2a4b5c6d7e8f0",
+      "targetType": "recipe",
+      "targetId": "6737d5f8c1e2a4b5c6d7e8f2",
+      "note": "Love this salad",
+      "createdAt": "2025-12-13T12:00:00.000Z",
+      "updatedAt": "2025-12-13T12:00:00.000Z"
+    }
+  ],
+  "total": 1,
+  "limit": 10,
+  "skip": 0
+}
+```
+
+### 9.3 GET /api/favorites/check
+```bash
+curl -X GET "http://localhost:4000/api/favorites/check?targetType=recipe&targetId=6737d5f8c1e2a4b5c6d7e8f2" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+### Success Response (200 OK)
+```json
+{
+  "isFavorite": true,
+  "favorite": {
+    "_id": "6737d5f8c1e2a4b5c6d7e900",
+    "userId": "6737d5f8c1e2a4b5c6d7e8f0",
+    "targetType": "recipe",
+    "targetId": "6737d5f8c1e2a4b5c6d7e8f2",
+    "note": "Love this salad",
+    "createdAt": "2025-12-13T12:00:00.000Z",
+    "updatedAt": "2025-12-13T12:00:00.000Z"
+  }
+}
+```
+
+### 9.4 DELETE /api/favorites/{id}
+```bash
+curl -X DELETE http://localhost:4000/api/favorites/6737d5f8c1e2a4b5c6d7e900 \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+### Success Response (200 OK)
+```json
+{
+  "ok": true
+}
+```
+
+### Error Response (404)
+```json
+{
+  "message": "Favorite not found"
+}
+```
+
+---
+
 ## Example Frontend Usage (JavaScript/TypeScript)
 
 ```typescript
@@ -657,6 +864,53 @@ async function getAllMealPlans(token: string, page = 1, pageSize = 10) {
   return response.json(); // { mealPlans, total, limit, skip }
 }
 
+// Swap a meal
+async function swapMeal(token: string, planId: string, day: number, mealIndex: number) {
+  const response = await fetch(`/api/meal-plans/${planId}/swap`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ day, mealIndex })
+  });
+  return response.json();
+}
+
+// Get shopping list
+async function getShoppingList(token: string, planId: string, startDay?: number, endDay?: number) {
+  const params = new URLSearchParams();
+  if (startDay) params.append('startDay', String(startDay));
+  if (endDay) params.append('endDay', String(endDay));
+  const response = await fetch(
+    `/api/meal-plans/${planId}/shopping-list?${params}`,
+    { headers: { 'Authorization': `Bearer ${token}` } }
+  );
+  return response.json();
+}
+
+// Add to favorites
+async function addFavorite(token: string, targetType: string, targetId: string, note?: string) {
+  const response = await fetch('/api/favorites', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ targetType, targetId, note })
+  });
+  return response.json();
+}
+
+// Check if item is favorited
+async function checkFavorite(token: string, targetType: string, targetId: string) {
+  const response = await fetch(
+    `/api/favorites/check?targetType=${targetType}&targetId=${targetId}`,
+    { headers: { 'Authorization': `Bearer ${token}` } }
+  );
+  return response.json(); // { isFavorite, favorite }
+}
+
 // Delete meal plan
 async function deleteMealPlan(token: string, id: string) {
   const response = await fetch(`/api/meal-plans/${id}`, {
@@ -664,5 +918,15 @@ async function deleteMealPlan(token: string, id: string) {
     headers: { 'Authorization': `Bearer ${token}` }
   });
   return response.json();
+}
+
+// Refresh access token
+async function refreshAccessToken(refreshToken: string) {
+  const response = await fetch('/api/auth/refresh-token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ refreshToken })
+  });
+  return response.json(); // { accessToken }
 }
 ```

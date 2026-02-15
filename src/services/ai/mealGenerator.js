@@ -1,5 +1,6 @@
 import { callLMStudio, parseAIResponse } from './aiClient.js';
 import { buildMealPrompt } from './promptBuilder.js';
+import logger from '../../utils/logger.js';
 
 const MAX_MEAL_RETRIES = 2;
 
@@ -65,7 +66,7 @@ export async function generateMeal(mealInput, callBudget) {
       const sanitized = sanitizeResponse(parsed);
       return sanitized;
     } catch (error) {
-      console.error(`Meal generation attempt ${attempt + 1}/${MAX_MEAL_RETRIES + 1} failed:`, error.message);
+      logger.error(`Meal generation attempt ${attempt + 1}/${MAX_MEAL_RETRIES + 1} failed:`, error.message);
       lastError = error;
     }
   }

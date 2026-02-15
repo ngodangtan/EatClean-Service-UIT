@@ -12,27 +12,31 @@ Eat Clean API — a Node.js/Express REST API for health-focused meal planning. F
 npm run dev    # Start dev server with nodemon (port 4000)
 npm start      # Start production server
 npm install    # Install dependencies
+npm test       # Run tests with Vitest
+npm run test:watch  # Run tests in watch mode
 ```
 
-No test framework is configured. No linter is configured. Inline verification is done via `node -e` and `node --check`.
+Test framework: **Vitest** (tests in `tests/` directory). No linter is configured. Inline verification is done via `node -e` and `node --check`.
 
 ## Architecture
 
 **Pattern:** Controller → Route → Model (standard Express MVC without views)
 
-**Entry point:** `src/index.js` — configures middleware stack (helmet, cors, morgan, rate-limiter, JSON parser), connects to MongoDB, mounts routes under `/api`, serves Swagger docs at `/api/docs`.
+**Entry point:** `src/index.js` — configures middleware stack (helmet, cors, requestLogger, rate-limiter, JSON parser, errorHandler), connects to MongoDB, mounts routes under `/api`, serves Swagger docs at `/api/docs`.
 
 **Key directories:**
-- `src/controllers/` — business logic per domain (auth, health, mealplan, recipe)
-- `src/models/` — Mongoose schemas (User, HealthProfile, MealPlan, Recipe)
+- `src/controllers/` — business logic per domain (auth, health, mealplan, recipe, favorite)
+- `src/models/` — Mongoose schemas (User, HealthProfile, MealPlan, Recipe, Favorite, TokenBlacklist)
 - `src/routes/` — Express routers; `index.js` aggregates all route modules
-- `src/middleware/auth.js` — JWT Bearer token verification (`requireAuth`)
+- `src/middleware/` — auth (JWT verification), errorHandler (centralized error handling), requestLogger (Winston-based request logging), validate (Joi schema validation middleware), loginLimiter (login-specific rate limiting)
 - `src/config/` — MongoDB connection (`db.js`) and Swagger setup (`swagger.js`)
-- `src/validators/` — Joi/schema validators (e.g. `mealPlan.schema.js`)
+- `src/validators/` — Joi schema validators (auth, healthProfile, recipe, mealPlan)
+- `src/utils/` — AppError (custom error class), logger (Winston logger instance)
 - `src/services/nutrition/` — deterministic nutrition engine (BMR, TDEE, calorie targets, macro calculation, meal distribution)
 - `src/services/ai/` — AI integration layer (LM Studio client, prompt builder, meal generator, concurrency control)
 - `src/services/disease/` — disease restriction & personalization engine
 - `src/services/mealValidationService.js` — post-generation logical validation (calorie consistency, macro consistency, meals-per-day)
+- `src/services/shoppingListService.js` — shopping list generation from meal plans
 
 **Data flow:** User → HealthProfile → NutritionEngine (base macros) → DiseaseEngine (adjustments) → AI MealGenerator (creative content) → SafetyValidator → MealPlan (saved).
 
@@ -75,6 +79,7 @@ Purely deterministic — no disease logic, no AI calls.
 - `calorieTargetCalculator.js` — goal-based calorie adjustment
 - `macroCalculator.js` — protein per kg by goal, fat %, carbs fill remainder
 - `mealMacroDistributor.js` — splits macros across meals with rounding correction
+- `durationCalculator.js` — meal plan duration calculation
 - `nutritionEngine.js` — orchestrates all above into `generateNutritionPlan()`
 
 ## AI Layer (`src/services/ai/`)
@@ -96,7 +101,7 @@ Purely deterministic — no disease logic, no AI calls.
 
 ## Environment Variables
 
-Required in `.env` (see `.env.example`):
+Required in `.env`:
 - `PORT` — server port (default 4000)
 - `MONGODB_URI` — MongoDB connection string (Atlas or local)
 - `JWT_SECRET` — secret for signing JWT tokens
@@ -109,7 +114,12 @@ All routes prefixed with `/api`:
 - `/api/health-profile` — CRUD for user health questionnaire (one per user)
 - `/api/meal-plans` — AI generation (`POST /generate`), list with pagination, delete
 - `/api/recipes` — public read, authenticated write
-- `/health` — health check endpoint (no `/api` prefix)
+- `/api/favorites` — user favorite recipes management
+- `/api/health` — health check endpoint
+
+## Logging
+
+Uses **Winston** for structured logging (`src/utils/logger.js`). Request logging via custom `requestLogger` middleware (morgan is listed in dependencies but unused).
 
 ## Git Workflow
 

@@ -8,6 +8,8 @@ import { generateMeal } from '../services/ai/mealGenerator.js';
 import { runWithConcurrency } from '../services/ai/concurrency.js';
 import { applyDiseaseAdjustments, validateGeneratedMeal } from '../services/disease/diseaseEngine.js';
 import { getForbiddenIngredients, getLimitedIngredients, getPreferredIngredients } from '../services/disease/diseaseRules.js';
+import { generateShoppingList } from '../services/shoppingListService.js';
+import logger from '../utils/logger.js';
 
 const MAX_RETRIES = 2;
 const TEMPLATE_DAYS = 7;
@@ -39,7 +41,7 @@ export async function generateMealPlan(req, res) {
 
     // Step 1: Calculate base deterministic nutrition values (no disease adjustments)
     let nutritionPlan = generateNutritionPlan(healthProfile);
-    console.log('Base nutrition plan calculated:', {
+    logger.info('Base nutrition plan calculated:', {
       bmr: nutritionPlan.bmr,
       tdee: nutritionPlan.tdee,
       calorieTarget: nutritionPlan.calorieTarget,
@@ -54,12 +56,12 @@ export async function generateMealPlan(req, res) {
     if (hasDiseases) {
       nutritionPlan = applyDiseaseAdjustments(nutritionPlan, healthProfile);
       unsupportedDiseases = nutritionPlan.unsupportedDiseases;
-      console.log('Disease-adjusted macros:', nutritionPlan.macros);
+      logger.info('Disease-adjusted macros:', nutritionPlan.macros);
     }
 
     // Step 3: Calculate plan duration based on goal and weight delta
     const duration = calculatePlanDuration(healthProfile);
-    console.log('Plan duration:', duration);
+    logger.info('Plan duration:', duration);
 
     // Step 4: Get ingredient lists for prompt
     const forbiddenIngredients = getForbiddenIngredients(diseases);
@@ -82,7 +84,7 @@ export async function generateMealPlan(req, res) {
       }
 
       if (attempt > 0) {
-        console.log(`Plan assembly retry ${attempt + 1}/${MAX_RETRIES + 1}...`);
+        logger.info(`Plan assembly retry ${attempt + 1}/${MAX_RETRIES + 1}...`);
       }
 
       try {
@@ -94,7 +96,7 @@ export async function generateMealPlan(req, res) {
           for (const dist of nutritionPlan.mealDistribution) {
             mealMeta.push({ dayIndex, dist });
             mealTasks.push(() => {
-              console.log(`Generating Day ${dayIndex + 1} ${dist.mealType}...`);
+              logger.info(`Generating Day ${dayIndex + 1} ${dist.mealType}...`);
               return generateMeal({
                 mealType: dist.mealType,
                 calories: dist.calories,
@@ -135,7 +137,7 @@ export async function generateMealPlan(req, res) {
                 break;
               }
 
-              console.warn(
+              logger.warn(
                 `Day ${dayIndex + 1} ${dist.mealType} safety check failed (attempt ${regenAttempt + 1}):`,
                 result.reasons
               );
@@ -160,7 +162,7 @@ export async function generateMealPlan(req, res) {
                     errorFeedback: `Unsafe ingredients detected: ${result.reasons.join('; ')}`
                   }, callBudget);
                 } catch (regenErr) {
-                  console.error(`Meal regeneration failed:`, regenErr.message);
+                  logger.error(`Meal regeneration failed:`, regenErr.message);
                   break;
                 }
               }
@@ -222,14 +224,14 @@ export async function generateMealPlan(req, res) {
 
         const schemaResult = validateMealPlan(templatePlan);
         if (!schemaResult.valid) {
-          console.error(`Attempt ${attempt + 1}: Schema validation failed -`, schemaResult.errors);
+          logger.error(`Attempt ${attempt + 1}: Schema validation failed -`, schemaResult.errors);
           lastErrors = schemaResult.errors;
           continue;
         }
 
         const logicResult = validateFullMealPlan(templatePlan, healthProfile);
         if (!logicResult.valid) {
-          console.error(`Attempt ${attempt + 1}: Logical validation failed -`, logicResult.errors);
+          logger.error(`Attempt ${attempt + 1}: Logical validation failed -`, logicResult.errors);
           lastErrors = logicResult.errors;
           continue;
         }
@@ -265,13 +267,13 @@ export async function generateMealPlan(req, res) {
         };
         break;
       } catch (genError) {
-        console.error(`Attempt ${attempt + 1}: Meal generation failed -`, genError.message);
+        logger.error(`Attempt ${attempt + 1}: Meal generation failed -`, genError.message);
         lastErrors = [genError.message];
       }
     }
 
     if (!assembledPlan) {
-      console.error('All retries exhausted. Last errors:', lastErrors);
+      logger.error('All retries exhausted. Last errors:', lastErrors);
 
       const isSafetyFailure = lastErrors?.some(e =>
         e.includes('Unable to generate safe meal plan')
@@ -325,7 +327,7 @@ export async function generateMealPlan(req, res) {
 
     return res.status(201).json(response);
   } catch (error) {
-    console.error('Generate meal plan error:', error);
+    logger.error('Generate meal plan error:', error);
     return res.status(500).json({
       message: 'Failed to generate meal plan',
       error: error.message
@@ -349,7 +351,7 @@ export async function getMealPlan(req, res) {
 
     return res.json(mealPlan);
   } catch (error) {
-    console.error('Get meal plan error:', error);
+    logger.error('Get meal plan error:', error);
     return res.status(500).json({ message: error.message });
   }
 }
@@ -378,7 +380,7 @@ export async function getMealPlans(req, res) {
       skip
     });
   } catch (error) {
-    console.error('Get meal plans error:', error);
+    logger.error('Get meal plans error:', error);
     return res.status(500).json({ message: error.message });
   }
 }
@@ -399,7 +401,7 @@ export async function deleteMealPlan(req, res) {
     await MealPlan.deleteOne({ _id: id });
     return res.json({ ok: true });
   } catch (error) {
-    console.error('Delete meal plan error:', error);
+    logger.error('Delete meal plan error:', error);
     return res.status(500).json({ message: error.message });
   }
 }
@@ -413,7 +415,144 @@ export async function deleteAllMealPlans(req, res) {
     await MealPlan.deleteMany({ userId });
     return res.json({ ok: true, message: 'All meal plans deleted successfully' });
   } catch (error) {
-    console.error('Delete all meal plans error:', error);
+    logger.error('Delete all meal plans error:', error);
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+const MAX_SWAPS = 5;
+
+// Swap a meal in an existing plan
+export async function swapMeal(req, res) {
+  try {
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+    const { planId } = req.params;
+    const { day, mealIndex } = req.body;
+
+    if (day == null || mealIndex == null) {
+      return res.status(400).json({ message: 'day and mealIndex are required' });
+    }
+
+    const mealPlan = await MealPlan.findOne({ _id: planId, userId });
+    if (!mealPlan) return res.status(404).json({ message: 'Meal plan not found' });
+
+    if (mealPlan.swapCount >= MAX_SWAPS) {
+      return res.status(400).json({ message: `Maximum swap limit (${MAX_SWAPS}) reached for this plan` });
+    }
+
+    const dayObj = mealPlan.days.find(d => d.day === day);
+    if (!dayObj) return res.status(404).json({ message: `Day ${day} not found in plan` });
+
+    const meal = dayObj.meals[mealIndex];
+    if (!meal) return res.status(404).json({ message: `Meal at index ${mealIndex} not found on day ${day}` });
+
+    // Get health profile for generation context
+    const healthProfile = await HealthProfile.findById(mealPlan.healthProfileId);
+    const diseases = healthProfile?.diseases || [];
+    const forbiddenIngredients = getForbiddenIngredients(diseases);
+    const limitedIngredients = getLimitedIngredients(diseases);
+    const preferredIngredients = getPreferredIngredients(diseases);
+
+    const callBudget = { remaining: 5 };
+    const oldMealName = meal.name;
+
+    // Generate replacement meal with same macros
+    let newMealContent = await generateMeal({
+      mealType: meal.mealType,
+      calories: meal.calories,
+      protein: meal.macros.protein,
+      carbs: meal.macros.carbs,
+      fat: meal.macros.fat,
+      goal: healthProfile?.goal,
+      dietPreference: healthProfile?.dietPreference,
+      cuisinePreference: healthProfile?.cuisinePreference,
+      diseases,
+      favoriteMeal: healthProfile?.favoriteMeal,
+      forbiddenIngredients,
+      limitedIngredients,
+      preferredIngredients
+    }, callBudget);
+
+    // Safety validation for disease users
+    if (diseases.length > 0) {
+      const result = validateGeneratedMeal(newMealContent, diseases);
+      if (!result.safe) {
+        // One retry
+        newMealContent = await generateMeal({
+          mealType: meal.mealType,
+          calories: meal.calories,
+          protein: meal.macros.protein,
+          carbs: meal.macros.carbs,
+          fat: meal.macros.fat,
+          goal: healthProfile?.goal,
+          dietPreference: healthProfile?.dietPreference,
+          cuisinePreference: healthProfile?.cuisinePreference,
+          diseases,
+          favoriteMeal: healthProfile?.favoriteMeal,
+          forbiddenIngredients,
+          limitedIngredients,
+          preferredIngredients,
+          errorFeedback: `Unsafe ingredients: ${result.reasons.join('; ')}`
+        }, callBudget);
+
+        const retryResult = validateGeneratedMeal(newMealContent, diseases);
+        if (!retryResult.safe) {
+          return res.status(500).json({ message: 'Could not generate a safe replacement meal' });
+        }
+      }
+    }
+
+    // Update the meal in place
+    dayObj.meals[mealIndex] = {
+      ...dayObj.meals[mealIndex],
+      name: newMealContent.name,
+      description: newMealContent.description,
+      ingredients: newMealContent.ingredients,
+      benefits: newMealContent.benefits
+    };
+
+    mealPlan.swapCount += 1;
+    mealPlan.swapHistory.push({
+      day,
+      mealIndex,
+      oldMealName,
+      newMealName: newMealContent.name
+    });
+
+    mealPlan.markModified('days');
+    await mealPlan.save();
+
+    return res.json({
+      ok: true,
+      message: 'Meal swapped successfully',
+      swapCount: mealPlan.swapCount,
+      swappedMeal: dayObj.meals[mealIndex]
+    });
+  } catch (error) {
+    logger.error('Swap meal error:', error);
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+// Get shopping list for a meal plan
+export async function getShoppingList(req, res) {
+  try {
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+    const { planId } = req.params;
+    const startDay = parseInt(req.query.startDay) || 1;
+    const endDay = parseInt(req.query.endDay) || Infinity;
+
+    const mealPlan = await MealPlan.findOne({ _id: planId, userId });
+    if (!mealPlan) return res.status(404).json({ message: 'Meal plan not found' });
+
+    const shoppingList = generateShoppingList(mealPlan, startDay, endDay);
+    return res.json({ ok: true, shoppingList });
+  } catch (error) {
+    logger.error('Get shopping list error:', error);
     return res.status(500).json({ message: error.message });
   }
 }

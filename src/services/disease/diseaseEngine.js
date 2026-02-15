@@ -2,6 +2,7 @@ import { adjustMacrosForDiseases } from './macroAdjuster.js';
 import { distributeMacros } from '../nutrition/mealMacroDistributor.js';
 import { validateMealSafety } from './safetyValidator.js';
 import { SUPPORTED_DISEASES } from './diseaseRules.js';
+import logger from '../../utils/logger.js';
 
 const FEASIBILITY_THRESHOLD = 0.10; // 10% tolerance for macro-calorie drift
 
@@ -21,7 +22,7 @@ export function applyDiseaseAdjustments(nutritionPlan, healthProfile) {
   // Issue 9: Warn about unsupported diseases
   const unsupportedDiseases = (diseases || []).filter(d => !SUPPORTED_DISEASES.includes(d));
   if (unsupportedDiseases.length > 0) {
-    console.warn(`Unsupported diseases ignored by disease engine: ${unsupportedDiseases.join(', ')}`);
+    logger.warn(`Unsupported diseases ignored by disease engine: ${unsupportedDiseases.join(', ')}`);
   }
 
   const adjustedMacros = adjustMacrosForDiseases(

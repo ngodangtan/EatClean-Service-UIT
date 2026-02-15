@@ -66,7 +66,8 @@ curl -X POST http://localhost:4000/api/auth/register \
 #### Success Response (201 Created)
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "a1b2c3d4e5f6...",
   "user": {
     "id": "6737d5f8c1e2a4b5c6d7e8f0",
     "email": "user@example.com",
@@ -78,6 +79,8 @@ curl -X POST http://localhost:4000/api/auth/register \
   }
 }
 ```
+
+> **Note:** `accessToken` expires in 15 minutes. Use `refreshToken` (30-day expiry) to obtain new access tokens via POST /auth/refresh-token.
 
 #### Error Response (409 Conflict)
 ```json
@@ -94,7 +97,7 @@ curl -X POST http://localhost:4000/api/auth/register \
 ```
 
 ### 2.2 POST /auth/login
-Authenticate user and get JWT token.
+Authenticate user and get JWT token. Rate-limited to prevent brute force.
 
 #### Request
 ```bash
@@ -113,7 +116,8 @@ curl -X POST http://localhost:4000/api/auth/login \
 #### Success Response (200 OK)
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "a1b2c3d4e5f6...",
   "user": {
     "id": "6737d5f8c1e2a4b5c6d7e8f0",
     "email": "user@example.com",
@@ -134,13 +138,18 @@ curl -X POST http://localhost:4000/api/auth/login \
 ```
 
 ### 2.3 POST /auth/logout
-Logout the authenticated user.
+Logout the authenticated user. Blacklists the access token and optionally removes a refresh token.
 
 #### Request
 ```bash
 curl -X POST http://localhost:4000/api/auth/logout \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "Content-Type: application/json" \
+  -d '{ "refreshToken": "a1b2c3d4e5f6..." }'
 ```
+
+#### Parameters
+- `refreshToken` (string, optional): Refresh token to revoke
 
 #### Success Response (200 OK)
 ```json
@@ -156,7 +165,116 @@ curl -X POST http://localhost:4000/api/auth/logout \
 }
 ```
 
-### 2.4 DELETE /auth/{id}
+### 2.4 PUT /auth/profile
+Update the authenticated user's profile information.
+
+#### Request
+```bash
+curl -X PUT http://localhost:4000/api/auth/profile \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -d '{
+    "fullName": "Updated Name",
+    "username": "newusername",
+    "phone": "+0987654321",
+    "birthday": "1990-06-15",
+    "gender": "male"
+  }'
+```
+
+#### Parameters (all optional)
+- `fullName` (string): Updated full name
+- `username` (string): Updated username (must be unique)
+- `phone` (string): Updated phone number
+- `birthday` (string): Updated date of birth (ISO format)
+- `gender` (string): Updated gender
+
+#### Success Response (200 OK)
+```json
+{
+  "id": "6737d5f8c1e2a4b5c6d7e8f0",
+  "email": "user@example.com",
+  "username": "newusername",
+  "fullName": "Updated Name",
+  "phone": "+0987654321",
+  "birthday": "1990-06-15T00:00:00.000Z",
+  "gender": "male",
+  "role": "user",
+  "createdAt": "2025-12-13T12:00:00.000Z",
+  "updatedAt": "2025-12-14T10:00:00.000Z"
+}
+```
+
+#### Error Response (409 Conflict)
+```json
+{
+  "message": "Username already taken"
+}
+```
+
+### 2.5 POST /auth/refresh-token
+Get a new access token using a valid refresh token. No authentication header required.
+
+#### Request
+```bash
+curl -X POST http://localhost:4000/api/auth/refresh-token \
+  -H "Content-Type: application/json" \
+  -d '{ "refreshToken": "a1b2c3d4e5f6..." }'
+```
+
+#### Parameters
+- `refreshToken` (string, required): A valid, non-expired refresh token
+
+#### Success Response (200 OK)
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+#### Error Response (400 Bad Request)
+```json
+{
+  "message": "Refresh token required"
+}
+```
+
+#### Error Response (401 Unauthorized)
+```json
+{
+  "message": "Invalid or expired refresh token"
+}
+```
+
+### 2.6 POST /auth/revoke-token
+Revoke a specific refresh token. Requires authentication.
+
+#### Request
+```bash
+curl -X POST http://localhost:4000/api/auth/revoke-token \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -d '{ "refreshToken": "a1b2c3d4e5f6..." }'
+```
+
+#### Parameters
+- `refreshToken` (string, required): Refresh token to revoke
+
+#### Success Response (200 OK)
+```json
+{
+  "ok": true
+}
+```
+
+#### Error Response (400 Bad Request)
+```json
+{
+  "message": "Refresh token required"
+}
+```
+
+### 2.7 DELETE /auth/{id}
 Delete a user account (self or admin only).
 
 #### Request
@@ -196,7 +314,7 @@ curl -X DELETE http://localhost:4000/api/auth/6737d5f8c1e2a4b5c6d7e8f0 \
 }
 ```
 
-### 2.5 GET /auth/profile
+### 2.8 GET /auth/profile
 Get the authenticated user's profile information.
 
 #### Request
@@ -925,7 +1043,97 @@ curl -X DELETE http://localhost:4000/api/meal-plans/6737d5f8c1e2a4b5c6d7e8f9 \
 }
 ```
 
-### 5.5 DELETE /meal-plans
+### 5.5 POST /meal-plans/{planId}/swap
+Swap a specific meal in a meal plan with a newly AI-generated replacement. The new meal keeps the same macros/calories but different content.
+
+#### Request
+```bash
+curl -X POST http://localhost:4000/api/meal-plans/6737d5f8c1e2a4b5c6d7e8f9/swap \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -d '{
+    "day": 1,
+    "mealIndex": 0
+  }'
+```
+
+#### Parameters
+- `planId` (path, required): Meal plan ID
+- `day` (number, required): Day number in the plan
+- `mealIndex` (number, required): Index of the meal to swap within that day's meals array
+
+#### Success Response (200 OK)
+```json
+{
+  "ok": true,
+  "message": "Meal swapped successfully",
+  "swapCount": 1,
+  "swappedMeal": {
+    "mealType": "breakfast",
+    "name": "New meal name",
+    "description": "New meal description",
+    "ingredients": ["ingredient1", "ingredient2"],
+    "benefits": ["benefit1"],
+    "calories": 450,
+    "macros": {
+      "protein": 15,
+      "carbs": 65,
+      "fat": 15
+    }
+  }
+}
+```
+
+#### Error Response (400 Bad Request)
+```json
+{
+  "message": "day and mealIndex are required"
+}
+```
+
+```json
+{
+  "message": "Maximum swap limit (5) reached for this plan"
+}
+```
+
+#### Error Response (404 Not Found)
+```json
+{
+  "message": "Meal plan not found"
+}
+```
+
+### 5.6 GET /meal-plans/{planId}/shopping-list
+Generate a shopping list from a meal plan's ingredients, optionally filtered by day range.
+
+#### Request
+```bash
+curl -X GET "http://localhost:4000/api/meal-plans/6737d5f8c1e2a4b5c6d7e8f9/shopping-list?startDay=1&endDay=7" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+#### Parameters
+- `planId` (path, required): Meal plan ID
+- `startDay` (query, default: 1): Start day for the shopping list
+- `endDay` (query, default: all days): End day for the shopping list
+
+#### Success Response (200 OK)
+```json
+{
+  "ok": true,
+  "shoppingList": ["Whole-grain bread", "Fresh tomato", "Olive oil", "Feta cheese"]
+}
+```
+
+#### Error Response (404 Not Found)
+```json
+{
+  "message": "Meal plan not found"
+}
+```
+
+### 5.7 DELETE /meal-plans
 Delete all meal plans for the authenticated user.
 
 #### Request
@@ -946,6 +1154,153 @@ curl -X DELETE http://localhost:4000/api/meal-plans \
 ```json
 {
   "message": "Unauthorized"
+}
+```
+
+---
+
+## 6. Favorite Endpoints
+
+### 6.1 POST /favorites
+Add an item (recipe or meal plan) to favorites.
+
+#### Request
+```bash
+curl -X POST http://localhost:4000/api/favorites \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -d '{
+    "targetType": "recipe",
+    "targetId": "6737d5f8c1e2a4b5c6d7e8f2",
+    "note": "Love this salad"
+  }'
+```
+
+#### Parameters
+- `targetType` (string, required): `'meal-plan'` or `'recipe'`
+- `targetId` (string, required): ID of the item to favorite
+- `note` (string, optional): Personal note (max 500 chars)
+
+#### Success Response (201 Created)
+```json
+{
+  "_id": "6737d5f8c1e2a4b5c6d7e900",
+  "userId": "6737d5f8c1e2a4b5c6d7e8f0",
+  "targetType": "recipe",
+  "targetId": "6737d5f8c1e2a4b5c6d7e8f2",
+  "note": "Love this salad",
+  "createdAt": "2025-12-13T12:00:00.000Z",
+  "updatedAt": "2025-12-13T12:00:00.000Z"
+}
+```
+
+#### Error Response (400 Bad Request)
+```json
+{
+  "message": "targetType and targetId are required"
+}
+```
+
+#### Error Response (409 Conflict)
+```json
+{
+  "message": "Already in favorites"
+}
+```
+
+### 6.2 GET /favorites
+List favorites for the authenticated user with optional filtering and pagination.
+
+#### Request
+```bash
+curl -X GET "http://localhost:4000/api/favorites?targetType=recipe&limit=10&skip=0" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+#### Parameters
+- `targetType` (query, optional): Filter by `'meal-plan'` or `'recipe'`
+- `limit` (query, default: 20): Number of favorites to return
+- `skip` (query, default: 0): Number of favorites to skip
+
+#### Success Response (200 OK)
+```json
+{
+  "favorites": [
+    {
+      "_id": "6737d5f8c1e2a4b5c6d7e900",
+      "userId": "6737d5f8c1e2a4b5c6d7e8f0",
+      "targetType": "recipe",
+      "targetId": "6737d5f8c1e2a4b5c6d7e8f2",
+      "note": "Love this salad",
+      "createdAt": "2025-12-13T12:00:00.000Z",
+      "updatedAt": "2025-12-13T12:00:00.000Z"
+    }
+  ],
+  "total": 1,
+  "limit": 10,
+  "skip": 0
+}
+```
+
+### 6.3 GET /favorites/check
+Check if a specific item is in the user's favorites.
+
+#### Request
+```bash
+curl -X GET "http://localhost:4000/api/favorites/check?targetType=recipe&targetId=6737d5f8c1e2a4b5c6d7e8f2" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+#### Parameters
+- `targetType` (query, required): `'meal-plan'` or `'recipe'`
+- `targetId` (query, required): ID of the item to check
+
+#### Success Response (200 OK)
+```json
+{
+  "isFavorite": true,
+  "favorite": {
+    "_id": "6737d5f8c1e2a4b5c6d7e900",
+    "userId": "6737d5f8c1e2a4b5c6d7e8f0",
+    "targetType": "recipe",
+    "targetId": "6737d5f8c1e2a4b5c6d7e8f2",
+    "note": "Love this salad",
+    "createdAt": "2025-12-13T12:00:00.000Z",
+    "updatedAt": "2025-12-13T12:00:00.000Z"
+  }
+}
+```
+
+#### Error Response (400 Bad Request)
+```json
+{
+  "message": "targetType and targetId query params are required"
+}
+```
+
+### 6.4 DELETE /favorites/{id}
+Remove an item from favorites.
+
+#### Request
+```bash
+curl -X DELETE http://localhost:4000/api/favorites/6737d5f8c1e2a4b5c6d7e900 \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+#### Parameters
+- `id` (path, required): Favorite ID
+
+#### Success Response (200 OK)
+```json
+{
+  "ok": true
+}
+```
+
+#### Error Response (404 Not Found)
+```json
+{
+  "message": "Favorite not found"
 }
 ```
 
@@ -1014,6 +1369,20 @@ curl -X DELETE http://localhost:4000/api/meal-plans \
   "steps": ["step1", "step2"],
   "imageUrl": "https://example.com/image.jpg",
   "author": "User ObjectId",
+  "createdAt": "ISO 8601 timestamp",
+  "updatedAt": "ISO 8601 timestamp",
+  "__v": 0
+}
+```
+
+### Favorite Object
+```json
+{
+  "_id": "MongoDB ObjectId",
+  "userId": "User ObjectId",
+  "targetType": "meal-plan|recipe",
+  "targetId": "MongoDB ObjectId (MealPlan or Recipe)",
+  "note": "Optional personal note (max 500 chars)",
   "createdAt": "ISO 8601 timestamp",
   "updatedAt": "ISO 8601 timestamp",
   "__v": 0
@@ -1176,6 +1545,72 @@ async function createRecipe(token: string, recipeData: object) {
     body: JSON.stringify(recipeData)
   });
   return response.json();
+}
+
+// Update profile
+async function updateProfile(token: string, updates: object) {
+  const response = await fetch('/api/auth/profile', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(updates)
+  });
+  return response.json();
+}
+
+// Refresh access token
+async function refreshAccessToken(refreshToken: string) {
+  const response = await fetch('/api/auth/refresh-token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ refreshToken })
+  });
+  return response.json(); // { accessToken }
+}
+
+// Swap a meal
+async function swapMeal(token: string, planId: string, day: number, mealIndex: number) {
+  const response = await fetch(`/api/meal-plans/${planId}/swap`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ day, mealIndex })
+  });
+  return response.json();
+}
+
+// Get shopping list
+async function getShoppingList(token: string, planId: string) {
+  const response = await fetch(`/api/meal-plans/${planId}/shopping-list`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  return response.json();
+}
+
+// Add to favorites
+async function addFavorite(token: string, targetType: string, targetId: string, note?: string) {
+  const response = await fetch('/api/favorites', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ targetType, targetId, note })
+  });
+  return response.json();
+}
+
+// Check if item is favorited
+async function checkFavorite(token: string, targetType: string, targetId: string) {
+  const response = await fetch(
+    `/api/favorites/check?targetType=${targetType}&targetId=${targetId}`,
+    { headers: { 'Authorization': `Bearer ${token}` } }
+  );
+  return response.json(); // { isFavorite, favorite }
 }
 ```</content>
 <parameter name="filePath">/Users/felixngo/Desktop/UIT-Project/eat-clean-api/API_DOCUMENTATION.md

@@ -17,4 +17,8 @@ const recipeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+recipeSchema.index({ title: 'text' });
+recipeSchema.index({ tags: 1 });
+recipeSchema.index({ author: 1 });
+
 export default mongoose.model('Recipe', recipeSchema);

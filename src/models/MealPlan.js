@@ -42,9 +42,19 @@ const mealPlanSchema = new mongoose.Schema(
     duration: {
       weeks: { type: Number },
       totalDays: { type: Number }
-    }
+    },
+    swapCount: { type: Number, default: 0 },
+    swapHistory: [{
+      day: { type: Number },
+      mealIndex: { type: Number },
+      oldMealName: { type: String },
+      newMealName: { type: String },
+      swappedAt: { type: Date, default: Date.now }
+    }]
   },
   { timestamps: true }
 );
+
+mealPlanSchema.index({ userId: 1, createdAt: -1 });
 
 export default mongoose.model('MealPlan', mealPlanSchema);
