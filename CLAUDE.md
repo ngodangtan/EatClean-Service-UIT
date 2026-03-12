@@ -92,7 +92,7 @@ Purely deterministic — no disease logic, no AI calls.
 ## Key Technical Details
 
 - **ES Modules** — uses `import/export` (`"type": "module"` in package.json)
-- **Auth** — JWT tokens (7-day expiry), bcrypt password hashing, role-based (user/admin)
+- **Auth** — JWT access tokens (15-minute expiry) + refresh tokens (30-day expiry, stored in DB). Token rotation via `/api/auth/refresh-token`; revocation via `/api/auth/revoke-token`. bcrypt password hashing, role-based (user/admin)
 - **AI meal plan generation** — per-meal generation via LM Studio. AI produces only creative content (name, description, ingredients, benefits). All numeric nutrition values are backend-injected
 - **Database** — MongoDB via Mongoose 8.x with `strictQuery: true`; schemas use timestamps and cross-collection references
 - **Rate limiting** — 100 requests/minute on `/api` routes
@@ -104,17 +104,18 @@ Purely deterministic — no disease logic, no AI calls.
 Required in `.env`:
 - `PORT` — server port (default 4000)
 - `MONGODB_URI` — MongoDB connection string (Atlas or local)
-- `JWT_SECRET` — secret for signing JWT tokens
+- `JWT_SECRET` — secret for signing access tokens
+- `JWT_REFRESH_SECRET` — secret for signing refresh tokens
 - `LM_STUDIO_URL` — LM Studio chat completions endpoint
 
 ## API Routes
 
 All routes prefixed with `/api`:
-- `/api/auth` — register, login, logout, profile, delete user
-- `/api/health-profile` — CRUD for user health questionnaire (one per user)
-- `/api/meal-plans` — AI generation (`POST /generate`), list with pagination, delete
-- `/api/recipes` — public read, authenticated write
-- `/api/favorites` — user favorite recipes management
+- `/api/auth` — register, login, logout, get profile, update profile, refresh token, revoke token, delete user
+- `/api/health-profile` — create/update (POST), get (GET), delete (DELETE) — one profile per user
+- `/api/meal-plans` — AI generation (`POST /generate`), list with pagination, get one, get latest (`GET /latest`), swap a meal (`POST /:planId/swap`), get shopping list (`GET /:planId/shopping-list`), delete one, delete all
+- `/api/recipes` — list (GET), get one (GET), create (POST), update (PUT), delete (DELETE)
+- `/api/favorites` — add (POST), list (GET), check if favorited (`GET /check`), remove (DELETE)
 - `/api/health` — health check endpoint
 
 ## Logging
