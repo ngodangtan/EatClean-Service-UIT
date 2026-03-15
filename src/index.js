@@ -32,7 +32,10 @@ async function bootstrap() {
   app.use((req, res) => res.status(404).json({ message: 'Route not found' }));
   app.use(errorHandler);
 
-  app.listen(PORT, () => logger.info(`Server listening on http://localhost:${PORT}`));
+  app.listen(PORT, '0.0.0.0', () => {
+    logger.info(`Server listening on http://localhost:${PORT}`);
+    logger.info(`Network access: http://<your-mac-ip>:${PORT}`);
+  });
 }
 
 bootstrap().catch((e) => {

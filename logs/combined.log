@@ -1,0 +1,12 @@
+22:38:37 [32minfo[39m: MongoDB connected
+22:38:37 [32minfo[39m: Server listening on http://localhost:4000
+22:38:37 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:44:37 [32minfo[39m: GET / 404 6ms {"requestId":"b67963c2-24da-4673-b308-c878fed5921e","method":"GET","path":"/","status":404,"duration":6}
+22:44:37 [32minfo[39m: GET /favicon.ico 404 1ms {"requestId":"77e51173-ce2b-41f1-84cc-d9e74261e034","method":"GET","path":"/favicon.ico","status":404,"duration":1}
+22:47:27 [32minfo[39m: POST /api/auth/login 200 1066ms {"requestId":"341c6002-264e-440f-b7f5-77b5cf88eff9","method":"POST","path":"/api/auth/login","status":200,"duration":1066}
+22:47:34 [32minfo[39m: GET /api/auth/profile 200 206ms {"requestId":"2f0d205d-f111-46b2-8db6-2754695f37d7","method":"GET","path":"/api/auth/profile","status":200,"duration":206,"userId":"6918718ef2d00105b9e4741b"}
+22:47:59 [32minfo[39m: GET /api/meal-plans/latest 200 727ms {"requestId":"a7eb804f-c3a4-42d1-a93b-b769dd5579d0","method":"GET","path":"/api/meal-plans/latest","status":200,"duration":727,"userId":"6918718ef2d00105b9e4741b"}
+22:48:00 [32minfo[39m: GET /api/meal-plans/latest 200 581ms {"requestId":"cc2b408d-2391-4e4d-b766-3c2bcf2e5910","method":"GET","path":"/api/meal-plans/latest","status":200,"duration":581,"userId":"6918718ef2d00105b9e4741b"}
+22:48:03 [32minfo[39m: GET /api/auth/profile 304 177ms {"requestId":"3a536b48-e27c-411d-af08-2d3e913ee7f8","method":"GET","path":"/api/auth/profile","status":304,"duration":177,"userId":"6918718ef2d00105b9e4741b"}
+22:48:20 [32minfo[39m: GET /api/meal-plans/latest 200 678ms {"requestId":"6074a1a5-1e26-4124-a69f-2d5fea187752","method":"GET","path":"/api/meal-plans/latest","status":200,"duration":678,"userId":"6918718ef2d00105b9e4741b"}
+22:48:28 [32minfo[39m: GET /api/meal-plans/latest 200 593ms {"requestId":"bc8b307b-e00a-4858-8658-f2a5982bc6ad","method":"GET","path":"/api/meal-plans/latest","status":200,"duration":593,"userId":"6918718ef2d00105b9e4741b"}
