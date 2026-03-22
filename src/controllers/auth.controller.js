@@ -13,12 +13,12 @@ function generateRefreshToken() {
 
 export async function register(req, res) {
   try {
-    const { email, password, name, username, phone, fullName, birthday, gender } = req.body;
+    const { email, password, name, username, phone, fullName, birthday, gender, height, currentWeight } = req.body;
     const requestedUsername = username || name;
     const exists = await User.findOne({ email });
     if (exists) return res.status(409).json({ message: 'Email already registered' });
 
-    const user = await User.create({ email, password, username: requestedUsername, phone, fullName, birthday, gender });
+    const user = await User.create({ email, password, username: requestedUsername, phone, fullName, birthday, gender, height, currentWeight });
 
     const accessToken = signAccessToken(user);
     const refreshToken = generateRefreshToken();
@@ -30,7 +30,7 @@ export async function register(req, res) {
     return res.status(201).json({
       accessToken,
       refreshToken,
-      user: { id: user._id, email: user.email, username: user.username, fullName: user.fullName, phone: user.phone, birthday: user.birthday, gender: user.gender }
+      user: { id: user._id, email: user.email, username: user.username, fullName: user.fullName, phone: user.phone, birthday: user.birthday, gender: user.gender, height: user.height, currentWeight: user.currentWeight }
     });
   } catch (e) {
     return res.status(500).json({ message: e.message });

@@ -1,4 +1,5 @@
 import HealthProfile from '../models/HealthProfile.js';
+import User from '../models/User.js';
 
 export async function createOrUpdateHealthProfile(req, res) {
   try {
@@ -12,8 +13,6 @@ export async function createOrUpdateHealthProfile(req, res) {
       triedHealthyBefore,
       hungryTime,
       favoriteMeal,
-      height,
-      currentWeight,
       desiredWeight,
       activityLevel,
       averageDay,
@@ -24,6 +23,11 @@ export async function createOrUpdateHealthProfile(req, res) {
       mealsPerDay,
       cuisinePreference
     } = req.body;
+
+    // height and currentWeight come from the User account (set at registration)
+    const user = await User.findById(userId).select('height currentWeight');
+    const height = user?.height;
+    const currentWeight = user?.currentWeight;
 
     // Find and update or create if not exists
     let profile = await HealthProfile.findOne({ userId });

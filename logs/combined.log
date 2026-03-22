@@ -19,3 +19,66 @@
 18:23:32 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"0c95a8d0-cf98-45da-a071-8d0f48c971bd","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
 18:23:32 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 2ms {"requestId":"397b978a-c5ab-45fc-92d1-272fda447663","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":2}
 18:23:32 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"d81319bc-a7a1-4131-ae8b-9f797ca92402","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:03:51 [32minfo[39m: MongoDB connected
+22:03:51 [32minfo[39m: Server listening on http://localhost:4000
+22:03:51 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:05:23 [32minfo[39m: GET /api/docs/ 304 18ms {"requestId":"74359a9d-911d-455f-a513-aba7cdb91513","method":"GET","path":"/api/docs/","status":304,"duration":18}
+22:05:23 [32minfo[39m: GET /api/docs/swagger-ui.css 304 1ms {"requestId":"15836120-ba91-4b79-a7c3-64bdbd2c68c2","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":1}
+22:05:23 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 2ms {"requestId":"ca264634-f999-42ed-a926-51964c9ed830","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":2}
+22:05:23 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 3ms {"requestId":"73218f57-9030-4b07-bca2-396cddca6c32","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":3}
+22:05:23 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 7ms {"requestId":"603b05fb-e4a5-4d2b-a515-02e9b7a86163","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":7}
+22:05:43 [32minfo[39m: POST /api/auth/login 200 265ms {"requestId":"8562cbf6-6d00-4ad7-b204-bd5100138ace","method":"POST","path":"/api/auth/login","status":200,"duration":265}
+22:06:04 [32minfo[39m: DELETE /api/auth/69bfa744d691f970772458cc 401 1ms {"requestId":"89af6072-4986-424b-86ee-630a8ff152a7","method":"DELETE","path":"/api/auth/69bfa744d691f970772458cc","status":401,"duration":1}
+22:06:20 [32minfo[39m: DELETE /api/auth/69bfa744d691f970772458cc 200 238ms {"requestId":"3070e845-2c48-4281-a539-8d936ea3b6ab","method":"DELETE","path":"/api/auth/69bfa744d691f970772458cc","status":200,"duration":238,"userId":"69bfa744d691f970772458cc"}
+22:06:24 [32minfo[39m: POST /api/auth/login 401 56ms {"requestId":"4a72e8f2-7ae4-4676-986c-d32904b2ec45","method":"POST","path":"/api/auth/login","status":401,"duration":56}
+22:06:36 [32minfo[39m: GET /api/auth/profile 401 60ms {"requestId":"262371bf-4460-4aff-974e-d02829ef3e98","method":"GET","path":"/api/auth/profile","status":401,"duration":60}
+22:12:30 [32minfo[39m: POST /api/auth/register 201 365ms {"requestId":"28b4f148-2a66-4305-bb32-9ca6d3cb3d9e","method":"POST","path":"/api/auth/register","status":201,"duration":365}
+22:12:32 [32minfo[39m: GET /api/meal-plans/latest 404 119ms {"requestId":"02ae3c9d-00a7-41a8-9eb5-801ea9bbd508","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":119,"userId":"69c006dd737436672a15bd24"}
+22:17:07 [32minfo[39m: MongoDB connected
+22:17:07 [32minfo[39m: Server listening on http://localhost:4000
+22:17:07 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:17:13 [32minfo[39m: MongoDB connected
+22:17:13 [32minfo[39m: Server listening on http://localhost:4000
+22:17:13 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:17:37 [32minfo[39m: GET /api/docs/ 304 17ms {"requestId":"5416ba7e-de9f-45cd-89f7-7e167d9fceba","method":"GET","path":"/api/docs/","status":304,"duration":17}
+22:17:37 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 3ms {"requestId":"a2d5f496-7b3d-484b-9c3f-8e2949b8388e","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":3}
+22:17:37 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 3ms {"requestId":"090190dc-635a-4bb3-b500-a985b16c2dac","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":3}
+22:17:37 [32minfo[39m: GET /api/docs/swagger-ui.css 304 1ms {"requestId":"8cdb5984-1bea-43f0-b257-b9bd4d4aedf1","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":1}
+22:17:37 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 1ms {"requestId":"7604216a-44d0-44f7-a4e4-e15ede145a68","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":1}
+22:17:37 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"0864d9b5-8473-4274-9071-442da13ebeb3","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:18:03 [32minfo[39m: MongoDB connected
+22:18:03 [32minfo[39m: Server listening on http://localhost:4000
+22:18:03 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:18:08 [32minfo[39m: MongoDB connected
+22:18:08 [32minfo[39m: Server listening on http://localhost:4000
+22:18:08 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:19:35 [32minfo[39m: GET /api/docs/ 200 9ms {"requestId":"494f2545-1544-4203-9caa-f787973016cf","method":"GET","path":"/api/docs/","status":200,"duration":9}
+22:19:35 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"20ec12c2-3d58-4c69-b495-f8483949540a","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
+22:19:35 [32minfo[39m: GET /api/docs/swagger-ui.css 200 11ms {"requestId":"3a536d1c-03d0-4072-b6ce-314c76042fb9","method":"GET","path":"/api/docs/swagger-ui.css","status":200,"duration":11}
+22:19:35 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 200 16ms {"requestId":"f19c237e-af28-49c4-aa83-0c58bdac1c24","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":200,"duration":16}
+22:19:35 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 200 26ms {"requestId":"33cd9ba6-d4db-49bd-b5e8-c83ca350cf0a","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":200,"duration":26}
+22:19:35 [32minfo[39m: GET /api/docs/favicon-32x32.png 200 2ms {"requestId":"71521ac0-1b7a-4514-97be-e9f2338de1e4","method":"GET","path":"/api/docs/favicon-32x32.png","status":200,"duration":2}
+22:19:38 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"209afe84-d319-40ff-b246-d01ca1a72328","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:19:49 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"32503089-649d-46ae-b9ad-7ea696590eb7","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:19:49 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 2ms {"requestId":"c654fc96-4551-444c-9a3a-041db8de3e7d","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":2}
+22:19:49 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"49865de5-774c-4636-abfd-6a43e3cb38f3","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:19:51 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"0fc82f19-b50d-4e2a-a986-b8829e6258fa","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:23:04 [32minfo[39m: GET /api/auth/profile 200 173ms {"requestId":"87261b7c-1b0b-40b8-83cb-ccb779a0b6a7","method":"GET","path":"/api/auth/profile","status":200,"duration":173,"userId":"69c006dd737436672a15bd24"}
+22:23:07 [32minfo[39m: GET /api/auth/profile 304 114ms {"requestId":"80db8170-0243-46be-bbc0-cd09e7ad69f6","method":"GET","path":"/api/auth/profile","status":304,"duration":114,"userId":"69c006dd737436672a15bd24"}
+22:23:47 [32minfo[39m: POST /api/health-profile 201 287ms {"requestId":"1ec03aba-2ec5-4e08-bd9b-bfb66f7e23a2","method":"POST","path":"/api/health-profile","status":201,"duration":287,"userId":"69c006dd737436672a15bd24"}
+22:23:49 [32minfo[39m: Base nutrition plan calculated: {"bmr":1711,"tdee":2652,"calorieTarget":2122,"macros":{"protein":144,"carbs":254,"fat":59}}
+22:23:49 [32minfo[39m: Plan duration: {"weeks":21,"templateDays":7,"totalDays":147}
+22:23:49 [32minfo[39m: Generating Day 1 breakfast...
+22:23:49 [32minfo[39m: Generating Day 1 lunch...
+22:23:49 [32minfo[39m: Generating Day 2 breakfast...
+22:24:02 [32minfo[39m: Generating Day 2 lunch...
+22:24:03 [32minfo[39m: Generating Day 3 breakfast...
+22:24:07 [32minfo[39m: Generating Day 3 lunch...
+22:24:12 [32minfo[39m: Generating Day 4 breakfast...
+22:24:12 [32minfo[39m: Generating Day 4 lunch...
+22:24:15 [32minfo[39m: Generating Day 5 breakfast...
+22:24:18 [32minfo[39m: Generating Day 5 lunch...
+22:24:22 [32minfo[39m: Generating Day 6 breakfast...
+22:24:23 [32minfo[39m: Generating Day 6 lunch...
+22:24:26 [32minfo[39m: Generating Day 7 breakfast...
+22:24:29 [32minfo[39m: Generating Day 7 lunch...

@@ -8,7 +8,9 @@ export const registerSchema = Joi.object({
   fullName: Joi.string().trim().max(100),
   phone: Joi.string().trim().max(20),
   birthday: Joi.date().iso(),
-  gender: Joi.string().valid('male', 'female', 'other')
+  gender: Joi.string().valid('male', 'female', 'other'),
+  height: Joi.number().min(1).max(300),
+  currentWeight: Joi.number().min(1).max(500)
 });
 
 export const loginSchema = Joi.object({

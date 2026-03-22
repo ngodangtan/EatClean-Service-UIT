@@ -27,6 +27,8 @@ const swaggerSpec = {
           phone: { type: 'string' },
           birthday: { type: 'string', format: 'date' },
           gender: { type: 'string', enum: ['male', 'female', 'other'] },
+          height: { type: 'number', description: 'Height in cm' },
+          currentWeight: { type: 'number', description: 'Current weight in kg' },
           role: { type: 'string' },
           createdAt: { type: 'string', format: 'date-time' },
           updatedAt: { type: 'string', format: 'date-time' }
@@ -35,7 +37,7 @@ const swaggerSpec = {
       Register: {
         type: 'object',
         required: ['email', 'password'],
-        properties: { email: { type: 'string' }, password: { type: 'string' }, username: { type: 'string' }, fullName: { type: 'string' }, phone: { type: 'string' }, birthday: { type: 'string', format: 'date' }, gender: { type: 'string', enum: ['male', 'female', 'other'] } }
+        properties: { email: { type: 'string' }, password: { type: 'string' }, username: { type: 'string' }, fullName: { type: 'string' }, phone: { type: 'string' }, birthday: { type: 'string', format: 'date' }, gender: { type: 'string', enum: ['male', 'female', 'other'] }, height: { type: 'number', description: 'Height in cm — pre-fills health profile' }, currentWeight: { type: 'number', description: 'Current weight in kg — pre-fills health profile' } }
       },
       Login: {
         type: 'object',
@@ -52,8 +54,6 @@ const swaggerSpec = {
           triedHealthyBefore: { type: 'boolean' },
           hungryTime: { type: 'string' },
           favoriteMeal: { type: 'string' },
-          height: { type: 'number', description: 'Height in cm' },
-          currentWeight: { type: 'number', description: 'Current weight in kg' },
           desiredWeight: { type: 'number', description: 'Desired weight in kg' },
           activityLevel: { type: 'string', enum: ['sedentary', 'lightly-active', 'moderately-active', 'very-active', 'extremely-active'] },
           averageDay: { type: 'string' },
@@ -148,6 +148,7 @@ const swaggerSpec = {
       post: {
         tags: ['Auth'],
         summary: 'Register new user',
+        description: 'Creates a new user account. Optional `height` and `currentWeight` fields are stored on the user and automatically pre-fill the health profile so they do not need to be re-entered.',
         requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/Register' } } } },
         responses: { '201': { description: 'Created' }, '409': { description: 'Email already registered' } }
       }
@@ -223,6 +224,7 @@ const swaggerSpec = {
       post: {
         tags: ['Health Profile'],
         summary: 'Create or update health profile',
+        description: '`height` and `currentWeight` are automatically sourced from the user account (set at registration) and do not need to be sent in the request body.',
         security: [{ bearerAuth: [] }],
         requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/HealthProfile' } } } },
         responses: { '201': { description: 'Created' }, '200': { description: 'Updated' }, '401': { description: 'Unauthorized' } }

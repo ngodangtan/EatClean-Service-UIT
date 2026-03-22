@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema(
       phone: { type: String, trim: true },
       birthday: { type: Date },
       gender: { type: String, enum: ['male', 'female', 'other'] },
+      height: { type: Number },        // in cm
+      currentWeight: { type: Number }, // in kg
       role: { type: String, enum: ['user', 'admin'], default: 'user' },
       refreshTokens: [{
         token: { type: String, required: true },

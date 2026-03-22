@@ -1,6 +1,6 @@
 # Eat Clean API — Comprehensive Technical Summary
 
-> Generated: 2026-03-12 | Based on all requirement documents (Phase 1–5) and full source code analysis
+> Generated: 2026-03-12 | Last updated: 2026-03-22 | Based on all requirement documents (Phase 1–5) and full source code analysis
 
 ---
 
@@ -22,7 +22,7 @@ Generic meal planning tools either ignore medical restrictions entirely, or rely
 ### Overall System Workflow
 
 ```
-User Registration → Health Profile Setup (body metrics + diseases)
+User Registration (optionally captures height + currentWeight) → Health Profile Setup (body metrics + diseases; height & currentWeight pre-filled from registration)
      ↓
 Nutrition Engine (deterministic: BMR → TDEE → calories → macros → meal distribution)
      ↓
@@ -181,9 +181,9 @@ POST http://localhost:1234/v1/chat/completions
 ### 4.1 Auth APIs
 
 #### POST `/api/auth/register`
-- **Input:** `{ email, password, username, fullName?, phone?, birthday?, gender? }`
-- **Action:** Creates user, hashes password with bcrypt, issues JWT access token (15 min) + refresh token (30 days)
-- **Response:** `{ user: { id, email, username, role }, accessToken, refreshToken }`
+- **Input:** `{ email, password, username?, fullName?, phone?, birthday?, gender?, height?, currentWeight? }`
+- **Action:** Creates user, hashes password with bcrypt, issues JWT access token (15 min) + refresh token (30 days). `height` and `currentWeight` are persisted on the User document and automatically pre-fill those fields when the user later creates a health profile.
+- **Response:** `{ user: { id, email, username, role, height, currentWeight }, accessToken, refreshToken }`
 - **Usage:** Client stores both tokens; access token used in `Authorization: Bearer` header
 
 #### POST `/api/auth/login`
@@ -200,7 +200,7 @@ POST http://localhost:1234/v1/chat/completions
 #### GET `/api/auth/profile`
 - **Input:** `Authorization: Bearer <accessToken>`
 - **Action:** Returns user document excluding password and refresh tokens
-- **Response:** `{ id, email, username, fullName, phone, birthday, gender, role, createdAt }`
+- **Response:** `{ id, email, username, fullName, phone, birthday, gender, height, currentWeight, role, createdAt }`
 
 #### PUT `/api/auth/profile`
 - **Input:** `{ username?, fullName?, phone?, birthday?, gender? }` (any subset)
@@ -227,8 +227,8 @@ POST http://localhost:1234/v1/chat/completions
 ### 4.2 Health Profile APIs
 
 #### POST `/api/health-profile`
-- **Input:** `{ gender, age, goal, height, currentWeight, desiredWeight, activityLevel, mealsPerDay, diseases?, cuisinePreference?, favoriteMeal?, dietPreference? }`
-- **Action:** Upsert (create or update) health profile for authenticated user. One profile per user enforced by unique index on `userId`.
+- **Input:** `{ gender, age, goal, desiredWeight, activityLevel, mealsPerDay, diseases?, cuisinePreference?, favoriteMeal?, dietPreference?, height?, currentWeight? }`
+- **Action:** Upsert (create or update) health profile for authenticated user. One profile per user enforced by unique index on `userId`. If `height` or `currentWeight` are omitted, the controller fetches them from the User record (captured at registration) so the user never has to re-enter them.
 - **Response:** Full health profile document
 - **Usage:** Profile is the foundation for all meal plan generation
 
@@ -398,7 +398,7 @@ POST http://localhost:1234/v1/chat/completions
 
 | Model | Key Fields | Indexes |
 |-------|-----------|---------|
-| `User` | email, password (bcrypt), refreshTokens[] | email (unique) |
+| `User` | email, password (bcrypt), height, currentWeight, refreshTokens[] | email (unique) |
 | `HealthProfile` | userId, age, weight, diseases[], goals | userId (unique) |
 | `MealPlan` | userId, days[], swapHistory, duration | userId + createdAt (compound) |
 | `Recipe` | title, macros, tags, ingredients | title (text), tags, author |
@@ -598,6 +598,8 @@ Step 3: Meal Plan Generation
   POST /api/meal-plans/generate
 
   [3a] Fetch health profile from MongoDB
+       If height or currentWeight are missing from the profile, they are
+       pre-filled from the User document (captured at registration)
 
   [3b] Nutrition Engine (deterministic):
        BMR = 10×weight + 6.25×height − 5×age ± constant
