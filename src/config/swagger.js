@@ -173,10 +173,40 @@ const swaggerSpec = {
         tags: ['Auth'],
         summary: 'Get user profile',
         security: [{ bearerAuth: [] }],
-        responses: { 
-          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } } }, 
-          '401': { description: 'Unauthorized' }, 
-          '404': { description: 'User not found' } 
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } } },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'User not found' }
+        }
+      },
+      put: {
+        tags: ['Auth'],
+        summary: 'Update user profile',
+        security: [{ bearerAuth: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                minProperties: 1,
+                properties: {
+                  fullName: { type: 'string', maxLength: 100 },
+                  username: { type: 'string', maxLength: 50 },
+                  phone: { type: 'string', maxLength: 20 },
+                  birthday: { type: 'string', format: 'date' },
+                  gender: { type: 'string', enum: ['male', 'female', 'other'] }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } } },
+          '400': { description: 'Validation failed' },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'User not found' },
+          '409': { description: 'Username already taken' }
         }
       }
     },
