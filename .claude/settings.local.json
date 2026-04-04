@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker:*)",
+      "Bash(docker-compose:*)",
+      "Bash(curl -s http://localhost:8000/api/v1/heartbeat)",
+      "Bash(curl:*)",
+      "Bash(npm install:*)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(''''embedding dims:'''', len\\(d[''''data''''][0][''''embedding'''']\\)\\)\")",
+      "Bash(node -e \"const fs=require\\(''''fs''''\\);const p=JSON.parse\\(fs.readFileSync\\(''''/dev/stdin'''',''''utf8''''\\)\\);console.log\\(JSON.stringify\\(p.scripts,null,2\\)\\)\")",
+      "Bash(node --check /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/services/ai/promptBuilder.js)",
+      "Bash(node --check /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/services/ai/mealGenerator.js)",
+      "Bash(node --check /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/controllers/mealplan.controller.js)",
+      "Bash(npm test:*)",
+      "Bash(npm run:*)"
+    ]
+  }
+}

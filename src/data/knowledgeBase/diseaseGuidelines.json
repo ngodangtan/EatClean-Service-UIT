@@ -1,0 +1,88 @@
+[
+  {
+    "id": "guide_diabetes",
+    "disease": "diabetes",
+    "summary": "Focus on low glycemic index foods. Limit refined carbohydrates and added sugars. Prioritize fiber-rich foods that slow glucose absorption.",
+    "recommendedFoods": [
+      "brown rice", "quinoa", "leafy greens", "berries", "legumes", "oats",
+      "sweet potato", "lentils", "chickpeas", "nuts", "seeds", "cinnamon",
+      "apple cider vinegar", "non-starchy vegetables"
+    ],
+    "avoidFoods": [
+      "white bread", "sugary drinks", "white rice", "candy", "processed snacks",
+      "fruit juice", "donuts", "pastries", "sweetened cereals", "syrup"
+    ],
+    "mealTips": [
+      "Pair carbohydrates with protein or healthy fat to slow glucose absorption",
+      "Choose whole grains over refined grains at every meal",
+      "Include fiber-rich vegetables in every meal to buffer blood sugar spikes",
+      "Eat consistent portion sizes at regular meal times to maintain stable blood glucose",
+      "Use cinnamon, fenugreek, and turmeric as blood-sugar-friendly seasonings",
+      "Opt for berries over tropical fruits for natural sweetness with lower glycemic impact"
+    ]
+  },
+  {
+    "id": "guide_kidney_disease",
+    "disease": "kidney-disease",
+    "summary": "Manage protein, potassium, phosphorus, and sodium intake. Limit high-potassium and high-phosphorus foods. Avoid processed and preserved foods high in sodium.",
+    "recommendedFoods": [
+      "cauliflower", "cabbage", "bell pepper", "cucumber", "apple", "blueberries",
+      "egg whites", "white rice", "pasta", "olive oil", "fresh herbs", "garlic"
+    ],
+    "avoidFoods": [
+      "processed meats", "canned soups", "soy sauce", "pickles", "salted nuts",
+      "instant noodles", "fast food", "dark colas", "whole grain bread"
+    ],
+    "mealTips": [
+      "Limit protein portions to reduce kidney workload — prefer egg whites over whole eggs when reducing protein",
+      "Leach high-potassium vegetables by peeling, cutting small, and boiling in large water volume",
+      "Avoid salt substitutes as they typically contain potassium chloride which raises blood potassium",
+      "Choose fresh or frozen vegetables without added salt over canned varieties",
+      "Use fresh herbs, lemon juice, and vinegar as low-sodium flavor boosters",
+      "Monitor fluid intake as recommended by your nephrologist"
+    ]
+  },
+  {
+    "id": "guide_high_uric_acid",
+    "disease": "high-uric-acid",
+    "summary": "Reduce high-purine foods that increase uric acid production. Stay well hydrated. Limit alcohol and fructose-rich foods. Favor plant proteins over animal proteins.",
+    "recommendedFoods": [
+      "chicken breast", "tofu", "egg", "low-fat dairy", "cherry", "rice",
+      "oats", "cucumber", "celery", "watermelon", "citrus fruits", "berries"
+    ],
+    "avoidFoods": [
+      "organ meats", "red meat", "shellfish", "sardines", "herring", "anchovies",
+      "beer", "alcohol", "high-fructose corn syrup", "sweetened beverages"
+    ],
+    "mealTips": [
+      "Drink at least 8 glasses of water daily to help flush uric acid through the kidneys",
+      "Eat cherries or drink tart cherry juice — compounds in cherries lower uric acid levels",
+      "Choose low-fat or non-fat dairy products which actively lower uric acid excretion",
+      "Limit serving size of meat to 85-100g per meal and spread protein across the day",
+      "Replace red meat with chicken breast or plant proteins like tofu and eggs",
+      "Avoid fasting as rapid weight loss can trigger gout attacks by increasing uric acid"
+    ]
+  },
+  {
+    "id": "guide_hypertension",
+    "disease": "hypertension",
+    "summary": "Follow a DASH-style diet: rich in fruits, vegetables, whole grains, and low-fat dairy. Strictly limit sodium, saturated fat, and added sugars.",
+    "recommendedFoods": [
+      "banana", "leafy greens", "berries", "salmon", "garlic",
+      "oats", "beets", "sweet potato", "avocado", "unsalted nuts",
+      "legumes", "low-fat dairy", "whole grains", "potassium-rich vegetables"
+    ],
+    "avoidFoods": [
+      "table salt", "soy sauce", "processed meats", "canned foods", "pickles",
+      "chips", "fast food", "ketchup", "bouillon cubes", "frozen dinners"
+    ],
+    "mealTips": [
+      "Target less than 1500mg sodium per day — use herbs, spices, and lemon as flavor substitutes",
+      "Increase potassium intake from whole foods like bananas, sweet potatoes, and leafy greens to counteract sodium",
+      "Use the DASH diet framework: 4-5 servings of vegetables and fruits per day",
+      "Choose unsalted nuts over salted snacks — the magnesium in nuts supports blood pressure control",
+      "Cook at home to control sodium levels — restaurant and processed foods are often very high in salt",
+      "Reduce alcohol consumption as it directly raises blood pressure in excess"
+    ]
+  }
+]

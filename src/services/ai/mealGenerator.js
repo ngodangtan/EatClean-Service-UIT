@@ -43,9 +43,10 @@ export function sanitizeResponse(parsed) {
  * Generate a single meal via AI.
  * Orchestrates: prompt → AI call → parse → sanitize, with retry.
  * @param {object} mealInput - Meal parameters (mealType, calories, etc.)
+ * @param {object} mealInput.retrievedContext - Pre-sanitized RAG context string (optional)
  * @param {object} [callBudget] - Optional shared budget tracker { remaining: number }
  */
-export async function generateMeal(mealInput, callBudget) {
+export async function generateMeal({ retrievedContext = null, ...mealInput }, callBudget) {
   let lastError = null;
 
   for (let attempt = 0; attempt <= MAX_MEAL_RETRIES; attempt++) {
@@ -58,7 +59,7 @@ export async function generateMeal(mealInput, callBudget) {
     }
 
     const errorFeedback = lastError ? lastError.message : null;
-    const prompt = buildMealPrompt({ ...mealInput, errorFeedback });
+    const prompt = buildMealPrompt({ ...mealInput, errorFeedback, retrievedContext });
 
     try {
       const rawResponse = await callLMStudio(prompt);

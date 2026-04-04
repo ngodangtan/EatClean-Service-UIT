@@ -5,7 +5,7 @@ const MAX_ARRAY_ITEMS = 10;
  * Sanitize a user-controlled string before prompt interpolation.
  * Strips newlines, limits length, removes instruction-like patterns.
  */
-function sanitizePromptInput(value, maxLen = MAX_STRING_LENGTH) {
+export function sanitizePromptInput(value, maxLen = MAX_STRING_LENGTH) {
   if (typeof value !== 'string') return '';
   return value
     .replace(/[\n\r\t]/g, ' ')
@@ -42,7 +42,8 @@ export function buildMealPrompt({
   forbiddenIngredients,
   limitedIngredients,
   preferredIngredients,
-  errorFeedback
+  errorFeedback,
+  retrievedContext
 }) {
   const safeMealType = sanitizePromptInput(mealType, 20);
   const safeGoal = sanitizePromptInput(goal);
@@ -73,8 +74,18 @@ Return ONLY this JSON (no markdown, no text):
   "ingredients": ["ingredient 1", "ingredient 2"],
   "benefits": ["health benefit 1", "health benefit 2"]
 }
+`;
 
-STRICT RULES:
+  // Inject RAG context as inspiration between preferences and strict rules
+  if (retrievedContext && retrievedContext.trim()) {
+    prompt += `
+REFERENCE CONTEXT (inspiration only — do not copy):
+${retrievedContext}
+
+`;
+  }
+
+  prompt += `STRICT RULES:
 1. Return JSON ONLY — no code blocks, no markdown, no extra text
 2. Do NOT include calories, macros, protein, carbs, fat, totalCalories, or any numeric nutrition fields
 3. ingredients must be a non-empty array of strings

@@ -7,11 +7,15 @@
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "rag:index": "node scripts/indexKnowledgeBase.js",
+    "rag:start": "docker-compose -f docker-compose.rag.yml up -d",
+    "rag:stop": "docker-compose -f docker-compose.rag.yml down"
   },
   "dependencies": {
     "ajv": "^8.17.1",
     "bcrypt": "^5.1.0",
+    "chromadb": "^3.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.0",
     "express": "^4.19.0",

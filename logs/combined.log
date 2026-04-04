@@ -82,3 +82,28 @@
 22:24:23 [32minfo[39m: Generating Day 6 lunch...
 22:24:26 [32minfo[39m: Generating Day 7 breakfast...
 22:24:29 [32minfo[39m: Generating Day 7 lunch...
+12:57:21 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+12:57:21 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+12:57:47 [32minfo[39m: RAG Indexer: Guidelines done — indexed 4, errors 0
+12:57:47 [32minfo[39m: RAG Indexer: Recipes progress 10/35
+12:57:48 [32minfo[39m: RAG Indexer: Ingredients progress 10/46
+12:57:48 [32minfo[39m: RAG Indexer: Recipes progress 20/35
+12:57:48 [32minfo[39m: RAG Indexer: Ingredients progress 20/46
+12:57:48 [32minfo[39m: RAG Indexer: Recipes progress 30/35
+12:57:48 [32minfo[39m: RAG Indexer: Recipes progress 35/35
+12:57:48 [32minfo[39m: RAG Indexer: Recipes done — indexed 35, errors 0
+12:57:48 [32minfo[39m: RAG Indexer: Ingredients progress 30/46
+12:57:48 [32minfo[39m: RAG Indexer: Ingredients progress 40/46
+12:57:49 [32minfo[39m: RAG Indexer: Ingredients progress 46/46
+12:58:12 [32minfo[39m: RAG Indexer: Guidelines done — indexed 4, errors 0
+12:58:12 [32minfo[39m: RAG Indexer: Recipes progress 10/35
+12:58:12 [32minfo[39m: RAG Indexer: Ingredients progress 10/46
+12:58:12 [32minfo[39m: RAG Indexer: Recipes progress 20/35
+12:58:12 [32minfo[39m: RAG Indexer: Ingredients progress 20/46
+12:58:12 [32minfo[39m: RAG Indexer: Recipes progress 30/35
+12:58:13 [32minfo[39m: RAG Indexer: Ingredients progress 30/46
+12:58:13 [32minfo[39m: RAG Indexer: Recipes progress 35/35
+12:58:13 [32minfo[39m: RAG Indexer: Recipes done — indexed 35, errors 0
+12:58:13 [32minfo[39m: RAG Indexer: Ingredients progress 40/46
+12:58:13 [32minfo[39m: RAG Indexer: Ingredients progress 46/46
+12:58:25 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping

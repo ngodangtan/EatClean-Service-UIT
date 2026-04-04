@@ -9,6 +9,8 @@ import { runWithConcurrency } from '../services/ai/concurrency.js';
 import { applyDiseaseAdjustments, validateGeneratedMeal } from '../services/disease/diseaseEngine.js';
 import { getForbiddenIngredients, getLimitedIngredients, getPreferredIngredients } from '../services/disease/diseaseRules.js';
 import { generateShoppingList } from '../services/shoppingListService.js';
+import { retrieveRelevantMeals, retrieveDiseaseGuidelines } from '../services/rag/retriever.js';
+import { buildMealContext } from '../services/rag/ragContextBuilder.js';
 import logger from '../utils/logger.js';
 
 const MAX_RETRIES = 2;
@@ -68,6 +70,31 @@ export async function generateMealPlan(req, res) {
     const limitedIngredients = getLimitedIngredients(diseases);
     const preferredIngredients = getPreferredIngredients(diseases);
 
+    // Step 4b: RAG — retrieve grounding context per unique mealType
+    const uniqueMealTypes = [...new Set(nutritionPlan.mealDistribution.map(d => d.mealType))];
+    const effectiveDiseases = diseases;
+    let ragContextByMealType = {};
+
+    try {
+      for (const mealType of uniqueMealTypes) {
+        const [meals, guidelines] = await Promise.all([
+          retrieveRelevantMeals({
+            mealType,
+            goal: nutritionPlan.goal,
+            diseases: effectiveDiseases,
+            cuisine: healthProfile.cuisinePreference?.[0] ?? null,
+            favoriteMeal: healthProfile.favoriteMeal ?? null
+          }),
+          retrieveDiseaseGuidelines(effectiveDiseases)
+        ]);
+        ragContextByMealType[mealType] = buildMealContext(meals, guidelines);
+      }
+      logger.info('RAG context retrieved for meal types:', Object.keys(ragContextByMealType));
+    } catch (ragErr) {
+      logger.warn('RAG retrieval failed — continuing without context:', ragErr.message);
+      ragContextByMealType = {};
+    }
+
     // Shared call budget across all retries (dynamic based on meals per day)
     const mealsPerDay = nutritionPlan.mealDistribution.length;
     const aiCallBudget = Math.min(60, TEMPLATE_DAYS * mealsPerDay * 2 + 10);
@@ -110,7 +137,8 @@ export async function generateMealPlan(req, res) {
                 favoriteMeal: healthProfile.favoriteMeal,
                 forbiddenIngredients,
                 limitedIngredients,
-                preferredIngredients
+                preferredIngredients,
+                retrievedContext: ragContextByMealType[dist.mealType] ?? null
               }, callBudget);
             });
           }

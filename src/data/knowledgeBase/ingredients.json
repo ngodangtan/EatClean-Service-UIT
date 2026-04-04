@@ -1,0 +1,462 @@
+[
+  {
+    "id": "ing_001",
+    "name": "quinoa",
+    "category": "grains",
+    "aliases": ["quinua"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "complete protein grain with all essential amino acids, high fiber, low glycemic index",
+    "substitutes": ["brown rice", "buckwheat", "bulgur"]
+  },
+  {
+    "id": "ing_002",
+    "name": "brown rice",
+    "category": "grains",
+    "aliases": ["whole grain rice"],
+    "safeFor": ["diabetes", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "whole grain with fiber, B vitamins, and magnesium; lower glycemic than white rice",
+    "substitutes": ["quinoa", "wild rice", "cauliflower rice"]
+  },
+  {
+    "id": "ing_003",
+    "name": "oats",
+    "category": "grains",
+    "aliases": ["rolled oats", "steel cut oats", "oatmeal"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "high in beta-glucan fiber which lowers cholesterol and stabilizes blood sugar",
+    "substitutes": ["quinoa", "brown rice", "buckwheat"]
+  },
+  {
+    "id": "ing_004",
+    "name": "salmon",
+    "category": "protein",
+    "aliases": ["salmon fillet", "atlantic salmon", "wild salmon"],
+    "safeFor": ["hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "rich in omega-3 fatty acids EPA and DHA, high-quality protein, vitamin D",
+    "substitutes": ["cod", "tilapia", "trout"]
+  },
+  {
+    "id": "ing_005",
+    "name": "chicken breast",
+    "category": "protein",
+    "aliases": ["chicken", "boneless chicken"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "lean complete protein, low saturated fat, high B vitamins and selenium",
+    "substitutes": ["turkey breast", "egg whites", "tofu"]
+  },
+  {
+    "id": "ing_006",
+    "name": "tofu",
+    "category": "protein",
+    "aliases": ["bean curd", "firm tofu", "soft tofu", "silken tofu"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "plant-based complete protein, isoflavones, calcium, low in purines",
+    "substitutes": ["tempeh", "chicken breast", "egg whites"]
+  },
+  {
+    "id": "ing_007",
+    "name": "egg whites",
+    "category": "protein",
+    "aliases": ["egg white"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "pure protein with zero fat and cholesterol, ideal for kidney patients limiting phosphorus",
+    "substitutes": ["tofu", "chicken breast"]
+  },
+  {
+    "id": "ing_008",
+    "name": "lentils",
+    "category": "protein",
+    "aliases": ["red lentils", "green lentils", "brown lentils"],
+    "safeFor": ["diabetes", "hypertension"],
+    "avoidFor": ["high-uric-acid"],
+    "nutritionProfile": "high in plant protein and soluble fiber, iron, folate, and slow-release carbohydrates",
+    "substitutes": ["chickpeas", "split peas", "quinoa"]
+  },
+  {
+    "id": "ing_009",
+    "name": "chickpeas",
+    "category": "protein",
+    "aliases": ["garbanzo beans", "ceci beans"],
+    "safeFor": ["diabetes", "hypertension"],
+    "avoidFor": [],
+    "nutritionProfile": "high fiber and plant protein, low glycemic index, supports blood sugar and cholesterol",
+    "substitutes": ["lentils", "black beans", "white beans"]
+  },
+  {
+    "id": "ing_010",
+    "name": "sweet potato",
+    "category": "produce",
+    "aliases": ["yam", "sweet yam"],
+    "safeFor": ["diabetes", "hypertension"],
+    "avoidFor": [],
+    "nutritionProfile": "rich in beta-carotene, fiber, potassium, and vitamin C; lower glycemic than white potato",
+    "substitutes": ["butternut squash", "pumpkin", "carrot"]
+  },
+  {
+    "id": "ing_011",
+    "name": "broccoli",
+    "category": "produce",
+    "aliases": ["broccolini", "broccoli florets"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "cruciferous vegetable rich in vitamin C, K, folate, sulforaphane with anti-cancer properties",
+    "substitutes": ["cauliflower", "brussels sprouts", "bok choy"]
+  },
+  {
+    "id": "ing_012",
+    "name": "cauliflower",
+    "category": "produce",
+    "aliases": ["cauliflower rice", "cauliflower florets"],
+    "safeFor": ["diabetes", "hypertension", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "low-calorie, low-potassium cruciferous vegetable, versatile rice and mash substitute",
+    "substitutes": ["broccoli", "cabbage", "white rice"]
+  },
+  {
+    "id": "ing_013",
+    "name": "spinach",
+    "category": "produce",
+    "aliases": ["baby spinach", "fresh spinach"],
+    "safeFor": ["diabetes", "hypertension"],
+    "avoidFor": ["kidney-disease", "high-uric-acid"],
+    "nutritionProfile": "rich in iron, folate, vitamin K, and antioxidants; high oxalate content concerns some conditions",
+    "substitutes": ["kale", "bok choy", "lettuce", "cabbage"]
+  },
+  {
+    "id": "ing_014",
+    "name": "kale",
+    "category": "produce",
+    "aliases": ["curly kale", "lacinato kale", "dinosaur kale"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "superfood leafy green with vitamins K, A, C, calcium, and powerful antioxidants",
+    "substitutes": ["spinach", "bok choy", "collard greens"]
+  },
+  {
+    "id": "ing_015",
+    "name": "bell pepper",
+    "category": "produce",
+    "aliases": ["red pepper", "green pepper", "yellow pepper", "capsicum"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "excellent source of vitamin C and antioxidants, low calorie, low potassium",
+    "substitutes": ["zucchini", "cucumber", "celery"]
+  },
+  {
+    "id": "ing_016",
+    "name": "cucumber",
+    "category": "produce",
+    "aliases": ["english cucumber", "persian cucumber"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "very low calorie hydrating vegetable, low potassium, contains silica and antioxidants",
+    "substitutes": ["zucchini", "celery", "jicama"]
+  },
+  {
+    "id": "ing_017",
+    "name": "avocado",
+    "category": "produce",
+    "aliases": ["hass avocado"],
+    "safeFor": ["diabetes", "hypertension"],
+    "avoidFor": ["kidney-disease"],
+    "nutritionProfile": "rich in monounsaturated fats, potassium, folate, and fiber; heart-healthy fat source",
+    "substitutes": ["olive oil", "nuts", "tahini"]
+  },
+  {
+    "id": "ing_018",
+    "name": "blueberries",
+    "category": "produce",
+    "aliases": ["wild blueberries", "frozen blueberries"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "highest antioxidant content among common fruits, low glycemic, supports brain and heart health",
+    "substitutes": ["strawberries", "raspberries", "blackberries"]
+  },
+  {
+    "id": "ing_019",
+    "name": "cherries",
+    "category": "produce",
+    "aliases": ["tart cherries", "sweet cherries", "cherry juice"],
+    "safeFor": ["high-uric-acid", "diabetes", "hypertension"],
+    "avoidFor": [],
+    "nutritionProfile": "contains anthocyanins that directly reduce uric acid levels and inflammation in gout",
+    "substitutes": ["blueberries", "strawberries", "grapes"]
+  },
+  {
+    "id": "ing_020",
+    "name": "garlic",
+    "category": "produce",
+    "aliases": ["fresh garlic", "garlic cloves", "minced garlic"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "allicin content lowers blood pressure and cholesterol, antimicrobial, anti-inflammatory",
+    "substitutes": ["onion", "shallots", "leeks"]
+  },
+  {
+    "id": "ing_021",
+    "name": "ginger",
+    "category": "produce",
+    "aliases": ["fresh ginger", "ginger root", "ground ginger"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "powerful anti-inflammatory gingerols, improves insulin sensitivity and digestion",
+    "substitutes": ["turmeric", "lemongrass", "galangal"]
+  },
+  {
+    "id": "ing_022",
+    "name": "olive oil",
+    "category": "pantry",
+    "aliases": ["extra virgin olive oil", "EVOO"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "rich in monounsaturated oleic acid, polyphenols, vitamin E; reduces inflammation",
+    "substitutes": ["avocado oil", "sesame oil", "canola oil"]
+  },
+  {
+    "id": "ing_023",
+    "name": "walnuts",
+    "category": "pantry",
+    "aliases": ["walnut halves", "chopped walnuts"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "highest plant source of omega-3 ALA, melatonin, antioxidants, magnesium",
+    "substitutes": ["almonds", "pecans", "macadamia nuts"]
+  },
+  {
+    "id": "ing_024",
+    "name": "almonds",
+    "category": "pantry",
+    "aliases": ["raw almonds", "sliced almonds", "almond butter"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "high in vitamin E, magnesium, monounsaturated fats, fiber; supports blood sugar control",
+    "substitutes": ["walnuts", "cashews", "sunflower seeds"]
+  },
+  {
+    "id": "ing_025",
+    "name": "chia seeds",
+    "category": "pantry",
+    "aliases": ["chia"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "rich in omega-3 ALA, soluble fiber, calcium, protein; forms gel that slows digestion",
+    "substitutes": ["flaxseeds", "hemp seeds", "psyllium husk"]
+  },
+  {
+    "id": "ing_026",
+    "name": "plain greek yogurt",
+    "category": "dairy",
+    "aliases": ["greek yogurt", "strained yogurt"],
+    "safeFor": ["diabetes", "high-uric-acid"],
+    "avoidFor": ["kidney-disease"],
+    "nutritionProfile": "twice the protein of regular yogurt, probiotics, calcium; lower lactose content",
+    "substitutes": ["plain yogurt", "kefir", "cottage cheese"]
+  },
+  {
+    "id": "ing_027",
+    "name": "almond milk",
+    "category": "dairy",
+    "aliases": ["unsweetened almond milk"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "low-calorie dairy alternative, lower phosphorus and potassium than cow's milk",
+    "substitutes": ["rice milk", "oat milk", "coconut milk"]
+  },
+  {
+    "id": "ing_028",
+    "name": "lemon",
+    "category": "produce",
+    "aliases": ["lemon juice", "lemon zest", "fresh lemon"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "rich in vitamin C and citric acid; helps alkalinize urine to prevent uric acid crystallization",
+    "substitutes": ["lime", "orange juice", "apple cider vinegar"]
+  },
+  {
+    "id": "ing_029",
+    "name": "turmeric",
+    "category": "pantry",
+    "aliases": ["ground turmeric", "curcumin", "fresh turmeric"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "curcumin is a potent anti-inflammatory and antioxidant, reduces uric acid and joint pain",
+    "substitutes": ["ginger", "saffron", "paprika"]
+  },
+  {
+    "id": "ing_030",
+    "name": "cinnamon",
+    "category": "pantry",
+    "aliases": ["ground cinnamon", "ceylon cinnamon", "cassia"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "improves insulin sensitivity, lowers fasting blood glucose, anti-inflammatory",
+    "substitutes": ["cardamom", "nutmeg", "allspice"]
+  },
+  {
+    "id": "ing_031",
+    "name": "white fish",
+    "category": "protein",
+    "aliases": ["cod", "tilapia", "sole", "flounder", "halibut"],
+    "safeFor": ["hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "lean white fish very low in fat and purines, high-quality protein, selenium",
+    "substitutes": ["chicken breast", "tofu", "shrimp"]
+  },
+  {
+    "id": "ing_032",
+    "name": "rice paper",
+    "category": "grains",
+    "aliases": ["spring roll wrappers", "rice wrappers"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "very low calorie wrapper made from rice flour, gluten-free, minimal sodium",
+    "substitutes": ["lettuce leaves", "nori sheets"]
+  },
+  {
+    "id": "ing_033",
+    "name": "rice vermicelli",
+    "category": "grains",
+    "aliases": ["bun noodles", "thin rice noodles"],
+    "safeFor": ["high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "gluten-free rice-based noodles, low sodium, moderate glycemic index",
+    "substitutes": ["shirataki noodles", "zucchini noodles", "glass noodles"]
+  },
+  {
+    "id": "ing_034",
+    "name": "cabbage",
+    "category": "produce",
+    "aliases": ["green cabbage", "red cabbage", "napa cabbage"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "low potassium cruciferous vegetable, vitamin C and K, fiber; excellent for kidney patients",
+    "substitutes": ["lettuce", "bok choy", "kale"]
+  },
+  {
+    "id": "ing_035",
+    "name": "bok choy",
+    "category": "produce",
+    "aliases": ["pak choi", "baby bok choy", "chinese cabbage"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "low potassium Asian green, rich in vitamin A and C, calcium, anti-inflammatory",
+    "substitutes": ["cabbage", "kale", "swiss chard"]
+  },
+  {
+    "id": "ing_036",
+    "name": "celery",
+    "category": "produce",
+    "aliases": ["celery stalks", "celery root", "celeriac"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "very low calorie with compounds that help lower uric acid and blood pressure",
+    "substitutes": ["cucumber", "fennel", "jicama"]
+  },
+  {
+    "id": "ing_037",
+    "name": "watermelon",
+    "category": "produce",
+    "aliases": ["watermelon flesh"],
+    "safeFor": ["high-uric-acid", "hypertension"],
+    "avoidFor": [],
+    "nutritionProfile": "high water content, lycopene antioxidant, citrulline that helps excrete uric acid",
+    "substitutes": ["cucumber", "honeydew", "cantaloupe"]
+  },
+  {
+    "id": "ing_038",
+    "name": "flaxseeds",
+    "category": "pantry",
+    "aliases": ["ground flaxseed", "flax meal", "linseed"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "highest plant source of omega-3 ALA, lignans for hormone balance, soluble fiber",
+    "substitutes": ["chia seeds", "hemp seeds", "psyllium"]
+  },
+  {
+    "id": "ing_039",
+    "name": "edamame",
+    "category": "protein",
+    "aliases": ["young soybeans", "shelled edamame"],
+    "safeFor": ["diabetes", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "complete plant protein with fiber, folate, and isoflavones; lower purine than mature soy",
+    "substitutes": ["peas", "chickpeas", "lima beans"]
+  },
+  {
+    "id": "ing_040",
+    "name": "hummus",
+    "category": "pantry",
+    "aliases": ["chickpea dip", "homemade hummus"],
+    "safeFor": ["diabetes", "hypertension"],
+    "avoidFor": [],
+    "nutritionProfile": "plant protein and fiber from chickpeas, healthy fats from tahini and olive oil",
+    "substitutes": ["white bean dip", "guacamole", "tzatziki"]
+  },
+  {
+    "id": "ing_041",
+    "name": "apple",
+    "category": "produce",
+    "aliases": ["red apple", "green apple", "granny smith", "fuji apple"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "soluble fiber pectin supports gut health and cholesterol, quercetin antioxidant",
+    "substitutes": ["pear", "peach", "plum"]
+  },
+  {
+    "id": "ing_042",
+    "name": "beets",
+    "category": "produce",
+    "aliases": ["beetroot", "red beet", "golden beet"],
+    "safeFor": ["hypertension"],
+    "avoidFor": ["kidney-disease"],
+    "nutritionProfile": "dietary nitrates lower blood pressure significantly; betaine supports liver health",
+    "substitutes": ["carrot", "red cabbage", "pomegranate juice"]
+  },
+  {
+    "id": "ing_043",
+    "name": "carrot",
+    "category": "produce",
+    "aliases": ["baby carrots", "carrot sticks"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "avoidFor": [],
+    "nutritionProfile": "rich in beta-carotene, fiber, vitamin K; moderate glycemic when eaten whole",
+    "substitutes": ["sweet potato", "pumpkin", "bell pepper"]
+  },
+  {
+    "id": "ing_044",
+    "name": "low-fat dairy",
+    "category": "dairy",
+    "aliases": ["skim milk", "1% milk", "low-fat yogurt"],
+    "safeFor": ["high-uric-acid", "hypertension"],
+    "avoidFor": ["kidney-disease"],
+    "nutritionProfile": "dairy proteins casein and whey actively lower uric acid excretion, calcium, vitamin D",
+    "substitutes": ["almond milk", "rice milk", "soy milk"]
+  },
+  {
+    "id": "ing_045",
+    "name": "whole grain bread",
+    "category": "grains",
+    "aliases": ["wholemeal bread", "multigrain bread", "whole wheat bread"],
+    "safeFor": ["diabetes", "high-uric-acid"],
+    "avoidFor": ["hypertension", "kidney-disease"],
+    "nutritionProfile": "fiber-rich alternative to white bread with B vitamins and minerals; contains sodium",
+    "substitutes": ["rice cakes", "oat crackers", "sourdough"]
+  },
+  {
+    "id": "ing_046",
+    "name": "tahini",
+    "category": "pantry",
+    "aliases": ["sesame paste", "sesame butter"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "avoidFor": [],
+    "nutritionProfile": "rich in calcium, healthy fats, and sesamin lignans that lower blood pressure",
+    "substitutes": ["almond butter", "sunflower seed butter", "peanut butter"]
+  }
+]
