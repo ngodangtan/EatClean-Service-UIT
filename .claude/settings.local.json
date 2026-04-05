@@ -12,7 +12,13 @@
       "Bash(node --check /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/services/ai/mealGenerator.js)",
       "Bash(node --check /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/controllers/mealplan.controller.js)",
       "Bash(npm test:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(chmod +x:*)",
+      "Bash(bash:*)",
+      "Bash(/usr/local/bin/docker info:*)",
+      "Bash(mdfind -name \"Docker.app\")",
+      "Read(//Users/felixngo/Applications/**)",
+      "Read(//opt/**)"
     ]
   }
 }

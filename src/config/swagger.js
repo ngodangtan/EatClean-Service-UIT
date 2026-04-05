@@ -3,7 +3,7 @@ const swaggerSpec = {
   info: {
     title: 'Eat Clean API',
     version: '1.0.0',
-    description: 'Minimal OpenAPI spec for the Eat Clean service'
+    description: 'REST API for health-focused meal planning with AI-powered generation'
   },
   servers: [
     { url: 'http://localhost:4000', description: 'Local development server' }
@@ -27,25 +27,45 @@ const swaggerSpec = {
           phone: { type: 'string' },
           birthday: { type: 'string', format: 'date' },
           gender: { type: 'string', enum: ['male', 'female', 'other'] },
-          height: { type: 'number', description: 'Height in cm' },
-          currentWeight: { type: 'number', description: 'Current weight in kg' },
-          role: { type: 'string' },
+          role: { type: 'string', enum: ['user', 'admin'] },
           createdAt: { type: 'string', format: 'date-time' },
           updatedAt: { type: 'string', format: 'date-time' }
+        }
+      },
+      AuthResponse: {
+        type: 'object',
+        properties: {
+          accessToken: { type: 'string', description: 'JWT access token (15 min expiry)' },
+          refreshToken: { type: 'string', description: 'Opaque refresh token (30 day expiry)' },
+          user: { $ref: '#/components/schemas/User' }
         }
       },
       Register: {
         type: 'object',
         required: ['email', 'password'],
-        properties: { email: { type: 'string' }, password: { type: 'string' }, username: { type: 'string' }, fullName: { type: 'string' }, phone: { type: 'string' }, birthday: { type: 'string', format: 'date' }, gender: { type: 'string', enum: ['male', 'female', 'other'] }, height: { type: 'number', description: 'Height in cm — pre-fills health profile' }, currentWeight: { type: 'number', description: 'Current weight in kg — pre-fills health profile' } }
+        properties: {
+          email: { type: 'string', format: 'email' },
+          password: { type: 'string', minLength: 6 },
+          username: { type: 'string', maxLength: 50 },
+          fullName: { type: 'string', maxLength: 100 },
+          phone: { type: 'string', maxLength: 20 },
+          birthday: { type: 'string', format: 'date' },
+          gender: { type: 'string', enum: ['male', 'female', 'other'] },
+          height: { type: 'number', description: 'Height in cm — pre-fills health profile' },
+          currentWeight: { type: 'number', description: 'Current weight in kg — pre-fills health profile' }
+        }
       },
       Login: {
         type: 'object',
         required: ['email', 'password'],
-        properties: { email: { type: 'string' }, password: { type: 'string' } }
+        properties: {
+          email: { type: 'string', format: 'email' },
+          password: { type: 'string' }
+        }
       },
       HealthProfile: {
         type: 'object',
+        required: ['gender', 'age'],
         properties: {
           userId: { type: 'string' },
           gender: { type: 'string', enum: ['male', 'female'] },
@@ -62,19 +82,20 @@ const swaggerSpec = {
           diseases: { type: 'array', items: { type: 'string', enum: ['diabetes', 'kidney-disease', 'high-uric-acid', 'hypertension'] } },
           dietPreference: { type: 'string' },
           mealsPerDay: { type: 'number', minimum: 1, maximum: 6 },
-          cuisinePreference: { type: 'array', items: { type: 'string' } }
+          cuisinePreference: { type: 'array', items: { type: 'string' }, maxItems: 10 }
         }
       },
       MealMacros: {
         type: 'object',
         properties: {
-          protein: { type: 'number', description: 'Protein in grams' },
-          carbs: { type: 'number', description: 'Carbs in grams' },
-          fat: { type: 'number', description: 'Fat in grams' }
+          protein: { type: 'number', minimum: 0, description: 'Protein in grams' },
+          carbs: { type: 'number', minimum: 0, description: 'Carbs in grams' },
+          fat: { type: 'number', minimum: 0, description: 'Fat in grams' }
         }
       },
       Meal: {
         type: 'object',
+        required: ['mealType', 'name', 'calories', 'macros'],
         properties: {
           mealType: { type: 'string', enum: ['breakfast', 'lunch', 'dinner', 'snack'] },
           name: { type: 'string' },
@@ -101,7 +122,7 @@ const swaggerSpec = {
         type: 'object',
         description: 'Plan duration metadata. Calculated from goal and weight delta.',
         properties: {
-          weeks: { type: 'integer', description: 'Number of weeks (1-52)' },
+          weeks: { type: 'integer', description: 'Number of weeks (1–52)' },
           totalDays: { type: 'integer', description: 'Total days (weeks * 7)' }
         }
       },
@@ -111,12 +132,11 @@ const swaggerSpec = {
           _id: { type: 'string' },
           userId: { type: 'string' },
           healthProfileId: { type: 'string' },
-          title: { type: 'string', description: 'e.g. "7-Day Meal Plan" or "20-Week Meal Plan"' },
-          days: { type: 'array', items: { $ref: '#/components/schemas/MealPlanDay' }, description: 'All days in the plan. A 7-day template is generated via AI and replicated across weeks.' },
+          title: { type: 'string', description: 'e.g. "7-Day Meal Plan"' },
+          days: { type: 'array', items: { $ref: '#/components/schemas/MealPlanDay' } },
           duration: { $ref: '#/components/schemas/MealPlanDuration' },
+          swapCount: { type: 'integer', description: 'Number of meals swapped so far' },
           aiModel: { type: 'string' },
-          prompt: { type: 'string' },
-          rawAiResponse: { type: 'string', nullable: true },
           notes: { type: 'string' },
           createdAt: { type: 'string', format: 'date-time' },
           updatedAt: { type: 'string', format: 'date-time' }
@@ -128,8 +148,8 @@ const swaggerSpec = {
           ok: { type: 'boolean' },
           message: { type: 'string' },
           mealPlan: { $ref: '#/components/schemas/MealPlan' },
-          disclaimer: { type: 'string', description: 'Medical disclaimer, included when diseases are present' },
-          unsupportedDiseases: { type: 'array', items: { type: 'string' }, description: 'List of diseases not supported by the engine' }
+          disclaimer: { type: 'string', description: 'Medical disclaimer, present when diseases are set' },
+          unsupportedDiseases: { type: 'array', items: { type: 'string' }, description: 'Disease names not supported by the engine' }
         }
       },
       MealPlanListResponse: {
@@ -140,39 +160,179 @@ const swaggerSpec = {
           limit: { type: 'integer' },
           skip: { type: 'integer' }
         }
+      },
+      Recipe: {
+        type: 'object',
+        properties: {
+          _id: { type: 'string' },
+          title: { type: 'string' },
+          description: { type: 'string' },
+          calories: { type: 'number', default: 0 },
+          protein: { type: 'number', default: 0 },
+          carbs: { type: 'number', default: 0 },
+          fat: { type: 'number', default: 0 },
+          tags: { type: 'array', items: { type: 'string' } },
+          ingredients: { type: 'array', items: { type: 'string' } },
+          steps: { type: 'array', items: { type: 'string' } },
+          imageUrl: { type: 'string', format: 'uri' },
+          author: { type: 'string', description: 'User ID of author' },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time' }
+        }
+      },
+      RecipeInput: {
+        type: 'object',
+        required: ['title'],
+        properties: {
+          title: { type: 'string' },
+          description: { type: 'string' },
+          calories: { type: 'number' },
+          protein: { type: 'number' },
+          carbs: { type: 'number' },
+          fat: { type: 'number' },
+          tags: { type: 'array', items: { type: 'string' } },
+          ingredients: { type: 'array', items: { type: 'string' } },
+          steps: { type: 'array', items: { type: 'string' } },
+          imageUrl: { type: 'string', format: 'uri' }
+        }
+      },
+      Favorite: {
+        type: 'object',
+        properties: {
+          _id: { type: 'string' },
+          userId: { type: 'string' },
+          targetType: { type: 'string', enum: ['meal-plan', 'recipe'] },
+          targetId: { type: 'string' },
+          note: { type: 'string', maxLength: 500 },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time' }
+        }
+      },
+      FavoriteListResponse: {
+        type: 'object',
+        properties: {
+          favorites: { type: 'array', items: { $ref: '#/components/schemas/Favorite' } },
+          total: { type: 'integer' },
+          limit: { type: 'integer' },
+          skip: { type: 'integer' }
+        }
       }
     }
   },
   paths: {
+    '/api/health': {
+      get: {
+        tags: ['System'],
+        summary: 'Health check',
+        responses: { '200': { description: 'Server is running' } }
+      }
+    },
+
+    // ── Auth ──────────────────────────────────────────────────────────────
     '/api/auth/register': {
       post: {
         tags: ['Auth'],
         summary: 'Register new user',
-        description: 'Creates a new user account. Optional `height` and `currentWeight` fields are stored on the user and automatically pre-fill the health profile so they do not need to be re-entered.',
+        description: 'Creates a new user account. Optional `height` and `currentWeight` are stored on the user and automatically pre-fill the health profile.',
         requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/Register' } } } },
-        responses: { '201': { description: 'Created' }, '409': { description: 'Email already registered' } }
+        responses: {
+          '201': { description: 'Created', content: { 'application/json': { schema: { $ref: '#/components/schemas/AuthResponse' } } } },
+          '409': { description: 'Email already registered' }
+        }
       }
     },
     '/api/auth/login': {
       post: {
         tags: ['Auth'],
-        summary: 'Login user',
+        summary: 'Login',
         requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/Login' } } } },
-        responses: { '200': { description: 'OK' }, '401': { description: 'Invalid credentials' } }
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/AuthResponse' } } } },
+          '401': { description: 'Invalid credentials' }
+        }
       }
     },
     '/api/auth/logout': {
       post: {
         tags: ['Auth'],
-        summary: 'Logout user',
+        summary: 'Logout',
+        description: 'Blacklists the current access token. Optionally revokes a refresh token.',
         security: [{ bearerAuth: [] }],
-        responses: { '200': { description: 'Logged out successfully' }, '401': { description: 'Unauthorized' } }
+        requestBody: {
+          required: false,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  refreshToken: { type: 'string', description: 'If provided, this refresh token is also revoked' }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          '200': { description: 'Logged out', content: { 'application/json': { schema: { type: 'object', properties: { ok: { type: 'boolean' } } } } } },
+          '401': { description: 'Unauthorized' }
+        }
+      }
+    },
+    '/api/auth/refresh-token': {
+      post: {
+        tags: ['Auth'],
+        summary: 'Refresh access token',
+        description: 'Exchange a valid refresh token for a new access token.',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                required: ['refreshToken'],
+                properties: { refreshToken: { type: 'string' } }
+              }
+            }
+          }
+        },
+        responses: {
+          '200': {
+            description: 'New access token issued',
+            content: { 'application/json': { schema: { type: 'object', properties: { accessToken: { type: 'string' } } } } }
+          },
+          '400': { description: 'Refresh token required' },
+          '401': { description: 'Invalid or expired refresh token' }
+        }
+      }
+    },
+    '/api/auth/revoke-token': {
+      post: {
+        tags: ['Auth'],
+        summary: 'Revoke a refresh token',
+        description: 'Permanently removes a refresh token from the user\'s token list (sign out from one device).',
+        security: [{ bearerAuth: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                required: ['refreshToken'],
+                properties: { refreshToken: { type: 'string' } }
+              }
+            }
+          }
+        },
+        responses: {
+          '200': { description: 'Revoked', content: { 'application/json': { schema: { type: 'object', properties: { ok: { type: 'boolean' } } } } } },
+          '400': { description: 'Refresh token required' },
+          '401': { description: 'Unauthorized' }
+        }
       }
     },
     '/api/auth/profile': {
       get: {
         tags: ['Auth'],
-        summary: 'Get user profile',
+        summary: 'Get current user profile',
         security: [{ bearerAuth: [] }],
         responses: {
           '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } } },
@@ -217,42 +377,66 @@ const swaggerSpec = {
         summary: 'Delete a user (self or admin)',
         security: [{ bearerAuth: [] }],
         parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
-        responses: { '200': { description: 'Deleted' }, '401': { description: 'Unauthorized' }, '403': { description: 'Forbidden' }, '404': { description: 'User not found' } }
+        responses: {
+          '200': { description: 'Deleted' },
+          '401': { description: 'Unauthorized' },
+          '403': { description: 'Forbidden' },
+          '404': { description: 'User not found' }
+        }
       }
     },
+
+    // ── Health Profile ────────────────────────────────────────────────────
     '/api/health-profile': {
       post: {
         tags: ['Health Profile'],
         summary: 'Create or update health profile',
-        description: '`height` and `currentWeight` are automatically sourced from the user account (set at registration) and do not need to be sent in the request body.',
+        description: '`height` and `currentWeight` are sourced automatically from the user account (set at registration) and do not need to be sent in the body. `gender` and `age` are required.',
         security: [{ bearerAuth: [] }],
         requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/HealthProfile' } } } },
-        responses: { '201': { description: 'Created' }, '200': { description: 'Updated' }, '401': { description: 'Unauthorized' } }
+        responses: {
+          '201': {
+            description: 'Created',
+            content: { 'application/json': { schema: { type: 'object', properties: { ok: { type: 'boolean' }, profile: { $ref: '#/components/schemas/HealthProfile' } } } } }
+          },
+          '200': {
+            description: 'Updated',
+            content: { 'application/json': { schema: { type: 'object', properties: { ok: { type: 'boolean' }, profile: { $ref: '#/components/schemas/HealthProfile' } } } } }
+          },
+          '401': { description: 'Unauthorized' }
+        }
       },
       get: {
         tags: ['Health Profile'],
-        summary: 'Get health profile for authenticated user',
+        summary: 'Get health profile',
         security: [{ bearerAuth: [] }],
-        responses: { '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/HealthProfile' } } } }, '401': { description: 'Unauthorized' }, '404': { description: 'Health profile not found' } }
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/HealthProfile' } } } },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'Health profile not found' }
+        }
       },
       delete: {
         tags: ['Health Profile'],
         summary: 'Delete health profile',
         security: [{ bearerAuth: [] }],
-        responses: { '200': { description: 'Deleted' }, '401': { description: 'Unauthorized' }, '404': { description: 'Health profile not found' } }
+        responses: {
+          '200': { description: 'Deleted' },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'Health profile not found' }
+        }
       }
     },
+
+    // ── Meal Plans ────────────────────────────────────────────────────────
     '/api/meal-plans/generate': {
       post: {
         tags: ['Meal Plans'],
-        summary: 'Generate personalized meal plan using LM Studio AI',
-        description: 'Generates a 7-day weekly template via AI, validates it, then replicates across the calculated number of weeks based on the user\'s goal and weight delta. Duration: lose-weight uses 0.5 kg/week rate, gain-weight uses 0.25 kg/week rate, improve-health defaults to 1 week. Clamped to [1, 52] weeks.',
+        summary: 'Generate personalized meal plan via AI',
+        description: 'Generates a 7-day weekly template via LM Studio AI, validates it, then replicates across calculated weeks based on goal and weight delta. Duration: lose-weight at 0.5 kg/week, gain-weight at 0.25 kg/week, improve-health defaults to 1 week (clamped 1–52 weeks).',
         security: [{ bearerAuth: [] }],
         responses: {
-          '201': {
-            description: 'Meal plan generated successfully',
-            content: { 'application/json': { schema: { $ref: '#/components/schemas/GenerateMealPlanResponse' } } }
-          },
+          '201': { description: 'Generated', content: { 'application/json': { schema: { $ref: '#/components/schemas/GenerateMealPlanResponse' } } } },
           '400': { description: 'Health profile missing required fields (gender, age, currentWeight, height)' },
           '401': { description: 'Unauthorized' },
           '404': { description: 'Health profile not found' },
@@ -266,52 +450,280 @@ const swaggerSpec = {
         summary: 'Get most recent meal plan',
         security: [{ bearerAuth: [] }],
         responses: {
-          '200': {
-            description: 'OK',
-            content: { 'application/json': { schema: { $ref: '#/components/schemas/MealPlan' } } }
-          },
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/MealPlan' } } } },
           '401': { description: 'Unauthorized' },
-          '404': { description: 'Meal plan not found' }
+          '404': { description: 'No meal plan found' }
         }
       }
     },
     '/api/meal-plans': {
       get: {
         tags: ['Meal Plans'],
-        summary: 'Get all meal plans (paginated)',
+        summary: 'List meal plans (paginated)',
         security: [{ bearerAuth: [] }],
         parameters: [
           { name: 'limit', in: 'query', schema: { type: 'integer', default: 10 } },
           { name: 'skip', in: 'query', schema: { type: 'integer', default: 0 } }
         ],
         responses: {
-          '200': {
-            description: 'OK',
-            content: { 'application/json': { schema: { $ref: '#/components/schemas/MealPlanListResponse' } } }
-          },
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/MealPlanListResponse' } } } },
           '401': { description: 'Unauthorized' }
         }
       },
       delete: {
         tags: ['Meal Plans'],
-        summary: 'Delete all meal plans for authenticated user',
+        summary: 'Delete all meal plans',
         security: [{ bearerAuth: [] }],
-        responses: { 
-          '200': { description: 'All meal plans deleted successfully' }, 
+        responses: {
+          '200': { description: 'All deleted' },
           '401': { description: 'Unauthorized' }
         }
       }
     },
     '/api/meal-plans/{id}': {
+      get: {
+        tags: ['Meal Plans'],
+        summary: 'Get a meal plan by ID',
+        security: [{ bearerAuth: [] }],
+        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/MealPlan' } } } },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'Not found' }
+        }
+      },
       delete: {
         tags: ['Meal Plans'],
         summary: 'Delete a meal plan',
         security: [{ bearerAuth: [] }],
         parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
-        responses: { 
-          '200': { description: 'Deleted' }, 
-          '401': { description: 'Unauthorized' }, 
+        responses: {
+          '200': { description: 'Deleted' },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'Not found' }
+        }
+      }
+    },
+    '/api/meal-plans/{planId}/swap': {
+      post: {
+        tags: ['Meal Plans'],
+        summary: 'Swap a meal in a plan',
+        description: 'Regenerates a single meal in-place using the same macros and user health context. Limited to a maximum number of swaps per plan.',
+        security: [{ bearerAuth: [] }],
+        parameters: [{ name: 'planId', in: 'path', required: true, schema: { type: 'string' } }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                required: ['day', 'mealIndex'],
+                properties: {
+                  day: { type: 'integer', description: 'Day number (1-based) from the plan' },
+                  mealIndex: { type: 'integer', description: 'Index of the meal within the day\'s meals array' }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          '200': {
+            description: 'Meal swapped',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    ok: { type: 'boolean' },
+                    message: { type: 'string' },
+                    swapCount: { type: 'integer' },
+                    swappedMeal: { $ref: '#/components/schemas/Meal' }
+                  }
+                }
+              }
+            }
+          },
+          '400': { description: 'Missing fields or swap limit reached' },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'Plan, day, or meal not found' },
+          '500': { description: 'Could not generate a safe replacement meal' }
+        }
+      }
+    },
+    '/api/meal-plans/{planId}/shopping-list': {
+      get: {
+        tags: ['Meal Plans'],
+        summary: 'Get shopping list for a meal plan',
+        description: 'Aggregates all ingredients across the specified day range.',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'planId', in: 'path', required: true, schema: { type: 'string' } },
+          { name: 'startDay', in: 'query', schema: { type: 'integer', default: 1 }, description: 'First day to include (1-based)' },
+          { name: 'endDay', in: 'query', schema: { type: 'integer' }, description: 'Last day to include (defaults to last day of plan)' }
+        ],
+        responses: {
+          '200': {
+            description: 'OK',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    ok: { type: 'boolean' },
+                    shoppingList: { type: 'array', items: { type: 'string' } }
+                  }
+                }
+              }
+            }
+          },
+          '401': { description: 'Unauthorized' },
           '404': { description: 'Meal plan not found' }
+        }
+      }
+    },
+
+    // ── Recipes ───────────────────────────────────────────────────────────
+    '/api/recipes': {
+      get: {
+        tags: ['Recipes'],
+        summary: 'List recipes',
+        parameters: [
+          { name: 'q', in: 'query', schema: { type: 'string' }, description: 'Title search (case-insensitive)' },
+          { name: 'tag', in: 'query', schema: { type: 'string' }, description: 'Filter by tag' }
+        ],
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Recipe' } } } } }
+        }
+      },
+      post: {
+        tags: ['Recipes'],
+        summary: 'Create a recipe',
+        security: [{ bearerAuth: [] }],
+        requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/RecipeInput' } } } },
+        responses: {
+          '201': { description: 'Created', content: { 'application/json': { schema: { $ref: '#/components/schemas/Recipe' } } } },
+          '401': { description: 'Unauthorized' }
+        }
+      }
+    },
+    '/api/recipes/{id}': {
+      get: {
+        tags: ['Recipes'],
+        summary: 'Get a recipe by ID',
+        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/Recipe' } } } },
+          '404': { description: 'Not found' }
+        }
+      },
+      put: {
+        tags: ['Recipes'],
+        summary: 'Update a recipe',
+        security: [{ bearerAuth: [] }],
+        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+        requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/RecipeInput' } } } },
+        responses: {
+          '200': { description: 'Updated', content: { 'application/json': { schema: { $ref: '#/components/schemas/Recipe' } } } },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'Not found' }
+        }
+      },
+      delete: {
+        tags: ['Recipes'],
+        summary: 'Delete a recipe',
+        security: [{ bearerAuth: [] }],
+        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+        responses: {
+          '200': { description: 'Deleted' },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'Not found' }
+        }
+      }
+    },
+
+    // ── Favorites ─────────────────────────────────────────────────────────
+    '/api/favorites': {
+      post: {
+        tags: ['Favorites'],
+        summary: 'Add a favorite',
+        security: [{ bearerAuth: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                required: ['targetType', 'targetId'],
+                properties: {
+                  targetType: { type: 'string', enum: ['meal-plan', 'recipe'] },
+                  targetId: { type: 'string', description: 'ID of the meal plan or recipe' },
+                  note: { type: 'string', maxLength: 500 }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          '201': { description: 'Created', content: { 'application/json': { schema: { $ref: '#/components/schemas/Favorite' } } } },
+          '400': { description: 'targetType and targetId are required' },
+          '401': { description: 'Unauthorized' },
+          '409': { description: 'Already in favorites' }
+        }
+      },
+      get: {
+        tags: ['Favorites'],
+        summary: 'List favorites (paginated)',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'targetType', in: 'query', schema: { type: 'string', enum: ['meal-plan', 'recipe'] }, description: 'Filter by type' },
+          { name: 'limit', in: 'query', schema: { type: 'integer', default: 20 } },
+          { name: 'skip', in: 'query', schema: { type: 'integer', default: 0 } }
+        ],
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/FavoriteListResponse' } } } },
+          '401': { description: 'Unauthorized' }
+        }
+      }
+    },
+    '/api/favorites/check': {
+      get: {
+        tags: ['Favorites'],
+        summary: 'Check if an item is favorited',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'targetType', in: 'query', required: true, schema: { type: 'string', enum: ['meal-plan', 'recipe'] } },
+          { name: 'targetId', in: 'query', required: true, schema: { type: 'string' } }
+        ],
+        responses: {
+          '200': {
+            description: 'OK',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    isFavorite: { type: 'boolean' },
+                    favorite: { $ref: '#/components/schemas/Favorite', nullable: true }
+                  }
+                }
+              }
+            }
+          },
+          '400': { description: 'targetType and targetId query params are required' },
+          '401': { description: 'Unauthorized' }
+        }
+      }
+    },
+    '/api/favorites/{id}': {
+      delete: {
+        tags: ['Favorites'],
+        summary: 'Remove a favorite',
+        security: [{ bearerAuth: [] }],
+        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
+        responses: {
+          '200': { description: 'Removed' },
+          '401': { description: 'Unauthorized' },
+          '404': { description: 'Favorite not found' }
         }
       }
     }

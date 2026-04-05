@@ -107,3 +107,24 @@
 12:58:13 [32minfo[39m: RAG Indexer: Ingredients progress 40/46
 12:58:13 [32minfo[39m: RAG Indexer: Ingredients progress 46/46
 12:58:25 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+17:58:10 [32minfo[39m: RAG Indexer: Guidelines done — indexed 4, errors 0
+17:58:10 [32minfo[39m: RAG Indexer: Recipes progress 10/35
+17:58:10 [32minfo[39m: RAG Indexer: Ingredients progress 10/46
+17:58:10 [32minfo[39m: RAG Indexer: Recipes progress 20/35
+17:58:10 [32minfo[39m: RAG Indexer: Ingredients progress 20/46
+17:58:10 [32minfo[39m: RAG Indexer: Recipes progress 30/35
+17:58:10 [32minfo[39m: RAG Indexer: Ingredients progress 30/46
+17:58:11 [32minfo[39m: RAG Indexer: Recipes progress 35/35
+17:58:11 [32minfo[39m: RAG Indexer: Recipes done — indexed 35, errors 0
+17:58:11 [32minfo[39m: RAG Indexer: Ingredients progress 40/46
+17:58:11 [32minfo[39m: RAG Indexer: Ingredients progress 46/46
+17:58:15 [32minfo[39m: MongoDB connected
+17:58:15 [32minfo[39m: Server listening on http://localhost:4000
+17:58:15 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+17:58:39 [32minfo[39m: GET /api/docs/ 304 10ms {"requestId":"c20b6081-ff73-41bb-87ab-2431dd2eccc1","method":"GET","path":"/api/docs/","status":304,"duration":10}
+17:58:39 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"318f93d6-30d2-4a58-a318-6e62ec7cc65d","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
+17:58:39 [32minfo[39m: GET /api/docs/swagger-ui.css 200 27ms {"requestId":"6747387e-e916-4915-ac5b-90a1280ba582","method":"GET","path":"/api/docs/swagger-ui.css","status":200,"duration":27}
+17:58:39 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 200 35ms {"requestId":"cffdcb55-fcfc-416b-a66a-dec3d3011c21","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":200,"duration":35}
+17:58:39 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 200 44ms {"requestId":"86aaa116-1969-4da4-bdde-a847e39c88c0","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":200,"duration":44}
+17:58:39 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 2ms {"requestId":"9cc9e655-d808-4f06-a3b1-38d9cc10049e","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":2}
+17:58:54 [32minfo[39m: GET /api/health 200 5ms {"requestId":"51ce7d2e-80f9-46c8-a02a-5735b22906d5","method":"GET","path":"/api/health","status":200,"duration":5}
