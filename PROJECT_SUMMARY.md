@@ -253,6 +253,22 @@ POST http://localhost:1234/v1/embeddings
 
 - **Timeout:** 10 seconds per call (shorter — embeddings are fast)
 - **Text normalization:** trim → lowercase → collapse whitespace (before embedding)
+
+### Why `nomic-embed-text` for Embeddings
+
+The RAG layer requires an **embedding model** — a model that converts text into fixed-length numerical vectors (arrays of numbers) for semantic similarity search. This is fundamentally different from a **chat model** (like Llama or Mistral) that generates text responses.
+
+**Why an embedding model is needed:**
+- When indexing (`npm run rag:index`), each recipe, disease guideline, and ingredient from the knowledge base is converted into a 768-dimensional vector and stored in ChromaDB
+- At query time, the user's meal request is converted into a vector using the same model, and ChromaDB finds the most semantically similar stored vectors
+- A chat model cannot do this — it produces text, not vectors suitable for similarity search
+
+**Why `nomic-embed-text` specifically:**
+1. **LM Studio compatibility** — it is one of the most widely supported embedding models in LM Studio's model library, easy to download and run locally
+2. **Lightweight** — approximately 274MB, small enough to run alongside a chat model on consumer hardware without competing for GPU memory
+3. **Strong retrieval quality** — produces 768-dimensional vectors with competitive performance on retrieval benchmarks (MTEB), providing accurate semantic matching for recipe and guideline search
+4. **Open source & local-first** — no API keys or external cloud services required, consistent with the project's design philosophy of running everything locally via LM Studio
+5. **Stable API format** — follows the OpenAI-compatible `/v1/embeddings` endpoint format that LM Studio exposes, requiring no custom integration code
 - **Graceful degradation:** returns `null` on failure; caller skips retrieval
 
 ---
