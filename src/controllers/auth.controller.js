@@ -2,9 +2,10 @@ import crypto from 'node:crypto';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import TokenBlacklist from '../models/TokenBlacklist.js';
+import logger from '../utils/logger.js';
 
 function signAccessToken(user) {
-  return jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '15m' });
+  return jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '15m' });
 }
 
 function generateRefreshToken() {
@@ -33,7 +34,8 @@ export async function register(req, res) {
       user: { id: user._id, email: user.email, username: user.username, fullName: user.fullName, phone: user.phone, birthday: user.birthday, gender: user.gender, height: user.height, currentWeight: user.currentWeight }
     });
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    logger.error('register error', { error: e.message });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
 
@@ -57,7 +59,8 @@ export async function login(req, res) {
       user: { id: user._id, email: user.email, username: user.username, fullName: user.fullName, phone: user.phone, birthday: user.birthday, gender: user.gender }
     });
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    logger.error('login error', { error: e.message });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
 
@@ -83,7 +86,8 @@ export async function logout(req, res) {
 
     return res.json({ ok: true });
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    logger.error('logout error', { error: e.message });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
 
@@ -102,7 +106,8 @@ export async function refreshToken(req, res) {
     const accessToken = signAccessToken(user);
     return res.json({ accessToken });
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    logger.error('refreshToken error', { error: e.message });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
 
@@ -117,7 +122,8 @@ export async function revokeToken(req, res) {
 
     return res.json({ ok: true });
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    logger.error('revokeToken error', { error: e.message });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
 
@@ -142,7 +148,8 @@ export async function getProfile(req, res) {
       updatedAt: user.updatedAt
     });
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    logger.error('getProfile error', { error: e.message });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
 
@@ -182,7 +189,8 @@ export async function updateProfile(req, res) {
       updatedAt: user.updatedAt
     });
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    logger.error('updateProfile error', { error: e.message });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
 
@@ -204,6 +212,7 @@ export async function removeUser(req, res) {
 
     return res.json({ ok: true });
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    logger.error('removeUser error', { error: e.message });
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }

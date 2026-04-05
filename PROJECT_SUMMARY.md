@@ -136,10 +136,15 @@ eat-clean-api/
 │   └── indexKnowledgeBase.js               # CLI: index knowledge base into ChromaDB
 ├── tests/                                  # Vitest test suite
 │   └── unit/
+│       ├── controllers/
+│       │   └── recipe.controller.test.js   # Recipe CRUD, ReDoS fix, ownership authorization
 │       ├── services/
 │       │   ├── nutrition/                  # Nutrition engine tests
 │       │   ├── disease/                    # Disease engine tests
 │       │   └── rag/                        # RAG layer tests (ragContextBuilder, retriever)
+│       ├── validators/
+│       │   ├── auth.validator.test.js      # Password policy, register/login/updateProfile schemas
+│       │   └── mealPlan.schema.test.js     # AJV schema validation for AI output
 │       └── data/
 │           └── knowledgeBase.test.js       # Validates knowledge base JSON integrity
 ├── requirement/                            # Phase requirement docs (Phase 1–6)
@@ -514,8 +519,10 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 #### POST `/api/auth/register`
 - **Input:** `{ email, password, username?, fullName?, phone?, birthday?, gender?, height?, currentWeight? }`
+- **Password policy:** min 8 characters, must contain at least one uppercase letter, one lowercase letter, and one digit
 - **Action:** Creates user, hashes password with bcrypt, issues JWT access token (15 min) + refresh token (30 days). `height` and `currentWeight` are persisted on the User document and automatically pre-fill those fields when the user later creates a health profile.
 - **Response:** `{ user: { id, email, username, role, height, currentWeight }, accessToken, refreshToken }`
+- **JWT payload:** `{ id, email, role }` — `role` is included so route handlers can perform role-based checks without an extra DB query
 
 #### POST `/api/auth/login`
 - **Input:** `{ email, password }`
@@ -635,11 +642,11 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 ### 5.4 Recipe APIs
 
-#### GET `/api/recipes` — search + filter + paginate
+#### GET `/api/recipes` — search + filter; `q` param is regex-escaped (ReDoS protection)
 #### GET `/api/recipes/:id`
 #### POST `/api/recipes` — `{ title, description, calories, macros, tags, ingredients, steps, imageUrl? }`
-#### PUT `/api/recipes/:id`
-#### DELETE `/api/recipes/:id`
+#### PUT `/api/recipes/:id` — requires ownership: only the recipe `author` or an `admin` may update; returns 403 otherwise
+#### DELETE `/api/recipes/:id` — requires ownership: only the recipe `author` or an `admin` may delete; returns 403 otherwise
 
 ---
 
@@ -1536,3 +1543,13 @@ This architecture ensures **medical safety is never delegated to the AI**. Even 
 | Phase 4: Sodium/potassium/sugar programmatic limits | Intentionally NOT enforced (requires nutrition database); ingredient blacklists used as proxy |
 | Phase 5: Morgan request logging | Morgan in dependencies but unused; custom Winston `requestLogger` is used instead |
 | Phase 6: ChromaDB `$in` filter for disease arrays | Not supported by ChromaDB on string metadata; disease post-filtering left to prompt framing |
+
+### Security Fixes Applied
+
+| Issue | Fix | Files Changed |
+|-------|-----|---------------|
+| ReDoS via `$regex` with raw user input in recipe search | Escape all regex special characters with `escapeRegex()` before passing to `$regex` | `recipe.controller.js` |
+| Missing ownership check on recipe update/delete | Fetch recipe first; verify `author === req.user.id`; admins bypass check; return 403 otherwise | `recipe.controller.js` |
+| Internal error details leaked via `e.message` in auth responses | All catch blocks now log via `logger.error()` and return generic `'Internal server error'` | `auth.controller.js` |
+| Weak password policy (min 6 chars, no complexity) | Raised to min 8 chars + requires uppercase, lowercase, and digit | `auth.validator.js`, `User.js` |
+| `role` missing from JWT payload | Added `role` to `signAccessToken()` so route handlers can check admin status without a DB query | `auth.controller.js` |

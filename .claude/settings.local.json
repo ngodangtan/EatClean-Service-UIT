@@ -18,7 +18,8 @@
       "Bash(/usr/local/bin/docker info:*)",
       "Bash(mdfind -name \"Docker.app\")",
       "Read(//Users/felixngo/Applications/**)",
-      "Read(//opt/**)"
+      "Read(//opt/**)",
+      "Skill(update-config)"
     ]
   }
 }

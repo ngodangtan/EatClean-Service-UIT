@@ -2,7 +2,11 @@ import Joi from 'joi';
 
 export const registerSchema = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string().min(8).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/).required()
+    .messages({
+      'string.min': 'Password must be at least 8 characters',
+      'string.pattern.base': 'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+    }),
   username: Joi.string().trim().max(50),
   name: Joi.string().trim().max(50),
   fullName: Joi.string().trim().max(100),

@@ -128,3 +128,7 @@
 17:58:39 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 200 44ms {"requestId":"86aaa116-1969-4da4-bdde-a847e39c88c0","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":200,"duration":44}
 17:58:39 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 2ms {"requestId":"9cc9e655-d808-4f06-a3b1-38d9cc10049e","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":2}
 17:58:54 [32minfo[39m: GET /api/health 200 5ms {"requestId":"51ce7d2e-80f9-46c8-a02a-5735b22906d5","method":"GET","path":"/api/health","status":200,"duration":5}
+20:52:20 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+20:52:20 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+20:53:09 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+20:53:09 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
