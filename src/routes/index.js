@@ -3,7 +3,7 @@ import authRoutes from './auth.routes.js';
 import recipeRoutes from './recipe.routes.js';
 import healthRoutes from './health.routes.js';
 import mealplanRoutes from './mealplan.routes.js';
-import favoriteRoutes from './favorite.routes.js';
+import diseaseRoutes from './disease.routes.js';
 
 const api = Router();
 
@@ -12,6 +12,6 @@ api.use('/auth', authRoutes);
 api.use('/recipes', recipeRoutes);
 api.use('/health-profile', healthRoutes);
 api.use('/meal-plans', mealplanRoutes);
-api.use('/favorites', favoriteRoutes);
+api.use('/diseases', diseaseRoutes);
 
 export default api;

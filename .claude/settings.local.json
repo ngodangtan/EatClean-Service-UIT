@@ -19,7 +19,13 @@
       "Bash(mdfind -name \"Docker.app\")",
       "Read(//Users/felixngo/Applications/**)",
       "Read(//opt/**)",
-      "Skill(update-config)"
+      "Skill(update-config)",
+      "Bash(node --check src/data/diseaseCatalog.js)",
+      "Bash(node --check src/controllers/disease.controller.js)",
+      "Bash(node --check src/routes/disease.routes.js)",
+      "Bash(node --check src/routes/index.js)",
+      "Bash(node --check src/config/swagger.js)",
+      "Bash(node:*)"
     ]
   }
 }

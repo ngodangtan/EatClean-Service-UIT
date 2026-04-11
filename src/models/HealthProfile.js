@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 const healthProfileSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
-    // Gender (required for BMR calculation)
-    gender: { type: String, enum: ['male', 'female'], required: true },
+    // Gender (auto-populated from User account)
+    gender: { type: String, enum: ['male', 'female'] },
 
-    // Age (required for BMR calculation)
-    age: { type: Number, min: 1, max: 120, required: true },
+    // Age (auto-calculated from User birthday)
+    age: { type: Number, min: 1, max: 120 },
 
     // 1) Mục tiêu ăn uống
     goal: { type: String, enum: ['lose-weight', 'gain-weight', 'improve-health'], default: 'improve-health' },

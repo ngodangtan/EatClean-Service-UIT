@@ -7,8 +7,6 @@ export async function createOrUpdateHealthProfile(req, res) {
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
     const {
-      gender,
-      age,
       goal,
       triedHealthyBefore,
       hungryTime,
@@ -24,8 +22,12 @@ export async function createOrUpdateHealthProfile(req, res) {
       cuisinePreference
     } = req.body;
 
-    // height and currentWeight come from the User account (set at registration)
-    const user = await User.findById(userId).select('height currentWeight');
+    // gender, birthday, height, currentWeight come from the User account (set at registration)
+    const user = await User.findById(userId).select('gender birthday height currentWeight');
+    const gender = user?.gender;
+    const age = user?.birthday
+      ? Math.floor((Date.now() - new Date(user.birthday).getTime()) / (365.25 * 24 * 60 * 60 * 1000))
+      : undefined;
     const height = user?.height;
     const currentWeight = user?.currentWeight;
 

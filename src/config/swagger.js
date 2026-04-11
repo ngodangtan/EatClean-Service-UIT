@@ -8,6 +8,14 @@ const swaggerSpec = {
   servers: [
     { url: 'http://localhost:4000', description: 'Local development server' }
   ],
+  tags: [
+    { name: 'System', description: 'Health check' },
+    { name: 'Auth', description: 'Authentication & user management' },
+    { name: 'Health Profile', description: 'User health profiles' },
+    { name: 'Diseases', description: 'Disease catalog for health profile selection' },
+    { name: 'Meal Plans', description: 'AI-powered meal plan generation & management' },
+    { name: 'Recipes', description: 'Recipe management' },
+  ],
   components: {
     securitySchemes: {
       bearerAuth: {
@@ -65,11 +73,10 @@ const swaggerSpec = {
       },
       HealthProfile: {
         type: 'object',
-        required: ['gender', 'age'],
         properties: {
           userId: { type: 'string' },
-          gender: { type: 'string', enum: ['male', 'female'] },
-          age: { type: 'number', description: 'Age in years' },
+          gender: { type: 'string', enum: ['male', 'female'], readOnly: true, description: 'Auto-populated from user account' },
+          age: { type: 'number', readOnly: true, description: 'Auto-calculated from user birthday' },
           goal: { type: 'string', enum: ['lose-weight', 'gain-weight', 'improve-health'] },
           triedHealthyBefore: { type: 'boolean' },
           hungryTime: { type: 'string' },
@@ -196,25 +203,27 @@ const swaggerSpec = {
           imageUrl: { type: 'string', format: 'uri' }
         }
       },
-      Favorite: {
+      DiseaseIndicator: {
         type: 'object',
         properties: {
-          _id: { type: 'string' },
-          userId: { type: 'string' },
-          targetType: { type: 'string', enum: ['meal-plan', 'recipe'] },
-          targetId: { type: 'string' },
-          note: { type: 'string', maxLength: 500 },
-          createdAt: { type: 'string', format: 'date-time' },
-          updatedAt: { type: 'string', format: 'date-time' }
+          name: { type: 'string', description: 'Indicator name (Vietnamese + English)', example: 'Đường huyết lúc đói (Fasting Glucose)' },
+          unit: { type: 'string', description: 'Measurement unit', example: 'mg/dL' },
+          normalRange: { type: 'string', description: 'Normal value range', example: '70 - 100' }
         }
       },
-      FavoriteListResponse: {
+      Disease: {
         type: 'object',
         properties: {
-          favorites: { type: 'array', items: { $ref: '#/components/schemas/Favorite' } },
-          total: { type: 'integer' },
-          limit: { type: 'integer' },
-          skip: { type: 'integer' }
+          key: { type: 'string', description: 'Disease identifier used in health profile', example: 'diabetes' },
+          name: { type: 'string', description: 'Vietnamese display name', example: 'Tiểu đường' },
+          relatedIndicators: { type: 'array', items: { $ref: '#/components/schemas/DiseaseIndicator' } }
+        }
+      },
+      DiseaseListResponse: {
+        type: 'object',
+        properties: {
+          success: { type: 'boolean' },
+          data: { type: 'array', items: { $ref: '#/components/schemas/Disease' } }
         }
       }
     }
@@ -391,7 +400,7 @@ const swaggerSpec = {
       post: {
         tags: ['Health Profile'],
         summary: 'Create or update health profile',
-        description: '`height` and `currentWeight` are sourced automatically from the user account (set at registration) and do not need to be sent in the body. `gender` and `age` are required.',
+        description: '`gender`, `age`, `height`, and `currentWeight` are sourced automatically from the user account (set at registration) and do not need to be sent in the body.',
         security: [{ bearerAuth: [] }],
         requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/HealthProfile' } } } },
         responses: {
@@ -550,34 +559,14 @@ const swaggerSpec = {
         }
       }
     },
-    '/api/meal-plans/{planId}/shopping-list': {
+    // ── Diseases ──────────────────────────────────────────────────────────
+    '/api/diseases': {
       get: {
-        tags: ['Meal Plans'],
-        summary: 'Get shopping list for a meal plan',
-        description: 'Aggregates all ingredients across the specified day range.',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'planId', in: 'path', required: true, schema: { type: 'string' } },
-          { name: 'startDay', in: 'query', schema: { type: 'integer', default: 1 }, description: 'First day to include (1-based)' },
-          { name: 'endDay', in: 'query', schema: { type: 'integer' }, description: 'Last day to include (defaults to last day of plan)' }
-        ],
+        tags: ['Diseases'],
+        summary: 'List available diseases',
+        description: 'Returns all diseases the user can select when creating a health profile, along with their related health indicators and normal ranges.',
         responses: {
-          '200': {
-            description: 'OK',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: {
-                    ok: { type: 'boolean' },
-                    shoppingList: { type: 'array', items: { type: 'string' } }
-                  }
-                }
-              }
-            }
-          },
-          '401': { description: 'Unauthorized' },
-          '404': { description: 'Meal plan not found' }
+          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/DiseaseListResponse' } } } }
         }
       }
     },
@@ -641,92 +630,6 @@ const swaggerSpec = {
       }
     },
 
-    // ── Favorites ─────────────────────────────────────────────────────────
-    '/api/favorites': {
-      post: {
-        tags: ['Favorites'],
-        summary: 'Add a favorite',
-        security: [{ bearerAuth: [] }],
-        requestBody: {
-          required: true,
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                required: ['targetType', 'targetId'],
-                properties: {
-                  targetType: { type: 'string', enum: ['meal-plan', 'recipe'] },
-                  targetId: { type: 'string', description: 'ID of the meal plan or recipe' },
-                  note: { type: 'string', maxLength: 500 }
-                }
-              }
-            }
-          }
-        },
-        responses: {
-          '201': { description: 'Created', content: { 'application/json': { schema: { $ref: '#/components/schemas/Favorite' } } } },
-          '400': { description: 'targetType and targetId are required' },
-          '401': { description: 'Unauthorized' },
-          '409': { description: 'Already in favorites' }
-        }
-      },
-      get: {
-        tags: ['Favorites'],
-        summary: 'List favorites (paginated)',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'targetType', in: 'query', schema: { type: 'string', enum: ['meal-plan', 'recipe'] }, description: 'Filter by type' },
-          { name: 'limit', in: 'query', schema: { type: 'integer', default: 20 } },
-          { name: 'skip', in: 'query', schema: { type: 'integer', default: 0 } }
-        ],
-        responses: {
-          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/FavoriteListResponse' } } } },
-          '401': { description: 'Unauthorized' }
-        }
-      }
-    },
-    '/api/favorites/check': {
-      get: {
-        tags: ['Favorites'],
-        summary: 'Check if an item is favorited',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'targetType', in: 'query', required: true, schema: { type: 'string', enum: ['meal-plan', 'recipe'] } },
-          { name: 'targetId', in: 'query', required: true, schema: { type: 'string' } }
-        ],
-        responses: {
-          '200': {
-            description: 'OK',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: {
-                    isFavorite: { type: 'boolean' },
-                    favorite: { $ref: '#/components/schemas/Favorite', nullable: true }
-                  }
-                }
-              }
-            }
-          },
-          '400': { description: 'targetType and targetId query params are required' },
-          '401': { description: 'Unauthorized' }
-        }
-      }
-    },
-    '/api/favorites/{id}': {
-      delete: {
-        tags: ['Favorites'],
-        summary: 'Remove a favorite',
-        security: [{ bearerAuth: [] }],
-        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
-        responses: {
-          '200': { description: 'Removed' },
-          '401': { description: 'Unauthorized' },
-          '404': { description: 'Favorite not found' }
-        }
-      }
-    }
   }
 };
 

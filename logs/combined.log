@@ -132,3 +132,65 @@
 20:52:20 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
 20:53:09 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
 20:53:09 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+19:57:37 [32minfo[39m: MongoDB connected
+19:57:37 [32minfo[39m: Server listening on http://localhost:4000
+19:57:37 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+19:57:49 [32minfo[39m: GET /api/docs/ 304 6ms {"requestId":"1a70d2a2-694c-4522-bdf6-e27aad5309be","method":"GET","path":"/api/docs/","status":304,"duration":6}
+19:57:49 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 1ms {"requestId":"ce5e5cb3-c850-4712-89a2-bcf5f3bffd3a","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":1}
+19:57:49 [32minfo[39m: GET /api/docs/swagger-ui.css 304 2ms {"requestId":"5a548fe0-e209-46c9-a14a-15c1ddb9486b","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":2}
+19:57:49 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"0452d82a-f754-4cb5-8f78-72b46b922cdf","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+19:57:50 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 200 37ms {"requestId":"6ec44a42-cb96-4e3c-8417-fc4ca2bd9e13","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":200,"duration":37}
+20:06:43 [32minfo[39m: MongoDB connected
+20:06:43 [32minfo[39m: Server listening on http://localhost:4000
+20:06:43 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:52:07 [32minfo[39m: MongoDB connected
+22:52:07 [32minfo[39m: Server listening on http://localhost:4000
+22:52:07 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:52:12 [32minfo[39m: GET /api/docs/ 304 3ms {"requestId":"6723c25d-220a-4f36-be68-a0b3e11a9ec5","method":"GET","path":"/api/docs/","status":304,"duration":3}
+22:52:12 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 1ms {"requestId":"37d1bb1b-7b4a-4514-ae92-04af8e428ccb","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":1}
+22:52:12 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 0ms {"requestId":"40e596de-5641-4f9c-97a8-c8d0993c430d","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":0}
+22:52:12 [32minfo[39m: GET /api/docs/swagger-ui.css 304 0ms {"requestId":"f367010b-a9c3-4b98-83ae-55f56af388a0","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":0}
+22:52:12 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"063d7ab0-7c74-41bf-a1a1-e1dc94382ddd","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
+22:52:13 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"97d9e78a-0e10-4d97-aa27-631eea07b5d7","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:52:20 [32minfo[39m: GET /api/docs/ 304 2ms {"requestId":"9afafde2-e0d8-4363-afd2-f15c2254e685","method":"GET","path":"/api/docs/","status":304,"duration":2}
+22:52:20 [32minfo[39m: GET /api/docs/swagger-ui.css 304 2ms {"requestId":"ee74e60d-6d28-4623-b6ce-3836a8e0e564","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":2}
+22:52:20 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 2ms {"requestId":"f6e71d8f-b03e-4aaa-93a5-6679304ad789","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":2}
+22:52:20 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 0ms {"requestId":"fd1213f4-80b9-40e9-b3e8-572fda9e585f","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":0}
+22:52:20 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"118bbd4d-6aa9-4ec6-9779-004321d923fb","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+22:52:21 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"804b7f12-0bc9-44a2-b5cb-6a6069d55bfe","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:53:43 [32minfo[39m: MongoDB connected
+22:53:43 [32minfo[39m: Server listening on http://localhost:4000
+22:53:43 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:53:48 [32minfo[39m: MongoDB connected
+22:53:48 [32minfo[39m: Server listening on http://localhost:4000
+22:53:48 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:53:53 [32minfo[39m: MongoDB connected
+22:53:53 [32minfo[39m: Server listening on http://localhost:4000
+22:53:53 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:54:01 [32minfo[39m: MongoDB connected
+22:54:01 [32minfo[39m: Server listening on http://localhost:4000
+22:54:01 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:54:06 [32minfo[39m: MongoDB connected
+22:54:06 [32minfo[39m: Server listening on http://localhost:4000
+22:54:06 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:58:19 [32minfo[39m: MongoDB connected
+22:58:19 [32minfo[39m: Server listening on http://localhost:4000
+22:58:19 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+23:00:06 [32minfo[39m: MongoDB connected
+23:00:06 [32minfo[39m: Server listening on http://localhost:4000
+23:00:06 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+23:00:11 [32minfo[39m: MongoDB connected
+23:00:11 [32minfo[39m: Server listening on http://localhost:4000
+23:00:11 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+23:00:17 [32minfo[39m: MongoDB connected
+23:00:17 [32minfo[39m: Server listening on http://localhost:4000
+23:00:17 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+23:00:30 [32minfo[39m: MongoDB connected
+23:00:30 [32minfo[39m: Server listening on http://localhost:4000
+23:00:30 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+23:02:30 [32minfo[39m: GET /api/docs/ 304 8ms {"requestId":"0bdeda1b-3248-4ff6-95d1-dbc6b99d14a3","method":"GET","path":"/api/docs/","status":304,"duration":8}
+23:02:30 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"e5fa00b6-0b6b-4c98-997f-7b2c4fd2f791","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+23:02:30 [32minfo[39m: GET /api/docs/swagger-ui.css 304 3ms {"requestId":"d95e2dcd-f9c3-4290-9314-51aefa0fe769","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":3}
+23:02:30 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"4ad35908-1079-4808-b233-f907f35e6c27","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
+23:02:30 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 2ms {"requestId":"a8d1ebf9-c0f9-4827-8511-0031333932fc","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":2}
+23:02:30 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 2ms {"requestId":"e3009604-f10a-4da9-bb07-5a6f6d614b07","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":2}

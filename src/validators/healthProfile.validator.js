@@ -1,8 +1,6 @@
 import Joi from 'joi';
 
 export const healthProfileSchema = Joi.object({
-  gender: Joi.string().valid('male', 'female').required(),
-  age: Joi.number().integer().min(1).max(120).required(),
   goal: Joi.string().valid('lose-weight', 'gain-weight', 'improve-health'),
   triedHealthyBefore: Joi.boolean(),
   hungryTime: Joi.string().trim(),
