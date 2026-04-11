@@ -86,7 +86,11 @@ const swaggerSpec = {
           averageDay: { type: 'string' },
           workSchedule: { type: 'string' },
           sleepDuration: { type: 'number', description: 'Sleep duration in hours' },
-          diseases: { type: 'array', items: { type: 'string', enum: ['diabetes', 'kidney-disease', 'high-uric-acid', 'hypertension'] } },
+          diseases: {
+            type: 'array',
+            description: 'Diseases the user has, with optional medical-test indicator values. `key` must come from GET /api/diseases.',
+            items: { $ref: '#/components/schemas/HealthProfileDiseaseEntry' }
+          },
           dietPreference: { type: 'string' },
           mealsPerDay: { type: 'number', minimum: 1, maximum: 6 },
           cuisinePreference: { type: 'array', items: { type: 'string' }, maxItems: 10 }
@@ -206,7 +210,8 @@ const swaggerSpec = {
       DiseaseIndicator: {
         type: 'object',
         properties: {
-          name: { type: 'string', description: 'Indicator name (Vietnamese + English)', example: 'Đường huyết lúc đói (Fasting Glucose)' },
+          key: { type: 'string', description: 'Stable indicator identifier (use this when submitting values)', example: 'fasting_glucose' },
+          name: { type: 'string', description: 'Vietnamese display name', example: 'Đường huyết lúc đói' },
           unit: { type: 'string', description: 'Measurement unit', example: 'mg/dL' },
           normalRange: { type: 'string', description: 'Normal value range', example: '70 - 100' }
         }
@@ -214,9 +219,38 @@ const swaggerSpec = {
       Disease: {
         type: 'object',
         properties: {
-          key: { type: 'string', description: 'Disease identifier used in health profile', example: 'diabetes' },
+          key: { type: 'string', description: 'Stable disease identifier (use this when submitting health profile)', example: 'diabetes' },
           name: { type: 'string', description: 'Vietnamese display name', example: 'Tiểu đường' },
+          supported: {
+            type: 'boolean',
+            description: 'true if the AI meal generator adjusts macros and filters ingredients for this disease. ' +
+              'Unsupported diseases can still be recorded but will not influence meal generation.'
+          },
           relatedIndicators: { type: 'array', items: { $ref: '#/components/schemas/DiseaseIndicator' } }
+        }
+      },
+      HealthProfileIndicatorValue: {
+        type: 'object',
+        required: ['key', 'value'],
+        properties: {
+          key: { type: 'string', description: 'Indicator key from GET /api/diseases', example: 'hba1c' },
+          value: { type: 'number', description: 'User-entered measurement', example: 6.8 },
+          unit: { type: 'string', description: 'Snapshotted from catalog if omitted', example: '%' },
+          measuredAt: { type: 'string', format: 'date-time', description: 'When the test was taken' },
+          note: { type: 'string', maxLength: 500 }
+        }
+      },
+      HealthProfileDiseaseEntry: {
+        type: 'object',
+        required: ['key'],
+        properties: {
+          key: { type: 'string', description: 'Disease key from GET /api/diseases', example: 'diabetes' },
+          diagnosedAt: { type: 'string', format: 'date-time', description: 'When the user was diagnosed (optional)' },
+          indicators: {
+            type: 'array',
+            description: 'Optional. Each indicator key must belong to this disease in the catalog.',
+            items: { $ref: '#/components/schemas/HealthProfileIndicatorValue' }
+          }
         }
       },
       DiseaseListResponse: {
@@ -399,7 +433,7 @@ const swaggerSpec = {
     '/api/health-profile': {
       post: {
         tags: ['Health Profile'],
-        summary: 'Create or update health profile',
+        summary: 'Create or update health profile (upsert)',
         description: '`gender`, `age`, `height`, and `currentWeight` are sourced automatically from the user account (set at registration) and do not need to be sent in the body.',
         security: [{ bearerAuth: [] }],
         requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/HealthProfile' } } } },
@@ -412,6 +446,29 @@ const swaggerSpec = {
             description: 'Updated',
             content: { 'application/json': { schema: { type: 'object', properties: { ok: { type: 'boolean' }, profile: { $ref: '#/components/schemas/HealthProfile' } } } } }
           },
+          '400': { description: 'Validation failed (Joi schema or disease catalog mismatch)' },
+          '401': { description: 'Unauthorized' }
+        }
+      },
+      put: {
+        tags: ['Health Profile'],
+        summary: 'Update health profile',
+        description: 'Update an existing health profile (e.g. when the user has new medical test results). ' +
+          'Accepts partial payloads — omitted fields are preserved. ' +
+          'Array fields like `diseases` are replaced as a whole, so the frontend should send the complete current array, not a delta. ' +
+          'Behaves identically to POST; this alias exists for semantic clarity. If no profile exists yet, one is created.',
+        security: [{ bearerAuth: [] }],
+        requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/HealthProfile' } } } },
+        responses: {
+          '200': {
+            description: 'Updated',
+            content: { 'application/json': { schema: { type: 'object', properties: { ok: { type: 'boolean' }, profile: { $ref: '#/components/schemas/HealthProfile' } } } } }
+          },
+          '201': {
+            description: 'Created (no existing profile)',
+            content: { 'application/json': { schema: { type: 'object', properties: { ok: { type: 'boolean' }, profile: { $ref: '#/components/schemas/HealthProfile' } } } } }
+          },
+          '400': { description: 'Validation failed (Joi schema or disease catalog mismatch)' },
           '401': { description: 'Unauthorized' }
         }
       },

@@ -1,5 +1,37 @@
 import mongoose from 'mongoose';
 
+/**
+ * One health-test indicator value entered by the user.
+ * `key` references diseaseCatalog.relatedIndicators[].key (stable, language-independent).
+ * `unit` is snapshotted from the catalog at write time so historical records remain
+ * interpretable if catalog units ever change.
+ */
+const indicatorValueSchema = new mongoose.Schema(
+  {
+    key: { type: String, required: true },
+    value: { type: Number, required: true },
+    unit: { type: String },
+    measuredAt: { type: Date },
+    note: { type: String, maxlength: 500 }
+  },
+  { _id: false }
+);
+
+/**
+ * One disease entry on a user's health profile.
+ * `key` references diseaseCatalog.key. Validation against the catalog happens
+ * in the controller (see catalog cross-check helper) so the model can stay
+ * decoupled from the catalog file.
+ */
+const diseaseEntrySchema = new mongoose.Schema(
+  {
+    key: { type: String, required: true },
+    diagnosedAt: { type: Date },
+    indicators: { type: [indicatorValueSchema], default: [] }
+  },
+  { _id: false }
+);
+
 const healthProfileSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
@@ -42,8 +74,11 @@ const healthProfileSchema = new mongoose.Schema(
     // 11) Sleep duration (in hours)
     sleepDuration: { type: Number },
     
-    // 12) Do you have any of these diseases? (array of disease names)
-    diseases: [{ type: String, enum: ['diabetes', 'kidney-disease', 'high-uric-acid', 'hypertension'] }],
+    // 12) Diseases the user has, with optional medical-test indicator values.
+    // Disease keys reference src/data/diseaseCatalog.js. Catalog cross-check
+    // is performed in the controller, not via Mongoose enum, so adding a new
+    // disease to the catalog requires no schema change.
+    diseases: { type: [diseaseEntrySchema], default: [] },
     
     // 13) Pick your primary diet preference
     dietPreference: { type: String }, // e.g., 'omnivore', 'vegetarian', 'vegan', 'keto', 'paleo'

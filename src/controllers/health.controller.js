@@ -1,5 +1,9 @@
 import HealthProfile from '../models/HealthProfile.js';
 import User from '../models/User.js';
+import {
+  validateDiseasesAgainstCatalog,
+  snapshotIndicatorUnits
+} from '../validators/healthProfile.validator.js';
 
 export async function createOrUpdateHealthProfile(req, res) {
   try {
@@ -21,6 +25,19 @@ export async function createOrUpdateHealthProfile(req, res) {
       mealsPerDay,
       cuisinePreference
     } = req.body;
+
+    // Catalog cross-check for diseases (Joi can't reach the catalog).
+    if (diseases !== undefined) {
+      const catalogCheck = validateDiseasesAgainstCatalog(diseases);
+      if (!catalogCheck.valid) {
+        return res.status(400).json({
+          message: 'Validation failed',
+          statusCode: 400,
+          errors: catalogCheck.errors
+        });
+      }
+      snapshotIndicatorUnits(diseases);
+    }
 
     // gender, birthday, height, currentWeight come from the User account (set at registration)
     const user = await User.findById(userId).select('gender birthday height currentWeight');

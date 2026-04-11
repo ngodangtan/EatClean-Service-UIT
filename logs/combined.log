@@ -224,3 +224,71 @@
 18:10:26 [32minfo[39m: MongoDB connected
 18:10:26 [32minfo[39m: Server listening on http://localhost:4000
 18:10:26 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:23:10 [32minfo[39m: MongoDB connected
+18:23:10 [32minfo[39m: Server listening on http://localhost:4000
+18:23:10 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:23:19 [32minfo[39m: MongoDB connected
+18:23:19 [32minfo[39m: Server listening on http://localhost:4000
+18:23:19 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:23:26 [32minfo[39m: MongoDB connected
+18:23:26 [32minfo[39m: Server listening on http://localhost:4000
+18:23:26 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:23:47 [32minfo[39m: MongoDB connected
+18:23:47 [32minfo[39m: Server listening on http://localhost:4000
+18:23:47 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:23:56 [32minfo[39m: MongoDB connected
+18:23:56 [32minfo[39m: Server listening on http://localhost:4000
+18:23:56 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:24:02 [32minfo[39m: MongoDB connected
+18:24:02 [32minfo[39m: Server listening on http://localhost:4000
+18:24:02 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:24:23 [32minfo[39m: MongoDB connected
+18:24:23 [32minfo[39m: Server listening on http://localhost:4000
+18:24:23 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:24:31 [32minfo[39m: MongoDB connected
+18:24:31 [32minfo[39m: Server listening on http://localhost:4000
+18:24:31 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:24:41 [32minfo[39m: MongoDB connected
+18:24:41 [32minfo[39m: Server listening on http://localhost:4000
+18:24:41 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:24:47 [32minfo[39m: MongoDB connected
+18:24:47 [32minfo[39m: Server listening on http://localhost:4000
+18:24:47 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:24:52 [32minfo[39m: MongoDB connected
+18:24:52 [32minfo[39m: Server listening on http://localhost:4000
+18:24:52 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:25:13 [32minfo[39m: MongoDB connected
+18:25:13 [32minfo[39m: Server listening on http://localhost:4000
+18:25:13 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:25:27 [32minfo[39m: MongoDB connected
+18:25:28 [32minfo[39m: Server listening on http://localhost:4000
+18:25:28 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:27:03 [32minfo[39m: GET /api/docs/ 304 10ms {"requestId":"465fe508-6c21-4a67-b263-785de1ed836a","method":"GET","path":"/api/docs/","status":304,"duration":10}
+18:27:03 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 2ms {"requestId":"cbe917a2-0d66-49ba-ac93-250fb11ad862","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":2}
+18:27:03 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"542216b5-16b5-46c0-987b-d1376e4311fb","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+18:27:03 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"eb9c3abd-a18f-4ce9-b574-3a0b2ced2e2c","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
+18:27:03 [32minfo[39m: GET /api/docs/swagger-ui.css 304 2ms {"requestId":"f6bfa74e-9dc5-4f5d-9aee-8acc8b0cb4df","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":2}
+18:27:03 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 3ms {"requestId":"715dbf1d-39a9-4839-8f39-2f29ec0996da","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":3}
+18:28:24 [32minfo[39m: GET /api/docs/ 304 3ms {"requestId":"10b24a9c-892a-4375-93d8-6b8357117261","method":"GET","path":"/api/docs/","status":304,"duration":3}
+18:28:24 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 2ms {"requestId":"870978ec-cac4-49ed-afd7-ea59517fc576","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":2}
+18:28:24 [32minfo[39m: GET /api/docs/swagger-ui.css 304 3ms {"requestId":"447fcd02-5fec-41ee-a78f-9827709662dd","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":3}
+18:28:24 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 1ms {"requestId":"1e8454e7-9c41-4c72-b31f-8324f133c5fd","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":1}
+18:28:24 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"b03e3edf-fccd-4bf7-b247-343af09ee26f","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+18:28:24 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"702cf300-128c-4a33-ba4d-a355f3a89b69","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+18:30:22 [32minfo[39m: MongoDB connected
+18:30:22 [32minfo[39m: Server listening on http://localhost:4000
+18:30:22 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:30:42 [32minfo[39m: MongoDB connected
+18:30:42 [32minfo[39m: Server listening on http://localhost:4000
+18:30:42 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:30:58 [32minfo[39m: GET /api/docs/ 304 5ms {"requestId":"48adde07-7d8c-4473-8900-4eb26f607171","method":"GET","path":"/api/docs/","status":304,"duration":5}
+18:30:58 [32minfo[39m: GET /api/docs/swagger-ui.css 304 2ms {"requestId":"c0a9851b-1fe0-43c2-8de0-4f7987c49c68","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":2}
+18:30:58 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 1ms {"requestId":"53e71a65-fc28-464f-b490-5bcdd4195335","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":1}
+18:30:58 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"160320e9-bdff-4f7a-ab6c-1a4a9d03c413","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
+18:30:58 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 1ms {"requestId":"04a96161-ee23-44ca-be8d-7db7a9afc536","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":1}
+18:30:58 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"6e8fe9c4-e6ec-4ee2-8d1c-10e26efb6070","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+18:31:36 [32minfo[39m: GET /api/health-profile 401 6ms {"requestId":"eb9a3fc2-52b1-4f8d-a20e-327b92eb551c","method":"GET","path":"/api/health-profile","status":401,"duration":6}
+18:40:44 [32minfo[39m: POST /api/auth/login 200 366ms {"requestId":"b9d0bee6-59fd-41a5-ab16-206c632ab339","method":"POST","path":"/api/auth/login","status":200,"duration":366}
+18:40:59 [32minfo[39m: GET /api/health-profile 200 158ms {"requestId":"5bb2943b-4217-46e6-b9c8-45c17d600dd2","method":"GET","path":"/api/health-profile","status":200,"duration":158,"userId":"6918718ef2d00105b9e4741b"}
+18:41:12 [32minfo[39m: DELETE /api/health-profile 200 212ms {"requestId":"14e78997-0913-4116-9022-f3355716cca0","method":"DELETE","path":"/api/health-profile","status":200,"duration":212,"userId":"6918718ef2d00105b9e4741b"}
+18:41:18 [32minfo[39m: GET /api/health-profile 404 135ms {"requestId":"9032aca5-c4b9-48a7-b66f-2bf3458c25ed","method":"GET","path":"/api/health-profile","status":404,"duration":135,"userId":"6918718ef2d00105b9e4741b"}
