@@ -194,3 +194,33 @@
 23:02:30 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"4ad35908-1079-4808-b233-f907f35e6c27","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
 23:02:30 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 2ms {"requestId":"a8d1ebf9-c0f9-4827-8511-0031333932fc","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":2}
 23:02:30 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 2ms {"requestId":"e3009604-f10a-4da9-bb07-5a6f6d614b07","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":2}
+17:45:02 [32minfo[39m: MongoDB connected
+17:45:02 [32minfo[39m: Server listening on http://localhost:4000
+17:45:02 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+17:45:09 [32minfo[39m: MongoDB connected
+17:45:09 [32minfo[39m: Server listening on http://localhost:4000
+17:45:09 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:03:58 [32minfo[39m: MongoDB connected
+18:03:58 [32minfo[39m: Server listening on http://localhost:4000
+18:03:58 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:05:09 [32minfo[39m: MongoDB connected
+18:05:09 [32minfo[39m: Server listening on http://localhost:4000
+18:05:09 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:05:26 [32minfo[39m: MongoDB connected
+18:05:26 [32minfo[39m: Server listening on http://localhost:4000
+18:05:26 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:05:36 [32minfo[39m: MongoDB connected
+18:05:36 [32minfo[39m: Server listening on http://localhost:4000
+18:05:36 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:05:40 [32minfo[39m: MongoDB connected
+18:05:40 [32minfo[39m: Server listening on http://localhost:4000
+18:05:40 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:08:01 [32minfo[39m: MongoDB connected
+18:08:01 [32minfo[39m: Server listening on http://localhost:4000
+18:08:01 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:08:45 [32minfo[39m: MongoDB connected
+18:08:45 [32minfo[39m: Server listening on http://localhost:4000
+18:08:45 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+18:10:26 [32minfo[39m: MongoDB connected
+18:10:26 [32minfo[39m: Server listening on http://localhost:4000
+18:10:26 [32minfo[39m: Network access: http://<your-mac-ip>:4000

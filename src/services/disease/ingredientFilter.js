@@ -9,8 +9,14 @@ function escapeRegex(str) {
 
 /**
  * Check a meal's ingredients against forbidden lists for the given diseases.
- * Uses case-insensitive word-boundary matching to avoid false positives
- * (e.g. "ham" won't match "edamame", "beer" won't match "beet").
+ * Uses case-insensitive Unicode-aware word-boundary matching to avoid false
+ * positives (e.g. "ham" won't match "edamame", "cá" won't match "cá hồi" — wait,
+ * we DO want "cá" to match "cá hồi"). The key requirement: forbidden term must
+ * appear as a whole word, not as a substring inside another word.
+ *
+ * Standard \b is ASCII-only in JS, so it fails on Vietnamese diacritics
+ * (e.g. \bcá\b never matches "cá hồi" because "á" is not in \w). We use
+ * Unicode property escapes with negative lookaround instead.
  *
  * @param {{ ingredients: string[] }} meal
  * @param {string[]} diseases
@@ -22,7 +28,9 @@ export function filterIngredients(meal, diseases) {
     return { safe: true, flaggedIngredients: [], meal };
   }
 
-  const forbiddenPatterns = forbidden.map(f => new RegExp(`\\b${escapeRegex(f)}\\b`, 'i'));
+  const forbiddenPatterns = forbidden.map(
+    f => new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegex(f)}(?![\\p{L}\\p{N}])`, 'iu')
+  );
   const flagged = [];
 
   for (const ingredient of meal.ingredients) {

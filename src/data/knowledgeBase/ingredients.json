@@ -1,462 +1,462 @@
 [
   {
     "id": "ing_001",
-    "name": "quinoa",
+    "name": "diêm mạch",
     "category": "grains",
-    "aliases": ["quinua"],
+    "aliases": ["quinoa"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "complete protein grain with all essential amino acids, high fiber, low glycemic index",
-    "substitutes": ["brown rice", "buckwheat", "bulgur"]
+    "nutritionProfile": "ngũ cốc cung cấp đạm hoàn chỉnh với đầy đủ axit amin thiết yếu, giàu chất xơ, chỉ số đường huyết thấp",
+    "substitutes": ["gạo lứt", "kiều mạch", "lúa mì bulgur"]
   },
   {
     "id": "ing_002",
-    "name": "brown rice",
+    "name": "gạo lứt",
     "category": "grains",
-    "aliases": ["whole grain rice"],
+    "aliases": ["gạo nguyên cám", "brown rice"],
     "safeFor": ["diabetes", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "whole grain with fiber, B vitamins, and magnesium; lower glycemic than white rice",
-    "substitutes": ["quinoa", "wild rice", "cauliflower rice"]
+    "nutritionProfile": "ngũ cốc nguyên cám giàu chất xơ, vitamin nhóm B và magie; chỉ số đường huyết thấp hơn gạo trắng",
+    "substitutes": ["diêm mạch", "gạo lứt đen", "cơm súp lơ"]
   },
   {
     "id": "ing_003",
-    "name": "oats",
+    "name": "yến mạch",
     "category": "grains",
-    "aliases": ["rolled oats", "steel cut oats", "oatmeal"],
+    "aliases": ["yến mạch cán dẹt", "yến mạch cắt thép", "oats", "oatmeal"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "high in beta-glucan fiber which lowers cholesterol and stabilizes blood sugar",
-    "substitutes": ["quinoa", "brown rice", "buckwheat"]
+    "nutritionProfile": "giàu chất xơ beta-glucan giúp giảm cholesterol và ổn định đường huyết",
+    "substitutes": ["diêm mạch", "gạo lứt", "kiều mạch"]
   },
   {
     "id": "ing_004",
-    "name": "salmon",
+    "name": "cá hồi",
     "category": "protein",
-    "aliases": ["salmon fillet", "atlantic salmon", "wild salmon"],
+    "aliases": ["phi lê cá hồi", "cá hồi Đại Tây Dương", "salmon"],
     "safeFor": ["hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "rich in omega-3 fatty acids EPA and DHA, high-quality protein, vitamin D",
-    "substitutes": ["cod", "tilapia", "trout"]
+    "nutritionProfile": "giàu axit béo omega-3 EPA và DHA, đạm chất lượng cao, vitamin D",
+    "substitutes": ["cá tuyết", "cá rô phi", "cá hồi vân"]
   },
   {
     "id": "ing_005",
-    "name": "chicken breast",
+    "name": "ức gà",
     "category": "protein",
-    "aliases": ["chicken", "boneless chicken"],
+    "aliases": ["thịt gà", "ức gà không xương", "chicken breast"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "lean complete protein, low saturated fat, high B vitamins and selenium",
-    "substitutes": ["turkey breast", "egg whites", "tofu"]
+    "nutritionProfile": "đạm hoàn chỉnh nạc, ít chất béo bão hòa, giàu vitamin B và selen",
+    "substitutes": ["ức gà tây", "lòng trắng trứng", "đậu hũ"]
   },
   {
     "id": "ing_006",
-    "name": "tofu",
+    "name": "đậu hũ",
     "category": "protein",
-    "aliases": ["bean curd", "firm tofu", "soft tofu", "silken tofu"],
+    "aliases": ["đậu phụ", "đậu hũ cứng", "đậu hũ non", "tofu"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "plant-based complete protein, isoflavones, calcium, low in purines",
-    "substitutes": ["tempeh", "chicken breast", "egg whites"]
+    "nutritionProfile": "đạm thực vật hoàn chỉnh, isoflavone, canxi, ít purin",
+    "substitutes": ["tempeh", "ức gà", "lòng trắng trứng"]
   },
   {
     "id": "ing_007",
-    "name": "egg whites",
+    "name": "lòng trắng trứng",
     "category": "protein",
-    "aliases": ["egg white"],
+    "aliases": ["egg whites"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "pure protein with zero fat and cholesterol, ideal for kidney patients limiting phosphorus",
-    "substitutes": ["tofu", "chicken breast"]
+    "nutritionProfile": "đạm tinh khiết không chất béo và cholesterol, lý tưởng cho người bệnh thận cần hạn chế phốt pho",
+    "substitutes": ["đậu hũ", "ức gà"]
   },
   {
     "id": "ing_008",
-    "name": "lentils",
+    "name": "đậu lăng",
     "category": "protein",
-    "aliases": ["red lentils", "green lentils", "brown lentils"],
+    "aliases": ["đậu lăng đỏ", "đậu lăng xanh", "lentils"],
     "safeFor": ["diabetes", "hypertension"],
     "avoidFor": ["high-uric-acid"],
-    "nutritionProfile": "high in plant protein and soluble fiber, iron, folate, and slow-release carbohydrates",
-    "substitutes": ["chickpeas", "split peas", "quinoa"]
+    "nutritionProfile": "giàu đạm thực vật và chất xơ hòa tan, sắt, folate và carbohydrate giải phóng chậm",
+    "substitutes": ["đậu gà", "đậu Hà Lan tách hạt", "diêm mạch"]
   },
   {
     "id": "ing_009",
-    "name": "chickpeas",
+    "name": "đậu gà",
     "category": "protein",
-    "aliases": ["garbanzo beans", "ceci beans"],
+    "aliases": ["đậu garbanzo", "chickpeas"],
     "safeFor": ["diabetes", "hypertension"],
     "avoidFor": [],
-    "nutritionProfile": "high fiber and plant protein, low glycemic index, supports blood sugar and cholesterol",
-    "substitutes": ["lentils", "black beans", "white beans"]
+    "nutritionProfile": "giàu chất xơ và đạm thực vật, chỉ số đường huyết thấp, hỗ trợ kiểm soát đường huyết và cholesterol",
+    "substitutes": ["đậu lăng", "đậu đen", "đậu trắng"]
   },
   {
     "id": "ing_010",
-    "name": "sweet potato",
+    "name": "khoai lang",
     "category": "produce",
-    "aliases": ["yam", "sweet yam"],
+    "aliases": ["sweet potato"],
     "safeFor": ["diabetes", "hypertension"],
     "avoidFor": [],
-    "nutritionProfile": "rich in beta-carotene, fiber, potassium, and vitamin C; lower glycemic than white potato",
-    "substitutes": ["butternut squash", "pumpkin", "carrot"]
+    "nutritionProfile": "giàu beta-carotene, chất xơ, kali và vitamin C; chỉ số đường huyết thấp hơn khoai tây trắng",
+    "substitutes": ["bí đỏ", "bí ngô", "cà rốt"]
   },
   {
     "id": "ing_011",
-    "name": "broccoli",
+    "name": "bông cải xanh",
     "category": "produce",
-    "aliases": ["broccolini", "broccoli florets"],
+    "aliases": ["súp lơ xanh", "broccoli"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "cruciferous vegetable rich in vitamin C, K, folate, sulforaphane with anti-cancer properties",
-    "substitutes": ["cauliflower", "brussels sprouts", "bok choy"]
+    "nutritionProfile": "rau họ cải giàu vitamin C, K, folate, sulforaphane có đặc tính chống ung thư",
+    "substitutes": ["súp lơ trắng", "bắp cải Brussels", "cải thìa"]
   },
   {
     "id": "ing_012",
-    "name": "cauliflower",
+    "name": "súp lơ trắng",
     "category": "produce",
-    "aliases": ["cauliflower rice", "cauliflower florets"],
+    "aliases": ["bông cải trắng", "cauliflower"],
     "safeFor": ["diabetes", "hypertension", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "low-calorie, low-potassium cruciferous vegetable, versatile rice and mash substitute",
-    "substitutes": ["broccoli", "cabbage", "white rice"]
+    "nutritionProfile": "rau họ cải ít calo, ít kali, đa năng để thay thế cơm và khoai nghiền",
+    "substitutes": ["bông cải xanh", "bắp cải", "gạo trắng"]
   },
   {
     "id": "ing_013",
-    "name": "spinach",
+    "name": "rau bina",
     "category": "produce",
-    "aliases": ["baby spinach", "fresh spinach"],
+    "aliases": ["rau chân vịt", "cải bó xôi", "spinach"],
     "safeFor": ["diabetes", "hypertension"],
     "avoidFor": ["kidney-disease", "high-uric-acid"],
-    "nutritionProfile": "rich in iron, folate, vitamin K, and antioxidants; high oxalate content concerns some conditions",
-    "substitutes": ["kale", "bok choy", "lettuce", "cabbage"]
+    "nutritionProfile": "giàu sắt, folate, vitamin K và chất chống oxy hóa; hàm lượng oxalate cao có thể không phù hợp với một số bệnh",
+    "substitutes": ["cải kale", "cải thìa", "rau xà lách", "bắp cải"]
   },
   {
     "id": "ing_014",
-    "name": "kale",
+    "name": "cải kale",
     "category": "produce",
-    "aliases": ["curly kale", "lacinato kale", "dinosaur kale"],
+    "aliases": ["cải xoăn", "kale"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "superfood leafy green with vitamins K, A, C, calcium, and powerful antioxidants",
-    "substitutes": ["spinach", "bok choy", "collard greens"]
+    "nutritionProfile": "rau lá xanh siêu thực phẩm với vitamin K, A, C, canxi và chất chống oxy hóa mạnh",
+    "substitutes": ["rau bina", "cải thìa", "cải rổ"]
   },
   {
     "id": "ing_015",
-    "name": "bell pepper",
+    "name": "ớt chuông",
     "category": "produce",
-    "aliases": ["red pepper", "green pepper", "yellow pepper", "capsicum"],
+    "aliases": ["ớt chuông đỏ", "ớt chuông xanh", "ớt chuông vàng", "bell pepper"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "excellent source of vitamin C and antioxidants, low calorie, low potassium",
-    "substitutes": ["zucchini", "cucumber", "celery"]
+    "nutritionProfile": "nguồn vitamin C và chất chống oxy hóa tuyệt vời, ít calo, ít kali",
+    "substitutes": ["bí ngòi", "dưa leo", "cần tây"]
   },
   {
     "id": "ing_016",
-    "name": "cucumber",
+    "name": "dưa leo",
     "category": "produce",
-    "aliases": ["english cucumber", "persian cucumber"],
+    "aliases": ["dưa chuột", "cucumber"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "very low calorie hydrating vegetable, low potassium, contains silica and antioxidants",
-    "substitutes": ["zucchini", "celery", "jicama"]
+    "nutritionProfile": "rau cấp nước rất ít calo, ít kali, chứa silica và chất chống oxy hóa",
+    "substitutes": ["bí ngòi", "cần tây", "củ đậu"]
   },
   {
     "id": "ing_017",
-    "name": "avocado",
+    "name": "quả bơ",
     "category": "produce",
-    "aliases": ["hass avocado"],
+    "aliases": ["bơ hass", "avocado"],
     "safeFor": ["diabetes", "hypertension"],
     "avoidFor": ["kidney-disease"],
-    "nutritionProfile": "rich in monounsaturated fats, potassium, folate, and fiber; heart-healthy fat source",
-    "substitutes": ["olive oil", "nuts", "tahini"]
+    "nutritionProfile": "giàu chất béo không bão hòa đơn, kali, folate và chất xơ; chất béo tốt cho tim",
+    "substitutes": ["dầu ô liu", "các loại hạt", "tahini"]
   },
   {
     "id": "ing_018",
-    "name": "blueberries",
+    "name": "việt quất",
     "category": "produce",
-    "aliases": ["wild blueberries", "frozen blueberries"],
+    "aliases": ["việt quất rừng", "việt quất đông lạnh", "blueberries"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "highest antioxidant content among common fruits, low glycemic, supports brain and heart health",
-    "substitutes": ["strawberries", "raspberries", "blackberries"]
+    "nutritionProfile": "hàm lượng chất chống oxy hóa cao nhất trong các loại trái cây phổ biến, chỉ số đường huyết thấp, tốt cho não và tim",
+    "substitutes": ["dâu tây", "mâm xôi", "việt quất đen"]
   },
   {
     "id": "ing_019",
-    "name": "cherries",
+    "name": "anh đào",
     "category": "produce",
-    "aliases": ["tart cherries", "sweet cherries", "cherry juice"],
+    "aliases": ["cherry", "cherries", "anh đào chua", "anh đào ngọt"],
     "safeFor": ["high-uric-acid", "diabetes", "hypertension"],
     "avoidFor": [],
-    "nutritionProfile": "contains anthocyanins that directly reduce uric acid levels and inflammation in gout",
-    "substitutes": ["blueberries", "strawberries", "grapes"]
+    "nutritionProfile": "chứa anthocyanin trực tiếp giảm axit uric và viêm trong bệnh gút",
+    "substitutes": ["việt quất", "dâu tây", "nho"]
   },
   {
     "id": "ing_020",
-    "name": "garlic",
+    "name": "tỏi",
     "category": "produce",
-    "aliases": ["fresh garlic", "garlic cloves", "minced garlic"],
+    "aliases": ["tỏi tươi", "tép tỏi", "tỏi băm", "garlic"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "allicin content lowers blood pressure and cholesterol, antimicrobial, anti-inflammatory",
-    "substitutes": ["onion", "shallots", "leeks"]
+    "nutritionProfile": "allicin giúp hạ huyết áp và cholesterol, kháng khuẩn, kháng viêm",
+    "substitutes": ["hành tây", "hẹ tây", "tỏi tây"]
   },
   {
     "id": "ing_021",
-    "name": "ginger",
+    "name": "gừng",
     "category": "produce",
-    "aliases": ["fresh ginger", "ginger root", "ground ginger"],
+    "aliases": ["gừng tươi", "củ gừng", "bột gừng", "ginger"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "powerful anti-inflammatory gingerols, improves insulin sensitivity and digestion",
-    "substitutes": ["turmeric", "lemongrass", "galangal"]
+    "nutritionProfile": "gingerol kháng viêm mạnh, cải thiện độ nhạy insulin và tiêu hóa",
+    "substitutes": ["nghệ", "sả", "riềng"]
   },
   {
     "id": "ing_022",
-    "name": "olive oil",
+    "name": "dầu ô liu",
     "category": "pantry",
-    "aliases": ["extra virgin olive oil", "EVOO"],
+    "aliases": ["dầu ô liu nguyên chất", "olive oil"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "rich in monounsaturated oleic acid, polyphenols, vitamin E; reduces inflammation",
-    "substitutes": ["avocado oil", "sesame oil", "canola oil"]
+    "nutritionProfile": "giàu axit oleic không bão hòa đơn, polyphenol, vitamin E; giảm viêm",
+    "substitutes": ["dầu bơ", "dầu mè", "dầu canola"]
   },
   {
     "id": "ing_023",
-    "name": "walnuts",
+    "name": "óc chó",
     "category": "pantry",
-    "aliases": ["walnut halves", "chopped walnuts"],
+    "aliases": ["hạt óc chó", "walnuts"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "highest plant source of omega-3 ALA, melatonin, antioxidants, magnesium",
-    "substitutes": ["almonds", "pecans", "macadamia nuts"]
+    "nutritionProfile": "nguồn omega-3 ALA thực vật cao nhất, melatonin, chất chống oxy hóa, magie",
+    "substitutes": ["hạnh nhân", "hạt hồ đào", "hạt mắc ca"]
   },
   {
     "id": "ing_024",
-    "name": "almonds",
+    "name": "hạnh nhân",
     "category": "pantry",
-    "aliases": ["raw almonds", "sliced almonds", "almond butter"],
+    "aliases": ["hạnh nhân sống", "bơ hạnh nhân", "almonds"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "high in vitamin E, magnesium, monounsaturated fats, fiber; supports blood sugar control",
-    "substitutes": ["walnuts", "cashews", "sunflower seeds"]
+    "nutritionProfile": "giàu vitamin E, magie, chất béo không bão hòa đơn, chất xơ; hỗ trợ kiểm soát đường huyết",
+    "substitutes": ["óc chó", "hạt điều", "hạt hướng dương"]
   },
   {
     "id": "ing_025",
-    "name": "chia seeds",
+    "name": "hạt chia",
     "category": "pantry",
     "aliases": ["chia"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "rich in omega-3 ALA, soluble fiber, calcium, protein; forms gel that slows digestion",
-    "substitutes": ["flaxseeds", "hemp seeds", "psyllium husk"]
+    "nutritionProfile": "giàu omega-3 ALA, chất xơ hòa tan, canxi, đạm; tạo gel làm chậm tiêu hóa",
+    "substitutes": ["hạt lanh", "hạt gai dầu", "vỏ mã đề"]
   },
   {
     "id": "ing_026",
-    "name": "plain greek yogurt",
+    "name": "sữa chua Hy Lạp không đường",
     "category": "dairy",
-    "aliases": ["greek yogurt", "strained yogurt"],
+    "aliases": ["sữa chua Hy Lạp", "greek yogurt"],
     "safeFor": ["diabetes", "high-uric-acid"],
     "avoidFor": ["kidney-disease"],
-    "nutritionProfile": "twice the protein of regular yogurt, probiotics, calcium; lower lactose content",
-    "substitutes": ["plain yogurt", "kefir", "cottage cheese"]
+    "nutritionProfile": "lượng đạm gấp đôi sữa chua thường, lợi khuẩn, canxi; ít lactose",
+    "substitutes": ["sữa chua thường", "kefir", "phô mai cottage"]
   },
   {
     "id": "ing_027",
-    "name": "almond milk",
+    "name": "sữa hạnh nhân",
     "category": "dairy",
-    "aliases": ["unsweetened almond milk"],
+    "aliases": ["sữa hạnh nhân không đường", "almond milk"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "low-calorie dairy alternative, lower phosphorus and potassium than cow's milk",
-    "substitutes": ["rice milk", "oat milk", "coconut milk"]
+    "nutritionProfile": "thay thế sữa ít calo, ít phốt pho và kali hơn sữa bò",
+    "substitutes": ["sữa gạo", "sữa yến mạch", "sữa dừa"]
   },
   {
     "id": "ing_028",
-    "name": "lemon",
+    "name": "chanh",
     "category": "produce",
-    "aliases": ["lemon juice", "lemon zest", "fresh lemon"],
+    "aliases": ["nước cốt chanh", "vỏ chanh", "lemon"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "rich in vitamin C and citric acid; helps alkalinize urine to prevent uric acid crystallization",
-    "substitutes": ["lime", "orange juice", "apple cider vinegar"]
+    "nutritionProfile": "giàu vitamin C và axit citric; giúp kiềm hóa nước tiểu, ngăn kết tinh axit uric",
+    "substitutes": ["chanh xanh", "nước cam", "giấm táo"]
   },
   {
     "id": "ing_029",
-    "name": "turmeric",
+    "name": "nghệ",
     "category": "pantry",
-    "aliases": ["ground turmeric", "curcumin", "fresh turmeric"],
+    "aliases": ["bột nghệ", "curcumin", "nghệ tươi", "turmeric"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "curcumin is a potent anti-inflammatory and antioxidant, reduces uric acid and joint pain",
-    "substitutes": ["ginger", "saffron", "paprika"]
+    "nutritionProfile": "curcumin là chất kháng viêm và chống oxy hóa mạnh, giảm axit uric và đau khớp",
+    "substitutes": ["gừng", "nghệ tây", "ớt bột"]
   },
   {
     "id": "ing_030",
-    "name": "cinnamon",
+    "name": "quế",
     "category": "pantry",
-    "aliases": ["ground cinnamon", "ceylon cinnamon", "cassia"],
+    "aliases": ["bột quế", "cinnamon"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "improves insulin sensitivity, lowers fasting blood glucose, anti-inflammatory",
-    "substitutes": ["cardamom", "nutmeg", "allspice"]
+    "nutritionProfile": "cải thiện độ nhạy insulin, hạ đường huyết lúc đói, kháng viêm",
+    "substitutes": ["bạch đậu khấu", "nhục đậu khấu", "tiêu thơm"]
   },
   {
     "id": "ing_031",
-    "name": "white fish",
+    "name": "cá thịt trắng",
     "category": "protein",
-    "aliases": ["cod", "tilapia", "sole", "flounder", "halibut"],
+    "aliases": ["cá tuyết", "cá rô phi", "cá bơn", "white fish"],
     "safeFor": ["hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "lean white fish very low in fat and purines, high-quality protein, selenium",
-    "substitutes": ["chicken breast", "tofu", "shrimp"]
+    "nutritionProfile": "cá thịt trắng nạc rất ít chất béo và purin, đạm chất lượng cao, selen",
+    "substitutes": ["ức gà", "đậu hũ", "tôm"]
   },
   {
     "id": "ing_032",
-    "name": "rice paper",
+    "name": "bánh tráng",
     "category": "grains",
-    "aliases": ["spring roll wrappers", "rice wrappers"],
+    "aliases": ["bánh tráng cuốn", "rice paper"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "very low calorie wrapper made from rice flour, gluten-free, minimal sodium",
-    "substitutes": ["lettuce leaves", "nori sheets"]
+    "nutritionProfile": "vỏ cuốn rất ít calo làm từ bột gạo, không gluten, ít natri",
+    "substitutes": ["lá xà lách", "lá rong biển nori"]
   },
   {
     "id": "ing_033",
-    "name": "rice vermicelli",
+    "name": "bún tươi",
     "category": "grains",
-    "aliases": ["bun noodles", "thin rice noodles"],
+    "aliases": ["bún", "bún gạo", "rice vermicelli"],
     "safeFor": ["high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "gluten-free rice-based noodles, low sodium, moderate glycemic index",
-    "substitutes": ["shirataki noodles", "zucchini noodles", "glass noodles"]
+    "nutritionProfile": "mì gạo không gluten, ít natri, chỉ số đường huyết trung bình",
+    "substitutes": ["mì shirataki", "mì bí ngòi", "miến"]
   },
   {
     "id": "ing_034",
-    "name": "cabbage",
+    "name": "bắp cải",
     "category": "produce",
-    "aliases": ["green cabbage", "red cabbage", "napa cabbage"],
+    "aliases": ["bắp cải xanh", "bắp cải tím", "cải thảo", "cabbage"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "low potassium cruciferous vegetable, vitamin C and K, fiber; excellent for kidney patients",
-    "substitutes": ["lettuce", "bok choy", "kale"]
+    "nutritionProfile": "rau họ cải ít kali, vitamin C và K, chất xơ; rất tốt cho người bệnh thận",
+    "substitutes": ["xà lách", "cải thìa", "cải kale"]
   },
   {
     "id": "ing_035",
-    "name": "bok choy",
+    "name": "cải thìa",
     "category": "produce",
-    "aliases": ["pak choi", "baby bok choy", "chinese cabbage"],
+    "aliases": ["cải bẹ trắng", "bok choy", "pak choi"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "low potassium Asian green, rich in vitamin A and C, calcium, anti-inflammatory",
-    "substitutes": ["cabbage", "kale", "swiss chard"]
+    "nutritionProfile": "rau châu Á ít kali, giàu vitamin A và C, canxi, kháng viêm",
+    "substitutes": ["bắp cải", "cải kale", "cải Thụy Sĩ"]
   },
   {
     "id": "ing_036",
-    "name": "celery",
+    "name": "cần tây",
     "category": "produce",
-    "aliases": ["celery stalks", "celery root", "celeriac"],
+    "aliases": ["cọng cần tây", "celery"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "very low calorie with compounds that help lower uric acid and blood pressure",
-    "substitutes": ["cucumber", "fennel", "jicama"]
+    "nutritionProfile": "rất ít calo với hợp chất giúp hạ axit uric và huyết áp",
+    "substitutes": ["dưa leo", "thì là tây", "củ đậu"]
   },
   {
     "id": "ing_037",
-    "name": "watermelon",
+    "name": "dưa hấu",
     "category": "produce",
-    "aliases": ["watermelon flesh"],
+    "aliases": ["watermelon"],
     "safeFor": ["high-uric-acid", "hypertension"],
     "avoidFor": [],
-    "nutritionProfile": "high water content, lycopene antioxidant, citrulline that helps excrete uric acid",
-    "substitutes": ["cucumber", "honeydew", "cantaloupe"]
+    "nutritionProfile": "hàm lượng nước cao, lycopene chống oxy hóa, citrulline giúp đào thải axit uric",
+    "substitutes": ["dưa leo", "dưa lưới", "dưa vàng"]
   },
   {
     "id": "ing_038",
-    "name": "flaxseeds",
+    "name": "hạt lanh",
     "category": "pantry",
-    "aliases": ["ground flaxseed", "flax meal", "linseed"],
+    "aliases": ["hạt lanh xay", "bột hạt lanh", "flaxseeds"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "highest plant source of omega-3 ALA, lignans for hormone balance, soluble fiber",
-    "substitutes": ["chia seeds", "hemp seeds", "psyllium"]
+    "nutritionProfile": "nguồn omega-3 ALA thực vật cao nhất, lignan cân bằng nội tiết tố, chất xơ hòa tan",
+    "substitutes": ["hạt chia", "hạt gai dầu", "vỏ mã đề"]
   },
   {
     "id": "ing_039",
-    "name": "edamame",
+    "name": "đậu edamame",
     "category": "protein",
-    "aliases": ["young soybeans", "shelled edamame"],
+    "aliases": ["đậu nành Nhật", "edamame"],
     "safeFor": ["diabetes", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "complete plant protein with fiber, folate, and isoflavones; lower purine than mature soy",
-    "substitutes": ["peas", "chickpeas", "lima beans"]
+    "nutritionProfile": "đạm thực vật hoàn chỉnh với chất xơ, folate và isoflavone; ít purin hơn đậu nành trưởng thành",
+    "substitutes": ["đậu Hà Lan", "đậu gà", "đậu lima"]
   },
   {
     "id": "ing_040",
     "name": "hummus",
     "category": "pantry",
-    "aliases": ["chickpea dip", "homemade hummus"],
+    "aliases": ["sốt đậu gà", "hummus tự làm"],
     "safeFor": ["diabetes", "hypertension"],
     "avoidFor": [],
-    "nutritionProfile": "plant protein and fiber from chickpeas, healthy fats from tahini and olive oil",
-    "substitutes": ["white bean dip", "guacamole", "tzatziki"]
+    "nutritionProfile": "đạm và chất xơ thực vật từ đậu gà, chất béo lành mạnh từ tahini và dầu ô liu",
+    "substitutes": ["sốt đậu trắng", "guacamole", "tzatziki"]
   },
   {
     "id": "ing_041",
-    "name": "apple",
+    "name": "táo",
     "category": "produce",
-    "aliases": ["red apple", "green apple", "granny smith", "fuji apple"],
+    "aliases": ["táo đỏ", "táo xanh", "apple"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "soluble fiber pectin supports gut health and cholesterol, quercetin antioxidant",
-    "substitutes": ["pear", "peach", "plum"]
+    "nutritionProfile": "chất xơ hòa tan pectin hỗ trợ đường ruột và cholesterol, quercetin chống oxy hóa",
+    "substitutes": ["lê", "đào", "mận"]
   },
   {
     "id": "ing_042",
-    "name": "beets",
+    "name": "củ dền",
     "category": "produce",
-    "aliases": ["beetroot", "red beet", "golden beet"],
+    "aliases": ["củ cải đường", "beets"],
     "safeFor": ["hypertension"],
     "avoidFor": ["kidney-disease"],
-    "nutritionProfile": "dietary nitrates lower blood pressure significantly; betaine supports liver health",
-    "substitutes": ["carrot", "red cabbage", "pomegranate juice"]
+    "nutritionProfile": "nitrat tự nhiên giúp hạ huyết áp đáng kể; betaine hỗ trợ chức năng gan",
+    "substitutes": ["cà rốt", "bắp cải tím", "nước ép lựu"]
   },
   {
     "id": "ing_043",
-    "name": "carrot",
+    "name": "cà rốt",
     "category": "produce",
-    "aliases": ["baby carrots", "carrot sticks"],
+    "aliases": ["cà rốt baby", "que cà rốt", "carrot"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
     "avoidFor": [],
-    "nutritionProfile": "rich in beta-carotene, fiber, vitamin K; moderate glycemic when eaten whole",
-    "substitutes": ["sweet potato", "pumpkin", "bell pepper"]
+    "nutritionProfile": "giàu beta-carotene, chất xơ, vitamin K; chỉ số đường huyết trung bình khi ăn nguyên củ",
+    "substitutes": ["khoai lang", "bí ngô", "ớt chuông"]
   },
   {
     "id": "ing_044",
-    "name": "low-fat dairy",
+    "name": "sữa ít béo",
     "category": "dairy",
-    "aliases": ["skim milk", "1% milk", "low-fat yogurt"],
+    "aliases": ["sữa tách béo", "sữa chua ít béo", "low-fat dairy"],
     "safeFor": ["high-uric-acid", "hypertension"],
     "avoidFor": ["kidney-disease"],
-    "nutritionProfile": "dairy proteins casein and whey actively lower uric acid excretion, calcium, vitamin D",
-    "substitutes": ["almond milk", "rice milk", "soy milk"]
+    "nutritionProfile": "đạm sữa casein và whey giúp tăng đào thải axit uric, canxi, vitamin D",
+    "substitutes": ["sữa hạnh nhân", "sữa gạo", "sữa đậu nành"]
   },
   {
     "id": "ing_045",
-    "name": "whole grain bread",
+    "name": "bánh mì nguyên cám",
     "category": "grains",
-    "aliases": ["wholemeal bread", "multigrain bread", "whole wheat bread"],
+    "aliases": ["bánh mì lúa mì nguyên cám", "whole grain bread"],
     "safeFor": ["diabetes", "high-uric-acid"],
     "avoidFor": ["hypertension", "kidney-disease"],
-    "nutritionProfile": "fiber-rich alternative to white bread with B vitamins and minerals; contains sodium",
-    "substitutes": ["rice cakes", "oat crackers", "sourdough"]
+    "nutritionProfile": "thay thế giàu chất xơ cho bánh mì trắng với vitamin nhóm B và khoáng chất; có chứa natri",
+    "substitutes": ["bánh gạo", "bánh quy yến mạch", "bánh mì sourdough"]
   },
   {
     "id": "ing_046",
     "name": "tahini",
     "category": "pantry",
-    "aliases": ["sesame paste", "sesame butter"],
+    "aliases": ["sốt mè", "bơ mè", "sesame paste"],
     "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
     "avoidFor": [],
-    "nutritionProfile": "rich in calcium, healthy fats, and sesamin lignans that lower blood pressure",
-    "substitutes": ["almond butter", "sunflower seed butter", "peanut butter"]
+    "nutritionProfile": "giàu canxi, chất béo lành mạnh và lignan sesamin giúp hạ huyết áp",
+    "substitutes": ["bơ hạnh nhân", "bơ hạt hướng dương", "bơ đậu phộng"]
   }
 ]

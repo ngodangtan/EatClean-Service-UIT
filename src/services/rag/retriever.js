@@ -3,6 +3,46 @@ import { queryDocuments, COLLECTIONS } from './vectorStore.js';
 import logger from '../../utils/logger.js';
 
 /**
+ * English→Vietnamese maps for retrieval query strings.
+ * Filter metadata (where clauses) still uses the English enum values —
+ * these maps only affect the natural-language query that drives semantic search.
+ */
+const MEAL_TYPE_VI = {
+  breakfast: 'bữa sáng',
+  lunch: 'bữa trưa',
+  dinner: 'bữa tối',
+  snack: 'bữa phụ'
+};
+
+const GOAL_VI = {
+  'weight-loss': 'giảm cân',
+  'weight-gain': 'tăng cân',
+  'muscle-gain': 'tăng cơ',
+  'maintenance': 'duy trì cân nặng',
+  'maintain': 'duy trì cân nặng'
+};
+
+const CUISINE_VI = {
+  vietnamese: 'Việt Nam',
+  asian: 'châu Á',
+  western: 'phương Tây',
+  japanese: 'Nhật Bản',
+  korean: 'Hàn Quốc',
+  chinese: 'Trung Hoa',
+  italian: 'Ý',
+  mediterranean: 'Địa Trung Hải',
+  indian: 'Ấn Độ',
+  thai: 'Thái Lan'
+};
+
+const DISEASE_VI = {
+  diabetes: 'tiểu đường',
+  'kidney-disease': 'bệnh thận',
+  'high-uric-acid': 'gút (axit uric cao)',
+  hypertension: 'cao huyết áp'
+};
+
+/**
  * Check RAG_ENABLED env var.
  * Returns true unless explicitly set to "false".
  */
@@ -20,10 +60,16 @@ export async function retrieveRelevantMeals(params) {
 
   const { mealType, goal, diseases = [], cuisine, favoriteMeal, nResults = 3 } = params;
 
-  // Build query string from non-empty fields
-  const parts = [`${mealType} meal`];
-  if (goal) parts.push(`for ${goal} goal`);
-  if (cuisine) parts.push(`${cuisine} cuisine`);
+  // Build Vietnamese query string from non-empty fields. bge-m3 is multilingual,
+  // so querying in Vietnamese against a Vietnamese KB gives the best semantic match.
+  // mealType/goal/cuisine values come from enums (English) — translate for the query.
+  const mealTypeVi = MEAL_TYPE_VI[mealType] || mealType;
+  const goalVi = GOAL_VI[goal] || goal;
+  const cuisineVi = cuisine ? (CUISINE_VI[cuisine] || cuisine) : null;
+
+  const parts = [`món ${mealTypeVi}`];
+  if (goalVi) parts.push(`cho mục tiêu ${goalVi}`);
+  if (cuisineVi) parts.push(`ẩm thực ${cuisineVi}`);
   if (favoriteMeal) parts.push(favoriteMeal);
   const queryString = parts.join(' ');
 
@@ -57,7 +103,8 @@ export async function retrieveDiseaseGuidelines(diseases) {
     if (seen.has(disease)) continue;
     seen.add(disease);
 
-    const embedding = await getEmbedding(`dietary guidelines for ${disease}`);
+    const diseaseVi = DISEASE_VI[disease] || disease;
+    const embedding = await getEmbedding(`hướng dẫn dinh dưỡng cho người ${diseaseVi}`);
     if (!embedding) {
       logger.warn(`RAG: Could not get embedding for disease "${disease}" guidelines — skipping`);
       continue;

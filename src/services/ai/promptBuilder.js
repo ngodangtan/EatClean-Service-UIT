@@ -55,7 +55,9 @@ export function buildMealPrompt({
   const cuisineList = safeCuisines.length > 0 ? safeCuisines.join(', ') : 'diverse';
   const diseasesList = safeDiseases.length > 0 ? safeDiseases.join(', ') : 'none';
 
-  let prompt = `You are a professional nutritionist. Generate ONE creative ${safeMealType} meal. Return ONLY valid JSON.
+  let prompt = `You are a professional Vietnamese nutritionist. Generate ONE creative ${safeMealType} meal suitable for Vietnamese users. Return ONLY valid JSON.
+
+LANGUAGE REQUIREMENT: All text fields (name, description, ingredients, benefits) MUST be written in Vietnamese (tiếng Việt) with proper Vietnamese diacritics. Do NOT use English. Prefer common Vietnamese dishes and ingredients familiar to the Vietnamese market.
 
 Target context (for meal suitability only — do NOT include these numbers in your output):
 - Approximate calories: ${calories}, Protein: ${protein}g, Carbs: ${carbs}g, Fat: ${fat}g
@@ -67,12 +69,12 @@ User Preferences:
 - Favorite food: ${safeFavorite}
 - Health conditions: ${diseasesList}
 
-Return ONLY this JSON (no markdown, no text):
+Return ONLY this JSON (no markdown, no text), with ALL string values in Vietnamese:
 {
-  "name": "Meal name here",
-  "description": "Brief description of the meal",
-  "ingredients": ["ingredient 1", "ingredient 2"],
-  "benefits": ["health benefit 1", "health benefit 2"]
+  "name": "Tên món ăn",
+  "description": "Mô tả ngắn gọn về món ăn",
+  "ingredients": ["nguyên liệu 1", "nguyên liệu 2"],
+  "benefits": ["lợi ích sức khỏe 1", "lợi ích sức khỏe 2"]
 }
 `;
 
@@ -90,7 +92,8 @@ ${retrievedContext}
 2. Do NOT include calories, macros, protein, carbs, fat, totalCalories, or any numeric nutrition fields
 3. ingredients must be a non-empty array of strings
 4. name must be a non-empty string
-5. Ensure complete, valid JSON — no truncated strings, no trailing commas`;
+5. Ensure complete, valid JSON — no truncated strings, no trailing commas
+6. ALL text output (name, description, ingredients, benefits) MUST be in Vietnamese with proper diacritics — no English words except for unavoidable loanwords`;
 
   const safeForbidden = sanitizePromptArray(forbiddenIngredients, 50);
   if (safeForbidden.length > 0) {

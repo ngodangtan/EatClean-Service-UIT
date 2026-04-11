@@ -2,87 +2,87 @@
   {
     "id": "guide_diabetes",
     "disease": "diabetes",
-    "summary": "Focus on low glycemic index foods. Limit refined carbohydrates and added sugars. Prioritize fiber-rich foods that slow glucose absorption.",
+    "summary": "Tập trung vào thực phẩm có chỉ số đường huyết thấp. Hạn chế carbohydrate tinh chế và đường bổ sung. Ưu tiên thực phẩm giàu chất xơ giúp làm chậm hấp thu glucose.",
     "recommendedFoods": [
-      "brown rice", "quinoa", "leafy greens", "berries", "legumes", "oats",
-      "sweet potato", "lentils", "chickpeas", "nuts", "seeds", "cinnamon",
-      "apple cider vinegar", "non-starchy vegetables"
+      "gạo lứt", "diêm mạch", "rau xanh lá", "quả mọng", "các loại đậu", "yến mạch",
+      "khoai lang", "đậu lăng", "đậu gà", "các loại hạt", "hạt giống", "quế",
+      "giấm táo", "rau củ ít tinh bột"
     ],
     "avoidFoods": [
-      "white bread", "sugary drinks", "white rice", "candy", "processed snacks",
-      "fruit juice", "donuts", "pastries", "sweetened cereals", "syrup"
+      "bánh mì trắng", "nước ngọt", "cơm trắng", "kẹo", "đồ ăn vặt chế biến sẵn",
+      "nước ép trái cây đóng hộp", "bánh donut", "bánh ngọt", "ngũ cốc có đường", "siro"
     ],
     "mealTips": [
-      "Pair carbohydrates with protein or healthy fat to slow glucose absorption",
-      "Choose whole grains over refined grains at every meal",
-      "Include fiber-rich vegetables in every meal to buffer blood sugar spikes",
-      "Eat consistent portion sizes at regular meal times to maintain stable blood glucose",
-      "Use cinnamon, fenugreek, and turmeric as blood-sugar-friendly seasonings",
-      "Opt for berries over tropical fruits for natural sweetness with lower glycemic impact"
+      "Kết hợp tinh bột với đạm hoặc chất béo lành mạnh để làm chậm hấp thu glucose",
+      "Chọn ngũ cốc nguyên cám thay vì ngũ cốc tinh chế trong mỗi bữa ăn",
+      "Ăn rau giàu chất xơ trong mỗi bữa để giảm tình trạng tăng đường huyết đột ngột",
+      "Ăn khẩu phần đều đặn vào giờ cố định để duy trì đường huyết ổn định",
+      "Sử dụng quế, hồ lô ba (fenugreek) và nghệ làm gia vị thân thiện với đường huyết",
+      "Ưu tiên quả mọng hơn trái cây nhiệt đới để có vị ngọt tự nhiên với chỉ số đường huyết thấp hơn"
     ]
   },
   {
     "id": "guide_kidney_disease",
     "disease": "kidney-disease",
-    "summary": "Manage protein, potassium, phosphorus, and sodium intake. Limit high-potassium and high-phosphorus foods. Avoid processed and preserved foods high in sodium.",
+    "summary": "Quản lý lượng đạm, kali, phốt pho và natri nạp vào. Hạn chế thực phẩm giàu kali và phốt pho. Tránh thực phẩm chế biến và bảo quản nhiều natri.",
     "recommendedFoods": [
-      "cauliflower", "cabbage", "bell pepper", "cucumber", "apple", "blueberries",
-      "egg whites", "white rice", "pasta", "olive oil", "fresh herbs", "garlic"
+      "súp lơ trắng", "bắp cải", "ớt chuông", "dưa leo", "táo", "việt quất",
+      "lòng trắng trứng", "gạo trắng", "mì ống", "dầu ô liu", "rau thơm tươi", "tỏi"
     ],
     "avoidFoods": [
-      "processed meats", "canned soups", "soy sauce", "pickles", "salted nuts",
-      "instant noodles", "fast food", "dark colas", "whole grain bread"
+      "thịt chế biến", "súp đóng hộp", "nước tương", "dưa muối", "hạt rang muối",
+      "mì gói", "thức ăn nhanh", "nước ngọt sậm màu", "bánh mì nguyên cám"
     ],
     "mealTips": [
-      "Limit protein portions to reduce kidney workload — prefer egg whites over whole eggs when reducing protein",
-      "Leach high-potassium vegetables by peeling, cutting small, and boiling in large water volume",
-      "Avoid salt substitutes as they typically contain potassium chloride which raises blood potassium",
-      "Choose fresh or frozen vegetables without added salt over canned varieties",
-      "Use fresh herbs, lemon juice, and vinegar as low-sodium flavor boosters",
-      "Monitor fluid intake as recommended by your nephrologist"
+      "Hạn chế khẩu phần đạm để giảm gánh nặng cho thận — ưu tiên lòng trắng trứng thay vì trứng nguyên quả khi cần giảm đạm",
+      "Ngâm rau giàu kali bằng cách gọt vỏ, cắt nhỏ và luộc trong nhiều nước để rút bớt kali",
+      "Tránh muối thay thế vì thường chứa kali clorua làm tăng kali trong máu",
+      "Chọn rau củ tươi hoặc đông lạnh không thêm muối thay vì rau đóng hộp",
+      "Dùng rau thơm tươi, nước cốt chanh và giấm để tăng hương vị mà không cần natri",
+      "Theo dõi lượng nước nạp vào theo chỉ định của bác sĩ thận"
     ]
   },
   {
     "id": "guide_high_uric_acid",
     "disease": "high-uric-acid",
-    "summary": "Reduce high-purine foods that increase uric acid production. Stay well hydrated. Limit alcohol and fructose-rich foods. Favor plant proteins over animal proteins.",
+    "summary": "Giảm thực phẩm giàu purin làm tăng sản xuất axit uric. Uống đủ nước. Hạn chế rượu bia và thực phẩm giàu fructose. Ưu tiên đạm thực vật hơn đạm động vật.",
     "recommendedFoods": [
-      "chicken breast", "tofu", "egg", "low-fat dairy", "cherry", "rice",
-      "oats", "cucumber", "celery", "watermelon", "citrus fruits", "berries"
+      "ức gà", "đậu hũ", "trứng", "sữa ít béo", "anh đào", "cơm",
+      "yến mạch", "dưa leo", "cần tây", "dưa hấu", "trái cây họ cam quýt", "quả mọng"
     ],
     "avoidFoods": [
-      "organ meats", "red meat", "shellfish", "sardines", "herring", "anchovies",
-      "beer", "alcohol", "high-fructose corn syrup", "sweetened beverages"
+      "nội tạng động vật", "thịt đỏ", "hải sản có vỏ", "cá mòi", "cá trích", "cá cơm",
+      "bia", "rượu", "siro bắp giàu fructose", "nước ngọt"
     ],
     "mealTips": [
-      "Drink at least 8 glasses of water daily to help flush uric acid through the kidneys",
-      "Eat cherries or drink tart cherry juice — compounds in cherries lower uric acid levels",
-      "Choose low-fat or non-fat dairy products which actively lower uric acid excretion",
-      "Limit serving size of meat to 85-100g per meal and spread protein across the day",
-      "Replace red meat with chicken breast or plant proteins like tofu and eggs",
-      "Avoid fasting as rapid weight loss can trigger gout attacks by increasing uric acid"
+      "Uống ít nhất 8 ly nước mỗi ngày để giúp thải axit uric qua thận",
+      "Ăn anh đào hoặc uống nước ép anh đào chua — các hợp chất trong anh đào giúp hạ axit uric",
+      "Chọn các sản phẩm sữa ít béo hoặc tách béo vì giúp tăng đào thải axit uric",
+      "Hạn chế khẩu phần thịt khoảng 85-100g mỗi bữa và phân bố đạm đều trong ngày",
+      "Thay thịt đỏ bằng ức gà hoặc đạm thực vật như đậu hũ và trứng",
+      "Tránh nhịn ăn vì giảm cân quá nhanh có thể kích hoạt cơn gút do tăng axit uric"
     ]
   },
   {
     "id": "guide_hypertension",
     "disease": "hypertension",
-    "summary": "Follow a DASH-style diet: rich in fruits, vegetables, whole grains, and low-fat dairy. Strictly limit sodium, saturated fat, and added sugars.",
+    "summary": "Áp dụng chế độ ăn theo phong cách DASH: nhiều trái cây, rau củ, ngũ cốc nguyên cám và sữa ít béo. Hạn chế nghiêm ngặt natri, chất béo bão hòa và đường bổ sung.",
     "recommendedFoods": [
-      "banana", "leafy greens", "berries", "salmon", "garlic",
-      "oats", "beets", "sweet potato", "avocado", "unsalted nuts",
-      "legumes", "low-fat dairy", "whole grains", "potassium-rich vegetables"
+      "chuối", "rau xanh lá", "quả mọng", "cá hồi", "tỏi",
+      "yến mạch", "củ dền", "khoai lang", "quả bơ", "hạt không muối",
+      "các loại đậu", "sữa ít béo", "ngũ cốc nguyên cám", "rau củ giàu kali"
     ],
     "avoidFoods": [
-      "table salt", "soy sauce", "processed meats", "canned foods", "pickles",
-      "chips", "fast food", "ketchup", "bouillon cubes", "frozen dinners"
+      "muối ăn", "nước tương", "thịt chế biến", "thực phẩm đóng hộp", "dưa muối",
+      "snack khoai tây", "thức ăn nhanh", "tương cà", "viên nêm", "thức ăn đông lạnh chế biến sẵn"
     ],
     "mealTips": [
-      "Target less than 1500mg sodium per day — use herbs, spices, and lemon as flavor substitutes",
-      "Increase potassium intake from whole foods like bananas, sweet potatoes, and leafy greens to counteract sodium",
-      "Use the DASH diet framework: 4-5 servings of vegetables and fruits per day",
-      "Choose unsalted nuts over salted snacks — the magnesium in nuts supports blood pressure control",
-      "Cook at home to control sodium levels — restaurant and processed foods are often very high in salt",
-      "Reduce alcohol consumption as it directly raises blood pressure in excess"
+      "Mục tiêu dưới 1500mg natri mỗi ngày — dùng rau thơm, gia vị và chanh thay thế",
+      "Tăng kali từ thực phẩm tự nhiên như chuối, khoai lang và rau xanh để cân bằng natri",
+      "Áp dụng khung chế độ DASH: 4-5 phần rau và trái cây mỗi ngày",
+      "Chọn hạt không muối thay vì đồ ăn vặt mặn — magie trong hạt hỗ trợ kiểm soát huyết áp",
+      "Tự nấu ăn tại nhà để kiểm soát lượng natri — đồ ăn nhà hàng và chế biến sẵn thường rất nhiều muối",
+      "Giảm tiêu thụ rượu bia vì rượu bia làm tăng huyết áp khi dùng quá mức"
     ]
   }
 ]
