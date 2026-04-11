@@ -14,7 +14,6 @@ const swaggerSpec = {
     { name: 'Health Profile', description: 'User health profiles' },
     { name: 'Diseases', description: 'Disease catalog for health profile selection' },
     { name: 'Meal Plans', description: 'AI-powered meal plan generation & management' },
-    { name: 'Recipes', description: 'Recipe management' },
   ],
   components: {
     securitySchemes: {
@@ -170,41 +169,6 @@ const swaggerSpec = {
           total: { type: 'integer' },
           limit: { type: 'integer' },
           skip: { type: 'integer' }
-        }
-      },
-      Recipe: {
-        type: 'object',
-        properties: {
-          _id: { type: 'string' },
-          title: { type: 'string' },
-          description: { type: 'string' },
-          calories: { type: 'number', default: 0 },
-          protein: { type: 'number', default: 0 },
-          carbs: { type: 'number', default: 0 },
-          fat: { type: 'number', default: 0 },
-          tags: { type: 'array', items: { type: 'string' } },
-          ingredients: { type: 'array', items: { type: 'string' } },
-          steps: { type: 'array', items: { type: 'string' } },
-          imageUrl: { type: 'string', format: 'uri' },
-          author: { type: 'string', description: 'User ID of author' },
-          createdAt: { type: 'string', format: 'date-time' },
-          updatedAt: { type: 'string', format: 'date-time' }
-        }
-      },
-      RecipeInput: {
-        type: 'object',
-        required: ['title'],
-        properties: {
-          title: { type: 'string' },
-          description: { type: 'string' },
-          calories: { type: 'number' },
-          protein: { type: 'number' },
-          carbs: { type: 'number' },
-          fat: { type: 'number' },
-          tags: { type: 'array', items: { type: 'string' } },
-          ingredients: { type: 'array', items: { type: 'string' } },
-          steps: { type: 'array', items: { type: 'string' } },
-          imageUrl: { type: 'string', format: 'uri' }
         }
       },
       DiseaseIndicator: {
@@ -624,65 +588,6 @@ const swaggerSpec = {
         description: 'Returns all diseases the user can select when creating a health profile, along with their related health indicators and normal ranges.',
         responses: {
           '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/DiseaseListResponse' } } } }
-        }
-      }
-    },
-
-    // ── Recipes ───────────────────────────────────────────────────────────
-    '/api/recipes': {
-      get: {
-        tags: ['Recipes'],
-        summary: 'List recipes',
-        parameters: [
-          { name: 'q', in: 'query', schema: { type: 'string' }, description: 'Title search (case-insensitive)' },
-          { name: 'tag', in: 'query', schema: { type: 'string' }, description: 'Filter by tag' }
-        ],
-        responses: {
-          '200': { description: 'OK', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Recipe' } } } } }
-        }
-      },
-      post: {
-        tags: ['Recipes'],
-        summary: 'Create a recipe',
-        security: [{ bearerAuth: [] }],
-        requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/RecipeInput' } } } },
-        responses: {
-          '201': { description: 'Created', content: { 'application/json': { schema: { $ref: '#/components/schemas/Recipe' } } } },
-          '401': { description: 'Unauthorized' }
-        }
-      }
-    },
-    '/api/recipes/{id}': {
-      get: {
-        tags: ['Recipes'],
-        summary: 'Get a recipe by ID',
-        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
-        responses: {
-          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/Recipe' } } } },
-          '404': { description: 'Not found' }
-        }
-      },
-      put: {
-        tags: ['Recipes'],
-        summary: 'Update a recipe',
-        security: [{ bearerAuth: [] }],
-        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
-        requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/RecipeInput' } } } },
-        responses: {
-          '200': { description: 'Updated', content: { 'application/json': { schema: { $ref: '#/components/schemas/Recipe' } } } },
-          '401': { description: 'Unauthorized' },
-          '404': { description: 'Not found' }
-        }
-      },
-      delete: {
-        tags: ['Recipes'],
-        summary: 'Delete a recipe',
-        security: [{ bearerAuth: [] }],
-        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
-        responses: {
-          '200': { description: 'Deleted' },
-          '401': { description: 'Unauthorized' },
-          '404': { description: 'Not found' }
         }
       }
     },
