@@ -1,6 +1,6 @@
 # Eat Clean API — Comprehensive Technical Summary
 
-> Generated: 2026-03-12 | Last updated: 2026-04-11 | Based on all requirement documents (Phase 1–6) and full source code analysis
+> Generated: 2026-03-12 | Last updated: 2026-04-11 | Based on all requirement documents and full source code analysis
 >
 > **2026-04-11 update notes:** Vietnamese-only product (LM Studio embedding model: `bge-m3`, knowledge base + prompts in Vietnamese). `POST /api/meal-plans/generate` is now **purpose-driven** (`daily_health_based | weight_management | disease_based`). `desiredWeight` is no longer stored on the health profile — it is request-scoped on `/generate`. The orphaned `/api/recipes` resource and its model/controller/routes/validator/tests have been removed. `HealthProfile.diseases` is now a structured subdocument array (`{ key, diagnosedAt, indicators[] }`) backed by the disease catalog.
 
@@ -29,7 +29,7 @@ Generic meal planning tools either ignore medical restrictions entirely, or rely
 4. A **generative AI layer** — creative meal naming and descriptions, grounded by the retrieved context
 5. A **safety guardrail** — no medically forbidden ingredient can appear in a generated plan
 
-The RAG layer was added in Phase 6 to address the original system's weakness: AI meals were hallucinated from scratch, leading to culturally inaccurate dishes, implausible ingredient combinations, and shallow disease-awareness. With RAG, the LLM now works from real examples.
+The RAG layer addresses the original system's weakness: AI meals were hallucinated from scratch, leading to culturally inaccurate dishes, implausible ingredient combinations, and shallow disease-awareness. With RAG, the LLM now works from real examples.
 
 ### Overall System Workflow
 
@@ -148,7 +148,7 @@ eat-clean-api/
 │       │   └── mealPlan.schema.test.js     # AJV schema validation for AI output
 │       └── data/
 │           └── knowledgeBase.test.js       # Validates knowledge base JSON integrity
-├── requirement/                            # Phase requirement docs (Phase 1–6)
+├── requirement/                            # Requirement review docs
 ├── docker-compose.rag.yml                  # ChromaDB Docker setup
 ├── package.json
 └── CLAUDE.md
@@ -244,7 +244,7 @@ The project applies a number of well-known software design patterns across its a
 
 ### Two AI Endpoints — One LM Studio Server
 
-Phase 6 introduced a second AI endpoint. The system now uses LM Studio for **both** creative generation and semantic embedding:
+The system uses LM Studio for **both** creative generation and semantic embedding:
 
 | Purpose | Endpoint | Model | Notes |
 |---------|----------|-------|-------|
@@ -260,7 +260,7 @@ The project does **not train, fine-tune, or adapt** any AI model. All intelligen
 2. A curated knowledge base (version-controlled JSON files in `src/data/knowledgeBase/`)
 3. Semantic retrieval via embeddings + ChromaDB vector search
 
-### What the AI Generates (Unchanged from Phase 5)
+### What the AI Generates
 
 The LLM is used exclusively as a **creative text generator** for meal content:
 - Meal name
@@ -322,11 +322,11 @@ The RAG layer requires an **embedding model** — a model that converts text int
 
 ---
 
-## 5. RAG Layer (Phase 6)
+## 5. RAG Layer
 
 ### Why RAG?
 
-Before Phase 6, the LLM generated meals purely from scratch with no grounding in real-world recipes. This led to:
+Without RAG, the LLM generated meals purely from scratch with no grounding in real-world recipes. This led to:
 - **Hallucinated ingredient combinations** (e.g., salmon with chocolate sauce)
 - **Culturally inaccurate dishes** (e.g., "Vietnamese" meals with no Vietnamese ingredients)
 - **Shallow disease-awareness** — the LLM would often suggest borderline ingredients even when disease conditions were mentioned
@@ -995,7 +995,7 @@ Step 3: Meal Plan Generation
        Recalculate meal distribution from adjusted macros
        Build forbiddenIngredients[], limitedIngredients[], preferredIngredients[]
 
-  [3d] RAG Retrieval (NEW in Phase 6):
+  [3d] RAG Retrieval:
        Collect unique mealTypes from nutritionPlan.mealDistribution
        For each mealType (e.g. "breakfast", "lunch"):
          Build Vietnamese query string via internal EN→VI maps:
@@ -1761,25 +1761,14 @@ Eat Clean API is a **safety-first, RAG-augmented meal planning system** built on
 
 This architecture ensures **medical safety is never delegated to the AI**. Even if the LLM suggests a meal with a forbidden ingredient, the safety validator catches and rejects it. All numeric nutrition values in the final plan are provably backend-computed — the LLM cannot inflate or deflate calorie counts. The knowledge base also contains no numeric nutrition data, so the RAG context cannot introduce numbers through the back door.
 
-### Phased Development Summary
-
-| Phase | Focus | Key Additions |
-|-------|-------|---------------|
-| **Phase 1** | AI output hardening | AJV schema validation, retry logic, error feedback prompting |
-| **Phase 2** | Deterministic nutrition | BMR/TDEE/macro engine moved off AI; all numbers are backend-computed |
-| **Phase 3** | Prompt isolation | Strict creative-only AI output; sanitized inputs; numeric stripping |
-| **Phase 4** | Disease restriction engine | Macro caps, ingredient blacklists, safety validator per meal |
-| **Phase 5** | Production hardening | JWT auth, rate limiting, Winston logging, favorites, swap, shopping list |
-| **Phase 6** | RAG integration | ChromaDB vector store, nomic-embed-text embeddings, curated knowledge base, prompt grounding, adversarial content protection |
-
 ### Known Inconsistencies
 
 | Requirement | Implementation Status |
 |-------------|----------------------|
-| Phase 1: `temperature: 0.2` | Implemented as `temperature: 0.7` in `aiClient.js` |
-| Phase 4: Sodium/potassium/sugar programmatic limits | Intentionally NOT enforced (requires nutrition database); ingredient blacklists used as proxy |
-| Phase 5: Morgan request logging | Morgan in dependencies but unused; custom Winston `requestLogger` is used instead |
-| Phase 6: ChromaDB `$in` filter for disease arrays | Not supported by ChromaDB on string metadata; disease post-filtering left to prompt framing |
+| `temperature: 0.2` | Implemented as `temperature: 0.7` in `aiClient.js` |
+| Sodium/potassium/sugar programmatic limits | Intentionally NOT enforced (requires nutrition database); ingredient blacklists used as proxy |
+| Morgan request logging | Morgan in dependencies but unused; custom Winston `requestLogger` is used instead |
+| ChromaDB `$in` filter for disease arrays | Not supported by ChromaDB on string metadata; disease post-filtering left to prompt framing |
 
 ### Security Fixes Applied
 

@@ -1,6 +1,6 @@
 # Eat Clean API — Tổng Quan Kỹ Thuật Toàn Diện
 
-> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-04-05 | Dựa trên tất cả tài liệu yêu cầu (Phase 1–6) và phân tích toàn bộ mã nguồn
+> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-04-05 | Dựa trên tất cả tài liệu yêu cầu và phân tích toàn bộ mã nguồn
 
 ---
 
@@ -26,7 +26,7 @@ Các công cụ lập kế hoạch bữa ăn thông thường hoặc bỏ qua ho
 4. Một **lớp AI sinh nội dung** — đặt tên và mô tả bữa ăn sáng tạo, được hỗ trợ bởi ngữ cảnh truy xuất
 5. Một **rào chắn an toàn** — không nguyên liệu bị cấm y tế nào có thể xuất hiện trong kế hoạch được tạo
 
-Lớp RAG được thêm vào Phase 6 để giải quyết điểm yếu của hệ thống gốc: các bữa ăn AI được "bịa đặt" hoàn toàn từ đầu, dẫn đến các món ăn không chính xác về văn hóa, kết hợp nguyên liệu không hợp lý, và nhận thức bệnh lý hời hợt. Với RAG, LLM giờ đây hoạt động dựa trên các ví dụ thực tế.
+Lớp RAG giải quyết điểm yếu của hệ thống gốc: các bữa ăn AI được "bịa đặt" hoàn toàn từ đầu, dẫn đến các món ăn không chính xác về văn hóa, kết hợp nguyên liệu không hợp lý, và nhận thức bệnh lý hời hợt. Với RAG, LLM giờ đây hoạt động dựa trên các ví dụ thực tế.
 
 ### Luồng Hoạt Động Tổng Thể
 
@@ -147,7 +147,7 @@ eat-clean-api/
 │       │   └── mealPlan.schema.test.js     # Xác thực schema AJV cho đầu ra AI
 │       └── data/
 │           └── knowledgeBase.test.js       # Xác thực tính toàn vẹn JSON cơ sở kiến thức
-├── requirement/                            # Tài liệu yêu cầu theo phase (Phase 1–6)
+├── requirement/                            # Tài liệu review yêu cầu
 ├── docker-compose.rag.yml                  # Cài đặt Docker cho ChromaDB
 ├── package.json
 └── CLAUDE.md
@@ -243,7 +243,7 @@ Dự án áp dụng nhiều mẫu thiết kế phần mềm nổi tiếng xuyên
 
 ### Hai Endpoint AI — Một Server LM Studio
 
-Phase 6 giới thiệu endpoint AI thứ hai. Hệ thống hiện sử dụng LM Studio cho **cả** tạo nội dung sáng tạo và nhúng ngữ nghĩa (embedding):
+Hệ thống sử dụng LM Studio cho **cả** tạo nội dung sáng tạo và nhúng ngữ nghĩa (embedding):
 
 | Mục đích | Endpoint | Mô hình | Ghi chú |
 |----------|----------|---------|---------|
@@ -259,7 +259,7 @@ Dự án **không huấn luyện, fine-tune, hay điều chỉnh** bất kỳ m�
 2. Cơ sở kiến thức được tuyển chọn (file JSON được quản lý phiên bản trong `src/data/knowledgeBase/`)
 3. Truy xuất ngữ nghĩa qua embeddings + tìm kiếm vector ChromaDB
 
-### AI Tạo Những Gì (Không Thay Đổi Từ Phase 5)
+### AI Tạo Những Gì
 
 LLM được sử dụng độc quyền như một **bộ tạo văn bản sáng tạo** cho nội dung bữa ăn:
 - Tên bữa ăn
@@ -321,11 +321,11 @@ Lớp RAG yêu cầu một **mô hình embedding** — một mô hình chuyển 
 
 ---
 
-## 5. Lớp RAG (Phase 6)
+## 5. Lớp RAG
 
 ### Tại Sao Cần RAG?
 
-Trước Phase 6, LLM tạo bữa ăn hoàn toàn từ đầu mà không có cơ sở từ công thức thực tế. Điều này dẫn đến:
+Nếu không có RAG, LLM tạo bữa ăn hoàn toàn từ đầu mà không có cơ sở từ công thức thực tế. Điều này dẫn đến:
 - **Kết hợp nguyên liệu bịa đặt** (ví dụ: cá hồi với sốt chocolate)
 - **Món ăn không chính xác về văn hóa** (ví dụ: món "Việt Nam" không có nguyên liệu Việt Nam)
 - **Nhận thức bệnh lý hời hợt** — LLM thường gợi ý nguyên liệu gần ranh giới ngay cả khi đã đề cập đến tình trạng bệnh
@@ -934,7 +934,7 @@ Bước 3: Tạo Kế Hoạch Bữa Ăn
        Tính lại phân phối bữa ăn từ macros đã điều chỉnh
        Xây dựng forbiddenIngredients[], limitedIngredients[], preferredIngredients[]
 
-  [3d] Truy xuất RAG (MỚI trong Phase 6):
+  [3d] Truy xuất RAG:
        Thu thập mealTypes duy nhất từ nutritionPlan.mealDistribution
        Với mỗi mealType (ví dụ: "breakfast", "lunch"):
          Xây dựng chuỗi truy vấn: "breakfast meal for lose-weight goal vietnamese cuisine pho"
@@ -1636,25 +1636,14 @@ Eat Clean API là một **hệ thống lập kế hoạch bữa ăn ưu tiên an
 
 Kiến trúc này đảm bảo **an toàn y tế không bao giờ được ủy thác cho AI**. Ngay cả khi LLM gợi ý bữa ăn có nguyên liệu bị cấm, bộ xác thực an toàn sẽ bắt và từ chối nó. Tất cả giá trị dinh dưỡng dạng số trong kế hoạch cuối cùng đều chứng minh được là do backend tính — LLM không thể tăng hoặc giảm lượng calorie. Cơ sở kiến thức cũng không chứa dữ liệu dinh dưỡng dạng số, nên ngữ cảnh RAG không thể đưa số liệu vào qua cửa sau.
 
-### Tóm Tắt Phát Triển Theo Phase
-
-| Phase | Trọng tâm | Bổ sung chính |
-|-------|-----------|---------------|
-| **Phase 1** | Củng cố đầu ra AI | Xác thực schema AJV, logic thử lại, error feedback prompting |
-| **Phase 2** | Dinh dưỡng tất định | Bộ máy BMR/TDEE/macro chuyển khỏi AI; tất cả số liệu do backend tính |
-| **Phase 3** | Cô lập prompt | Đầu ra AI chỉ sáng tạo nghiêm ngặt; đầu vào đã làm sạch; loại bỏ số |
-| **Phase 4** | Bộ máy hạn chế bệnh lý | Giới hạn macro, danh sách đen nguyên liệu, xác thực an toàn mỗi bữa |
-| **Phase 5** | Củng cố production | Xác thực JWT, giới hạn tần suất, logging Winston, yêu thích, hoán đổi, danh sách mua sắm |
-| **Phase 6** | Tích hợp RAG | ChromaDB vector store, nomic-embed-text embeddings, cơ sở kiến thức được tuyển chọn, nền tảng prompt, bảo vệ nội dung tấn công |
-
 ### Các Điểm Không Nhất Quán Đã Biết
 
 | Yêu cầu | Trạng thái triển khai |
 |----------|----------------------|
-| Phase 1: `temperature: 0.2` | Được triển khai là `temperature: 0.7` trong `aiClient.js` |
-| Phase 4: Giới hạn lập trình sodium/potassium/sugar | KHÔNG được thực thi có chủ đích (cần cơ sở dữ liệu dinh dưỡng); danh sách đen nguyên liệu được dùng thay thế |
-| Phase 5: Logging request bằng Morgan | Morgan có trong dependencies nhưng không sử dụng; `requestLogger` tùy chỉnh bằng Winston được dùng thay thế |
-| Phase 6: Bộ lọc ChromaDB `$in` cho mảng bệnh | Không được ChromaDB hỗ trợ trên metadata chuỗi; lọc tương thích bệnh để cho prompt xử lý |
+| `temperature: 0.2` | Được triển khai là `temperature: 0.7` trong `aiClient.js` |
+| Giới hạn lập trình sodium/potassium/sugar | KHÔNG được thực thi có chủ đích (cần cơ sở dữ liệu dinh dưỡng); danh sách đen nguyên liệu được dùng thay thế |
+| Logging request bằng Morgan | Morgan có trong dependencies nhưng không sử dụng; `requestLogger` tùy chỉnh bằng Winston được dùng thay thế |
+| Bộ lọc ChromaDB `$in` cho mảng bệnh | Không được ChromaDB hỗ trợ trên metadata chuỗi; lọc tương thích bệnh để cho prompt xử lý |
 
 ### Các Bản Sửa Bảo Mật Đã Áp Dụng
 
