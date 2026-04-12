@@ -29,7 +29,8 @@
       "Bash(ls:*)",
       "Bash(npx vitest:*)",
       "Bash(/Users/felixngo/Desktop/UIT-Project/eat-clean-api/scripts/run-tests.sh unit:*)",
-      "Bash(find /Users/felixngo/Desktop/UIT-Project/eat-clean-api -type f \\\\\\( -name \"*.json\" -o -name \"*.js\" \\\\\\) -path \"*/src/*\" ! -path \"*/node_modules/*\" ! -path \"*/knowledgeBase/*\" -exec grep -l \"diabetes\\\\|kidney\\\\|uric\\\\|cholesterol\\\\|hypertension\\\\|fatty\\\\|heart\\\\|obesity\\\\|anemia\\\\|gastritis\" {} \\\\;)"
+      "Bash(find /Users/felixngo/Desktop/UIT-Project/eat-clean-api -type f \\\\\\( -name \"*.json\" -o -name \"*.js\" \\\\\\) -path \"*/src/*\" ! -path \"*/node_modules/*\" ! -path \"*/knowledgeBase/*\" -exec grep -l \"diabetes\\\\|kidney\\\\|uric\\\\|cholesterol\\\\|hypertension\\\\|fatty\\\\|heart\\\\|obesity\\\\|anemia\\\\|gastritis\" {} \\\\;)",
+      "Bash(> /Users/felixngo/Desktop/UIT-Project/eat-clean-api/logs/combined.log)"
     ]
   }
 }
