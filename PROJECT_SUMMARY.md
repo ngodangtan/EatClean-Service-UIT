@@ -130,7 +130,7 @@ eat-clean-api/
 │   │   ├── diseaseCatalog.js               # 10 diseases (4 supported + 6 unsupported), indicators, supported flag
 │   │   └── knowledgeBase/                  # Curated reference data (Vietnamese, version controlled)
 │   │       ├── recipes.json                # 35 Vietnamese reference recipes
-│   │       ├── diseaseGuidelines.json      # 4 disease dietary guidelines (Vietnamese)
+│   │       ├── diseaseGuidelines.json      # 10 disease dietary guidelines (Vietnamese)
 │   │       └── ingredients.json            # 46 ingredients (Vietnamese names, disease safety flags)
 │   └── utils/
 │       ├── AppError.js                     # Custom error class + factory functions
@@ -332,9 +332,9 @@ Each recipe has:
 }
 ```
 
-Coverage: all 4 mealTypes, all 3 goals (`lose-weight`, `gain-weight`, `improve-health`), all 4 diseases, 4 cuisines (western, vietnamese, asian, mediterranean).
+Coverage: all 4 mealTypes, all 3 goals (`lose-weight`, `gain-weight`, `improve-health`), all 10 catalog diseases, 4 cuisines (western, vietnamese, asian, mediterranean).
 
-#### `diseaseGuidelines.json` — 4 disease guidelines
+#### `diseaseGuidelines.json` — 10 disease guidelines
 
 Each document:
 ```json
@@ -352,7 +352,7 @@ Each document:
 }
 ```
 
-Covers: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`.
+Covers all 10 catalog diseases: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`.
 
 #### `ingredients.json` — 46 ingredient reference entries
 
@@ -363,14 +363,14 @@ Each ingredient:
   "name": "quinoa",
   "category": "grains",              // produce | protein | dairy | grains | pantry | other
   "aliases": ["quinua"],
-  "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+  "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
   "avoidFor": [],
   "nutritionProfile": "complete protein grain, all essential amino acids, low glycemic index",
   "substitutes": ["brown rice", "buckwheat", "bulgur"]
 }
 ```
 
-Covers all food categories. All `safeFor`/`avoidFor` values reference the 4 supported disease names.
+Covers all food categories. All `safeFor`/`avoidFor` values reference disease names from the full 10-disease catalog.
 
 ### RAG Service Files (`src/services/rag/`)
 

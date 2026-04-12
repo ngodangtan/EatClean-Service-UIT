@@ -134,9 +134,9 @@ Retrieval-Augmented Generation — grounds AI meal generation in a curated knowl
 **Knowledge base (`src/data/knowledgeBase/`):**
 
 All content is **Vietnamese**. Filter metadata fields (`mealType`, `cuisine`, `goal`, `diseaseCompatible`, `tags`, `category`, `safeFor`, `avoidFor`, `disease`) remain English to keep retriever filters and the disease engine schema-stable.
-- `recipes.json` — 35 curated Vietnamese recipes covering all 4 mealTypes, 3 goals, 4 diseases, 4+ cuisines
-- `diseaseGuidelines.json` — Vietnamese dietary guidelines for all 4 supported diseases with recommended/avoid foods and meal tips
-- `ingredients.json` — 46 ingredients (Vietnamese names) with disease safety flags (`safeFor`/`avoidFor`), nutrition profiles, substitutes
+- `recipes.json` — 35 curated Vietnamese recipes covering all 4 mealTypes, 3 goals, all 10 catalog diseases, 4+ cuisines
+- `diseaseGuidelines.json` — Vietnamese dietary guidelines for all 10 catalog diseases with recommended/avoid foods and meal tips
+- `ingredients.json` — 46 ingredients (Vietnamese names) with disease safety flags (`safeFor`/`avoidFor`) referencing all 10 catalog diseases, nutrition profiles, substitutes
 
 **Infrastructure:**
 - `docker-compose.rag.yml` — ChromaDB persistent container on port 8000

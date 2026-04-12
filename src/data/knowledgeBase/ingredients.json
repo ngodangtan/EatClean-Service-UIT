@@ -4,7 +4,7 @@
     "name": "diêm mạch",
     "category": "grains",
     "aliases": ["quinoa"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "avoidFor": [],
     "nutritionProfile": "ngũ cốc cung cấp đạm hoàn chỉnh với đầy đủ axit amin thiết yếu, giàu chất xơ, chỉ số đường huyết thấp",
     "substitutes": ["gạo lứt", "kiều mạch", "lúa mì bulgur"]
@@ -14,7 +14,7 @@
     "name": "gạo lứt",
     "category": "grains",
     "aliases": ["gạo nguyên cám", "brown rice"],
-    "safeFor": ["diabetes", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "anemia"],
     "avoidFor": [],
     "nutritionProfile": "ngũ cốc nguyên cám giàu chất xơ, vitamin nhóm B và magie; chỉ số đường huyết thấp hơn gạo trắng",
     "substitutes": ["diêm mạch", "gạo lứt đen", "cơm súp lơ"]
@@ -24,7 +24,7 @@
     "name": "yến mạch",
     "category": "grains",
     "aliases": ["yến mạch cán dẹt", "yến mạch cắt thép", "oats", "oatmeal"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "giàu chất xơ beta-glucan giúp giảm cholesterol và ổn định đường huyết",
     "substitutes": ["diêm mạch", "gạo lứt", "kiều mạch"]
@@ -34,7 +34,7 @@
     "name": "cá hồi",
     "category": "protein",
     "aliases": ["phi lê cá hồi", "cá hồi Đại Tây Dương", "salmon"],
-    "safeFor": ["hypertension", "high-uric-acid"],
+    "safeFor": ["hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease"],
     "avoidFor": [],
     "nutritionProfile": "giàu axit béo omega-3 EPA và DHA, đạm chất lượng cao, vitamin D",
     "substitutes": ["cá tuyết", "cá rô phi", "cá hồi vân"]
@@ -44,7 +44,7 @@
     "name": "ức gà",
     "category": "protein",
     "aliases": ["thịt gà", "ức gà không xương", "chicken breast"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "đạm hoàn chỉnh nạc, ít chất béo bão hòa, giàu vitamin B và selen",
     "substitutes": ["ức gà tây", "lòng trắng trứng", "đậu hũ"]
@@ -54,7 +54,7 @@
     "name": "đậu hũ",
     "category": "protein",
     "aliases": ["đậu phụ", "đậu hũ cứng", "đậu hũ non", "tofu"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "đạm thực vật hoàn chỉnh, isoflavone, canxi, ít purin",
     "substitutes": ["tempeh", "ức gà", "lòng trắng trứng"]
@@ -64,7 +64,7 @@
     "name": "lòng trắng trứng",
     "category": "protein",
     "aliases": ["egg whites"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "đạm tinh khiết không chất béo và cholesterol, lý tưởng cho người bệnh thận cần hạn chế phốt pho",
     "substitutes": ["đậu hũ", "ức gà"]
@@ -74,7 +74,7 @@
     "name": "đậu lăng",
     "category": "protein",
     "aliases": ["đậu lăng đỏ", "đậu lăng xanh", "lentils"],
-    "safeFor": ["diabetes", "hypertension"],
+    "safeFor": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "avoidFor": ["high-uric-acid"],
     "nutritionProfile": "giàu đạm thực vật và chất xơ hòa tan, sắt, folate và carbohydrate giải phóng chậm",
     "substitutes": ["đậu gà", "đậu Hà Lan tách hạt", "diêm mạch"]
@@ -84,7 +84,7 @@
     "name": "đậu gà",
     "category": "protein",
     "aliases": ["đậu garbanzo", "chickpeas"],
-    "safeFor": ["diabetes", "hypertension"],
+    "safeFor": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "avoidFor": [],
     "nutritionProfile": "giàu chất xơ và đạm thực vật, chỉ số đường huyết thấp, hỗ trợ kiểm soát đường huyết và cholesterol",
     "substitutes": ["đậu lăng", "đậu đen", "đậu trắng"]
@@ -94,7 +94,7 @@
     "name": "khoai lang",
     "category": "produce",
     "aliases": ["sweet potato"],
-    "safeFor": ["diabetes", "hypertension"],
+    "safeFor": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "giàu beta-carotene, chất xơ, kali và vitamin C; chỉ số đường huyết thấp hơn khoai tây trắng",
     "substitutes": ["bí đỏ", "bí ngô", "cà rốt"]
@@ -104,7 +104,7 @@
     "name": "bông cải xanh",
     "category": "produce",
     "aliases": ["súp lơ xanh", "broccoli"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "avoidFor": [],
     "nutritionProfile": "rau họ cải giàu vitamin C, K, folate, sulforaphane có đặc tính chống ung thư",
     "substitutes": ["súp lơ trắng", "bắp cải Brussels", "cải thìa"]
@@ -114,7 +114,7 @@
     "name": "súp lơ trắng",
     "category": "produce",
     "aliases": ["bông cải trắng", "cauliflower"],
-    "safeFor": ["diabetes", "hypertension", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "rau họ cải ít calo, ít kali, đa năng để thay thế cơm và khoai nghiền",
     "substitutes": ["bông cải xanh", "bắp cải", "gạo trắng"]
@@ -124,7 +124,7 @@
     "name": "rau bina",
     "category": "produce",
     "aliases": ["rau chân vịt", "cải bó xôi", "spinach"],
-    "safeFor": ["diabetes", "hypertension"],
+    "safeFor": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "anemia"],
     "avoidFor": ["kidney-disease", "high-uric-acid"],
     "nutritionProfile": "giàu sắt, folate, vitamin K và chất chống oxy hóa; hàm lượng oxalate cao có thể không phù hợp với một số bệnh",
     "substitutes": ["cải kale", "cải thìa", "rau xà lách", "bắp cải"]
@@ -134,7 +134,7 @@
     "name": "cải kale",
     "category": "produce",
     "aliases": ["cải xoăn", "kale"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "avoidFor": [],
     "nutritionProfile": "rau lá xanh siêu thực phẩm với vitamin K, A, C, canxi và chất chống oxy hóa mạnh",
     "substitutes": ["rau bina", "cải thìa", "cải rổ"]
@@ -144,7 +144,7 @@
     "name": "ớt chuông",
     "category": "produce",
     "aliases": ["ớt chuông đỏ", "ớt chuông xanh", "ớt chuông vàng", "bell pepper"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "nguồn vitamin C và chất chống oxy hóa tuyệt vời, ít calo, ít kali",
     "substitutes": ["bí ngòi", "dưa leo", "cần tây"]
@@ -154,7 +154,7 @@
     "name": "dưa leo",
     "category": "produce",
     "aliases": ["dưa chuột", "cucumber"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "rau cấp nước rất ít calo, ít kali, chứa silica và chất chống oxy hóa",
     "substitutes": ["bí ngòi", "cần tây", "củ đậu"]
@@ -164,7 +164,7 @@
     "name": "quả bơ",
     "category": "produce",
     "aliases": ["bơ hass", "avocado"],
-    "safeFor": ["diabetes", "hypertension"],
+    "safeFor": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease"],
     "avoidFor": ["kidney-disease"],
     "nutritionProfile": "giàu chất béo không bão hòa đơn, kali, folate và chất xơ; chất béo tốt cho tim",
     "substitutes": ["dầu ô liu", "các loại hạt", "tahini"]
@@ -174,7 +174,7 @@
     "name": "việt quất",
     "category": "produce",
     "aliases": ["việt quất rừng", "việt quất đông lạnh", "blueberries"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "hàm lượng chất chống oxy hóa cao nhất trong các loại trái cây phổ biến, chỉ số đường huyết thấp, tốt cho não và tim",
     "substitutes": ["dâu tây", "mâm xôi", "việt quất đen"]
@@ -184,7 +184,7 @@
     "name": "anh đào",
     "category": "produce",
     "aliases": ["cherry", "cherries", "anh đào chua", "anh đào ngọt"],
-    "safeFor": ["high-uric-acid", "diabetes", "hypertension"],
+    "safeFor": ["high-uric-acid", "diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "anemia"],
     "avoidFor": [],
     "nutritionProfile": "chứa anthocyanin trực tiếp giảm axit uric và viêm trong bệnh gút",
     "substitutes": ["việt quất", "dâu tây", "nho"]
@@ -194,8 +194,8 @@
     "name": "tỏi",
     "category": "produce",
     "aliases": ["tỏi tươi", "tép tỏi", "tỏi băm", "garlic"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
-    "avoidFor": [],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "anemia"],
+    "avoidFor": ["gastritis"],
     "nutritionProfile": "allicin giúp hạ huyết áp và cholesterol, kháng khuẩn, kháng viêm",
     "substitutes": ["hành tây", "hẹ tây", "tỏi tây"]
   },
@@ -204,7 +204,7 @@
     "name": "gừng",
     "category": "produce",
     "aliases": ["gừng tươi", "củ gừng", "bột gừng", "ginger"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "gingerol kháng viêm mạnh, cải thiện độ nhạy insulin và tiêu hóa",
     "substitutes": ["nghệ", "sả", "riềng"]
@@ -214,7 +214,7 @@
     "name": "dầu ô liu",
     "category": "pantry",
     "aliases": ["dầu ô liu nguyên chất", "olive oil"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease"],
     "avoidFor": [],
     "nutritionProfile": "giàu axit oleic không bão hòa đơn, polyphenol, vitamin E; giảm viêm",
     "substitutes": ["dầu bơ", "dầu mè", "dầu canola"]
@@ -224,7 +224,7 @@
     "name": "óc chó",
     "category": "pantry",
     "aliases": ["hạt óc chó", "walnuts"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease"],
     "avoidFor": [],
     "nutritionProfile": "nguồn omega-3 ALA thực vật cao nhất, melatonin, chất chống oxy hóa, magie",
     "substitutes": ["hạnh nhân", "hạt hồ đào", "hạt mắc ca"]
@@ -234,7 +234,7 @@
     "name": "hạnh nhân",
     "category": "pantry",
     "aliases": ["hạnh nhân sống", "bơ hạnh nhân", "almonds"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease"],
     "avoidFor": [],
     "nutritionProfile": "giàu vitamin E, magie, chất béo không bão hòa đơn, chất xơ; hỗ trợ kiểm soát đường huyết",
     "substitutes": ["óc chó", "hạt điều", "hạt hướng dương"]
@@ -244,7 +244,7 @@
     "name": "hạt chia",
     "category": "pantry",
     "aliases": ["chia"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease"],
     "avoidFor": [],
     "nutritionProfile": "giàu omega-3 ALA, chất xơ hòa tan, canxi, đạm; tạo gel làm chậm tiêu hóa",
     "substitutes": ["hạt lanh", "hạt gai dầu", "vỏ mã đề"]
@@ -254,7 +254,7 @@
     "name": "sữa chua Hy Lạp không đường",
     "category": "dairy",
     "aliases": ["sữa chua Hy Lạp", "greek yogurt"],
-    "safeFor": ["diabetes", "high-uric-acid"],
+    "safeFor": ["diabetes", "high-uric-acid", "fatty-liver", "high-cholesterol", "obesity", "gastritis"],
     "avoidFor": ["kidney-disease"],
     "nutritionProfile": "lượng đạm gấp đôi sữa chua thường, lợi khuẩn, canxi; ít lactose",
     "substitutes": ["sữa chua thường", "kefir", "phô mai cottage"]
@@ -264,7 +264,7 @@
     "name": "sữa hạnh nhân",
     "category": "dairy",
     "aliases": ["sữa hạnh nhân không đường", "almond milk"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "thay thế sữa ít calo, ít phốt pho và kali hơn sữa bò",
     "substitutes": ["sữa gạo", "sữa yến mạch", "sữa dừa"]
@@ -274,8 +274,8 @@
     "name": "chanh",
     "category": "produce",
     "aliases": ["nước cốt chanh", "vỏ chanh", "lemon"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
-    "avoidFor": [],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "anemia"],
+    "avoidFor": ["gastritis"],
     "nutritionProfile": "giàu vitamin C và axit citric; giúp kiềm hóa nước tiểu, ngăn kết tinh axit uric",
     "substitutes": ["chanh xanh", "nước cam", "giấm táo"]
   },
@@ -284,7 +284,7 @@
     "name": "nghệ",
     "category": "pantry",
     "aliases": ["bột nghệ", "curcumin", "nghệ tươi", "turmeric"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "anemia"],
     "avoidFor": [],
     "nutritionProfile": "curcumin là chất kháng viêm và chống oxy hóa mạnh, giảm axit uric và đau khớp",
     "substitutes": ["gừng", "nghệ tây", "ớt bột"]
@@ -294,7 +294,7 @@
     "name": "quế",
     "category": "pantry",
     "aliases": ["bột quế", "cinnamon"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "cải thiện độ nhạy insulin, hạ đường huyết lúc đói, kháng viêm",
     "substitutes": ["bạch đậu khấu", "nhục đậu khấu", "tiêu thơm"]
@@ -304,7 +304,7 @@
     "name": "cá thịt trắng",
     "category": "protein",
     "aliases": ["cá tuyết", "cá rô phi", "cá bơn", "white fish"],
-    "safeFor": ["hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "cá thịt trắng nạc rất ít chất béo và purin, đạm chất lượng cao, selen",
     "substitutes": ["ức gà", "đậu hũ", "tôm"]
@@ -314,7 +314,7 @@
     "name": "bánh tráng",
     "category": "grains",
     "aliases": ["bánh tráng cuốn", "rice paper"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "vỏ cuốn rất ít calo làm từ bột gạo, không gluten, ít natri",
     "substitutes": ["lá xà lách", "lá rong biển nori"]
@@ -324,7 +324,7 @@
     "name": "bún tươi",
     "category": "grains",
     "aliases": ["bún", "bún gạo", "rice vermicelli"],
-    "safeFor": ["high-uric-acid", "kidney-disease"],
+    "safeFor": ["high-uric-acid", "kidney-disease", "fatty-liver", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "mì gạo không gluten, ít natri, chỉ số đường huyết trung bình",
     "substitutes": ["mì shirataki", "mì bí ngòi", "miến"]
@@ -334,7 +334,7 @@
     "name": "bắp cải",
     "category": "produce",
     "aliases": ["bắp cải xanh", "bắp cải tím", "cải thảo", "cabbage"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "avoidFor": [],
     "nutritionProfile": "rau họ cải ít kali, vitamin C và K, chất xơ; rất tốt cho người bệnh thận",
     "substitutes": ["xà lách", "cải thìa", "cải kale"]
@@ -344,7 +344,7 @@
     "name": "cải thìa",
     "category": "produce",
     "aliases": ["cải bẹ trắng", "bok choy", "pak choi"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "rau châu Á ít kali, giàu vitamin A và C, canxi, kháng viêm",
     "substitutes": ["bắp cải", "cải kale", "cải Thụy Sĩ"]
@@ -354,7 +354,7 @@
     "name": "cần tây",
     "category": "produce",
     "aliases": ["cọng cần tây", "celery"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "rất ít calo với hợp chất giúp hạ axit uric và huyết áp",
     "substitutes": ["dưa leo", "thì là tây", "củ đậu"]
@@ -364,7 +364,7 @@
     "name": "dưa hấu",
     "category": "produce",
     "aliases": ["watermelon"],
-    "safeFor": ["high-uric-acid", "hypertension"],
+    "safeFor": ["high-uric-acid", "hypertension", "fatty-liver", "obesity"],
     "avoidFor": [],
     "nutritionProfile": "hàm lượng nước cao, lycopene chống oxy hóa, citrulline giúp đào thải axit uric",
     "substitutes": ["dưa leo", "dưa lưới", "dưa vàng"]
@@ -374,7 +374,7 @@
     "name": "hạt lanh",
     "category": "pantry",
     "aliases": ["hạt lanh xay", "bột hạt lanh", "flaxseeds"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease"],
     "avoidFor": [],
     "nutritionProfile": "nguồn omega-3 ALA thực vật cao nhất, lignan cân bằng nội tiết tố, chất xơ hòa tan",
     "substitutes": ["hạt chia", "hạt gai dầu", "vỏ mã đề"]
@@ -384,7 +384,7 @@
     "name": "đậu edamame",
     "category": "protein",
     "aliases": ["đậu nành Nhật", "edamame"],
-    "safeFor": ["diabetes", "high-uric-acid"],
+    "safeFor": ["diabetes", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "avoidFor": [],
     "nutritionProfile": "đạm thực vật hoàn chỉnh với chất xơ, folate và isoflavone; ít purin hơn đậu nành trưởng thành",
     "substitutes": ["đậu Hà Lan", "đậu gà", "đậu lima"]
@@ -394,7 +394,7 @@
     "name": "hummus",
     "category": "pantry",
     "aliases": ["sốt đậu gà", "hummus tự làm"],
-    "safeFor": ["diabetes", "hypertension"],
+    "safeFor": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity"],
     "avoidFor": [],
     "nutritionProfile": "đạm và chất xơ thực vật từ đậu gà, chất béo lành mạnh từ tahini và dầu ô liu",
     "substitutes": ["sốt đậu trắng", "guacamole", "tzatziki"]
@@ -404,7 +404,7 @@
     "name": "táo",
     "category": "produce",
     "aliases": ["táo đỏ", "táo xanh", "apple"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "chất xơ hòa tan pectin hỗ trợ đường ruột và cholesterol, quercetin chống oxy hóa",
     "substitutes": ["lê", "đào", "mận"]
@@ -414,7 +414,7 @@
     "name": "củ dền",
     "category": "produce",
     "aliases": ["củ cải đường", "beets"],
-    "safeFor": ["hypertension"],
+    "safeFor": ["hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "anemia"],
     "avoidFor": ["kidney-disease"],
     "nutritionProfile": "nitrat tự nhiên giúp hạ huyết áp đáng kể; betaine hỗ trợ chức năng gan",
     "substitutes": ["cà rốt", "bắp cải tím", "nước ép lựu"]
@@ -424,7 +424,7 @@
     "name": "cà rốt",
     "category": "produce",
     "aliases": ["cà rốt baby", "que cà rốt", "carrot"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
     "avoidFor": [],
     "nutritionProfile": "giàu beta-carotene, chất xơ, vitamin K; chỉ số đường huyết trung bình khi ăn nguyên củ",
     "substitutes": ["khoai lang", "bí ngô", "ớt chuông"]
@@ -434,7 +434,7 @@
     "name": "sữa ít béo",
     "category": "dairy",
     "aliases": ["sữa tách béo", "sữa chua ít béo", "low-fat dairy"],
-    "safeFor": ["high-uric-acid", "hypertension"],
+    "safeFor": ["high-uric-acid", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity"],
     "avoidFor": ["kidney-disease"],
     "nutritionProfile": "đạm sữa casein và whey giúp tăng đào thải axit uric, canxi, vitamin D",
     "substitutes": ["sữa hạnh nhân", "sữa gạo", "sữa đậu nành"]
@@ -444,7 +444,7 @@
     "name": "bánh mì nguyên cám",
     "category": "grains",
     "aliases": ["bánh mì lúa mì nguyên cám", "whole grain bread"],
-    "safeFor": ["diabetes", "high-uric-acid"],
+    "safeFor": ["diabetes", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "anemia"],
     "avoidFor": ["hypertension", "kidney-disease"],
     "nutritionProfile": "thay thế giàu chất xơ cho bánh mì trắng với vitamin nhóm B và khoáng chất; có chứa natri",
     "substitutes": ["bánh gạo", "bánh quy yến mạch", "bánh mì sourdough"]
@@ -454,7 +454,7 @@
     "name": "tahini",
     "category": "pantry",
     "aliases": ["sốt mè", "bơ mè", "sesame paste"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease"],
     "avoidFor": [],
     "nutritionProfile": "giàu canxi, chất béo lành mạnh và lignan sesamin giúp hạ huyết áp",
     "substitutes": ["bơ hạnh nhân", "bơ hạt hướng dương", "bơ đậu phộng"]

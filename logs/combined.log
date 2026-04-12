@@ -665,3 +665,127 @@
 11:17:38 [32minfo[39m: Network access: http://<your-mac-ip>:4000
 11:17:41 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
 11:17:41 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+11:22:38 [32minfo[39m: DELETE /api/auth/696c589e783bff2ecc94f6ff 401 75ms {"requestId":"721156f4-e6e5-42a7-9637-8dc3e17ff1d7","method":"DELETE","path":"/api/auth/696c589e783bff2ecc94f6ff","status":401,"duration":75}
+11:22:51 [32minfo[39m: POST /api/auth/login 200 233ms {"requestId":"0d792b10-5ca5-4f5a-b132-1988c43326ea","method":"POST","path":"/api/auth/login","status":200,"duration":233}
+11:23:09 [32minfo[39m: DELETE /api/auth/696c589e783bff2ecc94f6ff 403 113ms {"requestId":"4e32820f-47c2-44d5-a837-00bbae40f0c5","method":"DELETE","path":"/api/auth/696c589e783bff2ecc94f6ff","status":403,"duration":113,"userId":"6918718ef2d00105b9e4741b"}
+14:05:53 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+14:05:53 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+14:06:08 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+14:06:08 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+14:11:22 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+14:11:22 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+14:27:42 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+14:27:42 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "diabetes":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "kidney-disease":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "high-uric-acid":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "hypertension":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "fatty-liver":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "high-cholesterol":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "heart-disease":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "obesity":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "anemia":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert guideline "gastritis":
+14:31:57 [32minfo[39m: RAG Indexer: Guidelines done — indexed 0, errors 10
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "diêm mạch":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "gạo lứt":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "yến mạch":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "cá hồi":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "ức gà":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "đậu hũ":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "lòng trắng trứng":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "đậu lăng":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "đậu gà":
+14:31:57 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "khoai lang":
+14:31:57 [32minfo[39m: RAG Indexer: Ingredients progress 10/46
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Cháo yến mạch với quả mọng và hạt chia":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Phở gà":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Sữa chua Hy Lạp với các loại hạt":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Bánh mì trứng":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Trứng chiên lòng trắng kiểu Địa Trung Hải":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Cháo gạo lứt với gừng":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Bánh mì nướng bơ với trứng chần":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Đậu hũ xào rau củ":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Cá hồi nướng với bông cải xanh hấp":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Bún gà":
+14:31:58 [32minfo[39m: RAG Indexer: Recipes progress 10/35
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "bông cải xanh":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "súp lơ trắng":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "rau bina":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "cải kale":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "ớt chuông":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "dưa leo":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "quả bơ":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "việt quất":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "anh đào":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "tỏi":
+14:31:58 [32minfo[39m: RAG Indexer: Ingredients progress 20/46
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Tô diêm mạch kiểu Buddha":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Gà xào rau củ":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Salad đậu gà kiểu Địa Trung Hải":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Gỏi cuốn tôm thịt":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Súp đậu lăng đỏ":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Cá hấp gừng hành":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Tô cơm súp lơ với gà nướng":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Gà nướng với khoai lang":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Canh chua cá":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Cá tuyết nướng kiểu Địa Trung Hải":
+14:31:58 [32minfo[39m: RAG Indexer: Recipes progress 20/35
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "gừng":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "dầu ô liu":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "óc chó":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "hạnh nhân":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "hạt chia":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "sữa chua Hy Lạp không đường":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "sữa hạnh nhân":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "chanh":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "nghệ":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "quế":
+14:31:58 [32minfo[39m: RAG Indexer: Ingredients progress 30/46
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Cà ri xanh đậu hũ và rau củ":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Ức gà tây nướng với rau củ":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Cơm gà":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Trứng nướng rau bina kiểu Ý":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Đậu hũ hấp cải thìa với gạo lứt":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Cá hồi áo rau thơm với diêm mạch":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Táo cắt lát với bơ hạnh nhân":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Hỗn hợp hạt và quả mọng":
+14:31:58 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Gỏi cuốn chay (bữa phụ)":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Hummus với dưa leo và ớt chuông":
+14:31:59 [32minfo[39m: RAG Indexer: Recipes progress 30/35
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "cá thịt trắng":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "bánh tráng":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "bún tươi":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "bắp cải":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "cải thìa":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "cần tây":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "dưa hấu":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "hạt lanh":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "đậu edamame":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "hummus":
+14:31:59 [32minfo[39m: RAG Indexer: Ingredients progress 40/46
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Bánh gạo lứt với bơ":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Đậu nành Nhật hấp (edamame)":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Sữa chua Hy Lạp với óc chó và mật ong":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Cháo gừng Việt Nam":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert recipe "Salad tabbouleh":
+14:31:59 [32minfo[39m: RAG Indexer: Recipes progress 35/35
+14:31:59 [32minfo[39m: RAG Indexer: Recipes done — indexed 0, errors 35
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "táo":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "củ dền":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "cà rốt":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "sữa ít béo":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "bánh mì nguyên cám":
+14:31:59 [33mwarn[39m: RAG Indexer: Failed to upsert ingredient "tahini":
+14:32:01 [32minfo[39m: MongoDB connected
+14:32:01 [32minfo[39m: Server listening on http://localhost:4000
+14:32:01 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:33:07 [32minfo[39m: GET /api/docs/ 304 19ms {"requestId":"031d893e-818c-48ce-a3c7-a2cc02a6c5b7","method":"GET","path":"/api/docs/","status":304,"duration":19}
+14:33:07 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 1ms {"requestId":"427a67ea-cdb3-4d39-a8d5-58a541f9f780","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":1}
+14:33:07 [32minfo[39m: GET /api/docs/swagger-ui.css 304 1ms {"requestId":"25e358e0-4a1c-452c-8773-3568d20d92e8","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":1}
+14:33:07 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 1ms {"requestId":"6766739f-9453-4524-a207-c6dc14016efc","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":1}
+14:33:07 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 1ms {"requestId":"306e7aa0-a575-424e-aaec-3fc9558d8403","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":1}
+14:33:07 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"cc2f480b-64c4-48f4-9985-ccd2742d46e2","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+14:33:31 [32minfo[39m: POST /api/auth/login 200 220ms {"requestId":"f414f6f8-21dd-4bcd-a71d-dec10b50b349","method":"POST","path":"/api/auth/login","status":200,"duration":220}
+14:33:52 [32minfo[39m: GET /api/health-profile 200 117ms {"requestId":"14b089ae-f8d0-4178-b5f9-2d11ee4d2974","method":"GET","path":"/api/health-profile","status":200,"duration":117,"userId":"6918718ef2d00105b9e4741b"}
+14:36:16 [32minfo[39m: DELETE /api/meal-plans 200 136ms {"requestId":"54c2666b-1891-4b66-a4e6-a0dfe76d7402","method":"DELETE","path":"/api/meal-plans","status":200,"duration":136,"userId":"6918718ef2d00105b9e4741b"}

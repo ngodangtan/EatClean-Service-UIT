@@ -129,7 +129,7 @@ eat-clean-api/
 │   ├── data/
 │   │   └── knowledgeBase/                  # Dữ liệu tham khảo được tuyển chọn (quản lý phiên bản)
 │   │       ├── recipes.json                # 35 công thức tham khảo
-│   │       ├── diseaseGuidelines.json      # 4 hướng dẫn chế độ ăn theo bệnh
+│   │       ├── diseaseGuidelines.json      # 10 hướng dẫn chế độ ăn theo bệnh
 │   │       └── ingredients.json            # 46 nguyên liệu với cờ an toàn theo bệnh
 │   └── utils/
 │       ├── AppError.js                     # Lớp lỗi tùy chỉnh + hàm factory
@@ -331,9 +331,9 @@ Mỗi công thức có:
 }
 ```
 
-Phạm vi bao phủ: tất cả 4 mealTypes, tất cả 3 goals (`lose-weight`, `gain-weight`, `improve-health`), tất cả 4 bệnh, 4 phong cách ẩm thực (western, vietnamese, asian, mediterranean).
+Phạm vi bao phủ: tất cả 4 mealTypes, tất cả 3 goals (`lose-weight`, `gain-weight`, `improve-health`), tất cả 10 bệnh trong catalog, 4 phong cách ẩm thực (western, vietnamese, asian, mediterranean).
 
-#### `diseaseGuidelines.json` — 4 hướng dẫn bệnh lý
+#### `diseaseGuidelines.json` — 10 hướng dẫn bệnh lý
 
 Mỗi tài liệu:
 ```json
@@ -351,7 +351,7 @@ Mỗi tài liệu:
 }
 ```
 
-Bao phủ: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`.
+Bao phủ tất cả 10 bệnh trong catalog: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`.
 
 #### `ingredients.json` — 46 mục nguyên liệu tham khảo
 
@@ -362,14 +362,14 @@ Mỗi nguyên liệu:
   "name": "quinoa",
   "category": "grains",              // produce | protein | dairy | grains | pantry | other
   "aliases": ["quinua"],
-  "safeFor": ["diabetes", "hypertension", "high-uric-acid"],
+  "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
   "avoidFor": [],
   "nutritionProfile": "complete protein grain, all essential amino acids, low glycemic index",
   "substitutes": ["brown rice", "buckwheat", "bulgur"]
 }
 ```
 
-Bao phủ tất cả danh mục thực phẩm. Tất cả giá trị `safeFor`/`avoidFor` tham chiếu đến 4 tên bệnh được hỗ trợ.
+Bao phủ tất cả danh mục thực phẩm. Tất cả giá trị `safeFor`/`avoidFor` tham chiếu đến tên bệnh từ catalog đầy đủ 10 bệnh.
 
 ### File Dịch Vụ RAG (`src/services/rag/`)
 

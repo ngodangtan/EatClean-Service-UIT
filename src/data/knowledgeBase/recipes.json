@@ -5,7 +5,7 @@
     "mealType": "breakfast",
     "cuisine": "western",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity"],
     "ingredients": ["yến mạch cán dẹt", "việt quất", "dâu tây", "hạt chia", "sữa hạnh nhân", "quế"],
     "description": "Bữa sáng giàu chất xơ, chỉ số đường huyết thấp với quả mọng giàu chất chống oxy hóa và hạt chia chứa omega-3.",
     "tags": ["high-fiber", "low-glycemic", "dairy-free"]
@@ -16,7 +16,7 @@
     "mealType": "breakfast",
     "cuisine": "vietnamese",
     "goal": ["gain-weight", "improve-health"],
-    "diseaseCompatible": ["high-uric-acid"],
+    "diseaseCompatible": ["high-uric-acid", "anemia", "gastritis"],
     "ingredients": ["bánh phở", "ức gà", "hoa hồi", "gừng", "hành tây", "giá đỗ", "rau thơm", "chanh"],
     "description": "Món phở Việt Nam ấm nóng với ức gà nạc, gia vị thơm và rau thơm tươi.",
     "tags": ["high-protein", "warming", "traditional"]
@@ -27,7 +27,7 @@
     "mealType": "breakfast",
     "cuisine": "western",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes"],
+    "diseaseCompatible": ["diabetes", "fatty-liver", "high-cholesterol", "obesity", "gastritis"],
     "ingredients": ["sữa chua Hy Lạp không đường", "óc chó", "hạnh nhân", "việt quất", "hạt lanh", "quế"],
     "description": "Sữa chua giàu protein kết hợp quả mọng có chỉ số đường huyết thấp và chất béo lành mạnh từ hạt.",
     "tags": ["high-protein", "low-glycemic", "probiotic"]
@@ -38,7 +38,7 @@
     "mealType": "breakfast",
     "cuisine": "vietnamese",
     "goal": ["gain-weight"],
-    "diseaseCompatible": [],
+    "diseaseCompatible": ["anemia"],
     "ingredients": ["bánh mì baguette", "trứng gà", "dưa leo", "củ cải trắng", "cà rốt", "ngò rí", "sốt mayonnaise"],
     "description": "Bánh mì trứng truyền thống của Việt Nam với rau củ chua ngọt và rau thơm trên bánh mì giòn.",
     "tags": ["high-calorie", "traditional", "satisfying"]
@@ -49,7 +49,7 @@
     "mealType": "breakfast",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["hypertension", "kidney-disease"],
+    "diseaseCompatible": ["hypertension", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity"],
     "ingredients": ["lòng trắng trứng", "ớt chuông", "cà chua", "dưa leo", "dầu ô liu", "húng quế tươi", "lá oregano"],
     "description": "Trứng chiên lòng trắng nhẹ nhàng với rau củ nhiều màu sắc, nêm bằng rau thơm thay vì muối.",
     "tags": ["low-sodium", "high-protein", "low-fat"]
@@ -60,7 +60,7 @@
     "mealType": "breakfast",
     "cuisine": "asian",
     "goal": ["improve-health"],
-    "diseaseCompatible": ["diabetes", "kidney-disease"],
+    "diseaseCompatible": ["diabetes", "kidney-disease", "fatty-liver", "gastritis"],
     "ingredients": ["gạo lứt", "gừng", "hành lá", "dầu mè", "lòng trắng trứng", "cải thìa"],
     "description": "Cháo gạo dễ tiêu với gừng kháng viêm và rau xanh ít kali, tốt cho người bệnh thận.",
     "tags": ["easy-to-digest", "warming", "low-potassium"]
@@ -71,7 +71,7 @@
     "mealType": "breakfast",
     "cuisine": "western",
     "goal": ["improve-health", "gain-weight"],
-    "diseaseCompatible": ["hypertension"],
+    "diseaseCompatible": ["hypertension", "high-cholesterol", "heart-disease"],
     "ingredients": ["bánh mì nguyên cám", "quả bơ", "trứng gà", "nước cốt chanh", "ớt vảy", "rau mầm"],
     "description": "Bánh mì nướng giàu dinh dưỡng với chất béo tốt từ bơ và protein chất lượng cao từ trứng.",
     "tags": ["high-protein", "healthy-fats", "potassium-rich"]
@@ -82,7 +82,7 @@
     "mealType": "breakfast",
     "cuisine": "asian",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["high-uric-acid", "diabetes"],
+    "diseaseCompatible": ["high-uric-acid", "diabetes", "fatty-liver", "high-cholesterol", "obesity"],
     "ingredients": ["đậu hũ cứng", "nghệ", "ớt chuông", "rau bina", "tỏi", "dầu ô liu", "men dinh dưỡng"],
     "description": "Món xào thực vật với đậu hũ, rau ít purin và nghệ kháng viêm.",
     "tags": ["vegan", "low-purine", "high-protein"]
@@ -93,7 +93,7 @@
     "mealType": "lunch",
     "cuisine": "western",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["hypertension", "high-uric-acid"],
+    "diseaseCompatible": ["hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity"],
     "ingredients": ["phi lê cá hồi", "bông cải xanh", "chanh", "dầu ô liu", "tỏi", "thì là"],
     "description": "Bữa ăn nhẹ giàu protein với axit béo omega-3 và rau họ cải.",
     "tags": ["high-protein", "low-carb", "gluten-free"]
@@ -104,7 +104,7 @@
     "mealType": "lunch",
     "cuisine": "vietnamese",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "obesity", "anemia"],
     "ingredients": ["bún tươi", "ức gà", "rau xà lách", "dưa leo", "rau húng", "ngò rí", "nước cốt chanh", "nước mắm pha loãng"],
     "description": "Bún gà mát lạnh kiểu Việt với ức gà nạc và nhiều rau thơm tươi.",
     "tags": ["high-protein", "fresh", "low-fat"]
@@ -115,7 +115,7 @@
     "mealType": "lunch",
     "cuisine": "western",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity"],
     "ingredients": ["diêm mạch", "đậu gà nướng", "quả bơ", "cải kale", "cà chua bi", "sốt tahini", "nước cốt chanh"],
     "description": "Tô ngũ cốc với protein hoàn chỉnh, đậu gà giàu chất xơ, chất béo tốt và rau xanh.",
     "tags": ["high-fiber", "complete-protein", "vegan"]
@@ -126,7 +126,7 @@
     "mealType": "lunch",
     "cuisine": "asian",
     "goal": ["gain-weight", "improve-health"],
-    "diseaseCompatible": ["hypertension"],
+    "diseaseCompatible": ["hypertension", "fatty-liver", "anemia"],
     "ingredients": ["ức gà", "ớt chuông", "bông cải xanh", "đậu Hà Lan", "gừng", "tỏi", "dầu mè", "gạo lứt"],
     "description": "Món gà xào giàu protein với rau củ nhiều màu trên cơm gạo lứt, dùng gia vị ít muối.",
     "tags": ["high-protein", "low-sodium", "colorful"]
@@ -137,7 +137,7 @@
     "mealType": "lunch",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "kidney-disease"],
+    "diseaseCompatible": ["diabetes", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "ingredients": ["đậu gà", "dưa leo", "cà chua bi", "hành tím", "dầu ô liu", "nước cốt chanh", "ngò tây", "lá oregano"],
     "description": "Salad Địa Trung Hải giàu chất xơ với đạm thực vật, dầu ô liu tốt cho tim và rau thơm tươi.",
     "tags": ["high-fiber", "plant-protein", "low-sodium"]
@@ -148,7 +148,7 @@
     "mealType": "lunch",
     "cuisine": "vietnamese",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["high-uric-acid", "diabetes"],
+    "diseaseCompatible": ["high-uric-acid", "diabetes", "fatty-liver", "obesity", "gastritis"],
     "ingredients": ["bánh tráng", "tôm", "bún tươi", "rau xà lách", "rau húng", "dưa leo", "cà rốt", "tương hoisin"],
     "description": "Gỏi cuốn tươi không chiên với nhiều rau và đạm nạc, ít purin.",
     "tags": ["low-calorie", "fresh", "low-purine"]
@@ -159,7 +159,7 @@
     "mealType": "lunch",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "ingredients": ["đậu lăng đỏ", "cà rốt", "cần tây", "hành tây", "bột cumin", "nghệ", "nước cốt chanh", "dầu ô liu"],
     "description": "Súp thực vật no lâu, giàu chất xơ và đạm thực vật cùng gia vị kháng viêm.",
     "tags": ["high-fiber", "plant-protein", "anti-inflammatory"]
@@ -170,7 +170,7 @@
     "mealType": "lunch",
     "cuisine": "asian",
     "goal": ["improve-health"],
-    "diseaseCompatible": ["hypertension", "high-uric-acid"],
+    "diseaseCompatible": ["hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "gastritis"],
     "ingredients": ["phi lê cá thịt trắng", "gừng", "hành lá", "dầu mè", "rượu gạo", "cải thìa"],
     "description": "Cá hấp thanh đạm với gừng và hành thơm, giữ trọn vị tự nhiên mà không cần thêm muối.",
     "tags": ["low-sodium", "high-protein", "light"]
@@ -181,7 +181,7 @@
     "mealType": "lunch",
     "cuisine": "western",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["kidney-disease", "diabetes"],
+    "diseaseCompatible": ["kidney-disease", "diabetes", "fatty-liver", "high-cholesterol", "obesity"],
     "ingredients": ["súp lơ", "ức gà", "ớt chuông", "dầu ô liu", "tỏi", "chanh", "ngò tây"],
     "description": "Cơm súp lơ ít carb với ức gà nạc, lý tưởng cho người kiểm soát đường huyết và bệnh thận.",
     "tags": ["low-carb", "low-potassium", "high-protein"]
@@ -192,7 +192,7 @@
     "mealType": "dinner",
     "cuisine": "western",
     "goal": ["improve-health", "gain-weight"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "anemia"],
     "ingredients": ["ức gà", "khoai lang", "lá hương thảo", "tỏi", "dầu ô liu", "đậu cô ve", "chanh"],
     "description": "Gà nạc nướng lò với khoai lang giàu chất xơ và rau thơm cho bữa tối cân bằng, no lâu.",
     "tags": ["high-protein", "low-glycemic", "balanced"]
@@ -203,7 +203,7 @@
     "mealType": "dinner",
     "cuisine": "vietnamese",
     "goal": ["improve-health"],
-    "diseaseCompatible": ["hypertension", "high-uric-acid"],
+    "diseaseCompatible": ["hypertension", "high-uric-acid", "fatty-liver"],
     "ingredients": ["cá basa", "cà chua", "thơm", "giá đỗ", "đậu bắp", "me", "thì là", "cơm"],
     "description": "Canh chua truyền thống Việt Nam với me, cà chua và rau củ tươi.",
     "tags": ["low-sodium", "traditional", "antioxidant-rich"]
@@ -214,7 +214,7 @@
     "mealType": "dinner",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["hypertension", "kidney-disease"],
+    "diseaseCompatible": ["hypertension", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
     "ingredients": ["phi lê cá tuyết", "cà chua bi", "ô liu", "nụ bạch hoa", "dầu ô liu", "chanh", "lá xạ hương tươi"],
     "description": "Cá thịt trắng nướng cùng rau Địa Trung Hải và rau thơm, ít natri và kali.",
     "tags": ["low-sodium", "low-potassium", "lean-protein"]
@@ -236,7 +236,7 @@
     "mealType": "dinner",
     "cuisine": "western",
     "goal": ["gain-weight", "improve-health"],
-    "diseaseCompatible": ["hypertension", "diabetes"],
+    "diseaseCompatible": ["hypertension", "diabetes", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "ingredients": ["ức gà tây", "bí ngòi", "ớt chuông", "cà rốt", "dầu ô liu", "lá hương thảo", "lá xạ hương", "tỏi"],
     "description": "Ức gà tây nạc cùng các loại rau củ nướng, rau thơm và không thêm muối.",
     "tags": ["high-protein", "low-sodium", "low-glycemic"]
@@ -247,7 +247,7 @@
     "mealType": "dinner",
     "cuisine": "vietnamese",
     "goal": ["gain-weight"],
-    "diseaseCompatible": [],
+    "diseaseCompatible": ["anemia"],
     "ingredients": ["gạo jasmine", "gà nguyên con", "gừng", "nghệ", "sả", "dưa leo", "rau thơm"],
     "description": "Món cơm gà Việt Nam cổ điển với gà luộc trên cơm vàng nghệ thơm và nước chấm.",
     "tags": ["traditional", "high-calorie", "comforting"]
@@ -258,7 +258,7 @@
     "mealType": "dinner",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "obesity", "anemia"],
     "ingredients": ["trứng gà", "rau bina", "phô mai feta", "cà chua bi", "dầu ô liu", "lá oregano", "tiêu đen"],
     "description": "Món trứng nướng kiểu Ý với rau xanh và ít phô mai, bữa tối nhẹ giàu protein.",
     "tags": ["high-protein", "low-carb", "vegetarian"]
@@ -269,7 +269,7 @@
     "mealType": "dinner",
     "cuisine": "asian",
     "goal": ["improve-health"],
-    "diseaseCompatible": ["high-uric-acid", "kidney-disease"],
+    "diseaseCompatible": ["high-uric-acid", "kidney-disease", "fatty-liver", "obesity", "gastritis"],
     "ingredients": ["đậu hũ non", "cải thìa", "gạo lứt", "dầu mè", "gừng", "giấm gạo"],
     "description": "Đạm thực vật nhẹ nhàng dễ tiêu với rau xanh ít kali trên cơm gạo lứt nguyên cám.",
     "tags": ["vegan", "low-potassium", "easy-to-digest"]
@@ -280,7 +280,7 @@
     "mealType": "dinner",
     "cuisine": "mediterranean",
     "goal": ["improve-health", "gain-weight"],
-    "diseaseCompatible": ["hypertension"],
+    "diseaseCompatible": ["hypertension", "fatty-liver", "high-cholesterol", "heart-disease"],
     "ingredients": ["phi lê cá hồi", "diêm mạch", "thì là", "ngò tây", "vỏ chanh", "dầu ô liu", "măng tây"],
     "description": "Cá hồi giàu omega-3 áo rau thơm, ăn cùng diêm mạch giàu protein hoàn chỉnh.",
     "tags": ["high-protein", "omega-3", "heart-healthy"]
@@ -291,7 +291,7 @@
     "mealType": "snack",
     "cuisine": "western",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "obesity", "gastritis"],
     "ingredients": ["táo", "bơ hạnh nhân", "quế"],
     "description": "Bữa phụ cân bằng với đường tự nhiên từ trái cây kết hợp chất béo lành mạnh và đạm để làm chậm hấp thu đường.",
     "tags": ["blood-sugar-stable", "satisfying", "natural"]
@@ -302,7 +302,7 @@
     "mealType": "snack",
     "cuisine": "western",
     "goal": ["improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease"],
     "ingredients": ["óc chó", "hạnh nhân", "việt quất", "nam việt quất", "hạt bí ngô"],
     "description": "Hỗn hợp giàu chất chống oxy hóa với các loại hạt không muối và hạt tốt cho tim, cung cấp năng lượng bền.",
     "tags": ["antioxidant-rich", "heart-healthy", "unsalted"]
@@ -313,7 +313,7 @@
     "mealType": "snack",
     "cuisine": "vietnamese",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["high-uric-acid", "diabetes"],
+    "diseaseCompatible": ["high-uric-acid", "diabetes", "fatty-liver", "obesity", "gastritis"],
     "ingredients": ["bánh tráng", "rau xà lách", "dưa leo", "cà rốt", "rau húng", "đậu hũ", "bún tươi"],
     "description": "Gỏi cuốn chay nhẹ nhàng kiểu Việt với rau thơm tươi và đạm thực vật, ít purin.",
     "tags": ["low-calorie", "fresh", "vegan"]
@@ -324,7 +324,7 @@
     "mealType": "snack",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity"],
     "ingredients": ["sốt hummus", "dưa leo", "ớt chuông", "que cà rốt", "nước cốt chanh"],
     "description": "Sốt chấm giàu chất xơ và đạm thực vật ăn kèm rau ít calo, không thêm muối.",
     "tags": ["high-fiber", "plant-protein", "low-sodium"]
@@ -335,7 +335,7 @@
     "mealType": "snack",
     "cuisine": "western",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["kidney-disease", "hypertension"],
+    "diseaseCompatible": ["kidney-disease", "hypertension", "fatty-liver", "heart-disease"],
     "ingredients": ["bánh gạo lứt", "quả bơ", "nước cốt chanh", "ớt vảy"],
     "description": "Bữa phụ nhẹ ít kali với chất béo tốt từ bơ trên bánh gạo nhạt.",
     "tags": ["low-sodium", "low-potassium", "light"]
@@ -346,7 +346,7 @@
     "mealType": "snack",
     "cuisine": "asian",
     "goal": ["gain-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "high-uric-acid"],
+    "diseaseCompatible": ["diabetes", "high-uric-acid", "fatty-liver", "high-cholesterol", "obesity"],
     "ingredients": ["đậu edamame", "muối biển"],
     "description": "Bữa phụ đạm thực vật hoàn chỉnh, giàu chất xơ và axit amin thiết yếu, ít purin.",
     "tags": ["high-protein", "plant-based", "low-glycemic"]
@@ -357,7 +357,7 @@
     "mealType": "snack",
     "cuisine": "western",
     "goal": ["improve-health", "gain-weight"],
-    "diseaseCompatible": ["diabetes"],
+    "diseaseCompatible": ["diabetes", "fatty-liver", "high-cholesterol", "gastritis"],
     "ingredients": ["sữa chua Hy Lạp không đường", "óc chó", "quế", "tinh chất vani"],
     "description": "Sữa chua giàu protein chứa lợi khuẩn, kèm óc chó tốt cho não và quế ổn định đường huyết.",
     "tags": ["high-protein", "probiotic", "brain-healthy"]
@@ -368,7 +368,7 @@
     "mealType": "breakfast",
     "cuisine": "vietnamese",
     "goal": ["improve-health", "lose-weight"],
-    "diseaseCompatible": ["kidney-disease", "hypertension"],
+    "diseaseCompatible": ["kidney-disease", "hypertension", "fatty-liver", "gastritis"],
     "ingredients": ["gạo trắng", "gừng", "hành lá", "dầu mè", "cá thịt trắng"],
     "description": "Cháo gạo dịu nhẹ kiểu Việt phù hợp cho người bệnh thận, chỉ nêm với gừng.",
     "tags": ["easy-to-digest", "low-potassium", "traditional"]
@@ -379,7 +379,7 @@
     "mealType": "lunch",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "ingredients": ["lúa mì bulgur", "ngò tây", "rau húng", "cà chua", "dưa leo", "nước cốt chanh", "dầu ô liu"],
     "description": "Salad ngũ cốc chủ yếu là rau thơm, ít carb, giàu chất chống oxy hóa từ rau thơm tươi.",
     "tags": ["high-fiber", "antioxidant-rich", "fresh"]

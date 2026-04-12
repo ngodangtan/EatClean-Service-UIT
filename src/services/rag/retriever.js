@@ -39,7 +39,13 @@ const DISEASE_VI = {
   diabetes: 'tiểu đường',
   'kidney-disease': 'bệnh thận',
   'high-uric-acid': 'gút (axit uric cao)',
-  hypertension: 'cao huyết áp'
+  hypertension: 'cao huyết áp',
+  'fatty-liver': 'gan nhiễm mỡ',
+  'high-cholesterol': 'mỡ máu cao',
+  'heart-disease': 'bệnh tim mạch',
+  obesity: 'béo phì',
+  anemia: 'thiếu máu',
+  gastritis: 'viêm dạ dày'
 };
 
 /**

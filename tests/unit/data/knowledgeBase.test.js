@@ -8,7 +8,10 @@ const KB_DIR = join(__dirname, '../../../src/data/knowledgeBase');
 
 const VALID_MEAL_TYPES = ['breakfast', 'lunch', 'dinner', 'snack'];
 const VALID_GOALS = ['lose-weight', 'gain-weight', 'improve-health'];
-const VALID_DISEASES = ['diabetes', 'kidney-disease', 'high-uric-acid', 'hypertension'];
+const VALID_DISEASES = [
+  'diabetes', 'kidney-disease', 'high-uric-acid', 'hypertension',
+  'fatty-liver', 'high-cholesterol', 'heart-disease', 'obesity', 'anemia', 'gastritis'
+];
 
 function readJson(filename) {
   return JSON.parse(readFileSync(join(KB_DIR, filename), 'utf-8'));
