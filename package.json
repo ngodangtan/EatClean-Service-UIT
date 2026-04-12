@@ -10,7 +10,8 @@
     "test:watch": "vitest",
     "rag:index": "node scripts/indexKnowledgeBase.js",
     "rag:start": "docker-compose -f docker-compose.rag.yml up -d",
-    "rag:stop": "docker-compose -f docker-compose.rag.yml down"
+    "rag:stop": "docker-compose -f docker-compose.rag.yml down",
+    "logs:clean": "bash scripts/cleanLogs.sh"
   },
   "dependencies": {
     "ajv": "^8.17.1",
