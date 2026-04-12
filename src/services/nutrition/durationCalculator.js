@@ -6,17 +6,27 @@ const TEMPLATE_DAYS = 7;
 
 /**
  * Calculate how many weeks (and total days) a meal plan should cover
- * based on the user's goal and weight delta.
+ * based on the requested goal and (current → desired) weight delta.
  *
- * @param {Object} healthProfile
+ * `desiredWeight` no longer lives on the HealthProfile — it is supplied
+ * by the meal-plan generation request (POST /api/meal-plans/generate)
+ * because it is plan-scoped, not profile-scoped.
+ *
+ * @param {Object} params
+ * @param {string} params.goal — 'lose-weight' | 'gain-weight' | 'improve-health'
+ * @param {number} [params.currentWeight]
+ * @param {number} [params.desiredWeight]
+ * @param {number} [params.requestedWeeks] — explicit override (1, 2, 4, …). When provided,
+ *   skips the weight-delta calculation entirely. Used by purpose=disease_based and the
+ *   client-driven duration on purpose=weight_management.
  * @returns {{ weeks: number, templateDays: number, totalDays: number }}
  */
-export function calculatePlanDuration(healthProfile) {
-  const { goal, currentWeight, desiredWeight } = healthProfile;
-
+export function calculatePlanDuration({ goal, currentWeight, desiredWeight, requestedWeeks } = {}) {
   let weeks = DEFAULT_WEEKS;
 
-  if (goal === 'lose-weight' && desiredWeight != null && currentWeight != null) {
+  if (Number.isFinite(requestedWeeks) && requestedWeeks > 0) {
+    weeks = requestedWeeks;
+  } else if (goal === 'lose-weight' && desiredWeight != null && currentWeight != null) {
     const delta = currentWeight - desiredWeight;
     if (delta > 0) {
       weeks = Math.ceil(delta / WEIGHT_LOSS_RATE);

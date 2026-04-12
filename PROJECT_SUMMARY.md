@@ -1,6 +1,8 @@
 # Eat Clean API — Comprehensive Technical Summary
 
-> Generated: 2026-03-12 | Last updated: 2026-04-04 | Based on all requirement documents (Phase 1–6) and full source code analysis
+> Generated: 2026-03-12 | Last updated: 2026-04-11 | Based on all requirement documents (Phase 1–6) and full source code analysis
+>
+> **2026-04-11 update notes:** Vietnamese-only product (LM Studio embedding model: `bge-m3`, knowledge base + prompts in Vietnamese). `POST /api/meal-plans/generate` is now **purpose-driven** (`daily_health_based | weight_management | disease_based`). `desiredWeight` is no longer stored on the health profile — it is request-scoped on `/generate`. The orphaned `/api/recipes` resource and its model/controller/routes/validator/tests have been removed. `HealthProfile.diseases` is now a structured subdocument array (`{ key, diagnosedAt, indicators[] }`) backed by the disease catalog.
 
 ---
 
@@ -13,8 +15,9 @@ Eat Clean API is a Node.js/Express REST API that provides **AI-powered, medicall
 - Individual nutritional targets (calories, protein, carbs, fat) derived from body metrics and fitness goals
 - Medical dietary restrictions for chronic conditions (diabetes, kidney disease, high uric acid, hypertension)
 - User food preferences (cuisine, favourite meals, diet style)
-- Practical usability (shopping lists, meal swaps, recipe bookmarks)
-- **Grounded AI generation** — meals are inspired by a curated knowledge base of real recipes and disease dietary guidelines rather than generated purely from scratch
+- Practical usability (shopping lists, meal swaps)
+- **Grounded AI generation** — meals are inspired by a curated **Vietnamese** knowledge base of real recipes and disease dietary guidelines rather than generated purely from scratch
+- **Purpose-aware planning** — the same `/generate` endpoint serves three distinct flows (daily Apple Watch–driven plans, weight-management plans with explicit duration + target weight, and disease-management plans), each with its own request validation and safety guards
 
 ### Main Problem Solved
 
@@ -67,23 +70,21 @@ eat-clean-api/
 │   │   └── swagger.js                      # OpenAPI 3.0 spec
 │   ├── controllers/                        # Business logic layer
 │   │   ├── auth.controller.js
-│   │   ├── health.controller.js            # Health profile CRUD
-│   │   ├── mealplan.controller.js          # Meal plan generation orchestrator
-│   │   ├── recipe.controller.js
+│   │   ├── health.controller.js            # Health profile CRUD (POST = create, PUT = update — same handler)
+│   │   ├── disease.controller.js           # GET /api/diseases — exposes the disease catalog
+│   │   ├── mealplan.controller.js          # Meal plan generation orchestrator (purpose-aware)
 │   │   └── favorite.controller.js
 │   ├── routes/                             # Express routers
 │   │   ├── index.js                        # Route aggregator (mounts all under /api)
 │   │   ├── auth.routes.js
 │   │   ├── health.routes.js
-│   │   ├── mealplan.routes.js
-│   │   ├── recipe.routes.js
-│   │   └── favorite.routes.js
+│   │   ├── disease.routes.js
+│   │   └── mealplan.routes.js
 │   ├── models/                             # Mongoose schemas
 │   │   ├── User.js
-│   │   ├── HealthProfile.js
-│   │   ├── MealPlan.js
-│   │   ├── Recipe.js
-│   │   ├── Favorite.js
+│   │   ├── HealthProfile.js                # diseases is now [diseaseEntrySchema] (key + indicators)
+│   │   ├── MealPlan.js                     # adds `purpose` enum field
+│   │   ├── Favorite.js                     # targetType: ['meal-plan'] only
 │   │   └── TokenBlacklist.js
 │   ├── middleware/
 │   │   ├── auth.js                         # JWT verification + blacklist check
@@ -93,8 +94,8 @@ eat-clean-api/
 │   │   └── validate.js                     # Joi schema validation middleware
 │   ├── validators/                         # Input schema definitions
 │   │   ├── auth.validator.js
-│   │   ├── healthProfile.validator.js
-│   │   ├── recipe.validator.js
+│   │   ├── healthProfile.validator.js      # Joi schema + catalog cross-check helpers
+│   │   ├── mealPlanGenerate.validator.js   # Joi schema for POST /generate (purpose-aware via Joi.when)
 │   │   └── mealPlan.schema.js              # AJV JSON schema for AI output
 │   ├── services/
 │   │   ├── nutrition/                      # Deterministic nutrition calculations
@@ -123,12 +124,14 @@ eat-clean-api/
 │   │   │   ├── ragContextBuilder.js        # Format + sanitize retrieved content
 │   │   │   └── indexer.js                  # Index knowledge base into ChromaDB
 │   │   ├── mealValidationService.js        # Post-generation logical validation
+│   │   ├── mealPlanPurposeService.js       # Purpose-level rules: contraindications, weightGoal mapping, Apple Watch TDEE override
 │   │   └── shoppingListService.js          # Shopping list aggregation
 │   ├── data/
-│   │   └── knowledgeBase/                  # Curated reference data (version controlled)
-│   │       ├── recipes.json                # 35 reference recipes
-│   │       ├── diseaseGuidelines.json      # 4 disease dietary guidelines
-│   │       └── ingredients.json            # 46 ingredients with disease safety flags
+│   │   ├── diseaseCatalog.js               # 10 diseases (4 supported + 6 unsupported), indicators, supported flag
+│   │   └── knowledgeBase/                  # Curated reference data (Vietnamese, version controlled)
+│   │       ├── recipes.json                # 35 Vietnamese reference recipes
+│   │       ├── diseaseGuidelines.json      # 4 disease dietary guidelines (Vietnamese)
+│   │       └── ingredients.json            # 46 ingredients (Vietnamese names, disease safety flags)
 │   └── utils/
 │       ├── AppError.js                     # Custom error class + factory functions
 │       └── logger.js                       # Winston logger
@@ -136,8 +139,6 @@ eat-clean-api/
 │   └── indexKnowledgeBase.js               # CLI: index knowledge base into ChromaDB
 ├── tests/                                  # Vitest test suite
 │   └── unit/
-│       ├── controllers/
-│       │   └── recipe.controller.test.js   # Recipe CRUD, ReDoS fix, ownership authorization
 │       ├── services/
 │       │   ├── nutrition/                  # Nutrition engine tests
 │       │   ├── disease/                    # Disease engine tests
@@ -570,9 +571,11 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 ### 5.2 Health Profile APIs
 
-#### POST `/api/health-profile`
-- **Input:** `{ gender, age, goal, desiredWeight, activityLevel, mealsPerDay, diseases?, cuisinePreference?, favoriteMeal?, dietPreference?, height?, currentWeight? }`
-- **Action:** Upsert (create or update) health profile for authenticated user. One profile per user enforced by unique index on `userId`. If `height` or `currentWeight` are omitted, fetched from the User record.
+#### POST `/api/health-profile` / PUT `/api/health-profile`
+- **Input:** `{ goal, triedHealthyBefore?, hungryTime?, favoriteMeal?, activityLevel?, averageDay?, workSchedule?, sleepDuration?, diseases?, dietPreference?, mealsPerDay?, cuisinePreference? }`
+- **Note:** `desiredWeight` is **not** part of this resource — it is now a request-scoped field on `POST /api/meal-plans/generate` (purpose=weight_management). `gender`, `birthday`, `height`, `currentWeight` come from the User account at registration time and are not editable here.
+- **`diseases` shape:** array of `{ key, diagnosedAt?, indicators: [{ key, value, unit?, measuredAt?, note? }] }`. Disease keys, indicator keys, "indicator belongs to disease", and duplicates are cross-checked against `src/data/diseaseCatalog.js` after Joi validation. Indicator units are snapshotted from the catalog at write time so historical records stay interpretable if catalog units change.
+- **Action:** POST creates or upserts; PUT is the same handler — accepts partial payloads (omitted fields preserved). Arrays like `diseases` are replaced wholesale, so the frontend should send the complete array, not a delta.
 - **Usage:** Profile is the foundation for all meal plan generation
 
 #### GET `/api/health-profile`
@@ -582,17 +585,64 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 ---
 
+### 5.2b Disease Catalog API
+
+#### GET `/api/diseases`
+- **Response:** Full disease catalog from `src/data/diseaseCatalog.js`. Each entry: `{ key, name, supported, relatedIndicators: [{ key, name, unit, normalRange }] }`. The frontend health-profile screen calls this to populate the disease picker and indicator entry form. `key` is the stable identifier the frontend submits back in `POST /api/health-profile`.
+
+---
+
 ### 5.3 Meal Plan APIs
 
-#### POST `/api/meal-plans/generate` ⭐ (Core endpoint)
-- **Input:** Bearer token (health profile auto-fetched)
-- **Action:** Full generation pipeline (see Section 8 for detailed flow)
+#### POST `/api/meal-plans/generate` ⭐ (Core endpoint, **purpose-driven**)
+- **Input:** Bearer token + JSON body with required `purpose` field. The body schema is **purpose-aware** (Joi `when()`):
+
+| `purpose` | Required body | Behavior |
+|---|---|---|
+| `daily_health_based` | optional `healthSnapshot` (Apple Watch / HealthKit: `restingEnergyKcal`, `activeEnergyKcal`, `steps`, `heartRateAvg`, `sleepHours`, `measuredAt`) | Generates a **single day**. If both resting + active energy are present, they override the BMR-based TDEE calculation entirely. |
+| `weight_management` | required `weightGoal` (`lose-weight \| gain-weight \| muscle-gain`), `desiredWeight` (kg), `durationWeeks` (1\|2\|4) | Generates a 1/2/4-week plan. Returns **HTTP 400 + `reason: weight_goal_contraindication`** if `weightGoal` is medically incompatible with the user's recorded conditions. `muscle-gain` maps internally to engine goal `gain-weight` (the macro calculator already biases protein high enough for muscle accrual). |
+| `disease_based` | required `durationWeeks` (1\|2\|4) | Generates a 1/2/4-week plan focused on managing existing conditions. Engine goal is **forced to `improve-health`** regardless of profile goal. Requires ≥1 disease on the profile. |
+
+- **Contraindication map** (`mealPlanPurposeService.js`):
+  - `gain-weight` blocked by: `obesity`, `high-cholesterol`, `heart-disease`, `hypertension`
+  - `muscle-gain` blocked by: `kidney-disease`, `high-uric-acid`
+  - `lose-weight` blocked by: `anemia`
+  - The check uses **all** disease keys on the profile (supported + unsupported by the macro engine) — e.g. `obesity` is unsupported by the macro engine but still blocks `gain-weight`.
+- **Action:** Full generation pipeline (see Section 8 for detailed flow). Persists the request `purpose` on the resulting `MealPlan` document. For `daily_health_based`, persisted `duration` is `{ weeks: 0, totalDays: 1 }`.
+- **Example request bodies:**
+```json
+// daily_health_based
+{
+  "purpose": "daily_health_based",
+  "healthSnapshot": {
+    "restingEnergyKcal": 1600,
+    "activeEnergyKcal": 450,
+    "steps": 8200,
+    "sleepHours": 7
+  }
+}
+
+// weight_management
+{
+  "purpose": "weight_management",
+  "weightGoal": "muscle-gain",
+  "desiredWeight": 72,
+  "durationWeeks": 4
+}
+
+// disease_based
+{
+  "purpose": "disease_based",
+  "durationWeeks": 2
+}
+```
 - **Response:**
 ```json
 {
   "ok": true,
   "mealPlan": {
     "_id": "...",
+    "purpose": "weight_management",
     "title": "4-Week Meal Plan",
     "duration": { "weeks": 4, "totalDays": 28 },
     "days": [
@@ -605,10 +655,10 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
             "mealType": "breakfast",
             "calories": 450,
             "macros": { "protein": 35, "carbs": 45, "fat": 12 },
-            "name": "Grilled Chicken Quinoa Bowl",
+            "name": "Phở gà ức nướng",
             "description": "...",
-            "ingredients": ["chicken breast", "quinoa", "spinach"],
-            "benefits": ["High protein", "Complex carbs"]
+            "ingredients": ["ức gà", "bánh phở", "rau thơm"],
+            "benefits": ["Giàu protein", "Carb phức"]
           }
         ]
       }
@@ -617,6 +667,17 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
   "disclaimer": "This meal plan is generated by AI..."  // only when diseases present
 }
 ```
+- **Error responses:**
+  - `400` — Joi validation failed, health profile missing required fields, OR weight goal contraindicated:
+    ```json
+    {
+      "message": "Weight goal \"gain-weight\" is medically contraindicated by your recorded conditions.",
+      "reason": "weight_goal_contraindication",
+      "conflicts": ["obesity", "hypertension"]
+    }
+    ```
+  - `404` — Health profile not found
+  - `500` — Generation failed (AI error, safety validation failed, or infeasible disease combination)
 
 #### GET `/api/meal-plans/latest`
 - **Action:** Returns most recently created meal plan for user
@@ -656,22 +717,20 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 ---
 
-### 5.4 Recipe APIs
+### 5.4 Recipe APIs — REMOVED
 
-#### GET `/api/recipes` — search + filter; `q` param is regex-escaped (ReDoS protection)
-#### GET `/api/recipes/:id`
-#### POST `/api/recipes` — `{ title, description, calories, macros, tags, ingredients, steps, imageUrl? }`
-#### PUT `/api/recipes/:id` — requires ownership: only the recipe `author` or an `admin` may update; returns 403 otherwise
-#### DELETE `/api/recipes/:id` — requires ownership: only the recipe `author` or an `admin` may delete; returns 403 otherwise
+The orphaned `/api/recipes` resource (model, controller, routes, validator, tests) was deleted in 2026-04. It had no production data, no frontend usage, and no roadmap. The "recipes" referenced elsewhere in this document (knowledge base, RAG indexer collection, etc.) refer to `src/data/knowledgeBase/recipes.json`, which is a separate concern.
 
 ---
 
 ### 5.5 Favorites APIs
 
-#### POST `/api/favorites` — `{ targetType: "meal-plan"|"recipe", targetId, note? }`
+#### POST `/api/favorites` — `{ targetType: "meal-plan", targetId, note? }`
 #### GET `/api/favorites` — `?targetType=&page=&limit=`
 #### GET `/api/favorites/check` — `?targetType=&targetId=` → `{ isFavorited: true|false }`
 #### DELETE `/api/favorites/:id`
+
+(Note: `targetType` enum was reduced to `['meal-plan']` after the recipe removal.)
 
 ---
 
@@ -687,11 +746,10 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 | Model | Key Fields | Indexes |
 |-------|-----------|---------|
-| `User` | email, password (bcrypt), height, currentWeight, refreshTokens[] | email (unique) |
-| `HealthProfile` | userId, age, weight, diseases[], goals | userId (unique) |
-| `MealPlan` | userId, days[], swapHistory, swapCount, duration | userId + createdAt (compound) |
-| `Recipe` | title, macros, tags, ingredients | title (text), tags, author |
-| `Favorite` | userId, targetType, targetId | userId+targetType+targetId (unique compound) |
+| `User` | email, password (bcrypt), gender, birthday, height, currentWeight, refreshTokens[] | email (unique) |
+| `HealthProfile` | userId, gender (snapshot), age (derived), goal, diseases[] (subdocument array of `{ key, diagnosedAt, indicators[] }`) | userId (unique) |
+| `MealPlan` | userId, **purpose** (`daily_health_based\|weight_management\|disease_based`), days[], swapHistory, swapCount, duration | userId + createdAt (compound) |
+| `Favorite` | userId, targetType (`'meal-plan'` only), targetId | userId+targetType+targetId (unique compound) |
 | `TokenBlacklist` | token, expiresAt | token (unique), expiresAt (TTL — auto-delete) |
 
 ### Data Transformation Pipeline for Meal Plans
@@ -726,22 +784,49 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 | `POST /auth/register` | Joi | `registerSchema` |
 | `POST /auth/login` | Joi | `loginSchema` |
 | `PUT /auth/profile` | Joi | `updateProfileSchema` |
-| `POST /health-profile` | Joi | `healthProfileSchema` |
-| `POST /recipes` | Joi | `createRecipeSchema` |
-| `PUT /recipes/:id` | Joi | `updateRecipeSchema` |
+| `POST /health-profile` / `PUT /health-profile` | Joi + catalog cross-check | `healthProfileSchema` + `validateDiseasesAgainstCatalog()` |
+| `POST /meal-plans/generate` | Joi (purpose-aware via `Joi.when()`) | `generateMealPlanSchema` |
 
 ### Health Profile Constraints
 
 ```
-gender:        'male' | 'female'
-age:           10–120
-goal:          'lose-weight' | 'gain-weight' | 'improve-health'
-height:        50–300 (cm)
-currentWeight: 20–500 (kg)
-desiredWeight: 20–500 (kg)
+goal:          'lose-weight' | 'gain-weight' | 'improve-health'   (default: improve-health)
 activityLevel: 'sedentary' | 'lightly-active' | 'moderately-active' | 'very-active' | 'extremely-active'
-mealsPerDay:   3 | 4 | 5
-diseases:      array of ['diabetes', 'kidney-disease', 'high-uric-acid', 'hypertension']
+mealsPerDay:   1–6
+sleepDuration: 0–24 (hours)
+diseases:      [{ key, diagnosedAt?, indicators: [{ key, value, unit?, measuredAt?, note? }] }]
+               — disease keys cross-checked against src/data/diseaseCatalog.js (10 keys total)
+               — indicator keys cross-checked against the disease's relatedIndicators
+               — duplicate disease keys and duplicate indicator keys rejected
+cuisinePreference: array (max 10)
+```
+
+**Auto-populated from User account (not editable on health profile):** `gender`, `age` (derived from birthday), `height`, `currentWeight`.
+
+**Removed (now request-scoped):** `desiredWeight` is supplied to `POST /api/meal-plans/generate` (purpose=weight_management), not stored on the profile.
+
+### Meal Plan Generate Constraints
+
+```
+purpose:       'daily_health_based' | 'weight_management' | 'disease_based'   (REQUIRED)
+
+# weight_management only — all required when purpose=weight_management, forbidden otherwise
+weightGoal:    'lose-weight' | 'gain-weight' | 'muscle-gain'
+desiredWeight: 20–500 (kg)
+durationWeeks: 1 | 2 | 4
+
+# disease_based only
+durationWeeks: 1 | 2 | 4   (required)
+
+# daily_health_based only — optional Apple Watch / HealthKit telemetry
+healthSnapshot: {
+  activeEnergyKcal:  0–8000,
+  restingEnergyKcal: 0–5000,
+  steps:             integer ≥0,
+  heartRateAvg:      20–250,
+  sleepHours:        0–24,
+  measuredAt:        date
+}
 ```
 
 ### Input Sanitization for AI Prompts
@@ -812,23 +897,46 @@ Step 1: Authentication
   → Refresh token stored in User.refreshTokens[]
 
 Step 2: Health Profile Setup
-  POST /api/health-profile
-  → Joi validation (age, weight, diseases enum, etc.)
+  POST /api/health-profile  (or PUT to update)
+  → Joi validation
+  → Catalog cross-check (validateDiseasesAgainstCatalog): disease key exists,
+    indicator key belongs to disease, no duplicates
+  → Snapshot indicator units from catalog (snapshotIndicatorUnits)
   → Upserted to HealthProfile collection (one per user)
 
 Step 3: Meal Plan Generation
   POST /api/meal-plans/generate
+  → Joi validation (purpose-aware via Joi.when)
 
   [3a] Fetch health profile from MongoDB
-       If height or currentWeight missing → pre-fill from User document
+       gender / age / height / currentWeight come from the User account
+       (set at registration); profile is rejected if any are missing.
+
+  [3a.1] Purpose branching (mealPlanPurposeService):
+       purpose=daily_health_based →
+         templateDays = 1
+         requestedWeeks = 1
+         tdeeOverride = restingEnergyKcal + activeEnergyKcal (if both present)
+       purpose=weight_management →
+         checkWeightGoalContraindications(weightGoal, allDiseaseKeys)
+           → if blocked: HTTP 400 + reason: weight_goal_contraindication
+         goalOverride = mapWeightGoalToEngineGoal(weightGoal)  // muscle-gain → gain-weight
+         requestedWeeks = durationWeeks
+       purpose=disease_based →
+         require ≥1 disease on profile, else HTTP 400
+         goalOverride = 'improve-health'
+         requestedWeeks = durationWeeks
 
   [3b] Nutrition Engine (deterministic):
+       generateNutritionPlan(profile, { goalOverride, tdeeOverride })
        BMR = 10×weight + 6.25×height − 5×age ± constant
-       TDEE = BMR × activityFactor
+       TDEE = tdeeOverride ?? BMR × activityFactor
        calorieTarget = TDEE × goalMultiplier (clamped 1200–4000)
        macros = { protein: weight×1.8g, fat: 25%, carbs: remainder }
        mealDistribution = split across mealsPerDay (30/40/30 for 3 meals)
-       duration = |currentWeight − desiredWeight| / 0.5kg/week (clamped 1–52 weeks)
+       duration = calculatePlanDuration({ goal, currentWeight, desiredWeight, requestedWeeks })
+                  → if requestedWeeks set, weeks = requestedWeeks (bypass weight-delta math)
+                  → otherwise weeks = |currentWeight − desiredWeight| / weekly rate (clamped 1–52)
 
   [3c] Disease Engine (if diseases present):
        For each disease → load rules from diseaseRules.js
@@ -842,8 +950,9 @@ Step 3: Meal Plan Generation
   [3d] RAG Retrieval (NEW in Phase 6):
        Collect unique mealTypes from nutritionPlan.mealDistribution
        For each mealType (e.g. "breakfast", "lunch"):
-         Build query string: "breakfast meal for lose-weight goal vietnamese cuisine pho"
-         → getEmbedding(queryString) via LM Studio /v1/embeddings (768-dim vector)
+         Build Vietnamese query string via internal EN→VI maps:
+           "món bữa sáng cho mục tiêu lose-weight ẩm thực Việt Nam pho"
+         → getEmbedding(queryString) via LM Studio /v1/embeddings (bge-m3, 1024-dim vector)
          → queryDocuments(RECIPES, vector, { nResults: 3, where: { mealType } })
          In parallel:
          → getEmbedding("dietary guidelines for diabetes")
@@ -870,8 +979,11 @@ Step 3: Meal Plan Generation
 
   [3f] Safety Validation (per meal):
        For each ingredient in AI response:
-         Check against forbiddenIngredients using word-boundary regex
-         e.g., /\bsugar\b/i — "sugar" matches but "sugarcane" does not
+         Check against forbiddenIngredients using Unicode-aware lookaround regex
+         (?<![\p{L}\p{N}])sugar(?![\p{L}\p{N}]) with iu flags
+         — "đường" matches but "đường phèn" still tokenizes correctly across diacritics
+         — Critical: JS \b is ASCII-only and silently breaks on Vietnamese chars,
+           so the previous \b implementation was replaced with Unicode property escapes
        If unsafe: regenerate meal (up to 2 regen attempts per meal)
 
   [3g] Schema Validation (AJV):
@@ -882,10 +994,13 @@ Step 3: Meal Plan Generation
        Sum of meal calories ≈ day.totalCalories (±1% tolerance)
        protein×4 + carbs×4 + fat×9 ≈ totalCalories (±1% tolerance)
 
-  [3i] Replicate 7-day template across plan duration (1–52 weeks)
+  [3i] Replicate template across plan duration:
+       — daily_health_based: templateDays=1, replicates to 1 day total
+       — weight_management / disease_based: templateDays=7, replicates to durationWeeks×7 days
 
   [3j] Persist to MongoDB:
-       MealPlan saved with full days/meals tree, duration, swapCount: 0
+       MealPlan saved with full days/meals tree, purpose, duration, swapCount: 0
+       (For daily_health_based, persisted duration = { weeks: 0, totalDays: 1 })
 
   [3k] Response:
        Return mealPlan
@@ -918,8 +1033,15 @@ This section traces the exact logic inside each service layer — formulas, cons
 
 ### 10.1 Nutrition Engine (`src/services/nutrition/`)
 
+`generateNutritionPlan(healthProfile, { goalOverride, tdeeOverride })`. The two options are how the meal-plan controller injects purpose-specific behavior:
+- `goalOverride` — replaces `healthProfile.goal` (used by `disease_based` to force `improve-health`, and by `weight_management` to inject the request-scoped `weightGoal`).
+- `tdeeOverride` — bypasses BMR/TDEE calculation entirely (used by `daily_health_based` when both Apple Watch resting + active energy are supplied).
+
+The returned plan now includes the **effective `goal`** so downstream code can stay coherent with the macro distribution it received.
+
 ```
 Input: healthProfile { currentWeight, height, age, gender, activityLevel, goal, mealsPerDay }
+       options      { goalOverride?, tdeeOverride? }
                                     │
                          validateInputs()
                          • weight: 20–500 kg
@@ -1012,12 +1134,24 @@ Output: { bmr, tdee, calorieTarget, macros, mealDistribution }
 
 **Duration Calculator** (`durationCalculator.js`):
 ```
-goal = 'lose-weight':  weeks = ceil(|current - desired| / 0.5)
-goal = 'gain-weight':  weeks = ceil(|desired - current| / 0.25)
-goal = 'improve-health': weeks = 1 (default)
+calculatePlanDuration({ goal, currentWeight, desiredWeight, requestedWeeks })
 
-clamp: weeks = max(1, min(52, weeks))
-output: { weeks, templateDays: 7, totalDays: weeks × 7 }
+If requestedWeeks is provided (1, 2, or 4):
+  → use it directly (purpose=weight_management or disease_based)
+  → output: { weeks: requestedWeeks, templateDays: 7,
+              totalDays: requestedWeeks × 7 }
+
+Otherwise fall back to weight-delta heuristic:
+  goal = 'lose-weight':  weeks = ceil(|current - desired| / 0.5)
+  goal = 'gain-weight':  weeks = ceil(|desired - current| / 0.25)
+  goal = 'improve-health': weeks = 1 (default)
+  clamp: weeks = max(1, min(52, weeks))
+
+Note: desiredWeight is no longer stored on HealthProfile — it is
+passed per-request via POST /api/meal-plans/generate when
+purpose=weight_management. The daily_health_based purpose bypasses
+this calculator entirely (templateDays=1, persisted as
+{ weeks: 0, totalDays: 1 }).
 ```
 
 ---
@@ -1415,10 +1549,45 @@ POST /api/meal-plans/generate
          Validate required fields: [gender, age, currentWeight, height]
                                     │
          ┌──────────────────────────▼──────────────────────────┐
+         │       STEP 0: Purpose dispatch (NEW)                 │
+         │                                                      │
+         │  purpose = req.body.purpose                          │
+         │  templateDays = 7  (default)                         │
+         │  goalOverride = undefined                            │
+         │  tdeeOverride = undefined                            │
+         │  requestedWeeks = undefined                          │
+         │                                                      │
+         │  if purpose === 'daily_health_based':                │
+         │    templateDays = 1                                  │
+         │    requestedWeeks = 1                                │
+         │    tdeeOverride = restingEnergyKcal +                │
+         │                   activeEnergyKcal                   │
+         │      (from req.body.healthSnapshot, if both finite)  │
+         │                                                      │
+         │  if purpose === 'weight_management':                 │
+         │    checkWeightGoalContraindications(weightGoal,      │
+         │      allDiseaseKeys)                                 │
+         │      → 400 if blocked (e.g. gain-weight + obesity,   │
+         │        muscle-gain + kidney-disease,                 │
+         │        lose-weight + anemia)                         │
+         │    goalOverride =                                    │
+         │      mapWeightGoalToEngineGoal(weightGoal)           │
+         │      ('muscle-gain' → 'gain-weight')                 │
+         │    requestedWeeks = durationWeeks (1, 2, or 4)       │
+         │                                                      │
+         │  if purpose === 'disease_based':                     │
+         │    require allDiseaseKeys.length > 0 (else 400)      │
+         │    goalOverride = 'improve-health'                   │
+         │    requestedWeeks = durationWeeks (1, 2, or 4)       │
+         └──────────────────────────┬──────────────────────────┘
+                                    │
+         ┌──────────────────────────▼──────────────────────────┐
          │            STEP 1: Nutrition Engine                  │
-         │  generateNutritionPlan(healthProfile)                │
-         │  → { bmr, tdee, calorieTarget, macros,              │
+         │  generateNutritionPlan(healthProfile,                │
+         │    { goalOverride, tdeeOverride })                   │
+         │  → { bmr, tdee, calorieTarget, goal, macros,        │
          │      mealDistribution }                              │
+         │  (effective goal returned — used downstream)         │
          └──────────────────────────┬──────────────────────────┘
                                     │
                          diseases.length > 0?
@@ -1453,17 +1622,19 @@ POST /api/meal-plans/generate
          │    (generation continues without context)           │
          └──────────────────────────┬──────────────────────────┘
                                     │
-         aiCallBudget = min(60, TEMPLATE_DAYS × mealsPerDay × 2 + 10)
+         aiCallBudget = min(60, templateDays × mealsPerDay × 2 + 10)
          callBudget = { remaining: aiCallBudget }
+         (templateDays = 1 for daily_health_based, 7 otherwise)
                                     │
          ┌─────────── RETRY LOOP (max 3 attempts) ────────────┐
          │                                                     │
          │  STEP 4: Build meal tasks                           │
-         │  for dayIndex 0..6 × each dist in mealDistribution: │
+         │  for dayIndex 0..(templateDays-1) × each dist:      │
          │    task = () => generateMeal({                      │
          │      mealType: dist.mealType,                       │
          │      calories, protein, carbs, fat,                 │
-         │      goal, dietPreference, cuisinePreference,       │
+         │      goal: nutritionPlan.goal,  ← effective goal    │
+         │      dietPreference, cuisinePreference,             │
          │      diseases, favoriteMeal,                        │
          │      forbiddenIngredients, limitedIngredients,      │
          │      preferredIngredients,                          │
@@ -1482,8 +1653,8 @@ POST /api/meal-plans/generate
          │        if !safe && budget > 0 → regenerate          │
          │      if still unsafe → safetyFailed = true → break  │
          │                                                     │
-         │  STEP 7: Assemble 7-day template                    │
-         │  templateDays = group mealResults by dayIndex       │
+         │  STEP 7: Assemble template (templateDayObjs[])      │
+         │  group mealResults by dayIndex                      │
          │  merge AI content + backend nutrition into each meal │
          │                                                     │
          │  STEP 8: Schema validation (AJV)                    │
@@ -1497,13 +1668,15 @@ POST /api/meal-plans/generate
          │  template valid → break out of retry loop           │
          └─────────────────────────────────────────────────────┘
                                     │
-         Replicate 7-day template across duration.weeks:
-         for week 0..(weeks-1):
-           for each templateDay:
-             push { ...templateDay, day: week×7 + day.day }
+         Replicate template across duration:
+         - daily_health_based: skip replication; use 1-day template,
+           persist as { weeks: 0, totalDays: 1 }
+         - else: for week 0..(weeks-1): for each templateDayObj:
+             push { ...templateDayObj, day: week×7 + day.day }
                                     │
          Save to MongoDB: MealPlan.create({
            userId, healthProfileId, title, days,
+           purpose,                          ← NEW
            duration: { weeks, totalDays },
            aiModel: 'lm-studio',
            prompt: 'per-meal-generation'
@@ -1564,8 +1737,8 @@ This architecture ensures **medical safety is never delegated to the AI**. Even 
 
 | Issue | Fix | Files Changed |
 |-------|-----|---------------|
-| ReDoS via `$regex` with raw user input in recipe search | Escape all regex special characters with `escapeRegex()` before passing to `$regex` | `recipe.controller.js` |
-| Missing ownership check on recipe update/delete | Fetch recipe first; verify `author === req.user.id`; admins bypass check; return 403 otherwise | `recipe.controller.js` |
+| ReDoS via `$regex` with raw user input in recipe search | Escape all regex special characters with `escapeRegex()` before passing to `$regex` | `recipe.controller.js` *(file later removed in 2026-04 along with the entire `/api/recipes` resource — see §5.4)* |
+| Missing ownership check on recipe update/delete | Fetch recipe first; verify `author === req.user.id`; admins bypass check; return 403 otherwise | `recipe.controller.js` *(file later removed in 2026-04 along with the entire `/api/recipes` resource — see §5.4)* |
 | Internal error details leaked via `e.message` in auth responses | All catch blocks now log via `logger.error()` and return generic `'Internal server error'` | `auth.controller.js` |
 | Weak password policy (min 6 chars, no complexity) | Raised to min 8 chars + requires uppercase, lowercase, and digit | `auth.validator.js`, `User.js` |
 | `role` missing from JWT payload | Added `role` to `signAccessToken()` so route handlers can check admin status without a DB query | `auth.controller.js` |

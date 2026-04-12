@@ -15,7 +15,6 @@ export async function createOrUpdateHealthProfile(req, res) {
       triedHealthyBefore,
       hungryTime,
       favoriteMeal,
-      desiredWeight,
       activityLevel,
       averageDay,
       workSchedule,
@@ -61,7 +60,6 @@ export async function createOrUpdateHealthProfile(req, res) {
       profile.favoriteMeal = favoriteMeal ?? profile.favoriteMeal;
       profile.height = height ?? profile.height;
       profile.currentWeight = currentWeight ?? profile.currentWeight;
-      profile.desiredWeight = desiredWeight ?? profile.desiredWeight;
       profile.activityLevel = activityLevel ?? profile.activityLevel;
       profile.averageDay = averageDay ?? profile.averageDay;
       profile.workSchedule = workSchedule ?? profile.workSchedule;
@@ -85,7 +83,6 @@ export async function createOrUpdateHealthProfile(req, res) {
         favoriteMeal,
         height,
         currentWeight,
-        desiredWeight,
         activityLevel,
         averageDay,
         workSchedule,

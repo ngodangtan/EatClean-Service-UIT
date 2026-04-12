@@ -12,10 +12,16 @@ import { isSupportedDisease } from '../data/diseaseCatalog.js';
 import { generateShoppingList } from '../services/shoppingListService.js';
 import { retrieveRelevantMeals, retrieveDiseaseGuidelines } from '../services/rag/retriever.js';
 import { buildMealContext } from '../services/rag/ragContextBuilder.js';
+import {
+  checkWeightGoalContraindications,
+  mapWeightGoalToEngineGoal,
+  tdeeFromHealthSnapshot
+} from '../services/mealPlanPurposeService.js';
 import logger from '../utils/logger.js';
 
 const MAX_RETRIES = 2;
-const TEMPLATE_DAYS = 7;
+const DEFAULT_TEMPLATE_DAYS = 7;
+const DAILY_TEMPLATE_DAYS = 1; // purpose=daily_health_based generates a single day
 const CONCURRENCY_LIMIT = 3;
 // Allows 2 regeneration attempts per meal (validate → regen → validate → regen → validate)
 const MAX_MEAL_REGEN_ATTEMPTS = 2;
@@ -44,6 +50,11 @@ export async function generateMealPlan(req, res) {
     const userId = req.user?.id;
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
+    // Request body has already been Joi-validated by the route middleware,
+    // so the field shapes here are trustworthy. The remaining checks are
+    // cross-field rules that need the user's health profile.
+    const { purpose, weightGoal, desiredWeight, durationWeeks, healthSnapshot } = req.body;
+
     // Fetch user's health profile
     const healthProfile = await HealthProfile.findOne({ userId });
     if (!healthProfile) {
@@ -58,9 +69,52 @@ export async function generateMealPlan(req, res) {
       });
     }
 
+    // All disease keys present on the profile (supported + unsupported).
+    // The engine still ignores unsupported ones, but the request-level
+    // contraindication check below uses the full set on purpose: e.g.
+    // "obesity" should block weight-gain even though the macro engine
+    // doesn't model it.
+    const allDiseaseKeys = Array.isArray(healthProfile.diseases)
+      ? healthProfile.diseases.map(d => d?.key).filter(k => typeof k === 'string')
+      : [];
+
+    // ── Purpose-specific request validation ──────────────────────────────
+    let goalOverride;
+    let tdeeOverride;
+    let templateDays = DEFAULT_TEMPLATE_DAYS;
+    let requestedWeeks;
+
+    if (purpose === 'daily_health_based') {
+      // Generate a single day. Apple Watch snapshot (if any) drives TDEE.
+      templateDays = DAILY_TEMPLATE_DAYS;
+      requestedWeeks = 1;
+      tdeeOverride = tdeeFromHealthSnapshot(healthSnapshot) ?? undefined;
+    } else if (purpose === 'weight_management') {
+      const { blocked, conflicts } = checkWeightGoalContraindications(weightGoal, allDiseaseKeys);
+      if (blocked) {
+        return res.status(400).json({
+          message: `Weight goal "${weightGoal}" is medically contraindicated by your recorded conditions.`,
+          reason: 'weight_goal_contraindication',
+          conflicts
+        });
+      }
+      goalOverride = mapWeightGoalToEngineGoal(weightGoal);
+      requestedWeeks = durationWeeks;
+    } else if (purpose === 'disease_based') {
+      if (allDiseaseKeys.length === 0) {
+        return res.status(400).json({
+          message: 'purpose=disease_based requires at least one disease on the health profile.'
+        });
+      }
+      // Force a maintenance/improvement profile regardless of profile goal.
+      goalOverride = 'improve-health';
+      requestedWeeks = durationWeeks;
+    }
+
     // Step 1: Calculate base deterministic nutrition values (no disease adjustments)
-    let nutritionPlan = generateNutritionPlan(healthProfile);
+    let nutritionPlan = generateNutritionPlan(healthProfile, { goalOverride, tdeeOverride });
     logger.info('Base nutrition plan calculated:', {
+      purpose,
       bmr: nutritionPlan.bmr,
       tdee: nutritionPlan.tdee,
       calorieTarget: nutritionPlan.calorieTarget,
@@ -85,8 +139,14 @@ export async function generateMealPlan(req, res) {
       logger.info('Disease-adjusted macros:', nutritionPlan.macros);
     }
 
-    // Step 3: Calculate plan duration based on goal and weight delta
-    const duration = calculatePlanDuration(healthProfile);
+    // Step 3: Calculate plan duration. desiredWeight is request-scoped now;
+    // disease_based and daily_health_based ignore it entirely via requestedWeeks.
+    const duration = calculatePlanDuration({
+      goal: nutritionPlan.goal,
+      currentWeight: healthProfile.currentWeight,
+      desiredWeight,
+      requestedWeeks
+    });
     logger.info('Plan duration:', duration);
 
     // Step 4: Get ingredient lists for prompt
@@ -121,10 +181,11 @@ export async function generateMealPlan(req, res) {
 
     // Shared call budget across all retries (dynamic based on meals per day)
     const mealsPerDay = nutritionPlan.mealDistribution.length;
-    const aiCallBudget = Math.min(60, TEMPLATE_DAYS * mealsPerDay * 2 + 10);
+    const aiCallBudget = Math.min(60, templateDays * mealsPerDay * 2 + 10);
     const callBudget = { remaining: aiCallBudget };
 
-    // Step 5: Retry loop — generate 7-day template, then replicate across weeks
+    // Step 5: Retry loop — generate template (7 days, or 1 day for daily_health_based),
+    // then replicate across weeks.
     let assembledPlan = null;
     let lastErrors = null;
 
@@ -139,11 +200,11 @@ export async function generateMealPlan(req, res) {
       }
 
       try {
-        // Build all meal generation tasks (TEMPLATE_DAYS x mealsPerDay)
+        // Build all meal generation tasks (templateDays x mealsPerDay)
         const mealTasks = [];
         const mealMeta = []; // track dayIndex + dist for assembly
 
-        for (let dayIndex = 0; dayIndex < TEMPLATE_DAYS; dayIndex++) {
+        for (let dayIndex = 0; dayIndex < templateDays; dayIndex++) {
           for (const dist of nutritionPlan.mealDistribution) {
             mealMeta.push({ dayIndex, dist });
             mealTasks.push(() => {
@@ -154,7 +215,9 @@ export async function generateMealPlan(req, res) {
                 protein: dist.protein,
                 carbs: dist.carbs,
                 fat: dist.fat,
-                goal: healthProfile.goal,
+                // Use the effective goal (after purpose override), not the stored profile goal,
+                // so the AI prompt matches the macros it's being asked to hit.
+                goal: nutritionPlan.goal,
                 dietPreference: healthProfile.dietPreference,
                 cuisinePreference: healthProfile.cuisinePreference,
                 diseases,
@@ -203,7 +266,7 @@ export async function generateMealPlan(req, res) {
                     protein: dist.protein,
                     carbs: dist.carbs,
                     fat: dist.fat,
-                    goal: healthProfile.goal,
+                    goal: nutritionPlan.goal,
                     dietPreference: healthProfile.dietPreference,
                     cuisinePreference: healthProfile.cuisinePreference,
                     diseases,
@@ -232,10 +295,10 @@ export async function generateMealPlan(req, res) {
 
         if (safetyFailed) continue;
 
-        // Assemble 7-day template from validated results
-        const templateDays = [];
+        // Assemble template from validated results
+        const templateDayObjs = [];
 
-        for (let dayIndex = 0; dayIndex < TEMPLATE_DAYS; dayIndex++) {
+        for (let dayIndex = 0; dayIndex < templateDays; dayIndex++) {
           const dayMeals = [];
           for (let mealIdx = 0; mealIdx < mealsPerDay; mealIdx++) {
             const resultIndex = dayIndex * mealsPerDay + mealIdx;
@@ -257,7 +320,7 @@ export async function generateMealPlan(req, res) {
             });
           }
 
-          templateDays.push({
+          templateDayObjs.push({
             day: dayIndex + 1,
             title: `Day ${dayIndex + 1}`,
             theme: '',
@@ -268,10 +331,10 @@ export async function generateMealPlan(req, res) {
           });
         }
 
-        // Validate the 7-day template (schema + logical)
+        // Validate the template (schema + logical)
         const templatePlan = {
-          title: '7-Day Meal Plan',
-          days: templateDays
+          title: templateDays === 1 ? '1-Day Meal Plan' : `${templateDays}-Day Meal Plan`,
+          days: templateDayObjs
         };
 
         const schemaResult = validateMealPlan(templatePlan);
@@ -288,30 +351,36 @@ export async function generateMealPlan(req, res) {
           continue;
         }
 
-        // Template validated — replicate across weeks
+        // Template validated — replicate across weeks. For daily_health_based
+        // (templateDays=1) we always cover a single day, so this collapses to
+        // a copy of the single template day.
+        const totalDays = templateDays === DAILY_TEMPLATE_DAYS
+          ? 1
+          : duration.weeks * templateDays;
         const allDays = [];
-        for (let week = 0; week < duration.weeks; week++) {
-          for (const templateDay of templateDays) {
-            const globalDay = week * TEMPLATE_DAYS + templateDay.day;
-            allDays.push({
-              ...templateDay,
-              day: globalDay,
-              title: `Day ${globalDay}`,
-              macros: { ...templateDay.macros },
-              meals: templateDay.meals.map(m => ({
-                ...m,
-                macros: { ...m.macros },
-                ingredients: [...m.ingredients],
-                benefits: [...m.benefits]
-              })),
-              tips: [...templateDay.tips]
-            });
-          }
+        for (let i = 0; i < totalDays; i++) {
+          const templateDay = templateDayObjs[i % templateDays];
+          const globalDay = i + 1;
+          allDays.push({
+            ...templateDay,
+            day: globalDay,
+            title: `Day ${globalDay}`,
+            macros: { ...templateDay.macros },
+            meals: templateDay.meals.map(m => ({
+              ...m,
+              macros: { ...m.macros },
+              ingredients: [...m.ingredients],
+              benefits: [...m.benefits]
+            })),
+            tips: [...templateDay.tips]
+          });
         }
 
-        const planTitle = duration.weeks === 1
-          ? '7-Day Meal Plan'
-          : `${duration.weeks}-Week Meal Plan`;
+        const planTitle = templateDays === DAILY_TEMPLATE_DAYS
+          ? 'Daily Meal Plan'
+          : duration.weeks === 1
+            ? '7-Day Meal Plan'
+            : `${duration.weeks}-Week Meal Plan`;
 
         assembledPlan = {
           title: planTitle,
@@ -349,13 +418,19 @@ export async function generateMealPlan(req, res) {
       });
     }
 
-    // Save meal plan to database
+    // Save meal plan to database. For daily_health_based the persisted duration
+    // is a single day, regardless of what calculatePlanDuration returned.
+    const persistedDuration = templateDays === DAILY_TEMPLATE_DAYS
+      ? { weeks: 0, totalDays: 1 }
+      : { weeks: duration.weeks, totalDays: duration.totalDays };
+
     const mealPlan = await MealPlan.create({
       userId,
       healthProfileId: healthProfile._id,
       title: assembledPlan.title,
       days: assembledPlan.days,
-      duration: { weeks: duration.weeks, totalDays: duration.totalDays },
+      duration: persistedDuration,
+      purpose,
       aiModel: 'lm-studio',
       prompt: 'per-meal-generation',
       rawAiResponse: null

@@ -68,21 +68,20 @@ eat-clean-api/
 │   ├── controllers/                        # Lớp logic nghiệp vụ
 │   │   ├── auth.controller.js
 │   │   ├── health.controller.js            # CRUD hồ sơ sức khỏe
-│   │   ├── mealplan.controller.js          # Điều phối tạo kế hoạch bữa ăn
-│   │   ├── recipe.controller.js
+│   │   ├── mealplan.controller.js          # Điều phối tạo kế hoạch bữa ăn (purpose-aware)
+│   │   ├── disease.controller.js           # Tra cứu danh mục bệnh
 │   │   └── favorite.controller.js
 │   ├── routes/                             # Express routers
 │   │   ├── index.js                        # Tổng hợp route (gắn tất cả dưới /api)
 │   │   ├── auth.routes.js
 │   │   ├── health.routes.js
 │   │   ├── mealplan.routes.js
-│   │   ├── recipe.routes.js
+│   │   ├── disease.routes.js
 │   │   └── favorite.routes.js
 │   ├── models/                             # Mongoose schemas
 │   │   ├── User.js
 │   │   ├── HealthProfile.js
-│   │   ├── MealPlan.js
-│   │   ├── Recipe.js
+│   │   ├── MealPlan.js                     # Có trường `purpose` (daily/weight/disease)
 │   │   ├── Favorite.js
 │   │   └── TokenBlacklist.js
 │   ├── middleware/
@@ -94,17 +93,20 @@ eat-clean-api/
 │   ├── validators/                         # Định nghĩa schema đầu vào
 │   │   ├── auth.validator.js
 │   │   ├── healthProfile.validator.js
-│   │   ├── recipe.validator.js
+│   │   ├── mealPlanGenerate.validator.js   # Joi schema purpose-aware cho POST /generate
 │   │   └── mealPlan.schema.js              # AJV JSON schema cho đầu ra AI
+│   ├── data/
+│   │   └── diseaseCatalog.js               # Danh mục 10 bệnh (4 hỗ trợ macro + 6 chưa hỗ trợ)
 │   ├── services/
+│   │   ├── mealPlanPurposeService.js       # Bảo vệ purpose: chống chỉ định, ánh xạ goal, TDEE từ HealthKit
 │   │   ├── nutrition/                      # Tính toán dinh dưỡng tất định
 │   │   │   ├── bmrCalculator.js
 │   │   │   ├── tdeeCalculator.js
 │   │   │   ├── calorieTargetCalculator.js
 │   │   │   ├── macroCalculator.js
 │   │   │   ├── mealMacroDistributor.js
-│   │   │   ├── durationCalculator.js
-│   │   │   └── nutritionEngine.js          # Điều phối
+│   │   │   ├── durationCalculator.js       # Hỗ trợ requestedWeeks (1/2/4)
+│   │   │   └── nutritionEngine.js          # Điều phối — nhận { goalOverride, tdeeOverride }
 │   │   ├── disease/                        # Bộ máy hạn chế y tế
 │   │   │   ├── diseaseRules.js             # Cấu hình bệnh (quy tắc, nguyên liệu)
 │   │   │   ├── macroAdjuster.js            # Điều chỉnh macro theo nguyên tắc giới hạn nghiêm ngặt nhất
@@ -136,8 +138,6 @@ eat-clean-api/
 │   └── indexKnowledgeBase.js               # CLI: đánh chỉ mục cơ sở kiến thức vào ChromaDB
 ├── tests/                                  # Bộ test Vitest
 │   └── unit/
-│       ├── controllers/
-│       │   └── recipe.controller.test.js   # CRUD công thức, sửa lỗi ReDoS, kiểm tra quyền sở hữu
 │       ├── services/
 │       │   ├── nutrition/                  # Test bộ máy dinh dưỡng
 │       │   ├── disease/                    # Test bộ máy bệnh lý
@@ -571,8 +571,9 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 ### 5.2 API Hồ Sơ Sức Khỏe
 
 #### POST `/api/health-profile`
-- **Đầu vào:** `{ gender, age, goal, desiredWeight, activityLevel, mealsPerDay, diseases?, cuisinePreference?, favoriteMeal?, dietPreference?, height?, currentWeight? }`
-- **Hành động:** Upsert (tạo hoặc cập nhật) hồ sơ sức khỏe cho người dùng đã xác thực. Mỗi người dùng một hồ sơ được đảm bảo bởi unique index trên `userId`. Nếu `height` hoặc `currentWeight` bị bỏ qua, lấy từ bản ghi User.
+- **Đầu vào:** `{ goal, activityLevel, mealsPerDay, diseases?, cuisinePreference?, favoriteMeal?, dietPreference? }`
+- **Hành động:** Upsert (tạo hoặc cập nhật) hồ sơ sức khỏe cho người dùng đã xác thực. Mỗi người dùng một hồ sơ được đảm bảo bởi unique index trên `userId`. `gender`, `age` (suy ra từ `birthday`), `height`, `currentWeight` được lấy tự động từ tài khoản User và không thể chỉnh sửa qua endpoint này.
+- **Lưu ý:** `desiredWeight` **không** thuộc resource này — nó được chuyển thành trường theo từng request trên `POST /api/meal-plans/generate` (purpose=weight_management).
 - **Cách dùng:** Hồ sơ là nền tảng cho mọi quá trình tạo kế hoạch bữa ăn
 
 #### GET `/api/health-profile`
@@ -585,7 +586,15 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 ### 5.3 API Kế Hoạch Bữa Ăn
 
 #### POST `/api/meal-plans/generate` (Endpoint cốt lõi)
-- **Đầu vào:** Bearer token (hồ sơ sức khỏe được tự động lấy)
+- **Đầu vào:** Bearer token + `{ purpose, ... }` (hồ sơ sức khỏe được tự động lấy)
+- **Tham số `purpose`** (bắt buộc, enum):
+
+| Purpose | Trường bắt buộc kèm theo | Hành vi |
+|---------|--------------------------|---------|
+| `daily_health_based` | `healthSnapshot?` (Apple Watch / HealthKit) | Tạo kế hoạch **1 ngày** dựa trên hồ sơ + tín hiệu sức khỏe trong ngày. Nếu cung cấp cả `restingEnergyKcal` lẫn `activeEnergyKcal`, dùng tổng hai giá trị làm `tdeeOverride` (bỏ qua tính BMR). |
+| `weight_management` | `weightGoal` (`lose-weight`/`gain-weight`/`muscle-gain`), `desiredWeight` (kg), `durationWeeks` (1\|2\|4) | Tạo kế hoạch 1/2/4 tuần. Trả **HTTP 400 + `reason: weight_goal_contraindication`** nếu `weightGoal` chống chỉ định với bệnh đã ghi nhận. `muscle-gain` ánh xạ nội bộ thành goal `gain-weight` (macro calculator đã ưu tiên protein đủ để tăng cơ). |
+| `disease_based` | `durationWeeks` (1\|2\|4) | Yêu cầu hồ sơ có ≥ 1 bệnh, nếu không trả 400. Buộc goal nội bộ thành `improve-health` để pipeline tập trung vào quản lý bệnh. |
+
 - **Hành động:** Pipeline tạo đầy đủ (xem Mục 8 để biết luồng chi tiết)
 - **Phản hồi:**
 ```json
@@ -656,19 +665,15 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 ---
 
-### 5.4 API Công Thức
+### 5.4 API Công Thức — ĐÃ XÓA
 
-#### GET `/api/recipes` — tìm kiếm + lọc; tham số `q` được escape regex (bảo vệ ReDoS)
-#### GET `/api/recipes/:id`
-#### POST `/api/recipes` — `{ title, description, calories, macros, tags, ingredients, steps, imageUrl? }`
-#### PUT `/api/recipes/:id` — yêu cầu quyền sở hữu: chỉ `author` của công thức hoặc `admin` mới được cập nhật; trả 403 nếu không
-#### DELETE `/api/recipes/:id` — yêu cầu quyền sở hữu: chỉ `author` của công thức hoặc `admin` mới được xóa; trả 403 nếu không
+Resource `/api/recipes` mồ côi (model, controller, routes, validator, tests) đã bị xóa vào tháng 04/2026. Nó không có dữ liệu production, không được frontend sử dụng và không có roadmap. Các "recipe" được tham chiếu ở nơi khác trong tài liệu này (cơ sở kiến thức, collection của RAG indexer, v.v.) đề cập đến `src/data/knowledgeBase/recipes.json`, một mối quan tâm tách biệt.
 
 ---
 
 ### 5.5 API Yêu Thích
 
-#### POST `/api/favorites` — `{ targetType: "meal-plan"|"recipe", targetId, note? }`
+#### POST `/api/favorites` — `{ targetType: "meal-plan", targetId, note? }`
 #### GET `/api/favorites` — `?targetType=&page=&limit=`
 #### GET `/api/favorites/check` — `?targetType=&targetId=` → `{ isFavorited: true|false }`
 #### DELETE `/api/favorites/:id`
@@ -727,21 +732,45 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 | `POST /auth/login` | Joi | `loginSchema` |
 | `PUT /auth/profile` | Joi | `updateProfileSchema` |
 | `POST /health-profile` | Joi | `healthProfileSchema` |
-| `POST /recipes` | Joi | `createRecipeSchema` |
-| `PUT /recipes/:id` | Joi | `updateRecipeSchema` |
+| `POST /meal-plans/generate` | Joi (purpose-aware) | `generateMealPlanSchema` |
 
 ### Ràng Buộc Hồ Sơ Sức Khỏe
 
 ```
-gender:        'male' | 'female'
-age:           10–120
 goal:          'lose-weight' | 'gain-weight' | 'improve-health'
-height:        50–300 (cm)
-currentWeight: 20–500 (kg)
-desiredWeight: 20–500 (kg)
 activityLevel: 'sedentary' | 'lightly-active' | 'moderately-active' | 'very-active' | 'extremely-active'
 mealsPerDay:   3 | 4 | 5
-diseases:      mảng gồm ['diabetes', 'kidney-disease', 'high-uric-acid', 'hypertension']
+diseases:      mảng các disease key (diabetes, kidney-disease, high-uric-acid,
+               hypertension, obesity, anemia, high-cholesterol, heart-disease, ...)
+cuisinePreference: mảng (tối đa 10)
+```
+
+**Lấy tự động từ tài khoản User (không thể chỉnh sửa trên hồ sơ sức khỏe):** `gender`, `age` (suy ra từ `birthday`), `height`, `currentWeight`.
+
+**Đã xóa (chuyển thành theo từng request):** `desiredWeight` được cung cấp cho `POST /api/meal-plans/generate` (purpose=weight_management), không lưu trên hồ sơ.
+
+### Ràng Buộc Tạo Kế Hoạch Bữa Ăn
+
+```
+purpose:       'daily_health_based' | 'weight_management' | 'disease_based'   (BẮT BUỘC)
+
+# chỉ weight_management — bắt buộc khi purpose=weight_management, cấm trong purpose khác
+weightGoal:    'lose-weight' | 'gain-weight' | 'muscle-gain'
+desiredWeight: 20–500 (kg)
+durationWeeks: 1 | 2 | 4
+
+# chỉ disease_based
+durationWeeks: 1 | 2 | 4   (bắt buộc)
+
+# chỉ daily_health_based — telemetry Apple Watch / HealthKit (tùy chọn)
+healthSnapshot: {
+  activeEnergyKcal:  0–8000,
+  restingEnergyKcal: 0–5000,
+  steps:             integer ≥0,
+  heartRateAvg:      20–250,
+  sleepHours:        0–24,
+  measuredAt:        date
+}
 ```
 
 ### Làm Sạch Đầu Vào Cho Prompt AI
@@ -822,13 +851,31 @@ Bước 3: Tạo Kế Hoạch Bữa Ăn
   [3a] Lấy HealthProfile từ MongoDB
        Nếu height hoặc currentWeight thiếu → điền sẵn từ tài liệu User
 
+  [3a-purpose] Phân nhánh theo purpose (MỚI):
+       templateDays = 7 (mặc định); goalOverride = undefined; tdeeOverride = undefined
+       purpose=daily_health_based →
+         templateDays = 1; requestedWeeks = 1
+         tdeeOverride = restingEnergyKcal + activeEnergyKcal (nếu cả hai hữu hạn)
+       purpose=weight_management →
+         checkWeightGoalContraindications(weightGoal, allDiseaseKeys)
+           → nếu chặn: HTTP 400 + reason: weight_goal_contraindication
+         goalOverride = mapWeightGoalToEngineGoal(weightGoal)  // muscle-gain → gain-weight
+         requestedWeeks = durationWeeks
+       purpose=disease_based →
+         yêu cầu hồ sơ có ≥1 bệnh, nếu không trả HTTP 400
+         goalOverride = 'improve-health'
+         requestedWeeks = durationWeeks
+
   [3b] Nutrition Engine (tất định):
+       generateNutritionPlan(profile, { goalOverride, tdeeOverride })
        BMR = 10×weight + 6.25×height − 5×age ± hằng số
-       TDEE = BMR × activityFactor
+       TDEE = tdeeOverride ?? BMR × activityFactor
        calorieTarget = TDEE × goalMultiplier (giới hạn 1200–4000)
        macros = { protein: weight×1.8g, fat: 25%, carbs: phần còn lại }
        mealDistribution = phân chia theo mealsPerDay (30/40/30 cho 3 bữa)
-       duration = |currentWeight − desiredWeight| / 0.5kg/tuần (giới hạn 1–52 tuần)
+       duration = calculatePlanDuration({ goal, currentWeight, desiredWeight, requestedWeeks })
+                  → nếu requestedWeeks được set, weeks = requestedWeeks (bỏ qua tính chênh lệch cân nặng)
+                  → nếu không, weeks = |currentWeight − desiredWeight| / tốc độ tuần (giới hạn 1–52)
 
   [3c] Disease Engine (nếu có bệnh):
        Với mỗi bệnh → tải quy tắc từ diseaseRules.js
@@ -1565,8 +1612,8 @@ Kiến trúc này đảm bảo **an toàn y tế không bao giờ được ủy 
 
 | Vấn đề | Cách sửa | File đã thay đổi |
 |--------|----------|-------------------|
-| ReDoS qua `$regex` với đầu vào người dùng thô trong tìm kiếm công thức | Escape tất cả ký tự regex đặc biệt bằng `escapeRegex()` trước khi truyền cho `$regex` | `recipe.controller.js` |
-| Thiếu kiểm tra quyền sở hữu khi cập nhật/xóa công thức | Lấy công thức trước; xác minh `author === req.user.id`; admin bỏ qua kiểm tra; trả 403 nếu không | `recipe.controller.js` |
+| ReDoS qua `$regex` với đầu vào người dùng thô trong tìm kiếm công thức | Escape tất cả ký tự regex đặc biệt bằng `escapeRegex()` trước khi truyền cho `$regex` | `recipe.controller.js` *(file đã bị xóa vào tháng 04/2026 cùng toàn bộ resource `/api/recipes` — xem §5.4)* |
+| Thiếu kiểm tra quyền sở hữu khi cập nhật/xóa công thức | Lấy công thức trước; xác minh `author === req.user.id`; admin bỏ qua kiểm tra; trả 403 nếu không | `recipe.controller.js` *(file đã bị xóa vào tháng 04/2026 cùng toàn bộ resource `/api/recipes` — xem §5.4)* |
 | Rò rỉ chi tiết lỗi nội bộ qua `e.message` trong phản hồi auth | Tất cả catch blocks giờ ghi log qua `logger.error()` và trả về `'Internal server error'` chung | `auth.controller.js` |
 | Chính sách mật khẩu yếu (tối thiểu 6 ký tự, không yêu cầu độ phức tạp) | Nâng lên tối thiểu 8 ký tự + yêu cầu chữ hoa, chữ thường, và chữ số | `auth.validator.js`, `User.js` |
 | `role` thiếu trong JWT payload | Thêm `role` vào `signAccessToken()` để route handlers có thể kiểm tra trạng thái admin mà không cần truy vấn DB | `auth.controller.js` |

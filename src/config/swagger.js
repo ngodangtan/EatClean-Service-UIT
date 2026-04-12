@@ -80,7 +80,6 @@ const swaggerSpec = {
           triedHealthyBefore: { type: 'boolean' },
           hungryTime: { type: 'string' },
           favoriteMeal: { type: 'string' },
-          desiredWeight: { type: 'number', description: 'Desired weight in kg' },
           activityLevel: { type: 'string', enum: ['sedentary', 'lightly-active', 'moderately-active', 'very-active', 'extremely-active'] },
           averageDay: { type: 'string' },
           workSchedule: { type: 'string' },
@@ -142,6 +141,11 @@ const swaggerSpec = {
           _id: { type: 'string' },
           userId: { type: 'string' },
           healthProfileId: { type: 'string' },
+          purpose: {
+            type: 'string',
+            enum: ['daily_health_based', 'weight_management', 'disease_based'],
+            description: 'Generation intent at the time the plan was created'
+          },
           title: { type: 'string', description: 'e.g. "7-Day Meal Plan"' },
           days: { type: 'array', items: { $ref: '#/components/schemas/MealPlanDay' } },
           duration: { $ref: '#/components/schemas/MealPlanDuration' },
@@ -150,6 +154,50 @@ const swaggerSpec = {
           notes: { type: 'string' },
           createdAt: { type: 'string', format: 'date-time' },
           updatedAt: { type: 'string', format: 'date-time' }
+        }
+      },
+      HealthSnapshot: {
+        type: 'object',
+        description: 'Apple Watch / HealthKit telemetry for purpose=daily_health_based.',
+        properties: {
+          activeEnergyKcal: { type: 'number', minimum: 0, maximum: 8000, description: 'kcal burned through movement today (HealthKit activeEnergyBurned)' },
+          restingEnergyKcal: { type: 'number', minimum: 0, maximum: 5000, description: 'Resting/basal energy estimate (HealthKit basalEnergyBurned)' },
+          steps: { type: 'integer', minimum: 0 },
+          heartRateAvg: { type: 'number', minimum: 20, maximum: 250 },
+          sleepHours: { type: 'number', minimum: 0, maximum: 24 },
+          measuredAt: { type: 'string', format: 'date-time' }
+        }
+      },
+      GenerateMealPlanRequest: {
+        type: 'object',
+        required: ['purpose'],
+        properties: {
+          purpose: {
+            type: 'string',
+            enum: ['daily_health_based', 'weight_management', 'disease_based'],
+            description:
+              'daily_health_based: 1-day plan (optional Apple Watch snapshot). ' +
+              'weight_management: 1/2/4-week plan with weightGoal + desiredWeight. ' +
+              'disease_based: 1/2/4-week plan tailored to existing conditions.'
+          },
+          weightGoal: {
+            type: 'string',
+            enum: ['lose-weight', 'gain-weight', 'muscle-gain'],
+            description: 'Required when purpose=weight_management. Must be compatible with the user\'s recorded conditions.'
+          },
+          desiredWeight: {
+            type: 'number',
+            minimum: 20,
+            maximum: 500,
+            description: 'Target weight in kg. Required when purpose=weight_management.'
+          },
+          durationWeeks: {
+            type: 'integer',
+            enum: [1, 2, 4],
+            description: 'Plan duration in weeks. Required for weight_management and disease_based. ' +
+              'Forbidden for daily_health_based (always 1 day).'
+          },
+          healthSnapshot: { $ref: '#/components/schemas/HealthSnapshot' }
         }
       },
       GenerateMealPlanResponse: {
@@ -463,11 +511,24 @@ const swaggerSpec = {
       post: {
         tags: ['Meal Plans'],
         summary: 'Generate personalized meal plan via AI',
-        description: 'Generates a 7-day weekly template via LM Studio AI, validates it, then replicates across calculated weeks based on goal and weight delta. Duration: lose-weight at 0.5 kg/week, gain-weight at 0.25 kg/week, improve-health defaults to 1 week (clamped 1–52 weeks).',
+        description:
+          'Generates a meal plan via LM Studio AI. The shape of the plan depends on `purpose`:\n\n' +
+          '- **daily_health_based** — generates a single day, optionally driven by an Apple Watch ' +
+          '`healthSnapshot` (resting + active energy override the BMR-based TDEE).\n' +
+          '- **weight_management** — generates a 1/2/4-week plan tied to a request-scoped `weightGoal` ' +
+          '(`lose-weight | gain-weight | muscle-gain`) and `desiredWeight`. The request is rejected if the ' +
+          'chosen `weightGoal` is medically contraindicated by the user\'s recorded conditions ' +
+          '(e.g. `gain-weight` is blocked for users with obesity, high-cholesterol, heart-disease, or hypertension).\n' +
+          '- **disease_based** — generates a 1/2/4-week plan focused on managing existing conditions. ' +
+          'Goal is internally forced to `improve-health`. Requires at least one disease on the profile.',
         security: [{ bearerAuth: [] }],
+        requestBody: {
+          required: true,
+          content: { 'application/json': { schema: { $ref: '#/components/schemas/GenerateMealPlanRequest' } } }
+        },
         responses: {
           '201': { description: 'Generated', content: { 'application/json': { schema: { $ref: '#/components/schemas/GenerateMealPlanResponse' } } } },
-          '400': { description: 'Health profile missing required fields (gender, age, currentWeight, height)' },
+          '400': { description: 'Validation failed, health profile missing required fields, or weight goal medically contraindicated' },
           '401': { description: 'Unauthorized' },
           '404': { description: 'Health profile not found' },
           '500': { description: 'Generation failed (AI error, safety validation failed, or infeasible disease combination)' }

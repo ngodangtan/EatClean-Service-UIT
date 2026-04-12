@@ -40,4 +40,20 @@ describe('calculatePlanDuration', () => {
     const result = calculatePlanDuration({ goal: 'improve-health' });
     expect(result.templateDays).toBe(7);
   });
+
+  it('uses requestedWeeks when provided, bypassing weight-delta calculation', () => {
+    const result = calculatePlanDuration({ goal: 'lose-weight', currentWeight: 80, desiredWeight: 75, requestedWeeks: 2 });
+    expect(result.weeks).toBe(2);
+    expect(result.totalDays).toBe(14);
+  });
+
+  it('ignores requestedWeeks when zero or negative', () => {
+    const result = calculatePlanDuration({ goal: 'lose-weight', currentWeight: 80, desiredWeight: 75, requestedWeeks: 0 });
+    expect(result.weeks).toBe(10); // falls back to weight-delta calc
+  });
+
+  it('clamps requestedWeeks to MAX_WEEKS (52)', () => {
+    const result = calculatePlanDuration({ goal: 'improve-health', requestedWeeks: 100 });
+    expect(result.weeks).toBe(52);
+  });
 });

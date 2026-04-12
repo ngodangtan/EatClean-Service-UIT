@@ -23,18 +23,32 @@ function validateInputs({ currentWeight, height, age, gender }) {
   }
 }
 
-export function generateNutritionPlan(healthProfile) {
-  const { currentWeight, height, age, gender, activityLevel, goal, mealsPerDay } = healthProfile;
+/**
+ * Compute base nutrition plan for a user.
+ *
+ * @param {Object} healthProfile
+ * @param {Object} [options]
+ * @param {string} [options.goalOverride] — overrides healthProfile.goal (used by
+ *   purpose=disease_based to force 'improve-health' regardless of profile goal,
+ *   and by purpose=weight_management to inject the request-scoped weightGoal).
+ * @param {number} [options.tdeeOverride] — bypass BMR/TDEE calculation entirely
+ *   (used by purpose=daily_health_based when Apple Watch energy data is supplied).
+ */
+export function generateNutritionPlan(healthProfile, { goalOverride, tdeeOverride } = {}) {
+  const { currentWeight, height, age, gender, activityLevel, mealsPerDay } = healthProfile;
+  const goal = goalOverride ?? healthProfile.goal;
 
   validateInputs({ currentWeight, height, age, gender });
 
   const bmr = calculateBMR({ weight: currentWeight, height, age, gender });
-  const tdee = calculateTDEE(bmr, activityLevel);
+  const tdee = Number.isFinite(tdeeOverride) && tdeeOverride > 0
+    ? tdeeOverride
+    : calculateTDEE(bmr, activityLevel);
   const calorieTarget = calculateCalorieTarget(tdee, goal, gender);
   const macros = calculateMacros(calorieTarget, goal, currentWeight);
 
   const totalMacros = { calories: calorieTarget, ...macros };
   const mealDistribution = distributeMacros(totalMacros, mealsPerDay);
 
-  return { bmr: Math.round(bmr), tdee: Math.round(tdee), calorieTarget, macros, mealDistribution };
+  return { bmr: Math.round(bmr), tdee: Math.round(tdee), calorieTarget, goal, macros, mealDistribution };
 }

@@ -313,3 +313,99 @@
 22:03:32 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 2ms {"requestId":"41dcf196-1219-453e-9f40-94172bb17673","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":2}
 22:03:32 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 2ms {"requestId":"d46e739f-67db-44b2-9266-a46627874602","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":2}
 22:03:33 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"4c28353d-562f-432e-8340-1a96cbb63004","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:42:00 [32minfo[39m: MongoDB connected
+22:42:00 [32minfo[39m: Server listening on http://localhost:4000
+22:42:00 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:42:03 [32minfo[39m: MongoDB connected
+22:42:03 [32minfo[39m: Server listening on http://localhost:4000
+22:42:03 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:42:07 [32minfo[39m: MongoDB connected
+22:42:07 [32minfo[39m: Server listening on http://localhost:4000
+22:42:07 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:42:14 [32minfo[39m: MongoDB connected
+22:42:14 [32minfo[39m: Server listening on http://localhost:4000
+22:42:14 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:42:28 [32minfo[39m: MongoDB connected
+22:42:28 [32minfo[39m: Server listening on http://localhost:4000
+22:42:28 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:42:32 [32minfo[39m: MongoDB connected
+22:42:32 [32minfo[39m: Server listening on http://localhost:4000
+22:42:32 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:42:53 [32minfo[39m: MongoDB connected
+22:42:53 [32minfo[39m: Server listening on http://localhost:4000
+22:42:53 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:43:08 [32minfo[39m: MongoDB connected
+22:43:08 [32minfo[39m: Server listening on http://localhost:4000
+22:43:08 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:43:28 [32minfo[39m: MongoDB connected
+22:43:28 [32minfo[39m: Server listening on http://localhost:4000
+22:43:28 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:43:41 [32minfo[39m: MongoDB connected
+22:43:41 [32minfo[39m: Server listening on http://localhost:4000
+22:43:41 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:44:13 [32minfo[39m: MongoDB connected
+22:44:13 [32minfo[39m: Server listening on http://localhost:4000
+22:44:13 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:44:28 [32minfo[39m: MongoDB connected
+22:44:28 [32minfo[39m: Server listening on http://localhost:4000
+22:44:28 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:44:32 [32minfo[39m: MongoDB connected
+22:44:32 [32minfo[39m: Server listening on http://localhost:4000
+22:44:32 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:44:38 [32minfo[39m: MongoDB connected
+22:44:38 [32minfo[39m: Server listening on http://localhost:4000
+22:44:38 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:44:49 [32minfo[39m: MongoDB connected
+22:44:49 [32minfo[39m: Server listening on http://localhost:4000
+22:44:49 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:45:05 [32minfo[39m: MongoDB connected
+22:45:05 [32minfo[39m: Server listening on http://localhost:4000
+22:45:05 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:45:14 [32minfo[39m: MongoDB connected
+22:45:14 [32minfo[39m: Server listening on http://localhost:4000
+22:45:14 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:45:20 [32minfo[39m: MongoDB connected
+22:45:20 [32minfo[39m: Server listening on http://localhost:4000
+22:45:20 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:45:42 [32minfo[39m: MongoDB connected
+22:45:42 [32minfo[39m: Server listening on http://localhost:4000
+22:45:42 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:45:48 [32minfo[39m: MongoDB connected
+22:45:48 [32minfo[39m: Server listening on http://localhost:4000
+22:45:48 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:46:32 [32minfo[39m: MongoDB connected
+22:46:32 [32minfo[39m: Server listening on http://localhost:4000
+22:46:32 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:46:43 [32minfo[39m: MongoDB connected
+22:46:43 [32minfo[39m: Server listening on http://localhost:4000
+22:46:43 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:46:49 [32minfo[39m: MongoDB connected
+22:46:49 [32minfo[39m: Server listening on http://localhost:4000
+22:46:49 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:47:13 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+22:47:13 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+22:48:20 [32minfo[39m: GET /api/docs/ 304 8ms {"requestId":"66092d5c-82af-4391-b831-9087fbca4ac9","method":"GET","path":"/api/docs/","status":304,"duration":8}
+22:48:20 [32minfo[39m: GET /api/docs/swagger-ui.css 304 1ms {"requestId":"88e9395e-4b31-410f-af40-4fac2c791e6f","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":1}
+22:48:20 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"0b1bfd8b-5184-4023-b329-406d095b76d5","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+22:48:20 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 2ms {"requestId":"f6465b1d-05bf-4fb2-adf2-05fbcb3a56d3","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":2}
+22:48:20 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 0ms {"requestId":"cfd869a4-09eb-4e40-b068-6f0484de74f4","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":0}
+22:48:20 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"db163ad6-5e12-48af-aef9-92c03cbd899c","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+09:53:56 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+09:53:56 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+09:57:06 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+09:57:06 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping
+10:30:48 [32minfo[39m: MongoDB connected
+10:30:48 [32minfo[39m: Server listening on http://localhost:4000
+10:30:48 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+10:40:37 [32minfo[39m: MongoDB connected
+10:40:55 [32minfo[39m: MongoDB connected
+10:40:55 [32minfo[39m: Server listening on http://localhost:4000
+10:40:55 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+10:41:03 [32minfo[39m: GET /api/docs/ 304 9ms {"requestId":"d3767395-8edf-44d2-9b66-8ee43f877d14","method":"GET","path":"/api/docs/","status":304,"duration":9}
+10:41:03 [32minfo[39m: GET /api/docs/swagger-ui.css 304 1ms {"requestId":"03664640-270f-43af-b1fe-9555f71fe3e4","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":1}
+10:41:03 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 1ms {"requestId":"486cbee2-747a-46ff-b163-99468ed6d988","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":1}
+10:41:03 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 1ms {"requestId":"20a6131f-e1eb-4868-a6cd-1abc188e1cd2","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":1}
+10:41:03 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 1ms {"requestId":"d3b4b11e-a60f-4259-8d34-01faf2b49064","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":1}
+10:41:20 [32minfo[39m: POST /api/auth/login 200 250ms {"requestId":"f265c76a-94b8-47e4-9335-ccc50e61ed24","method":"POST","path":"/api/auth/login","status":200,"duration":250}
+10:43:37 [32minfo[39m: GET /api/health 200 2ms {"requestId":"63085aef-07ef-4ba1-8177-075bbeaac801","method":"GET","path":"/api/health","status":200,"duration":2}
+10:43:43 [32minfo[39m: GET /api/diseases 200 2ms {"requestId":"6a68dc31-d40a-49aa-9059-b8383de3b0fb","method":"GET","path":"/api/diseases","status":200,"duration":2}

@@ -68,7 +68,7 @@ if [ -z "$LM_READY" ]; then
   warn "LM Studio is NOT reachable at $LM_URL."
   warn "Make sure LM Studio is open and the server is started with:"
   warn "  • A chat/LLM model loaded (for meal generation)"
-  warn "  • nomic-embed-text model loaded (for RAG embeddings)"
+  warn "  • bge-m3 embedding model loaded (multilingual, for Vietnamese RAG)"
 fi
 
 # ── 5. Index knowledge base into ChromaDB ─────

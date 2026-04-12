@@ -58,11 +58,8 @@ const healthProfileSchema = new mongoose.Schema(
     
     // 6) What is your current weight? (in kg)
     currentWeight: { type: Number },
-    
-    // 7) What is your desired weight? (in kg)
-    desiredWeight: { type: Number },
-    
-    // 8) How active are you?
+
+    // 7) How active are you?
     activityLevel: { type: String, enum: ['sedentary', 'lightly-active', 'moderately-active', 'very-active', 'extremely-active'] },
     
     // 9) Describe your average day

@@ -25,7 +25,8 @@
       "Bash(node --check src/routes/disease.routes.js)",
       "Bash(node --check src/routes/index.js)",
       "Bash(node --check src/config/swagger.js)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(ls:*)"
     ]
   }
 }

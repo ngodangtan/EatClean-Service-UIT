@@ -60,9 +60,10 @@ describe('retrieveRelevantMeals', () => {
     });
 
     const calledWith = getEmbedding.mock.calls[0][0];
-    expect(calledWith).toContain('breakfast');
-    expect(calledWith).toContain('gain-weight');
-    expect(calledWith).toContain('vietnamese');
+    // Query is now built in Vietnamese for better bge-m3 semantic matching
+    expect(calledWith).toContain('bữa sáng');    // breakfast → bữa sáng
+    expect(calledWith).toContain('gain-weight');  // goal passed through (no VI map entry)
+    expect(calledWith).toContain('Việt Nam');     // vietnamese → Việt Nam
     expect(calledWith).toContain('pho');
   });
 
@@ -79,7 +80,7 @@ describe('retrieveRelevantMeals', () => {
     });
 
     const calledWith = getEmbedding.mock.calls[0][0];
-    expect(calledWith).toContain('dinner');
+    expect(calledWith).toContain('bữa tối');  // dinner → bữa tối
     expect(calledWith).not.toContain('null');
     expect(calledWith).not.toContain('undefined');
   });

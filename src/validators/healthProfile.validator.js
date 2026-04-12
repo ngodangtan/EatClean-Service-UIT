@@ -20,7 +20,6 @@ export const healthProfileSchema = Joi.object({
   triedHealthyBefore: Joi.boolean(),
   hungryTime: Joi.string().trim(),
   favoriteMeal: Joi.string().trim(),
-  desiredWeight: Joi.number().min(1).max(500),
   activityLevel: Joi.string().valid('sedentary', 'lightly-active', 'moderately-active', 'very-active', 'extremely-active'),
   averageDay: Joi.string().trim(),
   workSchedule: Joi.string().trim(),
