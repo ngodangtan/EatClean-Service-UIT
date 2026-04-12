@@ -41,9 +41,6 @@ const healthProfileSchema = new mongoose.Schema(
     // Age (auto-calculated from User birthday)
     age: { type: Number, min: 1, max: 120 },
 
-    // 1) Mục tiêu ăn uống
-    goal: { type: String, enum: ['lose-weight', 'gain-weight', 'improve-health'], default: 'improve-health' },
-    
     // 2) Have you tried to eat healthy before but couldn't keep it consistent?
     triedHealthyBefore: { type: Boolean },
     

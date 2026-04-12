@@ -76,7 +76,6 @@ const swaggerSpec = {
           userId: { type: 'string' },
           gender: { type: 'string', enum: ['male', 'female'], readOnly: true, description: 'Auto-populated from user account' },
           age: { type: 'number', readOnly: true, description: 'Auto-calculated from user birthday' },
-          goal: { type: 'string', enum: ['lose-weight', 'gain-weight', 'improve-health'] },
           triedHealthyBefore: { type: 'boolean' },
           hungryTime: { type: 'string' },
           favoriteMeal: { type: 'string' },

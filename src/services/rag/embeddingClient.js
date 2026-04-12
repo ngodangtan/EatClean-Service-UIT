@@ -29,7 +29,7 @@ export async function getEmbedding(text) {
  */
 export async function getEmbeddingBatch(texts) {
   const url = process.env.LM_STUDIO_EMBEDDING_URL;
-  const model = process.env.EMBEDDING_MODEL || 'nomic-embed-text';
+  const model = process.env.EMBEDDING_MODEL || 'bge-m3';
 
   if (!url) {
     logger.warn('RAG: LM_STUDIO_EMBEDDING_URL not set — skipping embedding');

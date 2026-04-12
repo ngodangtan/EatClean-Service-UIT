@@ -5,6 +5,8 @@
 > **2026-04-11 update notes:** Vietnamese-only product (LM Studio embedding model: `bge-m3`, knowledge base + prompts in Vietnamese). `POST /api/meal-plans/generate` is now **purpose-driven** (`daily_health_based | weight_management | disease_based`). `desiredWeight` is no longer stored on the health profile — it is request-scoped on `/generate`. The orphaned `/api/recipes` resource and its model/controller/routes/validator/tests have been removed. `HealthProfile.diseases` is now a structured subdocument array (`{ key, diagnosedAt, indicators[] }`) backed by the disease catalog.
 >
 > **2026-04-12 update notes:** Fixed embedding model references from `nomic-embed-text` to `bge-m3` (multilingual, 1024-dim) throughout. Corrected AI client params (temperature: 0.2, max_tokens: 2000, system+user messages). Fixed ingredient filter regex description to show actual Unicode-aware lookaround pattern. Added missing `favorite.routes.js` to directory listing. Added missing test files (mealPlanPurposeService, mealPlanGenerate.validator, integration tests). Fixed guidelines indexer count (4→10). Updated knowledge base examples to show actual Vietnamese content. Removed stale temperature inconsistency from Known Inconsistencies table.
+>
+> **2026-04-12 update notes (v2):** **Removed `goal` from HealthProfile entirely** — `goal` is no longer stored on the profile, the Mongoose schema, the Joi validator, the Swagger spec, or the controller. The nutrition engine now defaults to `'improve-health'` when no `goalOverride` is supplied (previously fell back to `healthProfile.goal`). `goalOverride` is only used by `weight_management` to inject the request-scoped `weightGoal`. The `swapMeal` controller now hardcodes `goal: 'improve-health'` instead of reading from the profile. **RAG indexer now deletes collections before re-indexing** for clean re-index behavior (new `deleteCollection()` export in `vectorStore.js`). ChromaDB `embeddingFunction` changed from a no-op wrapper to `null`. Fixed `getEmbeddingBatch` default model from `nomic-embed-text` to `bge-m3`.
 
 ---
 
@@ -462,8 +464,8 @@ healthCheck()                                       // returns boolean
 
 // Important implementation notes:
 // - Uses host/port/ssl constructor (not deprecated 'path')
-// - Passes NO_OP_EMBEDDING_FUNCTION to suppress DefaultEmbeddingFunction error
-//   (we always supply our own embeddings — the no-op is never actually called)
+// - Passes embeddingFunction: null so ChromaDB skips DefaultEmbeddingFunction
+//   (we always supply our own embeddings via LM Studio)
 // - ChromaDB v1.0.0 (v2 API) — deployed via docker-compose.rag.yml
 // - COLLECTIONS constant: { RECIPES: 'recipes', GUIDELINES: 'guidelines', INGREDIENTS: 'ingredients' }
 ```
@@ -524,9 +526,9 @@ Responsibility: one-time and incremental indexing of JSON files into ChromaDB.
 ```javascript
 // Exports:
 indexAllCollections()    // indexes all three files concurrently, returns { recipes, guidelines, ingredients, errors }
-indexRecipes()           // reads recipes.json, batches of 10, upserts to RECIPES
-indexGuidelines()        // reads diseaseGuidelines.json, upserts to GUIDELINES
-indexIngredients()       // reads ingredients.json, batches of 10, upserts to INGREDIENTS
+indexRecipes()           // deletes RECIPES collection, then reads recipes.json, batches of 10, upserts
+indexGuidelines()        // deletes GUIDELINES collection, then reads diseaseGuidelines.json, upserts
+indexIngredients()       // deletes INGREDIENTS collection, then reads ingredients.json, batches of 10, upserts
 
 // Document string format (what gets embedded + stored):
 // Recipe:    "{name}. {mealType} for {goal}. Ingredients: {ingredients}. {description}"
@@ -630,7 +632,7 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 ### 5.2 Health Profile APIs
 
 #### POST `/api/health-profile` / PUT `/api/health-profile`
-- **Input:** `{ goal, triedHealthyBefore?, hungryTime?, favoriteMeal?, activityLevel?, averageDay?, workSchedule?, sleepDuration?, diseases?, dietPreference?, mealsPerDay?, cuisinePreference? }`
+- **Input:** `{ triedHealthyBefore?, hungryTime?, favoriteMeal?, activityLevel?, averageDay?, workSchedule?, sleepDuration?, diseases?, dietPreference?, mealsPerDay?, cuisinePreference? }`
 - **Note:** `desiredWeight` is **not** part of this resource — it is now a request-scoped field on `POST /api/meal-plans/generate` (purpose=weight_management). `gender`, `birthday`, `height`, `currentWeight` come from the User account at registration time and are not editable here.
 - **`diseases` shape:** array of `{ key, diagnosedAt?, indicators: [{ key, value, unit?, measuredAt?, note? }] }`. Disease keys, indicator keys, "indicator belongs to disease", and duplicates are cross-checked against `src/data/diseaseCatalog.js` after Joi validation. Indicator units are snapshotted from the catalog at write time so historical records stay interpretable if catalog units change.
 - **Action:** POST creates or upserts; PUT is the same handler — accepts partial payloads (omitted fields preserved). Arrays like `diseases` are replaced wholesale, so the frontend should send the complete array, not a delta.
@@ -659,7 +661,7 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 |---|---|---|
 | `daily_health_based` | optional `healthSnapshot` (Apple Watch / HealthKit: `restingEnergyKcal`, `activeEnergyKcal`, `steps`, `heartRateAvg`, `sleepHours`, `measuredAt`) | Generates a **single day**. If both resting + active energy are present, they override the BMR-based TDEE calculation entirely. |
 | `weight_management` | required `weightGoal` (`lose-weight \| gain-weight \| muscle-gain`), `desiredWeight` (kg), `durationWeeks` (1\|2\|4) | Generates a 1/2/4-week plan. Returns **HTTP 400 + `reason: weight_goal_contraindication`** if `weightGoal` is medically incompatible with the user's recorded conditions. `muscle-gain` maps internally to engine goal `gain-weight` (the macro calculator already biases protein high enough for muscle accrual). |
-| `disease_based` | required `durationWeeks` (1\|2\|4) | Generates a 1/2/4-week plan focused on managing existing conditions. Engine goal is **forced to `improve-health`** regardless of profile goal. Requires ≥1 disease on the profile. |
+| `disease_based` | required `durationWeeks` (1\|2\|4) | Generates a 1/2/4-week plan focused on managing existing conditions. Engine goal is **forced to `improve-health`**. Requires ≥1 disease on the profile. |
 
 - **Contraindication map** (`mealPlanPurposeService.js`):
   - `gain-weight` blocked by: `obesity`, `high-cholesterol`, `heart-disease`, `hypertension`
@@ -805,7 +807,7 @@ The orphaned `/api/recipes` resource (model, controller, routes, validator, test
 | Model | Key Fields | Indexes |
 |-------|-----------|---------|
 | `User` | email, password (bcrypt), gender, birthday, height, currentWeight, refreshTokens[] | email (unique) |
-| `HealthProfile` | userId, gender (snapshot), age (derived), goal, diseases[] (subdocument array of `{ key, diagnosedAt, indicators[] }`) | userId (unique) |
+| `HealthProfile` | userId, gender (snapshot), age (derived), diseases[] (subdocument array of `{ key, diagnosedAt, indicators[] }`) | userId (unique) |
 | `MealPlan` | userId, **purpose** (`daily_health_based\|weight_management\|disease_based`), days[], swapHistory, swapCount, duration | userId + createdAt (compound) |
 | `Favorite` | userId, targetType (`'meal-plan'` only), targetId | userId+targetType+targetId (unique compound) |
 | `TokenBlacklist` | token, expiresAt | token (unique), expiresAt (TTL — auto-delete) |
@@ -848,7 +850,6 @@ The orphaned `/api/recipes` resource (model, controller, routes, validator, test
 ### Health Profile Constraints
 
 ```
-goal:          'lose-weight' | 'gain-weight' | 'improve-health'   (default: improve-health)
 activityLevel: 'sedentary' | 'lightly-active' | 'moderately-active' | 'very-active' | 'extremely-active'
 mealsPerDay:   1–6
 sleepDuration: 0–24 (hours)
@@ -1068,7 +1069,7 @@ Step 3: Meal Plan Generation
 Step 4: Meal Swap
   POST /api/meal-plans/:planId/swap { day, mealIndex }
   → Locate target meal in plan
-  → Re-run AI generation for that single meal (same nutrition targets)
+  → Re-run AI generation for that single meal (same nutrition targets, goal hardcoded to 'improve-health')
   → Safety validation
   → Update meal in-place
   → Increment swapCount, append to swapHistory
@@ -1092,13 +1093,13 @@ This section traces the exact logic inside each service layer — formulas, cons
 ### 10.1 Nutrition Engine (`src/services/nutrition/`)
 
 `generateNutritionPlan(healthProfile, { goalOverride, tdeeOverride })`. The two options are how the meal-plan controller injects purpose-specific behavior:
-- `goalOverride` — replaces `healthProfile.goal` (used by `disease_based` to force `improve-health`, and by `weight_management` to inject the request-scoped `weightGoal`).
+- `goalOverride` — overrides the default `'improve-health'` goal (used by `weight_management` to inject the request-scoped `weightGoal`).
 - `tdeeOverride` — bypasses BMR/TDEE calculation entirely (used by `daily_health_based` when both Apple Watch resting + active energy are supplied).
 
 The returned plan now includes the **effective `goal`** so downstream code can stay coherent with the macro distribution it received.
 
 ```
-Input: healthProfile { currentWeight, height, age, gender, activityLevel, goal, mealsPerDay }
+Input: healthProfile { currentWeight, height, age, gender, activityLevel, mealsPerDay }
        options      { goalOverride?, tdeeOverride? }
                                     │
                          validateInputs()

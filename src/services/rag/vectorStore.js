@@ -8,14 +8,6 @@ export const COLLECTIONS = {
 };
 
 /**
- * No-op embedding function passed to ChromaDB to suppress the DefaultEmbeddingFunction error.
- * We always supply our own embeddings via LM Studio — this function is never actually called.
- */
-const NO_OP_EMBEDDING_FUNCTION = {
-  generate: async (texts) => texts.map(() => [])
-};
-
-/**
  * Build ChromaDB client from CHROMA_URL env var.
  * Uses host/port/ssl to avoid deprecated 'path' argument.
  */
@@ -31,7 +23,8 @@ function buildClient() {
 
 /**
  * Get or create a ChromaDB collection.
- * Passes a no-op embedding function so ChromaDB doesn't try to load DefaultEmbeddingFunction.
+ * Passes embeddingFunction: null so ChromaDB skips the DefaultEmbeddingFunction.
+ * We always supply our own embeddings via LM Studio.
  * @param {string} collectionName
  * @returns {Promise<Collection>}
  */
@@ -39,7 +32,7 @@ export async function initializeCollection(collectionName) {
   const client = buildClient();
   return client.getOrCreateCollection({
     name: collectionName,
-    embeddingFunction: NO_OP_EMBEDDING_FUNCTION
+    embeddingFunction: null
   });
 }
 

@@ -16,7 +16,6 @@ const diseaseEntrySchema = Joi.object({
 });
 
 export const healthProfileSchema = Joi.object({
-  goal: Joi.string().valid('lose-weight', 'gain-weight', 'improve-health'),
   triedHealthyBefore: Joi.boolean(),
   hungryTime: Joi.string().trim(),
   favoriteMeal: Joi.string().trim(),

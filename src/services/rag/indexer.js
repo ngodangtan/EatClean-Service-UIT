@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
 import { getEmbeddingBatch } from './embeddingClient.js';
-import { initializeCollection, upsertDocuments, COLLECTIONS } from './vectorStore.js';
+import { initializeCollection, upsertDocuments, deleteCollection, COLLECTIONS } from './vectorStore.js';
 import logger from '../../utils/logger.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -38,6 +38,7 @@ export async function indexAllCollections() {
  * Index recipes.json into the RECIPES collection.
  */
 export async function indexRecipes() {
+  await deleteCollection(COLLECTIONS.RECIPES).catch(() => {});
   await initializeCollection(COLLECTIONS.RECIPES);
   const recipes = await readKnowledgeBase('recipes.json');
 
@@ -95,6 +96,7 @@ export async function indexRecipes() {
  * Index diseaseGuidelines.json into the GUIDELINES collection.
  */
 export async function indexGuidelines() {
+  await deleteCollection(COLLECTIONS.GUIDELINES).catch(() => {});
   await initializeCollection(COLLECTIONS.GUIDELINES);
   const guidelines = await readKnowledgeBase('diseaseGuidelines.json');
 
@@ -138,6 +140,7 @@ export async function indexGuidelines() {
  * Index ingredients.json into the INGREDIENTS collection.
  */
 export async function indexIngredients() {
+  await deleteCollection(COLLECTIONS.INGREDIENTS).catch(() => {});
   await initializeCollection(COLLECTIONS.INGREDIENTS);
   const ingredients = await readKnowledgeBase('ingredients.json');
 

@@ -28,15 +28,14 @@ function validateInputs({ currentWeight, height, age, gender }) {
  *
  * @param {Object} healthProfile
  * @param {Object} [options]
- * @param {string} [options.goalOverride] — overrides healthProfile.goal (used by
- *   purpose=disease_based to force 'improve-health' regardless of profile goal,
- *   and by purpose=weight_management to inject the request-scoped weightGoal).
+ * @param {string} [options.goalOverride] — overrides the default 'improve-health' goal
+ *   (used by purpose=weight_management to inject the request-scoped weightGoal).
  * @param {number} [options.tdeeOverride] — bypass BMR/TDEE calculation entirely
  *   (used by purpose=daily_health_based when Apple Watch energy data is supplied).
  */
 export function generateNutritionPlan(healthProfile, { goalOverride, tdeeOverride } = {}) {
   const { currentWeight, height, age, gender, activityLevel, mealsPerDay } = healthProfile;
-  const goal = goalOverride ?? healthProfile.goal;
+  const goal = goalOverride ?? 'improve-health';
 
   validateInputs({ currentWeight, height, age, gender });
 

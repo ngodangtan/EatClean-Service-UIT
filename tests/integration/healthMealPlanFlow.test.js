@@ -81,7 +81,6 @@ describe('Health Profile → Meal Plan integration flow', () => {
 
   it('should create a health profile for a hypertension user', async () => {
     const profilePayload = {
-      goal: 'improve-health',
       activityLevel: 'moderately-active',
       mealsPerDay: 3,
       sleepDuration: 7,
@@ -127,7 +126,6 @@ describe('Health Profile → Meal Plan integration flow', () => {
     expect(systolic.unit).toBe('mmHg');
 
     // Verify profile fields
-    expect(profile.goal).toBe('improve-health');
     expect(profile.activityLevel).toBe('moderately-active');
     expect(profile.mealsPerDay).toBe(3);
   });
