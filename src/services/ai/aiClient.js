@@ -19,7 +19,7 @@ export async function callLMStudio(prompt) {
       headers: { 'Content-Type': 'application/json' },
       signal: controller.signal,
       body: JSON.stringify({
-        model: 'local-model',
+        model: process.env.LM_STUDIO_MODEL || 'local-model',
         messages: [
           { role: 'system', content: SYSTEM_MESSAGE },
           { role: 'user', content: prompt }

@@ -2,6 +2,9 @@ import crypto from 'node:crypto';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import TokenBlacklist from '../models/TokenBlacklist.js';
+import HealthProfile from '../models/HealthProfile.js';
+import MealPlan from '../models/MealPlan.js';
+import Favorite from '../models/Favorite.js';
 import logger from '../utils/logger.js';
 
 function signAccessToken(user) {
@@ -209,6 +212,13 @@ export async function removeUser(req, res) {
 
     const deleted = await User.findByIdAndDelete(targetId);
     if (!deleted) return res.status(404).json({ message: 'User not found' });
+
+    // Cascade-delete all data owned by this user
+    await Promise.all([
+      HealthProfile.deleteMany({ userId: targetId }),
+      MealPlan.deleteMany({ userId: targetId }),
+      Favorite.deleteMany({ userId: targetId })
+    ]);
 
     return res.json({ ok: true });
   } catch (e) {
