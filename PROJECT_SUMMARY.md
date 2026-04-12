@@ -1,8 +1,10 @@
 # Eat Clean API — Comprehensive Technical Summary
 
-> Generated: 2026-03-12 | Last updated: 2026-04-11 | Based on all requirement documents and full source code analysis
+> Generated: 2026-03-12 | Last updated: 2026-04-12 | Based on all requirement documents and full source code analysis
 >
 > **2026-04-11 update notes:** Vietnamese-only product (LM Studio embedding model: `bge-m3`, knowledge base + prompts in Vietnamese). `POST /api/meal-plans/generate` is now **purpose-driven** (`daily_health_based | weight_management | disease_based`). `desiredWeight` is no longer stored on the health profile — it is request-scoped on `/generate`. The orphaned `/api/recipes` resource and its model/controller/routes/validator/tests have been removed. `HealthProfile.diseases` is now a structured subdocument array (`{ key, diagnosedAt, indicators[] }`) backed by the disease catalog.
+>
+> **2026-04-12 update notes:** Fixed embedding model references from `nomic-embed-text` to `bge-m3` (multilingual, 1024-dim) throughout. Corrected AI client params (temperature: 0.2, max_tokens: 2000, system+user messages). Fixed ingredient filter regex description to show actual Unicode-aware lookaround pattern. Added missing `favorite.routes.js` to directory listing. Added missing test files (mealPlanPurposeService, mealPlanGenerate.validator, integration tests). Fixed guidelines indexer count (4→10). Updated knowledge base examples to show actual Vietnamese content. Removed stale temperature inconsistency from Known Inconsistencies table.
 
 ---
 
@@ -79,7 +81,8 @@ eat-clean-api/
 │   │   ├── auth.routes.js
 │   │   ├── health.routes.js
 │   │   ├── disease.routes.js
-│   │   └── mealplan.routes.js
+│   │   ├── mealplan.routes.js
+│   │   └── favorite.routes.js
 │   ├── models/                             # Mongoose schemas
 │   │   ├── User.js
 │   │   ├── HealthProfile.js                # diseases is now [diseaseEntrySchema] (key + indicators)
@@ -138,16 +141,20 @@ eat-clean-api/
 ├── scripts/
 │   └── indexKnowledgeBase.js               # CLI: index knowledge base into ChromaDB
 ├── tests/                                  # Vitest test suite
-│   └── unit/
-│       ├── services/
-│       │   ├── nutrition/                  # Nutrition engine tests
-│       │   ├── disease/                    # Disease engine tests
-│       │   └── rag/                        # RAG layer tests (ragContextBuilder, retriever)
-│       ├── validators/
-│       │   ├── auth.validator.test.js      # Password policy, register/login/updateProfile schemas
-│       │   └── mealPlan.schema.test.js     # AJV schema validation for AI output
-│       └── data/
-│           └── knowledgeBase.test.js       # Validates knowledge base JSON integrity
+│   ├── unit/
+│   │   ├── services/
+│   │   │   ├── nutrition/                  # Nutrition engine tests (bmr, tdee, calories, macros, distributor, duration)
+│   │   │   ├── disease/                    # Disease engine tests (rules, ingredientFilter, macroAdjuster, safetyValidator)
+│   │   │   ├── rag/                        # RAG layer tests (ragContextBuilder, retriever)
+│   │   │   └── mealPlanPurposeService.test.js  # Purpose-level rules (contraindications, goal mapping)
+│   │   ├── validators/
+│   │   │   ├── auth.validator.test.js      # Password policy, register/login/updateProfile schemas
+│   │   │   ├── mealPlan.schema.test.js     # AJV schema validation for AI output
+│   │   │   └── mealPlanGenerate.validator.test.js  # Joi schema for purpose-aware /generate
+│   │   └── data/
+│   │       └── knowledgeBase.test.js       # Validates knowledge base JSON integrity
+│   └── integration/
+│       └── healthMealPlanFlow.test.js      # End-to-end health profile → meal plan flow
 ├── requirement/                            # Requirement review docs
 ├── docker-compose.rag.yml                  # ChromaDB Docker setup
 ├── package.json
@@ -249,7 +256,7 @@ The system uses LM Studio for **both** creative generation and semantic embeddin
 | Purpose | Endpoint | Model | Notes |
 |---------|----------|-------|-------|
 | Meal generation (creative text) | `LM_STUDIO_URL` (`/v1/chat/completions`) | Any chat model | Generates name, description, ingredients, benefits |
-| Embedding (semantic search) | `LM_STUDIO_EMBEDDING_URL` (`/v1/embeddings`) | `nomic-embed-text` | Converts query text to 768-dim vector for ChromaDB lookup |
+| Embedding (semantic search) | `LM_STUDIO_EMBEDDING_URL` (`/v1/embeddings`) | `bge-m3` (multilingual) | Converts query text to 1024-dim vector for ChromaDB lookup |
 
 Both run locally via LM Studio. No cloud AI APIs are used.
 
@@ -277,10 +284,13 @@ All numerical nutritional values (calories, protein, carbs, fat) are **computed 
 POST http://localhost:1234/v1/chat/completions
 {
   model: "local-model",
-  messages: [{ role: "user", content: <built prompt> }],
-  temperature: 0.7,
-  max_tokens: 800,
-  stream: false
+  messages: [
+    { role: "system", content: "You are a JSON-only meal content generator..." },
+    { role: "user", content: <built prompt> }
+  ],
+  temperature: 0.2,
+  max_tokens: 2000,
+  top_p: 0.9
 }
 ```
 
@@ -294,28 +304,28 @@ POST http://localhost:1234/v1/chat/completions
 // src/services/rag/embeddingClient.js
 POST http://localhost:1234/v1/embeddings
 {
-  model: "nomic-embed-text",
+  model: "bge-m3",
   input: "lunch meal for lose-weight goal vietnamese cuisine"
 }
-// Response: { data: [{ embedding: [0.021, -0.192, 0.040, ...] }] }  // 768-dim vector
+// Response: { data: [{ embedding: [0.021, -0.192, 0.040, ...] }] }  // 1024-dim vector
 ```
 
 - **Timeout:** 10 seconds per call (shorter — embeddings are fast)
 - **Text normalization:** trim → lowercase → collapse whitespace (before embedding)
 
-### Why `nomic-embed-text` for Embeddings
+### Why `bge-m3` for Embeddings
 
 The RAG layer requires an **embedding model** — a model that converts text into fixed-length numerical vectors (arrays of numbers) for semantic similarity search. This is fundamentally different from a **chat model** (like Llama or Mistral) that generates text responses.
 
 **Why an embedding model is needed:**
-- When indexing (`npm run rag:index`), each recipe, disease guideline, and ingredient from the knowledge base is converted into a 768-dimensional vector and stored in ChromaDB
+- When indexing (`npm run rag:index`), each recipe, disease guideline, and ingredient from the knowledge base is converted into a 1024-dimensional vector and stored in ChromaDB
 - At query time, the user's meal request is converted into a vector using the same model, and ChromaDB finds the most semantically similar stored vectors
 - A chat model cannot do this — it produces text, not vectors suitable for similarity search
 
-**Why `nomic-embed-text` specifically:**
-1. **LM Studio compatibility** — it is one of the most widely supported embedding models in LM Studio's model library, easy to download and run locally
-2. **Lightweight** — approximately 274MB, small enough to run alongside a chat model on consumer hardware without competing for GPU memory
-3. **Strong retrieval quality** — produces 768-dimensional vectors with competitive performance on retrieval benchmarks (MTEB), providing accurate semantic matching for recipe and guideline search
+**Why `bge-m3` specifically:**
+1. **Multilingual support** — `bge-m3` excels at multilingual retrieval, critical because the knowledge base and user queries are in **Vietnamese**. ASCII-only or English-first models degrade severely on Vietnamese diacritics
+2. **LM Studio compatibility** — supported in LM Studio's model library, easy to download and run locally
+3. **Strong retrieval quality** — produces 1024-dimensional vectors with state-of-the-art performance on multilingual retrieval benchmarks (MTEB), providing accurate semantic matching for Vietnamese recipe and guideline search
 4. **Open source & local-first** — no API keys or external cloud services required, consistent with the project's design philosophy of running everything locally via LM Studio
 5. **Stable API format** — follows the OpenAI-compatible `/v1/embeddings` endpoint format that LM Studio exposes, requiring no custom integration code
 - **Graceful degradation:** returns `null` on failure; caller skips retrieval
@@ -341,7 +351,7 @@ Per-MealType RAG Pipeline:
 "breakfast meal for diabetes goal vietnamese cuisine"
      │
      ▼ embeddingClient.getEmbedding()
-[768-dim query vector]
+[1024-dim query vector]
      │
      ▼ vectorStore.queryDocuments(RECIPES, vector, { nResults: 3, where: { mealType: 'breakfast' } })
 [Top 3 similar recipes from ChromaDB]
@@ -365,17 +375,17 @@ These are **version-controlled JSON files** — the source of truth for the know
 
 #### `recipes.json` — 35 reference recipes
 
-Each recipe has:
+Each recipe has (all content in **Vietnamese**; metadata keys remain English):
 ```json
 {
   "id": "rec_001",
-  "name": "Oatmeal with Mixed Berries and Chia Seeds",
+  "name": "Cháo yến mạch với quả mọng và hạt chia",
   "mealType": "breakfast",            // breakfast | lunch | dinner | snack
   "cuisine": "western",               // western | vietnamese | asian | mediterranean
   "goal": ["lose-weight", "improve-health"],
-  "diseaseCompatible": ["diabetes", "hypertension"],
-  "ingredients": ["rolled oats", "blueberries", "chia seeds", "almond milk", "cinnamon"],
-  "description": "A fiber-rich, low glycemic breakfast...",
+  "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "obesity"],
+  "ingredients": ["yến mạch cán dẹt", "việt quất", "dâu tây", "hạt chia", "sữa hạnh nhân", "quế"],
+  "description": "Bữa sáng giàu chất xơ, chỉ số đường huyết thấp với quả mọng giàu chất chống oxy hóa...",
   "tags": ["high-fiber", "low-glycemic", "dairy-free"]
 }
 ```
@@ -384,17 +394,17 @@ Coverage: all 4 mealTypes, all 3 goals (`lose-weight`, `gain-weight`, `improve-h
 
 #### `diseaseGuidelines.json` — 10 disease guidelines
 
-Each document:
+Each document (all content in **Vietnamese**; metadata keys remain English):
 ```json
 {
   "id": "guide_diabetes",
   "disease": "diabetes",
-  "summary": "Focus on low glycemic index foods...",
-  "recommendedFoods": ["brown rice", "quinoa", "leafy greens", "berries", ...],
-  "avoidFoods": ["white bread", "sugary drinks", "candy", ...],
+  "summary": "Tập trung vào thực phẩm có chỉ số đường huyết thấp. Hạn chế carbohydrate tinh chế...",
+  "recommendedFoods": ["gạo lứt", "diêm mạch", "rau xanh lá", "quả mọng", ...],
+  "avoidFoods": ["bánh mì trắng", "nước ngọt", "cơm trắng", "kẹo", ...],
   "mealTips": [
-    "Pair carbs with protein to slow glucose absorption",
-    "Choose whole grains over refined grains",
+    "Kết hợp tinh bột với đạm hoặc chất béo lành mạnh để làm chậm hấp thu glucose",
+    "Chọn ngũ cốc nguyên cám thay vì ngũ cốc tinh chế trong mỗi bữa ăn",
     ...
   ]
 }
@@ -404,17 +414,17 @@ Covers all 10 catalog diseases: `diabetes`, `kidney-disease`, `high-uric-acid`, 
 
 #### `ingredients.json` — 46 ingredient reference entries
 
-Each ingredient:
+Each ingredient (Vietnamese names and descriptions; metadata keys remain English):
 ```json
 {
   "id": "ing_001",
-  "name": "quinoa",
+  "name": "diêm mạch",
   "category": "grains",              // produce | protein | dairy | grains | pantry | other
-  "aliases": ["quinua"],
+  "aliases": ["quinoa"],
   "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
   "avoidFor": [],
-  "nutritionProfile": "complete protein grain, all essential amino acids, low glycemic index",
-  "substitutes": ["brown rice", "buckwheat", "bulgur"]
+  "nutritionProfile": "ngũ cốc cung cấp đạm hoàn chỉnh với đầy đủ axit amin thiết yếu, giàu chất xơ, chỉ số đường huyết thấp",
+  "substitutes": ["gạo lứt", "kiều mạch", "lúa mì bulgur"]
 }
 ```
 
@@ -908,7 +918,7 @@ export function sanitizePromptInput(value, maxLen = 100) {
 | **Prompt Injection Prevention** | ✅ Yes | User input sanitized before insertion; RAG content additionally checked for adversarial keywords |
 | **Error-Feedback Prompting** | ✅ Yes | Failed validation reasons injected into retry prompts via `errorFeedback` param |
 | **Retrieval-Augmented Generation (RAG)** | ✅ Yes | ChromaDB vector search retrieves similar reference meals + disease guidelines; injected as prompt context |
-| **Embeddings** | ✅ Yes | `nomic-embed-text` via LM Studio generates 768-dim vectors for semantic similarity search |
+| **Embeddings** | ✅ Yes | `bge-m3` (multilingual) via LM Studio generates 1024-dim vectors for semantic similarity search |
 | **Fine-tuning** | ❌ No | No model training or adaptation |
 | **Few-shot Examples** | ✅ Partial | RAG effectively provides dynamic few-shot examples drawn from the knowledge base |
 | **Chain-of-Thought** | ❌ No | Model told to output JSON directly, not reasoning steps |
@@ -1000,7 +1010,7 @@ Step 3: Meal Plan Generation
        For each mealType (e.g. "breakfast", "lunch"):
          Build Vietnamese query string via internal EN→VI maps:
            "món bữa sáng cho mục tiêu lose-weight ẩm thực Việt Nam pho"
-         → getEmbedding(queryString) via LM Studio /v1/embeddings (bge-m3, 1024-dim vector)
+         → getEmbedding(queryString) via LM Studio /v1/embeddings (bge-m3, 1024-dim)
          → queryDocuments(RECIPES, vector, { nResults: 3, where: { mealType } })
          In parallel:
          → getEmbedding("dietary guidelines for diabetes")
@@ -1287,9 +1297,9 @@ filterIngredients(meal, diseases)              ingredientFilter.js
   │
   │  forbidden = getForbiddenIngredients(diseases)
   │  for each forbidden term:
-  │    build regex: /\bterm\b/i
-  │    (word-boundary prevents "ham" matching "edamame",
-  │     "beer" matching "beet")
+  │    build regex: /(?<![\p{L}\p{N}])term(?![\p{L}\p{N}])/iu
+  │    (Unicode-aware lookaround — safe for Vietnamese diacritics;
+  │     prevents "ham" matching "edamame", "beer" matching "beet")
   │  scan every ingredient string
   │  collect flagged[]
   │
@@ -1330,11 +1340,11 @@ Input: { mealType, goal, diseases[], cuisine, favoriteMeal }  per unique mealTyp
          │  POST LM_STUDIO_EMBEDDING_URL                       │
          │  { model: EMBEDDING_MODEL, input: [query] }         │
          │  timeout: 10s AbortController                       │
-         │  parse: data[0].embedding → float[768]              │
+         │  parse: data[0].embedding → float[1024]             │
          │                                                     │
          │  On failure → return null (graceful degradation)    │
          └──────────────────────────┬──────────────────────────┘
-                                    │ queryEmbedding: float[768] | null
+                                    │ queryEmbedding: float[1024] | null
                    null? ───────────┘ skip retrieval, return null
                                     │
          ┌──────────────────────────▼──────────────────────────┐
@@ -1425,7 +1435,7 @@ indexAllCollections() runs these in parallel:
         │                 │                   │
         └─────────────────┴───────────────────┘
         Upsert to ChromaDB (idempotent — safe to re-run)
-        Returns: { recipes: 35, guidelines: 4, ingredients: 46, errors: 0 }
+        Returns: { recipes: 35, guidelines: 10, ingredients: 46, errors: 0 }
 ```
 
 ---
@@ -1765,7 +1775,6 @@ This architecture ensures **medical safety is never delegated to the AI**. Even 
 
 | Requirement | Implementation Status |
 |-------------|----------------------|
-| `temperature: 0.2` | Implemented as `temperature: 0.7` in `aiClient.js` |
 | Sodium/potassium/sugar programmatic limits | Intentionally NOT enforced (requires nutrition database); ingredient blacklists used as proxy |
 | Morgan request logging | Morgan in dependencies but unused; custom Winston `requestLogger` is used instead |
 | ChromaDB `$in` filter for disease arrays | Not supported by ChromaDB on string metadata; disease post-filtering left to prompt framing |
