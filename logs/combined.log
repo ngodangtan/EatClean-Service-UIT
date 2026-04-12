@@ -1,0 +1,6 @@
+14:47:02 [32minfo[39m: GET /api/docs/ 304 5ms {"requestId":"ab7bb9c2-53bb-4afa-b456-087fdc679fa8","method":"GET","path":"/api/docs/","status":304,"duration":5}
+14:47:02 [32minfo[39m: GET /api/docs/swagger-ui.css 304 4ms {"requestId":"2dc558cb-4ea9-4443-813e-492e56a48567","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":4}
+14:47:02 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 4ms {"requestId":"e2409d2c-d529-4af9-8cac-4b12b0aede16","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":4}
+14:47:02 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 0ms {"requestId":"73d845aa-dd07-4d25-9082-8bbd5ebeb446","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":0}
+14:47:02 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 0ms {"requestId":"e20f6fb4-fdd1-40f0-88ec-33a4d010ffaf","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":0}
+14:47:02 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 3ms {"requestId":"275b1e50-87be-49d1-bbbc-ec8135b98c22","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":3}

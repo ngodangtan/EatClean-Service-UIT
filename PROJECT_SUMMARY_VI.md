@@ -191,7 +191,55 @@ eat-clean-api/
 
 ---
 
-## 3. Sử Dụng Mô Hình AI
+## 3. Các Mẫu Thiết Kế (Design Patterns)
+
+Dự án áp dụng nhiều mẫu thiết kế phần mềm nổi tiếng xuyên suốt các tầng kiến trúc, dịch vụ và middleware.
+
+### Mẫu Kiến Trúc (Architectural Patterns)
+
+| Mẫu | Vị trí | Biểu hiện |
+|---|---|---|
+| **Layered (N-Tier) Architecture** | Toàn bộ dự án | Phân tách rõ ràng thành Routes → Controllers → Services → Models, mỗi tầng có trách nhiệm riêng biệt |
+| **MVC (Model-View-Controller)** | `controllers/`, `models/`, `routes/` | MVC Express chuẩn không có views — Models định nghĩa cấu trúc dữ liệu, Controllers xử lý request/response, Routes định nghĩa endpoint |
+| **Service Layer** | `src/services/` | Logic nghiệp vụ được đóng gói trong các module dịch vụ chuyên biệt (`nutrition/`, `disease/`, `ai/`, `rag/`), có thể tái sử dụng và test độc lập |
+| **Pipeline** | `mealplan.controller.js` | Dữ liệu tạo meal plan chảy tuần tự qua: Validation → Nutrition → Disease → RAG → AI → Safety → Save |
+
+### Mẫu Hành Vi (Behavioral Patterns)
+
+| Mẫu | Vị trí | Biểu hiện |
+|---|---|---|
+| **Chain of Responsibility** | `src/index.js`, middleware stack | Pipeline middleware tuần tự: `helmet → cors → requestLogger → JSON parser → rate limiter → routes → errorHandler`, mỗi middleware gọi `next()` |
+| **Strategy** | `src/services/nutrition/` | Các thuật toán tính toán có thể hoán đổi được chọn theo goal/activity level — BMR (Mifflin-St Jeor), TDEE (hệ số vận động), calorie target (điều chỉnh theo mục tiêu), phân phối macro (tỷ lệ theo mục tiêu) |
+| **Template Method** | `generateMealPlan()` trong controller | Khung thuật toán cố định với các bước cụ thể được ủy quyền cho các dịch vụ (nutrition engine, disease engine, RAG retriever, meal generator) |
+
+### Mẫu Cấu Trúc (Structural Patterns)
+
+| Mẫu | Vị trí | Biểu hiện |
+|---|---|---|
+| **Facade** | `diseaseEngine.js`, `nutritionEngine.js` | Một hàm điểm vào duy nhất che giấu việc điều phối nhiều dịch vụ con (vd: `applyDiseaseAdjustments()` gọi nội bộ macro adjuster, safety validator, feasibility check, meal distributor) |
+| **Adapter** | `ragContextBuilder.js` | Chuyển đổi kết quả tìm kiếm vector ChromaDB thô thành chuỗi đã sanitize, có thể inject vào prompt — kết nối các định dạng dữ liệu không tương thích |
+| **Middleware Guard / Decorator** | `auth.js`, `validate.js` | Các concern xuyên suốt (xác thực JWT, validation Joi) được áp dụng khai báo trên định nghĩa route mà không chạm vào logic nghiệp vụ |
+
+### Mẫu Khởi Tạo (Creational Patterns)
+
+| Mẫu | Vị trí | Biểu hiện |
+|---|---|---|
+| **Singleton** | `db.js`, `logger.js` | Một kết nối MongoDB và một instance Winston logger duy nhất được chia sẻ trong toàn bộ ứng dụng |
+| **Factory** | `AppError.js`, `diseaseRules.js` | Các hàm helper `badRequest()`, `unauthorized()`, `notFound()` tạo ra đối tượng lỗi có kiểu; `getDiseaseRules(key)` trả về đối tượng quy tắc theo bệnh khi cần |
+
+### Mẫu Chuyên Biệt / Khác
+
+| Mẫu | Vị trí | Biểu hiện |
+|---|---|---|
+| **Concurrency Control** | `concurrency.js` | `runWithConcurrency(tasks, limit)` — mẫu worker pool có giới hạn, hạn chế số lượng cuộc gọi AI song song để tránh quá tải LM Studio |
+| **Constraint Satisfaction** | `macroAdjuster.js` | Thu thập giới hạn macro nghiêm ngặt nhất qua nhiều bệnh, phân phối lại calo dư, kẹp lại sau phân phối, kiểm tra tính khả thi (drift < 10%) |
+| **Input Sanitization** | `promptBuilder.js`, `ragContextBuilder.js` | `sanitizePromptInput()` escape dữ liệu từ người dùng; `stripAdversarial()` loại bỏ các từ khóa prompt-injection (`ignore`, `override`, `system`) trước khi inject vào prompt AI |
+| **RAG (Retrieval-Augmented Generation)** | `src/services/rag/` | Tìm kiếm tương đồng vector truy xuất công thức và hướng dẫn bệnh lý liên quan từ ChromaDB, inject làm ngữ cảnh nền tảng vào prompt AI — kết hợp truy xuất thông tin với AI sinh |
+| **Module / Namespace** | Thư mục dịch vụ | Chức năng liên quan được nhóm thành các module gắn kết: `nutrition/` (5 bộ tính + orchestrator), `disease/` (rules + adjuster + validator + engine), `ai/` (client + prompt + generator + concurrency), `rag/` (embedding + vector store + retriever + context builder) |
+
+---
+
+## 4. Sử Dụng Mô Hình AI
 
 ### Hai Endpoint AI — Một Server LM Studio
 
@@ -273,7 +321,7 @@ Lớp RAG yêu cầu một **mô hình embedding** — một mô hình chuyển 
 
 ---
 
-## 4. Lớp RAG (Phase 6)
+## 5. Lớp RAG (Phase 6)
 
 ### Tại Sao Cần RAG?
 
@@ -529,7 +577,7 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 ---
 
-## 5. Lớp API
+## 6. Lớp API
 
 ### 5.1 API Xác Thực
 
@@ -686,7 +734,7 @@ Resource `/api/recipes` mồ côi (model, controller, routes, validator, tests) 
 
 ---
 
-## 6. Xử Lý Dữ Liệu
+## 7. Xử Lý Dữ Liệu
 
 ### Kiến Trúc Lưu Trữ MongoDB
 
@@ -722,7 +770,7 @@ Resource `/api/recipes` mồ côi (model, controller, routes, validator, tests) 
 
 ---
 
-## 7. Xử Lý Đầu Vào Người Dùng
+## 8. Xử Lý Đầu Vào Người Dùng
 
 ### Các Điểm Thu Thập Đầu Vào
 
@@ -795,7 +843,7 @@ export function sanitizePromptInput(value, maxLen = 100) {
 
 ---
 
-## 8. Kỹ Thuật AI
+## 9. Kỹ Thuật AI
 
 | Kỹ thuật | Sử dụng? | Chi tiết |
 |----------|----------|----------|
@@ -830,7 +878,7 @@ Quy tắc này cũng áp dụng cho cơ sở kiến thức: `recipes.json` **kh�
 
 ---
 
-## 9. Luồng Hệ Thống End-to-End
+## 10. Luồng Hệ Thống End-to-End
 
 ### Pipeline Đầy Đủ: Đầu Vào Người Dùng → Kế Hoạch Bữa Ăn Đã Lưu
 
@@ -957,7 +1005,7 @@ Bước 5: Danh sách mua sắm
 
 ---
 
-## 10. Sơ Đồ Logic Dịch Vụ
+## 11. Sơ Đồ Logic Dịch Vụ
 
 Phần này truy vết logic chính xác bên trong mỗi lớp dịch vụ — công thức, hằng số, quyết định rẽ nhánh, và hình dạng dữ liệu — để nhà phát triển có thể hiểu code mà không cần mở từng file.
 
@@ -1565,7 +1613,7 @@ POST /api/meal-plans/generate
 
 ---
 
-## 11. Tổng Kết
+## 12. Tổng Kết
 
 Eat Clean API là một **hệ thống lập kế hoạch bữa ăn ưu tiên an toàn, được tăng cường RAG**, được xây dựng trên sự phân tách trách nhiệm rõ ràng:
 

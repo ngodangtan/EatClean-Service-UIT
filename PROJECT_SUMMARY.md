@@ -192,7 +192,55 @@ eat-clean-api/
 
 ---
 
-## 3. AI Model Usage
+## 3. Design Patterns
+
+The project applies a number of well-known software design patterns across its architecture, services and middleware layers.
+
+### Architectural Patterns
+
+| Pattern | Location | Manifestation |
+|---|---|---|
+| **Layered (N-Tier) Architecture** | Entire project | Clear separation into Routes → Controllers → Services → Models, each layer with distinct responsibilities |
+| **MVC (Model-View-Controller)** | `controllers/`, `models/`, `routes/` | Standard Express MVC without views — Models define data structure, Controllers handle request/response, Routes define endpoints |
+| **Service Layer** | `src/services/` | Business logic encapsulated in dedicated service modules (`nutrition/`, `disease/`, `ai/`, `rag/`), reusable and independently testable |
+| **Pipeline** | `mealplan.controller.js` | Meal plan generation data flows sequentially through: Validation → Nutrition → Disease → RAG → AI → Safety → Save |
+
+### Behavioral Patterns
+
+| Pattern | Location | Manifestation |
+|---|---|---|
+| **Chain of Responsibility** | `src/index.js`, middleware stack | Sequential middleware pipeline: `helmet → cors → requestLogger → JSON parser → rate limiter → routes → errorHandler`, each calling `next()` |
+| **Strategy** | `src/services/nutrition/` | Interchangeable calculation algorithms selected by goal/activity level — BMR (Mifflin-St Jeor), TDEE (activity multipliers), calorie target (goal-based adjustment), macro distribution (goal-specific ratios) |
+| **Template Method** | `generateMealPlan()` in controller | Fixed algorithm skeleton with specific steps delegated to services (nutrition engine, disease engine, RAG retriever, meal generator) |
+
+### Structural Patterns
+
+| Pattern | Location | Manifestation |
+|---|---|---|
+| **Facade** | `diseaseEngine.js`, `nutritionEngine.js` | Single entry-point function hides orchestration of multiple sub-services (e.g. `applyDiseaseAdjustments()` internally calls macro adjuster, safety validator, feasibility check, meal distributor) |
+| **Adapter** | `ragContextBuilder.js` | Converts raw ChromaDB vector search results into sanitized, prompt-injectable strings — bridges incompatible data formats |
+| **Middleware Guard / Decorator** | `auth.js`, `validate.js` | Cross-cutting concerns (JWT authentication, Joi validation) applied declaratively on route definitions without touching business logic |
+
+### Creational Patterns
+
+| Pattern | Location | Manifestation |
+|---|---|---|
+| **Singleton** | `db.js`, `logger.js` | Single shared MongoDB connection and Winston logger instance across the entire application |
+| **Factory** | `AppError.js`, `diseaseRules.js` | `badRequest()`, `unauthorized()`, `notFound()` helper functions produce typed error objects; `getDiseaseRules(key)` returns disease-specific rule objects on demand |
+
+### Domain-Specific / Other Patterns
+
+| Pattern | Location | Manifestation |
+|---|---|---|
+| **Concurrency Control** | `concurrency.js` | `runWithConcurrency(tasks, limit)` — bounded worker pool pattern limiting parallel AI generation calls to prevent overwhelming LM Studio |
+| **Constraint Satisfaction** | `macroAdjuster.js` | Collects strictest macro caps across multiple diseases, redistributes excess calories, re-clamps after redistribution, verifies feasibility (drift < 10%) |
+| **Input Sanitization** | `promptBuilder.js`, `ragContextBuilder.js` | `sanitizePromptInput()` escapes user-controlled data; `stripAdversarial()` removes prompt-injection keywords (`ignore`, `override`, `system`) before injecting into AI prompts |
+| **RAG (Retrieval-Augmented Generation)** | `src/services/rag/` | Vector similarity search retrieves relevant recipes and disease guidelines from ChromaDB, injected as grounding context into AI prompts — combines information retrieval with generative AI |
+| **Module / Namespace** | Service directories | Related functionality grouped into cohesive modules: `nutrition/` (5 calculators + orchestrator), `disease/` (rules + adjuster + validator + engine), `ai/` (client + prompt + generator + concurrency), `rag/` (embedding + vector store + retriever + context builder) |
+
+---
+
+## 4. AI Model Usage
 
 ### Two AI Endpoints — One LM Studio Server
 
@@ -274,7 +322,7 @@ The RAG layer requires an **embedding model** — a model that converts text int
 
 ---
 
-## 4. RAG Layer (Phase 6)
+## 5. RAG Layer (Phase 6)
 
 ### Why RAG?
 
@@ -530,7 +578,7 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 ---
 
-## 5. API Layer
+## 6. API Layer
 
 ### 5.1 Auth APIs
 
@@ -608,7 +656,7 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
   - `muscle-gain` blocked by: `kidney-disease`, `high-uric-acid`
   - `lose-weight` blocked by: `anemia`
   - The check uses **all** disease keys on the profile (supported + unsupported by the macro engine) — e.g. `obesity` is unsupported by the macro engine but still blocks `gain-weight`.
-- **Action:** Full generation pipeline (see Section 8 for detailed flow). Persists the request `purpose` on the resulting `MealPlan` document. For `daily_health_based`, persisted `duration` is `{ weeks: 0, totalDays: 1 }`.
+- **Action:** Full generation pipeline (see Section 9 for detailed flow). Persists the request `purpose` on the resulting `MealPlan` document. For `daily_health_based`, persisted `duration` is `{ weeks: 0, totalDays: 1 }`.
 - **Example request bodies:**
 ```json
 // daily_health_based
@@ -740,7 +788,7 @@ The orphaned `/api/recipes` resource (model, controller, routes, validator, test
 
 ---
 
-## 6. Data Processing
+## 7. Data Processing
 
 ### MongoDB Storage Architecture
 
@@ -775,7 +823,7 @@ The orphaned `/api/recipes` resource (model, controller, routes, validator, test
 
 ---
 
-## 7. User Input Handling
+## 8. User Input Handling
 
 ### Input Collection Points
 
@@ -851,7 +899,7 @@ export function sanitizePromptInput(value, maxLen = 100) {
 
 ---
 
-## 8. AI Techniques
+## 9. AI Techniques
 
 | Technique | Used? | Details |
 |-----------|-------|---------|
@@ -886,7 +934,7 @@ This rule also applies to the knowledge base: `recipes.json` contains **no calor
 
 ---
 
-## 9. End-to-End System Flow
+## 10. End-to-End System Flow
 
 ### Full Pipeline: User Input → Stored Meal Plan
 
@@ -1025,7 +1073,7 @@ Step 5: Shopping List
 
 ---
 
-## 10. Service Logic Diagrams
+## 11. Service Logic Diagrams
 
 This section traces the exact logic inside each service layer — formulas, constants, branching decisions, and data shapes — so a developer can understand the code without opening every file.
 
@@ -1690,7 +1738,7 @@ POST /api/meal-plans/generate
 
 ---
 
-## 11. Summary
+## 12. Summary
 
 Eat Clean API is a **safety-first, RAG-augmented meal planning system** built on a clear separation of concerns:
 
@@ -1737,8 +1785,8 @@ This architecture ensures **medical safety is never delegated to the AI**. Even 
 
 | Issue | Fix | Files Changed |
 |-------|-----|---------------|
-| ReDoS via `$regex` with raw user input in recipe search | Escape all regex special characters with `escapeRegex()` before passing to `$regex` | `recipe.controller.js` *(file later removed in 2026-04 along with the entire `/api/recipes` resource — see §5.4)* |
-| Missing ownership check on recipe update/delete | Fetch recipe first; verify `author === req.user.id`; admins bypass check; return 403 otherwise | `recipe.controller.js` *(file later removed in 2026-04 along with the entire `/api/recipes` resource — see §5.4)* |
+| ReDoS via `$regex` with raw user input in recipe search | Escape all regex special characters with `escapeRegex()` before passing to `$regex` | `recipe.controller.js` *(file later removed in 2026-04 along with the entire `/api/recipes` resource — see §6.4)* |
+| Missing ownership check on recipe update/delete | Fetch recipe first; verify `author === req.user.id`; admins bypass check; return 403 otherwise | `recipe.controller.js` *(file later removed in 2026-04 along with the entire `/api/recipes` resource — see §6.4)* |
 | Internal error details leaked via `e.message` in auth responses | All catch blocks now log via `logger.error()` and return generic `'Internal server error'` | `auth.controller.js` |
 | Weak password policy (min 6 chars, no complexity) | Raised to min 8 chars + requires uppercase, lowercase, and digit | `auth.validator.js`, `User.js` |
 | `role` missing from JWT payload | Added `role` to `signAccessToken()` so route handlers can check admin status without a DB query | `auth.controller.js` |
