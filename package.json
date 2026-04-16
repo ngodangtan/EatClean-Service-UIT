@@ -4,7 +4,7 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon --inspect src/index.js",
     "start": "node src/index.js",
     "test": "vitest run",
     "test:watch": "vitest",

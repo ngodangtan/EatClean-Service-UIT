@@ -450,6 +450,66 @@
     "substitutes": ["bánh gạo", "bánh quy yến mạch", "bánh mì sourdough"]
   },
   {
+    "id": "ing_047",
+    "name": "thịt bò nạc",
+    "category": "protein",
+    "aliases": ["thịt bò thăn", "bò nạc", "lean beef"],
+    "safeFor": ["anemia"],
+    "avoidFor": ["high-uric-acid", "high-cholesterol", "heart-disease", "kidney-disease"],
+    "nutritionProfile": "nguồn sắt heme và vitamin B12 hàng đầu, đạm hoàn chỉnh; purin và chất béo bão hòa trung bình",
+    "substitutes": ["gan gà", "thịt cừu nạc", "thịt heo nạc"]
+  },
+  {
+    "id": "ing_048",
+    "name": "gan gà",
+    "category": "protein",
+    "aliases": ["chicken liver"],
+    "safeFor": ["anemia"],
+    "avoidFor": ["high-uric-acid", "high-cholesterol", "heart-disease"],
+    "nutritionProfile": "nguồn sắt heme, vitamin B12 và folate cao nhất, hỗ trợ phục hồi thiếu máu; cholesterol và purin cao",
+    "substitutes": ["thịt bò nạc", "gan heo", "lòng đỏ trứng"]
+  },
+  {
+    "id": "ing_049",
+    "name": "bí đỏ",
+    "category": "produce",
+    "aliases": ["bí ngô", "pumpkin", "squash"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
+    "avoidFor": [],
+    "nutritionProfile": "giàu beta-carotene, chất xơ hòa tan, vitamin A; mềm dễ tiêu, làm dịu niêm mạc dạ dày",
+    "substitutes": ["khoai lang", "cà rốt", "bí đao"]
+  },
+  {
+    "id": "ing_050",
+    "name": "bí đao",
+    "category": "produce",
+    "aliases": ["bí xanh", "winter melon"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
+    "avoidFor": [],
+    "nutritionProfile": "rau củ giàu nước rất ít calo, lợi tiểu nhẹ, ít kali, dịu dạ dày",
+    "substitutes": ["dưa leo", "bí ngòi", "bầu"]
+  },
+  {
+    "id": "ing_051",
+    "name": "thịt heo nạc",
+    "category": "protein",
+    "aliases": ["thịt heo thăn", "lean pork"],
+    "safeFor": ["anemia", "gastritis"],
+    "avoidFor": ["high-uric-acid", "high-cholesterol"],
+    "nutritionProfile": "đạm hoàn chỉnh, vitamin B1 cao, sắt heme vừa phải; chọn phần nạc bỏ mỡ để giảm bão hòa",
+    "substitutes": ["ức gà", "thịt bò nạc", "cá thịt trắng"]
+  },
+  {
+    "id": "ing_052",
+    "name": "khoai tây",
+    "category": "produce",
+    "aliases": ["potato"],
+    "safeFor": ["gastritis", "anemia"],
+    "avoidFor": ["diabetes", "kidney-disease"],
+    "nutritionProfile": "tinh bột dễ tiêu, vitamin C và kali; chỉ số đường huyết cao — không phù hợp tiểu đường; kali cao không phù hợp thận",
+    "substitutes": ["khoai lang", "bí đỏ", "súp lơ trắng"]
+  },
+  {
     "id": "ing_046",
     "name": "tahini",
     "category": "pantry",

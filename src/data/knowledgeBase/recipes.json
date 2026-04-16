@@ -16,7 +16,7 @@
     "mealType": "breakfast",
     "cuisine": "vietnamese",
     "goal": ["gain-weight", "improve-health"],
-    "diseaseCompatible": ["high-uric-acid", "anemia", "gastritis"],
+    "diseaseCompatible": ["anemia", "gastritis"],
     "ingredients": ["bánh phở", "ức gà", "hoa hồi", "gừng", "hành tây", "giá đỗ", "rau thơm", "chanh"],
     "description": "Món phở Việt Nam ấm nóng với ức gà nạc, gia vị thơm và rau thơm tươi.",
     "tags": ["high-protein", "warming", "traditional"]
@@ -71,7 +71,7 @@
     "mealType": "breakfast",
     "cuisine": "western",
     "goal": ["improve-health", "gain-weight"],
-    "diseaseCompatible": ["hypertension", "high-cholesterol", "heart-disease"],
+    "diseaseCompatible": ["high-cholesterol", "heart-disease"],
     "ingredients": ["bánh mì nguyên cám", "quả bơ", "trứng gà", "nước cốt chanh", "ớt vảy", "rau mầm"],
     "description": "Bánh mì nướng giàu dinh dưỡng với chất béo tốt từ bơ và protein chất lượng cao từ trứng.",
     "tags": ["high-protein", "healthy-fats", "potassium-rich"]
@@ -137,7 +137,7 @@
     "mealType": "lunch",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
+    "diseaseCompatible": ["diabetes", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
     "ingredients": ["đậu gà", "dưa leo", "cà chua bi", "hành tím", "dầu ô liu", "nước cốt chanh", "ngò tây", "lá oregano"],
     "description": "Salad Địa Trung Hải giàu chất xơ với đạm thực vật, dầu ô liu tốt cho tim và rau thơm tươi.",
     "tags": ["high-fiber", "plant-protein", "low-sodium"]
@@ -148,7 +148,7 @@
     "mealType": "lunch",
     "cuisine": "vietnamese",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["high-uric-acid", "diabetes", "fatty-liver", "obesity", "gastritis"],
+    "diseaseCompatible": ["diabetes", "fatty-liver", "obesity", "gastritis"],
     "ingredients": ["bánh tráng", "tôm", "bún tươi", "rau xà lách", "rau húng", "dưa leo", "cà rốt", "tương hoisin"],
     "description": "Gỏi cuốn tươi không chiên với nhiều rau và đạm nạc, ít purin.",
     "tags": ["low-calorie", "fresh", "low-purine"]
@@ -214,7 +214,7 @@
     "mealType": "dinner",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["hypertension", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "gastritis"],
+    "diseaseCompatible": ["hypertension", "kidney-disease", "fatty-liver", "high-cholesterol", "heart-disease", "obesity"],
     "ingredients": ["phi lê cá tuyết", "cà chua bi", "ô liu", "nụ bạch hoa", "dầu ô liu", "chanh", "lá xạ hương tươi"],
     "description": "Cá thịt trắng nướng cùng rau Địa Trung Hải và rau thơm, ít natri và kali.",
     "tags": ["low-sodium", "low-potassium", "lean-protein"]
@@ -258,7 +258,7 @@
     "mealType": "dinner",
     "cuisine": "mediterranean",
     "goal": ["lose-weight", "improve-health"],
-    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "obesity", "anemia"],
+    "diseaseCompatible": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "obesity"],
     "ingredients": ["trứng gà", "rau bina", "phô mai feta", "cà chua bi", "dầu ô liu", "lá oregano", "tiêu đen"],
     "description": "Món trứng nướng kiểu Ý với rau xanh và ít phô mai, bữa tối nhẹ giàu protein.",
     "tags": ["high-protein", "low-carb", "vegetarian"]
@@ -383,5 +383,60 @@
     "ingredients": ["lúa mì bulgur", "ngò tây", "rau húng", "cà chua", "dưa leo", "nước cốt chanh", "dầu ô liu"],
     "description": "Salad ngũ cốc chủ yếu là rau thơm, ít carb, giàu chất chống oxy hóa từ rau thơm tươi.",
     "tags": ["high-fiber", "antioxidant-rich", "fresh"]
+  },
+  {
+    "id": "rec_036",
+    "name": "Bò xào ớt chuông với cơm gạo lứt",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": ["gain-weight", "improve-health"],
+    "diseaseCompatible": ["anemia"],
+    "ingredients": ["thịt bò nạc", "ớt chuông đỏ", "hành tây", "tỏi", "gừng", "dầu ô liu", "gạo lứt", "ngò rí"],
+    "description": "Món bò xào giàu sắt heme kết hợp ớt chuông đỏ giàu vitamin C giúp tăng hấp thu sắt 2-3 lần, lý tưởng cho người thiếu máu.",
+    "tags": ["iron-rich", "high-protein", "vitamin-c-pairing"]
+  },
+  {
+    "id": "rec_037",
+    "name": "Gan gà xào hành tây",
+    "mealType": "dinner",
+    "cuisine": "vietnamese",
+    "goal": ["gain-weight", "improve-health"],
+    "diseaseCompatible": ["anemia"],
+    "ingredients": ["gan gà", "hành tây", "tỏi", "gừng", "dầu ô liu", "ngò rí", "tiêu đen", "cơm"],
+    "description": "Gan gà là nguồn sắt heme và vitamin B12 cao nhất, kết hợp hành tây và gừng để dễ tiêu, giúp phục hồi thiếu máu nhanh.",
+    "tags": ["iron-rich", "b12-rich", "traditional"]
+  },
+  {
+    "id": "rec_038",
+    "name": "Cháo bí đỏ thịt bằm",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": ["improve-health"],
+    "diseaseCompatible": ["gastritis", "anemia"],
+    "ingredients": ["gạo trắng", "bí đỏ", "thịt heo nạc bằm", "hành lá", "gừng", "dầu ô liu"],
+    "description": "Cháo mềm dễ tiêu với bí đỏ bảo vệ niêm mạc dạ dày, thịt nạc cung cấp đạm nhẹ nhàng, phù hợp người viêm dạ dày.",
+    "tags": ["easy-to-digest", "stomach-friendly", "soft-texture"]
+  },
+  {
+    "id": "rec_039",
+    "name": "Canh bí đao nấu tôm bằm nhạt",
+    "mealType": "dinner",
+    "cuisine": "vietnamese",
+    "goal": ["lose-weight", "improve-health"],
+    "diseaseCompatible": ["gastritis", "hypertension", "obesity"],
+    "ingredients": ["bí đao", "thịt heo nạc bằm", "hành lá", "gừng", "dầu ô liu"],
+    "description": "Canh bí đao thanh đạm, ít muối, không cay chua, giúp làm dịu dạ dày và bổ sung nước cho cơ thể.",
+    "tags": ["light", "low-sodium", "stomach-friendly"]
+  },
+  {
+    "id": "rec_040",
+    "name": "Súp khoai tây cà rốt nghiền",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": ["improve-health"],
+    "diseaseCompatible": ["gastritis"],
+    "ingredients": ["khoai tây", "cà rốt", "hành tây", "dầu ô liu", "sữa hạnh nhân", "ngò tây"],
+    "description": "Súp nghiền mịn dễ nuốt, không kích thích, phù hợp giai đoạn viêm dạ dày cấp hoặc sau khi đau dạ dày.",
+    "tags": ["easy-to-digest", "bland", "soft-texture"]
   }
 ]

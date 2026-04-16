@@ -18,7 +18,8 @@
       "Ăn rau giàu chất xơ trong mỗi bữa để giảm tình trạng tăng đường huyết đột ngột",
       "Ăn khẩu phần đều đặn vào giờ cố định để duy trì đường huyết ổn định",
       "Sử dụng quế, hồ lô ba (fenugreek) và nghệ làm gia vị thân thiện với đường huyết",
-      "Ưu tiên quả mọng hơn trái cây nhiệt đới để có vị ngọt tự nhiên với chỉ số đường huyết thấp hơn"
+      "Ưu tiên quả mọng hơn trái cây nhiệt đới để có vị ngọt tự nhiên với chỉ số đường huyết thấp hơn",
+      "Khoai lang nên luộc hoặc hấp nguyên vỏ với khẩu phần ~150g/bữa — tránh nướng quá chín vì làm tăng chỉ số đường huyết"
     ]
   },
   {
@@ -31,7 +32,8 @@
     ],
     "avoidFoods": [
       "thịt chế biến", "súp đóng hộp", "nước tương", "dưa muối", "hạt rang muối",
-      "mì gói", "thức ăn nhanh", "nước ngọt sậm màu", "bánh mì nguyên cám"
+      "mì gói", "thức ăn nhanh", "nước ngọt sậm màu", "bánh mì nguyên cám",
+      "gạo lứt", "các loại đậu", "chuối", "quả bơ", "cam", "rau bina", "khoai tây"
     ],
     "mealTips": [
       "Hạn chế khẩu phần đạm để giảm gánh nặng cho thận — ưu tiên lòng trắng trứng thay vì trứng nguyên quả khi cần giảm đạm",
@@ -47,7 +49,7 @@
     "disease": "high-uric-acid",
     "summary": "Giảm thực phẩm giàu purin làm tăng sản xuất axit uric. Uống đủ nước. Hạn chế rượu bia và thực phẩm giàu fructose. Ưu tiên đạm thực vật hơn đạm động vật.",
     "recommendedFoods": [
-      "ức gà", "đậu hũ", "trứng", "sữa ít béo", "anh đào", "cơm",
+      "sữa ít béo", "trứng", "đậu hũ", "anh đào", "cơm",
       "yến mạch", "dưa leo", "cần tây", "dưa hấu", "trái cây họ cam quýt", "quả mọng"
     ],
     "avoidFoods": [
@@ -59,7 +61,7 @@
       "Ăn anh đào hoặc uống nước ép anh đào chua — các hợp chất trong anh đào giúp hạ axit uric",
       "Chọn các sản phẩm sữa ít béo hoặc tách béo vì giúp tăng đào thải axit uric",
       "Hạn chế khẩu phần thịt khoảng 85-100g mỗi bữa và phân bố đạm đều trong ngày",
-      "Thay thịt đỏ bằng ức gà hoặc đạm thực vật như đậu hũ và trứng",
+      "Ưu tiên đạm thực vật (đậu hũ, đậu đỗ) và sữa ít béo, trứng hơn thịt — ức gà vẫn dùng được nhưng giới hạn 85-100g/bữa vì purin trung bình",
       "Tránh nhịn ăn vì giảm cân quá nhanh có thể kích hoạt cơn gút do tăng axit uric"
     ]
   },
@@ -70,7 +72,7 @@
     "recommendedFoods": [
       "chuối", "rau xanh lá", "quả mọng", "cá hồi", "tỏi",
       "yến mạch", "củ dền", "khoai lang", "quả bơ", "hạt không muối",
-      "các loại đậu", "sữa ít béo", "ngũ cốc nguyên cám", "rau củ giàu kali"
+      "các loại đậu", "sữa ít béo", "ngũ cốc nguyên cám không thêm muối", "rau củ giàu kali"
     ],
     "avoidFoods": [
       "muối ăn", "nước tương", "thịt chế biến", "thực phẩm đóng hộp", "dưa muối",
@@ -82,7 +84,8 @@
       "Áp dụng khung chế độ DASH: 4-5 phần rau và trái cây mỗi ngày",
       "Chọn hạt không muối thay vì đồ ăn vặt mặn — magie trong hạt hỗ trợ kiểm soát huyết áp",
       "Tự nấu ăn tại nhà để kiểm soát lượng natri — đồ ăn nhà hàng và chế biến sẵn thường rất nhiều muối",
-      "Giảm tiêu thụ rượu bia vì rượu bia làm tăng huyết áp khi dùng quá mức"
+      "Giảm tiêu thụ rượu bia vì rượu bia làm tăng huyết áp khi dùng quá mức",
+      "Chọn bánh mì, ngũ cốc nguyên cám nhãn 'không muối' hoặc tự nấu — một số loại bánh mì nguyên cám thương mại vẫn chứa natri cao"
     ]
   },
   {
@@ -196,7 +199,8 @@
       "Tránh uống trà và cà phê trong hoặc ngay sau bữa ăn vì tanin ức chế hấp thu sắt",
       "Không uống sữa hoặc bổ sung canxi cùng lúc với thực phẩm giàu sắt — canxi cạnh tranh hấp thu",
       "Nấu bằng nồi gang (cast iron) giúp bổ sung thêm sắt vào thức ăn",
-      "Ngâm và nảy mầm đậu trước khi nấu để giảm phytate — chất ức chế hấp thu sắt"
+      "Ngâm và nảy mầm đậu trước khi nấu để giảm phytate — chất ức chế hấp thu sắt",
+      "Rau bina và cải kale giàu sắt non-heme nhưng chứa oxalate — luộc sơ 1-2 phút và chắt bỏ nước để giảm oxalate, luôn ăn kèm vitamin C"
     ]
   },
   {
@@ -211,7 +215,7 @@
     "avoidFoods": [
       "ớt", "tiêu", "tương ớt", "mù tạt", "rượu bia", "cà phê đặc",
       "đồ chiên rán", "nước ngọt có ga", "cà chua sống", "giấm", "dưa muối",
-      "thức ăn nhanh", "sô cô la", "bạc hà"
+      "thức ăn nhanh", "sô cô la", "bạc hà", "tỏi sống", "hành sống", "trái cây chua khi đói"
     ],
     "mealTips": [
       "Chia thành 5-6 bữa nhỏ trong ngày thay vì 3 bữa lớn để giảm áp lực lên dạ dày",
