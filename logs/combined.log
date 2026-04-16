@@ -587,3 +587,96 @@
 22:39:52 [32minfo[39m: RAG Indexer: Ingredients progress 40/52
 22:39:53 [32minfo[39m: RAG Indexer: Ingredients progress 50/52
 22:39:53 [32minfo[39m: RAG Indexer: Ingredients progress 52/52
+20:03:06 [32minfo[39m: RAG Indexer: Recipes progress 10/40
+20:03:07 [32minfo[39m: RAG Indexer: Guidelines done — indexed 10, errors 0
+20:03:07 [32minfo[39m: RAG Indexer: Ingredients progress 10/52
+20:03:07 [32minfo[39m: RAG Indexer: Recipes progress 20/40
+20:03:07 [32minfo[39m: RAG Indexer: Ingredients progress 20/52
+20:03:08 [32minfo[39m: RAG Indexer: Recipes progress 30/40
+20:03:08 [32minfo[39m: RAG Indexer: Ingredients progress 30/52
+20:03:08 [32minfo[39m: RAG Indexer: Recipes progress 40/40
+20:03:08 [32minfo[39m: RAG Indexer: Recipes done — indexed 40, errors 0
+20:03:08 [32minfo[39m: RAG Indexer: Ingredients progress 40/52
+20:03:09 [32minfo[39m: RAG Indexer: Ingredients progress 50/52
+20:03:09 [32minfo[39m: RAG Indexer: Ingredients progress 52/52
+20:03:11 [32minfo[39m: MongoDB connected
+20:03:11 [32minfo[39m: Server listening on http://localhost:4000
+20:03:11 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+20:04:11 [32minfo[39m: GET /api/docs/ 304 7ms {"requestId":"e49de0c8-80ae-4fc0-90d1-941021b9e89f","method":"GET","path":"/api/docs/","status":304,"duration":7}
+20:04:11 [32minfo[39m: GET /api/docs/swagger-ui.css 304 1ms {"requestId":"1907e265-dd26-494f-b552-ea899a419df6","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":1}
+20:04:11 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 1ms {"requestId":"d7d0ad2f-49bf-4ae2-bc77-b967cec62902","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":1}
+20:04:11 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"41924ca9-2cae-4e83-8650-7a1705925c40","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+20:04:11 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 0ms {"requestId":"3a0ec8ac-183f-4054-b44f-741a43a6c949","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":0}
+20:11:32 [32minfo[39m: GET /api/health-profile 401 96ms {"requestId":"15c0adec-d7b6-4279-bbe4-c526465b2a20","method":"GET","path":"/api/health-profile","status":401,"duration":96}
+20:12:09 [32minfo[39m: GET /api/auth/profile 401 74ms {"requestId":"70222c48-9bbe-4a04-ab89-0b9145d10f8d","method":"GET","path":"/api/auth/profile","status":401,"duration":74}
+20:21:18 [32minfo[39m: POST /api/auth/register 201 336ms {"requestId":"af3076dd-f423-4953-ade5-aaf96c513081","method":"POST","path":"/api/auth/register","status":201,"duration":336}
+20:21:18 [32minfo[39m: GET /api/health-profile 404 106ms {"requestId":"f1f1580c-e039-421e-b11f-8830e3932ebe","method":"GET","path":"/api/health-profile","status":404,"duration":106,"userId":"69e0e24e3478deed028a7443"}
+20:21:23 [32minfo[39m: GET /api/diseases 304 2ms {"requestId":"1fec68e3-e612-4010-9bff-13d5437934e1","method":"GET","path":"/api/diseases","status":304,"duration":2}
+20:23:28 [32minfo[39m: POST /api/health-profile 201 323ms {"requestId":"4f1ccecd-28a9-4368-8000-817195fac8b0","method":"POST","path":"/api/health-profile","status":201,"duration":323,"userId":"69e0e24e3478deed028a7443"}
+20:23:28 [32minfo[39m: GET /api/health-profile 200 101ms {"requestId":"7f64cb25-99ba-42ef-939d-b745b120ed83","method":"GET","path":"/api/health-profile","status":200,"duration":101,"userId":"69e0e24e3478deed028a7443"}
+20:23:41 [32minfo[39m: Base nutrition plan calculated: {"purpose":"disease_based","bmr":1706,"tdee":2645,"calorieTarget":2645,"macros":{"protein":112,"carbs":351,"fat":88}}
+20:23:41 [32minfo[39m: Disease-adjusted macros: {"protein":112,"carbs":231,"fat":141}
+20:23:41 [32minfo[39m: Plan duration: {"weeks":2,"templateDays":7,"totalDays":14}
+20:23:41 [32minfo[39m: RAG context retrieved for meal types: {"0":"breakfast","1":"lunch","2":"dinner"}
+20:23:41 [32minfo[39m: Generating Day 1 breakfast...
+20:23:41 [32minfo[39m: Generating Day 1 lunch...
+20:23:41 [32minfo[39m: Generating Day 1 dinner...
+20:24:06 [32minfo[39m: Generating Day 2 breakfast...
+20:24:06 [32minfo[39m: Generating Day 2 lunch...
+20:24:11 [31merror[39m: Meal generation attempt 1/3 failed:
+20:24:19 [32minfo[39m: Generating Day 2 dinner...
+20:24:25 [32minfo[39m: Generating Day 3 breakfast...
+20:24:32 [32minfo[39m: Generating Day 3 lunch...
+20:24:37 [32minfo[39m: Generating Day 3 dinner...
+20:24:43 [32minfo[39m: Generating Day 4 breakfast...
+20:24:53 [32minfo[39m: Generating Day 4 lunch...
+20:24:56 [32minfo[39m: Generating Day 4 dinner...
+20:25:01 [32minfo[39m: Generating Day 5 breakfast...
+20:25:13 [32minfo[39m: Generating Day 5 lunch...
+20:25:18 [32minfo[39m: Generating Day 5 dinner...
+20:25:22 [32minfo[39m: Generating Day 6 breakfast...
+20:25:37 [32minfo[39m: Generating Day 6 lunch...
+20:25:37 [32minfo[39m: Generating Day 6 dinner...
+20:25:42 [32minfo[39m: Generating Day 7 breakfast...
+20:25:54 [32minfo[39m: Generating Day 7 lunch...
+20:25:59 [32minfo[39m: Generating Day 7 dinner...
+20:26:11 [32minfo[39m: POST /api/meal-plans/generate 201 150126ms {"requestId":"ce3c445e-b60e-47b6-bcfe-3bcd58c6e500","method":"POST","path":"/api/meal-plans/generate","status":201,"duration":150126,"userId":"69e0e24e3478deed028a7443"}
+20:27:59 [32minfo[39m: GET /api/auth/profile 200 167ms {"requestId":"78d77073-3ef2-49ed-ac27-721f7e900073","method":"GET","path":"/api/auth/profile","status":200,"duration":167,"userId":"69e0e24e3478deed028a7443"}
+20:28:09 [32minfo[39m: GET /api/diseases 304 2ms {"requestId":"69ecbd42-64a7-43db-825d-36da5a86a15b","method":"GET","path":"/api/diseases","status":304,"duration":2}
+20:28:10 [32minfo[39m: GET /api/health-profile 304 105ms {"requestId":"1768fee5-f6ca-4b59-a8f1-d53b8388f257","method":"GET","path":"/api/health-profile","status":304,"duration":105,"userId":"69e0e24e3478deed028a7443"}
+20:43:09 [33mwarn[39m: RAG: Embedding request failed with status 500
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "diêm mạch" — skipping
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "gạo lứt" — skipping
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "yến mạch" — skipping
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "cá hồi" — skipping
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "ức gà" — skipping
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "đậu hũ" — skipping
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "lòng trắng trứng" — skipping
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "đậu lăng" — skipping
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "đậu gà" — skipping
+20:43:09 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "khoai lang" — skipping
+20:43:09 [32minfo[39m: RAG Indexer: Ingredients progress 10/52
+20:43:12 [32minfo[39m: RAG Indexer: Recipes progress 10/40
+20:43:12 [32minfo[39m: RAG Indexer: Ingredients progress 20/52
+20:43:13 [32minfo[39m: RAG Indexer: Guidelines done — indexed 10, errors 0
+20:43:13 [32minfo[39m: RAG Indexer: Recipes progress 20/40
+20:43:13 [32minfo[39m: RAG Indexer: Ingredients progress 30/52
+20:43:14 [32minfo[39m: RAG Indexer: Recipes progress 30/40
+20:43:14 [32minfo[39m: RAG Indexer: Ingredients progress 40/52
+20:43:14 [32minfo[39m: RAG Indexer: Recipes progress 40/40
+20:43:14 [32minfo[39m: RAG Indexer: Recipes done — indexed 40, errors 0
+20:43:14 [32minfo[39m: RAG Indexer: Ingredients progress 50/52
+20:43:14 [32minfo[39m: RAG Indexer: Ingredients progress 52/52
+20:43:16 [32minfo[39m: MongoDB connected
+20:43:16 [32minfo[39m: Server listening on http://localhost:4000
+20:43:16 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+20:43:22 [32minfo[39m: GET /api/docs/ 304 6ms {"requestId":"0763c06c-dc2e-4823-8a4c-df7663767b49","method":"GET","path":"/api/docs/","status":304,"duration":6}
+20:43:22 [32minfo[39m: GET /api/docs/swagger-ui.css 304 1ms {"requestId":"737c5492-20fe-46ed-94df-9fe47e7d6eb7","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":1}
+20:43:22 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 1ms {"requestId":"a379636d-a15b-4798-8c83-26b44c9d6af1","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":1}
+20:43:22 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 1ms {"requestId":"8c7ab1bc-7449-49e7-83cf-0bd16de0d75f","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":1}
+20:43:22 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 0ms {"requestId":"d5c2a7c5-c24b-40f2-a810-2e95e8de5e3e","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":0}
+20:48:36 [32minfo[39m: MongoDB connected
+20:48:36 [32minfo[39m: Server listening on http://localhost:4000
+20:48:36 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+20:49:34 [33mwarn[39m: RAG: Could not get embedding for meal retrieval — skipping
+20:49:34 [33mwarn[39m: RAG: Could not get embedding for disease "diabetes" guidelines — skipping

@@ -72,7 +72,7 @@ The generation flow in `mealplan.controller.js`:
 3. **Base nutrition** — `generateNutritionPlan(profile, { goalOverride, tdeeOverride })` computes BMR → TDEE → calorie target → macros → meal distribution. Returns the **effective `goal`** (after override) so downstream prompts stay coherent
 4. **Disease adjustment** — if supported diseases present, `applyDiseaseAdjustments()` caps macros per disease rules, recalculates effective calories and meal distribution, runs feasibility check
 5. **Duration** — `calculatePlanDuration({ goal, currentWeight, desiredWeight, requestedWeeks })`. `requestedWeeks` (when present) bypasses the weight-delta calculation entirely
-6. **RAG retrieval** — for each unique mealType, retrieves semantically similar reference meals and disease guidelines from ChromaDB; injects as grounding context into the prompt. Graceful degradation: if ChromaDB or embedding is unavailable, generation continues without context
+6. **RAG retrieval** — retrieves disease guidelines once and all per-mealType reference meals in parallel from ChromaDB; injects as grounding context into the prompt. Graceful degradation: if ChromaDB or embedding is unavailable, generation continues without context
 7. **Prompt enrichment** — forbidden/limited/preferred ingredient lists + RAG context injected into AI prompt. The prompt receives `nutritionPlan.goal` (effective goal), not the stale profile goal
 8. **AI generation** — per-meal concurrent generation via LM Studio with call budget. For `daily_health_based` the budget is sized for a single day
 9. **Safety validation** — each generated meal checked against forbidden ingredient lists (Unicode-aware lookaround regex — Vietnamese diacritics safe). Unsafe meals regenerated (up to 2 regen attempts per meal)
@@ -134,9 +134,9 @@ Retrieval-Augmented Generation — grounds AI meal generation in a curated knowl
 **Knowledge base (`src/data/knowledgeBase/`):**
 
 All content is **Vietnamese**. Filter metadata fields (`mealType`, `cuisine`, `goal`, `diseaseCompatible`, `tags`, `category`, `safeFor`, `avoidFor`, `disease`) remain English to keep retriever filters and the disease engine schema-stable.
-- `recipes.json` — 35 curated Vietnamese recipes covering all 4 mealTypes, 3 goals, all 10 catalog diseases, 4+ cuisines
+- `recipes.json` — 40 curated Vietnamese recipes covering all 4 mealTypes, 3 goals, all 10 catalog diseases, 4+ cuisines
 - `diseaseGuidelines.json` — Vietnamese dietary guidelines for all 10 catalog diseases with recommended/avoid foods and meal tips
-- `ingredients.json` — 46 ingredients (Vietnamese names) with disease safety flags (`safeFor`/`avoidFor`) referencing all 10 catalog diseases, nutrition profiles, substitutes
+- `ingredients.json` — 52 ingredients (Vietnamese names) with disease safety flags (`safeFor`/`avoidFor`) referencing all 10 catalog diseases, nutrition profiles, substitutes
 
 **Infrastructure:**
 - `docker-compose.rag.yml` — ChromaDB persistent container on port 8000
@@ -184,6 +184,8 @@ All routes prefixed with `/api`:
 - `/api/diseases` — `GET` returns the disease catalog (`src/data/diseaseCatalog.js`) used by the create/update health-profile screen and indicator entry
 - `/api/meal-plans` — AI generation (`POST /generate` — **requires `purpose` body field**, see Meal Plan Generation Pipeline above), list with pagination, get one, get latest (`GET /latest`), swap a meal (`POST /:planId/swap`), delete one, delete all
 - `/api/health` — health check endpoint
+
+**Not yet mounted:** `/api/favorites` — controller (`favorite.controller.js`) and routes (`favorite.routes.js`) exist but are not imported/mounted in `src/routes/index.js`
 
 **Removed:** `/api/recipes` (orphaned dead code, deleted along with its model/controller/routes/validator)
 

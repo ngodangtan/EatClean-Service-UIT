@@ -128,9 +128,9 @@ eat-clean-api/
 │   │   └── shoppingListService.js          # Tổng hợp danh sách mua sắm
 │   ├── data/
 │   │   └── knowledgeBase/                  # Dữ liệu tham khảo được tuyển chọn (quản lý phiên bản)
-│   │       ├── recipes.json                # 35 công thức tham khảo
+│   │       ├── recipes.json                # 40 công thức tham khảo
 │   │       ├── diseaseGuidelines.json      # 10 hướng dẫn chế độ ăn theo bệnh
-│   │       └── ingredients.json            # 46 nguyên liệu với cờ an toàn theo bệnh
+│   │       └── ingredients.json            # 52 nguyên liệu với cờ an toàn theo bệnh
 │   └── utils/
 │       ├── AppError.js                     # Lớp lỗi tùy chỉnh + hàm factory
 │       └── logger.js                       # Winston logger
@@ -248,7 +248,7 @@ Hệ thống sử dụng LM Studio cho **cả** tạo nội dung sáng tạo và
 | Mục đích | Endpoint | Mô hình | Ghi chú |
 |----------|----------|---------|---------|
 | Tạo bữa ăn (văn bản sáng tạo) | `LM_STUDIO_URL` (`/v1/chat/completions`) | Bất kỳ chat model nào | Tạo name, description, ingredients, benefits |
-| Embedding (tìm kiếm ngữ nghĩa) | `LM_STUDIO_EMBEDDING_URL` (`/v1/embeddings`) | `nomic-embed-text` | Chuyển đổi văn bản truy vấn thành vector 768 chiều cho ChromaDB |
+| Embedding (tìm kiếm ngữ nghĩa) | `LM_STUDIO_EMBEDDING_URL` (`/v1/embeddings`) | `bge-m3` (đa ngôn ngữ) | Chuyển đổi văn bản truy vấn thành vector 1024 chiều cho ChromaDB |
 
 Cả hai chạy cục bộ qua LM Studio. Không sử dụng API AI đám mây.
 
@@ -293,28 +293,28 @@ POST http://localhost:1234/v1/chat/completions
 // src/services/rag/embeddingClient.js
 POST http://localhost:1234/v1/embeddings
 {
-  model: "nomic-embed-text",
+  model: "bge-m3",
   input: "lunch meal for lose-weight goal vietnamese cuisine"
 }
-// Phản hồi: { data: [{ embedding: [0.021, -0.192, 0.040, ...] }] }  // vector 768 chiều
+// Phản hồi: { data: [{ embedding: [0.021, -0.192, 0.040, ...] }] }  // vector 1024 chiều
 ```
 
 - **Timeout:** 10 giây mỗi lần gọi (ngắn hơn — embeddings xử lý nhanh)
 - **Chuẩn hóa văn bản:** trim → lowercase → gộp khoảng trắng (trước khi embedding)
 
-### Tại Sao Dùng `nomic-embed-text` Cho Embeddings
+### Tại Sao Dùng `bge-m3` Cho Embeddings
 
 Lớp RAG yêu cầu một **mô hình embedding** — một mô hình chuyển đổi văn bản thành các vector số có độ dài cố định (mảng số) để tìm kiếm tương đồng ngữ nghĩa. Điều này khác biệt cơ bản với một **chat model** (như Llama hoặc Mistral) chỉ tạo ra phản hồi dạng văn bản.
 
 **Tại sao cần mô hình embedding:**
-- Khi đánh chỉ mục (`npm run rag:index`), mỗi công thức, hướng dẫn bệnh lý và nguyên liệu từ cơ sở kiến thức được chuyển thành vector 768 chiều và lưu vào ChromaDB
+- Khi đánh chỉ mục (`npm run rag:index`), mỗi công thức, hướng dẫn bệnh lý và nguyên liệu từ cơ sở kiến thức được chuyển thành vector 1024 chiều và lưu vào ChromaDB
 - Tại thời điểm truy vấn, yêu cầu bữa ăn của người dùng được chuyển thành vector bằng cùng mô hình, và ChromaDB tìm các vector đã lưu có ngữ nghĩa tương tự nhất
 - Chat model không thể làm điều này — nó tạo ra văn bản, không phải vector phù hợp cho tìm kiếm tương đồng
 
-**Tại sao chọn `nomic-embed-text` cụ thể:**
+**Tại sao chọn `bge-m3` cụ thể:**
 1. **Tương thích LM Studio** — đây là một trong những mô hình embedding được hỗ trợ rộng rãi nhất trong thư viện mô hình của LM Studio, dễ tải về và chạy cục bộ
 2. **Nhẹ** — khoảng 274MB, đủ nhỏ để chạy song song với chat model trên phần cứng tiêu dùng mà không tranh giành bộ nhớ GPU
-3. **Chất lượng truy xuất tốt** — tạo ra vector 768 chiều với hiệu suất cạnh tranh trên các benchmark truy xuất (MTEB), cung cấp khớp ngữ nghĩa chính xác cho tìm kiếm công thức và hướng dẫn
+3. **Chất lượng truy xuất tốt** — tạo ra vector 1024 chiều với hiệu suất cạnh tranh trên các benchmark truy xuất (MTEB), cung cấp khớp ngữ nghĩa chính xác cho tìm kiếm công thức và hướng dẫn
 4. **Mã nguồn mở & ưu tiên cục bộ** — không cần API key hay dịch vụ đám mây bên ngoài, nhất quán với triết lý thiết kế của dự án là chạy mọi thứ cục bộ qua LM Studio
 5. **Định dạng API ổn định** — tuân theo định dạng endpoint `/v1/embeddings` tương thích OpenAI mà LM Studio cung cấp, không cần mã tích hợp tùy chỉnh
 - **Suy thoái nhẹ nhàng:** trả về `null` khi lỗi; caller bỏ qua truy xuất
@@ -362,7 +362,7 @@ Pipeline RAG theo từng MealType:
 
 Đây là các **file JSON được quản lý phiên bản** — nguồn sự thật cho cơ sở kiến thức. Bất kỳ cập nhật nào cũng yêu cầu chạy lại `npm run rag:index` để đồng bộ ChromaDB.
 
-#### `recipes.json` — 35 công thức tham khảo
+#### `recipes.json` — 40 công thức tham khảo
 
 Mỗi công thức có:
 ```json
@@ -401,7 +401,7 @@ Mỗi tài liệu:
 
 Bao phủ tất cả 10 bệnh trong catalog: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`.
 
-#### `ingredients.json` — 46 mục nguyên liệu tham khảo
+#### `ingredients.json` — 52 mục nguyên liệu tham khảo
 
 Mỗi nguyên liệu:
 ```json
@@ -852,7 +852,7 @@ export function sanitizePromptInput(value, maxLen = 100) {
 | **Phòng chống Prompt Injection** | ✅ Có | Đầu vào người dùng được làm sạch trước khi chèn; nội dung RAG được kiểm tra thêm từ khóa tấn công |
 | **Error-Feedback Prompting** | ✅ Có | Lý do xác thực thất bại được đưa vào prompt thử lại qua tham số `errorFeedback` |
 | **Retrieval-Augmented Generation (RAG)** | ✅ Có | Tìm kiếm vector ChromaDB truy xuất bữa ăn tham khảo tương tự + hướng dẫn bệnh lý; đưa vào làm ngữ cảnh prompt |
-| **Embeddings** | ✅ Có | `nomic-embed-text` qua LM Studio tạo vector 768 chiều cho tìm kiếm tương đồng ngữ nghĩa |
+| **Embeddings** | ✅ Có | `bge-m3` qua LM Studio tạo vector 1024 chiều cho tìm kiếm tương đồng ngữ nghĩa |
 | **Fine-tuning** | ❌ Không | Không huấn luyện hay điều chỉnh mô hình |
 | **Few-shot Examples** | ✅ Một phần | RAG hiệu quả cung cấp few-shot examples động được rút từ cơ sở kiến thức |
 | **Chain-of-Thought** | ❌ Không | Mô hình được yêu cầu xuất JSON trực tiếp, không phải bước lý luận |
@@ -934,18 +934,18 @@ Bước 3: Tạo Kế Hoạch Bữa Ăn
        Tính lại phân phối bữa ăn từ macros đã điều chỉnh
        Xây dựng forbiddenIngredients[], limitedIngredients[], preferredIngredients[]
 
-  [3d] Truy xuất RAG:
+  [3d] Truy xuất RAG (song song hoàn toàn):
        Thu thập mealTypes duy nhất từ nutritionPlan.mealDistribution
-       Với mỗi mealType (ví dụ: "breakfast", "lunch"):
-         Xây dựng chuỗi truy vấn: "breakfast meal for lose-weight goal vietnamese cuisine pho"
-         → getEmbedding(queryString) qua LM Studio /v1/embeddings (vector 768 chiều)
+       Gọi một Promise.all() duy nhất để lấy tất cả cùng lúc:
+         → retrieveDiseaseGuidelines(diseases) — gọi MỘT lần, tái sử dụng cho tất cả mealTypes
+         → retrieveRelevantMeals({ mealType, ... }) — một lần cho mỗi mealType, tất cả song song
+       Mỗi truy xuất xây dựng chuỗi truy vấn tiếng Việt qua bản đồ EN→VI:
+         "món bữa sáng cho mục tiêu lose-weight ẩm thực Việt Nam phở"
+         → getEmbedding(queryString) qua LM Studio /v1/embeddings (bge-m3, vector 1024 chiều)
          → queryDocuments(RECIPES, vector, { nResults: 3, where: { mealType } })
-         Song song:
-         → getEmbedding("dietary guidelines for diabetes")
-         → queryDocuments(GUIDELINES, vector, { where: { disease } }) (một cho mỗi bệnh)
-         → buildMealContext(meals, guidelines)
-           → làm sạch, loại bỏ nội dung tấn công, giới hạn 1500 ký tự
-           → kết quả: ragContextByMealType["breakfast"] = "Reference meals: ..."
+       Với mỗi mealType: buildMealContext(meals, guidelines)
+         → làm sạch, loại bỏ nội dung tấn công, giới hạn 1500 ký tự
+         → kết quả: ragContextByMealType["breakfast"] = "Reference meals: ..."
        Nếu bất kỳ bước nào throw → ghi log cảnh báo, ragContextByMealType = {} (tiếp tục tạo không có ngữ cảnh)
 
   [3e] Tạo AI đồng thời (mỗi bữa ăn, tối đa 3 đồng thời):
@@ -1244,11 +1244,11 @@ Kết quả: { safe: bool, reasons: ["Forbidden ingredients found: X, Y"] }
          │  POST LM_STUDIO_EMBEDDING_URL                       │
          │  { model: EMBEDDING_MODEL, input: [query] }         │
          │  timeout: 10 giây AbortController                   │
-         │  phân tích: data[0].embedding → float[768]          │
+         │  phân tích: data[0].embedding → float[1024]          │
          │                                                     │
          │  Khi lỗi → trả về null (suy thoái nhẹ nhàng)       │
          └──────────────────────────┬──────────────────────────┘
-                                    │ queryEmbedding: float[768] | null
+                                    │ queryEmbedding: float[1024] | null
                    null? ───────────┘ bỏ qua truy xuất, trả về null
                                     │
          ┌──────────────────────────▼──────────────────────────┐
@@ -1339,7 +1339,7 @@ indexAllCollections() chạy song song:
         │                 │                   │
         └─────────────────┴───────────────────┘
         Upsert vào ChromaDB (idempotent — an toàn khi chạy lại)
-        Trả về: { recipes: 35, guidelines: 4, ingredients: 46, errors: 0 }
+        Trả về: { recipes: 40, guidelines: 10, ingredients: 52, errors: 0 }
 ```
 
 ---
@@ -1533,15 +1533,15 @@ POST /api/meal-plans/generate
          getPreferredIngredients(diseases)
                                     │
          ┌──────────────────────────▼──────────────────────────┐
-         │            BƯỚC 3: Truy Xuất RAG                     │
+         │            BƯỚC 3: Truy Xuất RAG (song song)            │
          │  uniqueMealTypes = Set của mealTypes trong phân phối │
          │  try:                                                │
+         │    Một Promise.all() duy nhất lấy tất cả:           │
+         │      - retrieveDiseaseGuidelines(diseases) — 1 lần  │
+         │      - retrieveRelevantMeals({ mealType, goal,      │
+         │          diseases, cuisine, favoriteMeal })          │
+         │          — mỗi mealType, tất cả song song           │
          │    với mỗi mealType:                                │
-         │      await Promise.all([                            │
-         │        retrieveRelevantMeals({ mealType, goal,      │
-         │          diseases, cuisine, favoriteMeal }),         │
-         │        retrieveDiseaseGuidelines(diseases)          │
-         │      ])                                             │
          │      ragContextByMealType[mealType] =               │
          │        buildMealContext(meals, guidelines)           │
          │  catch bất kỳ lỗi nào:                              │

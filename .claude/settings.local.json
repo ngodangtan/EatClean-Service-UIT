@@ -32,7 +32,9 @@
       "Bash(find /Users/felixngo/Desktop/UIT-Project/eat-clean-api -type f \\\\\\( -name \"*.json\" -o -name \"*.js\" \\\\\\) -path \"*/src/*\" ! -path \"*/node_modules/*\" ! -path \"*/knowledgeBase/*\" -exec grep -l \"diabetes\\\\|kidney\\\\|uric\\\\|cholesterol\\\\|hypertension\\\\|fatty\\\\|heart\\\\|obesity\\\\|anemia\\\\|gastritis\" {} \\\\;)",
       "Bash(> /Users/felixngo/Desktop/UIT-Project/eat-clean-api/logs/combined.log)",
       "Bash(npm ls:*)",
-      "Bash(wc -l /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/data/knowledgeBase/*.json)"
+      "Bash(wc -l /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/data/knowledgeBase/*.json)",
+      "Bash(grep -n \"mealPlanGenerate\\\\|mealPlan\\\\|auth\\\\|healthProfile\" /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/validators/*.validator.js /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/validators/*.schema.js)",
+      "Bash(grep *)"
     ]
   }
 }

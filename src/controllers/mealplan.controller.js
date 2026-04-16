@@ -160,18 +160,22 @@ export async function generateMealPlan(req, res) {
     let ragContextByMealType = {};
 
     try {
-      for (const mealType of uniqueMealTypes) {
-        const [meals, guidelines] = await Promise.all([
+      // Fetch disease guidelines once (same for all mealTypes) + all meal retrievals in parallel
+      const [guidelines, ...mealResultsByType] = await Promise.all([
+        retrieveDiseaseGuidelines(effectiveDiseases),
+        ...uniqueMealTypes.map(mealType =>
           retrieveRelevantMeals({
             mealType,
             goal: nutritionPlan.goal,
             diseases: effectiveDiseases,
             cuisine: healthProfile.cuisinePreference?.[0] ?? null,
             favoriteMeal: healthProfile.favoriteMeal ?? null
-          }),
-          retrieveDiseaseGuidelines(effectiveDiseases)
-        ]);
-        ragContextByMealType[mealType] = buildMealContext(meals, guidelines);
+          })
+        )
+      ]);
+
+      for (let i = 0; i < uniqueMealTypes.length; i++) {
+        ragContextByMealType[uniqueMealTypes[i]] = buildMealContext(mealResultsByType[i], guidelines);
       }
       logger.info('RAG context retrieved for meal types:', Object.keys(ragContextByMealType));
     } catch (ragErr) {

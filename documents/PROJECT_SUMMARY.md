@@ -134,9 +134,9 @@ eat-clean-api/
 │   ├── data/
 │   │   ├── diseaseCatalog.js               # 10 diseases (4 supported + 6 unsupported), indicators, supported flag
 │   │   └── knowledgeBase/                  # Curated reference data (Vietnamese, version controlled)
-│   │       ├── recipes.json                # 35 Vietnamese reference recipes
+│   │       ├── recipes.json                # 40 Vietnamese reference recipes
 │   │       ├── diseaseGuidelines.json      # 10 disease dietary guidelines (Vietnamese)
-│   │       └── ingredients.json            # 46 ingredients (Vietnamese names, disease safety flags)
+│   │       └── ingredients.json            # 52 ingredients (Vietnamese names, disease safety flags)
 │   └── utils/
 │       ├── AppError.js                     # Custom error class + factory functions
 │       └── logger.js                       # Winston logger
@@ -375,7 +375,7 @@ Per-MealType RAG Pipeline:
 
 These are **version-controlled JSON files** — the source of truth for the knowledge base. Any update to them requires re-running `npm run rag:index` to sync ChromaDB.
 
-#### `recipes.json` — 35 reference recipes
+#### `recipes.json` — 40 reference recipes
 
 Each recipe has (all content in **Vietnamese**; metadata keys remain English):
 ```json
@@ -414,7 +414,7 @@ Each document (all content in **Vietnamese**; metadata keys remain English):
 
 Covers all 10 catalog diseases: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`.
 
-#### `ingredients.json` — 46 ingredient reference entries
+#### `ingredients.json` — 52 ingredient reference entries
 
 Each ingredient (Vietnamese names and descriptions; metadata keys remain English):
 ```json
@@ -1006,19 +1006,18 @@ Step 3: Meal Plan Generation
        Recalculate meal distribution from adjusted macros
        Build forbiddenIngredients[], limitedIngredients[], preferredIngredients[]
 
-  [3d] RAG Retrieval:
+  [3d] RAG Retrieval (fully parallel):
        Collect unique mealTypes from nutritionPlan.mealDistribution
-       For each mealType (e.g. "breakfast", "lunch"):
-         Build Vietnamese query string via internal EN→VI maps:
-           "món bữa sáng cho mục tiêu lose-weight ẩm thực Việt Nam pho"
+       Fetch disease guidelines ONCE + all per-mealType meal retrievals in a single Promise.all():
+         → retrieveDiseaseGuidelines(diseases) — called once, reused for all mealTypes
+         → retrieveRelevantMeals({ mealType, ... }) — one call per unique mealType, all in parallel
+       Each retrieval builds a Vietnamese query string via internal EN→VI maps:
+         "món bữa sáng cho mục tiêu lose-weight ẩm thực Việt Nam pho"
          → getEmbedding(queryString) via LM Studio /v1/embeddings (bge-m3, 1024-dim)
          → queryDocuments(RECIPES, vector, { nResults: 3, where: { mealType } })
-         In parallel:
-         → getEmbedding("dietary guidelines for diabetes")
-         → queryDocuments(GUIDELINES, vector, { where: { disease } }) (one per disease)
-         → buildMealContext(meals, guidelines)
-           → sanitize, strip adversarial content, cap at 1500 chars
-           → result: ragContextByMealType["breakfast"] = "Reference meals: ..."
+       For each mealType: buildMealContext(meals, guidelines)
+         → sanitize, strip adversarial content, cap at 1500 chars
+         → result: ragContextByMealType["breakfast"] = "Reference meals: ..."
        If any step throws → log warning, ragContextByMealType = {} (generation continues)
 
   [3e] Concurrent AI Generation (per meal, up to 3 concurrent):
@@ -1436,7 +1435,7 @@ indexAllCollections() runs these in parallel:
         │                 │                   │
         └─────────────────┴───────────────────┘
         Upsert to ChromaDB (idempotent — safe to re-run)
-        Returns: { recipes: 35, guidelines: 10, ingredients: 46, errors: 0 }
+        Returns: { recipes: 40, guidelines: 10, ingredients: 52, errors: 0 }
 ```
 
 ---
@@ -1665,15 +1664,15 @@ POST /api/meal-plans/generate
          getPreferredIngredients(diseases)
                                     │
          ┌──────────────────────────▼──────────────────────────┐
-         │            STEP 3: RAG Retrieval                     │
+         │            STEP 3: RAG Retrieval (parallel)             │
          │  uniqueMealTypes = Set of mealTypes in distribution  │
          │  try:                                                │
+         │    Single Promise.all() fetches everything:          │
+         │      - retrieveDiseaseGuidelines(diseases) — once    │
+         │      - retrieveRelevantMeals({ mealType, goal,      │
+         │          diseases, cuisine, favoriteMeal })          │
+         │          — one per unique mealType, all in parallel  │
          │    for each mealType:                               │
-         │      await Promise.all([                            │
-         │        retrieveRelevantMeals({ mealType, goal,      │
-         │          diseases, cuisine, favoriteMeal }),         │
-         │        retrieveDiseaseGuidelines(diseases)          │
-         │      ])                                             │
          │      ragContextByMealType[mealType] =               │
          │        buildMealContext(meals, guidelines)           │
          │  catch any error:                                   │
