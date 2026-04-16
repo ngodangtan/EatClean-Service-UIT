@@ -553,6 +553,12 @@ STRICT RULES:
 
 Ngữ cảnh được bỏ qua hoàn toàn nếu `retrievedContext` rỗng hoặc null (ví dụ: ChromaDB bị ngừng).
 
+### Chain-of-Thought Có Chọn Lọc (Chỉ Bữa Ăn Có Bệnh Lý)
+
+Khi người dùng có bệnh lý, `buildMealPrompt()` đưa thêm một **khối suy luận từng bước** trước phần QUY TẮC NGHIÊM NGẶT. Khối này yêu cầu mô hình liệt kê rõ ràng nguyên liệu cấm/hạn chế/ưu tiên và xác minh an toàn trước khi sinh JSON. Phần text suy luận CoT được bỏ qua bởi `parseAIResponse()` sử dụng `extractBalancedJSON()` (đếm ngoặc) để chỉ trích xuất đối tượng JSON.
+
+Với bữa ăn không có bệnh lý, prompt bỏ qua CoT hoàn toàn và dùng định dạng phẳng nhanh hơn (nguyên liệu cấm/hạn chế/ưu tiên thêm vào sau QUY TẮC NGHIÊM NGẶT). Cách tiếp cận có chọn lọc này giữ tốc độ cho trường hợp thông thường trong khi cải thiện tuân thủ ràng buộc ở nơi quan trọng nhất — bữa ăn có hạn chế y tế.
+
 ### Hạ Tầng
 
 ```yaml
@@ -855,7 +861,7 @@ export function sanitizePromptInput(value, maxLen = 100) {
 | **Embeddings** | ✅ Có | `bge-m3` qua LM Studio tạo vector 1024 chiều cho tìm kiếm tương đồng ngữ nghĩa |
 | **Fine-tuning** | ❌ Không | Không huấn luyện hay điều chỉnh mô hình |
 | **Few-shot Examples** | ✅ Một phần | RAG hiệu quả cung cấp few-shot examples động được rút từ cơ sở kiến thức |
-| **Chain-of-Thought** | ❌ Không | Mô hình được yêu cầu xuất JSON trực tiếp, không phải bước lý luận |
+| **Chain-of-Thought** | ✅ Có chọn lọc | Khi có bệnh lý, prompt yêu cầu mô hình suy luận từng bước qua danh sách nguyên liệu cấm/hạn chế/ưu tiên trước khi sinh JSON. Bỏ qua cho bữa ăn không có bệnh để giữ tốc độ. Phần suy luận CoT được bỏ qua bởi `parseAIResponse` (trích xuất JSON bằng đếm ngoặc) |
 | **Tool Use / Function Calling** | ❌ Không | Hoàn thành văn bản thô, JSON được phân tích thủ công |
 | **Streaming** | ❌ Không | `stream: false`, phản hồi đồng bộ |
 
@@ -1398,8 +1404,19 @@ callBudget: { remaining: N }
          │  │  REFERENCE CONTEXT (chỉ cảm hứng):         │   │
          │  │  {retrievedContext}                         │   │  ← Đưa RAG vào
          │  ├─────────────────────────────────────────────┤   │
-         │  │ QUY TẮC NGHIÊM NGẶT (1–5)                  │   │
+         │  │ [nếu có bệnh — CoT có chọn lọc]:           │   │  ← Chain-of-Thought
+         │  │  SUY LUẬN TỪNG BƯỚC:                       │   │
+         │  │  1. Liệt kê tình trạng sức khỏe            │   │
+         │  │  2. Nguyên liệu CẤM (KHÔNG BAO GIỜ dùng)  │   │
+         │  │  3. Nguyên liệu HẠN CHẾ (dùng ít)         │   │
+         │  │  4. Nguyên liệu ƯU TIÊN                    │   │
+         │  │  5. Chọn nguyên liệu AN TOÀN               │   │
+         │  │  6. Xác minh không có nguyên liệu cấm      │   │
+         │  │  7. Xuất JSON                               │   │
          │  ├─────────────────────────────────────────────┤   │
+         │  │ QUY TẮC NGHIÊM NGẶT (1–6)                  │   │
+         │  ├─────────────────────────────────────────────┤   │
+         │  │ [nếu KHÔNG có bệnh — định dạng phẳng]:     │   │
          │  │ [nếu forbidden]: KHÔNG được dùng: ...       │   │
          │  │ [nếu limited]:   Dùng hạn chế: ...         │   │
          │  │ [nếu preferred]: Ưu tiên dùng: ...         │   │

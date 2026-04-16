@@ -566,6 +566,12 @@ STRICT RULES:
 
 Context is skipped entirely if `retrievedContext` is empty or null (e.g., ChromaDB is down).
 
+### Selective Chain-of-Thought (Disease Meals Only)
+
+When the user has diseases, `buildMealPrompt()` injects a **step-by-step reasoning block** before the STRICT RULES. This asks the model to explicitly enumerate forbidden/limited/preferred ingredients and verify safety before generating JSON. The CoT preamble text is harmlessly discarded by `parseAIResponse()` which uses `extractBalancedJSON()` (brace-counting) to extract only the JSON object.
+
+For non-disease meals, the prompt skips CoT entirely and uses the faster flat format (forbidden/limited/preferred as simple append lines after STRICT RULES). This selective approach preserves speed for the common case while improving constraint compliance where it matters most — medically restricted meals.
+
 ### Infrastructure
 
 ```yaml
@@ -922,7 +928,7 @@ export function sanitizePromptInput(value, maxLen = 100) {
 | **Embeddings** | ✅ Yes | `bge-m3` (multilingual) via LM Studio generates 1024-dim vectors for semantic similarity search |
 | **Fine-tuning** | ❌ No | No model training or adaptation |
 | **Few-shot Examples** | ✅ Partial | RAG effectively provides dynamic few-shot examples drawn from the knowledge base |
-| **Chain-of-Thought** | ❌ No | Model told to output JSON directly, not reasoning steps |
+| **Chain-of-Thought** | ✅ Selective | When diseases are present, the prompt asks the model to reason step-by-step through ingredient safety (forbidden/limited/preferred lists) before generating JSON. Skipped for non-disease meals to preserve speed. CoT preamble is ignored by `parseAIResponse` (brace-counting extraction) |
 | **Tool Use / Function Calling** | ❌ No | Raw text completion, JSON parsed manually |
 | **Streaming** | ❌ No | `stream: false`, synchronous response |
 
@@ -1494,8 +1500,19 @@ callBudget: { remaining: N }
          │  │  REFERENCE CONTEXT (inspiration only):      │   │
          │  │  {retrievedContext}                         │   │  ← RAG injection
          │  ├─────────────────────────────────────────────┤   │
-         │  │ STRICT RULES (1–5)                          │   │
+         │  │ [if diseases present — selective CoT]:      │   │  ← Chain-of-Thought
+         │  │  THINK STEP-BY-STEP:                       │   │
+         │  │  1. List health conditions                  │   │
+         │  │  2. FORBIDDEN ingredients (NEVER use)       │   │
+         │  │  3. LIMITED ingredients (use sparingly)     │   │
+         │  │  4. PREFERRED ingredients (prioritize)      │   │
+         │  │  5. Choose safe ingredients                 │   │
+         │  │  6. Verify no forbidden in final list       │   │
+         │  │  7. Now output JSON                         │   │
          │  ├─────────────────────────────────────────────┤   │
+         │  │ STRICT RULES (1–6)                          │   │
+         │  ├─────────────────────────────────────────────┤   │
+         │  │ [if NO diseases — flat format]:             │   │
          │  │ [if forbidden]: Do NOT use: ...             │   │
          │  │ [if limited]:   Use sparingly: ...          │   │
          │  │ [if preferred]: Prefer these: ...           │   │

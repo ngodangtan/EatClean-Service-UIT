@@ -87,6 +87,28 @@ ${retrievedContext}
 `;
   }
 
+  // Selective Chain-of-Thought: when diseases are present, ask the model to
+  // reason through ingredient safety before generating JSON. This reduces
+  // forbidden-ingredient violations and cuts regeneration attempts.
+  // The CoT text preceding the JSON is harmless — parseAIResponse uses
+  // extractBalancedJSON (brace-counting) which skips non-JSON preamble.
+  const safeForbidden = sanitizePromptArray(forbiddenIngredients, 50);
+  const safeLimited = sanitizePromptArray(limitedIngredients, 30);
+  const safePreferred = sanitizePromptArray(preferredIngredients, 30);
+
+  if (safeDiseases.length > 0) {
+    prompt += `IMPORTANT — THINK STEP-BY-STEP before generating JSON:
+1. The user has these health conditions: ${diseasesList}
+2. FORBIDDEN ingredients (NEVER use): ${safeForbidden.length > 0 ? safeForbidden.join(', ') : 'none'}
+3. LIMITED ingredients (use sparingly only): ${safeLimited.length > 0 ? safeLimited.join(', ') : 'none'}
+4. PREFERRED ingredients (prioritize these): ${safePreferred.length > 0 ? safePreferred.join(', ') : 'none'}
+5. Choose ingredients that are SAFE and beneficial for the above conditions
+6. Verify that NONE of the forbidden ingredients appear in your ingredient list
+7. Now output the JSON
+
+`;
+  }
+
   prompt += `STRICT RULES:
 1. Return JSON ONLY — no code blocks, no markdown, no extra text
 2. Do NOT include calories, macros, protein, carbs, fat, totalCalories, or any numeric nutrition fields
@@ -95,19 +117,19 @@ ${retrievedContext}
 5. Ensure complete, valid JSON — no truncated strings, no trailing commas
 6. ALL text output (name, description, ingredients, benefits) MUST be in Vietnamese with proper diacritics — no English words except for unavoidable loanwords`;
 
-  const safeForbidden = sanitizePromptArray(forbiddenIngredients, 50);
-  if (safeForbidden.length > 0) {
-    prompt += `\n\nDo NOT use these ingredients (they are unsafe for the user's health conditions): ${safeForbidden.join(', ')}`;
-  }
+  if (safeDiseases.length === 0) {
+    // Without diseases, inject ingredient lists in the simpler flat format
+    if (safeForbidden.length > 0) {
+      prompt += `\n\nDo NOT use these ingredients (they are unsafe for the user's health conditions): ${safeForbidden.join(', ')}`;
+    }
 
-  const safeLimited = sanitizePromptArray(limitedIngredients, 30);
-  if (safeLimited.length > 0) {
-    prompt += `\n\nUse these ingredients sparingly or in small portions only: ${safeLimited.join(', ')}`;
-  }
+    if (safeLimited.length > 0) {
+      prompt += `\n\nUse these ingredients sparingly or in small portions only: ${safeLimited.join(', ')}`;
+    }
 
-  const safePreferred = sanitizePromptArray(preferredIngredients, 30);
-  if (safePreferred.length > 0) {
-    prompt += `\n\nPrefer these ingredients when possible (they are beneficial for the user's health conditions): ${safePreferred.join(', ')}`;
+    if (safePreferred.length > 0) {
+      prompt += `\n\nPrefer these ingredients when possible (they are beneficial for the user's health conditions): ${safePreferred.join(', ')}`;
+    }
   }
 
   if (errorFeedback) {

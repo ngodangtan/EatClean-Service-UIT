@@ -116,7 +116,7 @@ Purely deterministic — no disease logic, no AI calls.
 The app targets the **Vietnamese market**. Prompts instruct the model to produce all output in Vietnamese with diacritics; the knowledge base is in Vietnamese; the LM Studio embedding model is `bge-m3` (multilingual). Do not introduce English-only assumptions in prompts, retrievers, or filters.
 
 - `aiClient.js` — HTTP client for LM Studio, response parsing
-- `promptBuilder.js` — builds per-meal prompts with sanitized inputs. Supports forbidden/limited/preferred ingredient lists and `retrievedContext` (RAG). Vietnamese system prompt + JSON example. Exports `sanitizePromptInput` for reuse by RAG layer
+- `promptBuilder.js` — builds per-meal prompts with sanitized inputs. Supports forbidden/limited/preferred ingredient lists and `retrievedContext` (RAG). Vietnamese system prompt + JSON example. Exports `sanitizePromptInput` for reuse by RAG layer. **Selective Chain-of-Thought:** when diseases are present, injects a step-by-step reasoning block (enumerate forbidden/limited/preferred → verify safety → then output JSON) to reduce forbidden-ingredient violations; skipped for non-disease meals to preserve speed. The CoT preamble is harmlessly discarded by `parseAIResponse` (brace-counting extraction)
 - `mealGenerator.js` — `generateMeal()` with retry, sanitization (strips numeric fields from AI response). Accepts `retrievedContext` param and forwards it to `buildMealPrompt()`
 - `concurrency.js` — `runWithConcurrency()` for parallel meal generation with configurable limit
 
