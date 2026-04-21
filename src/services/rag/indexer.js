@@ -21,11 +21,9 @@ async function readKnowledgeBase(filename) {
  * @returns {Promise<{ recipes: number, guidelines: number, ingredients: number, errors: number }>}
  */
 export async function indexAllCollections() {
-  const [r, g, i] = await Promise.all([
-    indexRecipes(),
-    indexGuidelines(),
-    indexIngredients()
-  ]);
+  const r = await indexRecipes();
+  const g = await indexGuidelines();
+  const i = await indexIngredients();
   return {
     recipes: r.indexed,
     guidelines: g.indexed,

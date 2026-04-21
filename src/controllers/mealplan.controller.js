@@ -14,6 +14,7 @@ import { retrieveRelevantMeals, retrieveDiseaseGuidelines } from '../services/ra
 import { buildMealContext } from '../services/rag/ragContextBuilder.js';
 import {
   checkWeightGoalContraindications,
+  checkDiseaseGenerationLimits,
   mapWeightGoalToEngineGoal,
   tdeeFromHealthSnapshot
 } from '../services/mealPlanPurposeService.js';
@@ -77,6 +78,16 @@ export async function generateMealPlan(req, res) {
     const allDiseaseKeys = Array.isArray(healthProfile.diseases)
       ? healthProfile.diseases.map(d => d?.key).filter(k => typeof k === 'string')
       : [];
+
+    // Block generation when any disease catalog limit condition is met.
+    const limitCheck = checkDiseaseGenerationLimits(healthProfile.diseases);
+    if (limitCheck.blocked) {
+      return res.status(400).json({
+        message: limitCheck.message,
+        reason: limitCheck.reason,
+        disease: limitCheck.disease
+      });
+    }
 
     // ── Purpose-specific request validation ──────────────────────────────
     let goalOverride;

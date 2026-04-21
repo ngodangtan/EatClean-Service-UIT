@@ -84,7 +84,6 @@ describe('Health Profile → Meal Plan integration flow', () => {
       activityLevel: 'moderately-active',
       mealsPerDay: 3,
       sleepDuration: 7,
-      triedHealthyBefore: true,
       hungryTime: 'morning',
       favoriteMeal: 'Phở bò',
       averageDay: 'Office work, light exercise in the evening',

@@ -11,6 +11,22 @@
  *                       recorded by the user, but the AI meal generation will ignore them.
  * - `indicators[].key`  — stable identifier for cross-referencing user-entered values.
  * - `indicators[].name` — Vietnamese display name. Safe to edit.
+ * - `generationLimits`  — optional array of conditions that block AI meal plan generation
+ *                         when met. Each entry:
+ *                           source    — 'entry' (default) checks a direct field on the
+ *                                       disease entry (e.g. stage); 'indicator' looks up
+ *                                       the numeric value from entry.indicators[] by key.
+ *                           field     — field name (source='entry') or indicator key
+ *                                       (source='indicator') to evaluate.
+ *                           operator  — comparison: 'gte'|'gt'|'lte'|'lt'|'eq'|'neq'
+ *                           value     — numeric threshold to compare against
+ *                           reason    — machine-readable reason code in the API response
+ *                           messageVi — Vietnamese error message. Use {fieldName} to
+ *                                       interpolate: direct-entry fields from the entry
+ *                                       object; indicator field resolves to its numeric value.
+ *
+ * To add a generation limit for a new disease, add a `generationLimits` array to its
+ * catalog entry — no service or controller code changes required.
  */
 
 const DISEASE_CATALOG = [
@@ -28,6 +44,26 @@ const DISEASE_CATALOG = [
     key: 'kidney-disease',
     name: 'Bệnh thận',
     supported: true,
+    generationLimits: [
+      {
+        // Explicit CKD stage entered by the user
+        source: 'entry',
+        field: 'stage',
+        operator: 'gte',
+        value: 4,
+        reason: 'kidney_disease_stage_restriction',
+        messageVi: 'Bệnh thận mạn giai đoạn {stage} yêu cầu chế độ ăn được kê đơn bởi bác sĩ chuyên khoa. Hệ thống không thể tạo thực đơn tự động cho trường hợp này.'
+      },
+      {
+        // GFR < 30 mL/min corresponds to CKD stage 4+ (GFR 15–29 = stage 4, < 15 = stage 5)
+        source: 'indicator',
+        field: 'gfr',
+        operator: 'lt',
+        value: 30,
+        reason: 'kidney_disease_stage_restriction',
+        messageVi: 'Chỉ số GFR {gfr} mL/min tương ứng với bệnh thận mạn giai đoạn 4 trở lên. Trường hợp này yêu cầu chế độ ăn được kê đơn bởi bác sĩ chuyên khoa thận. Hệ thống không thể tạo thực đơn tự động.'
+      }
+    ],
     relatedIndicators: [
       { key: 'creatinine', name: 'Creatinine', unit: 'mg/dL', normalRange: '0.7 - 1.3' },
       { key: 'bun', name: 'BUN (Ure máu)', unit: 'mg/dL', normalRange: '7 - 20' },

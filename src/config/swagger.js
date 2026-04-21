@@ -76,8 +76,6 @@ const swaggerSpec = {
           userId: { type: 'string' },
           gender: { type: 'string', enum: ['male', 'female'], readOnly: true, description: 'Auto-populated from user account' },
           age: { type: 'number', readOnly: true, description: 'Auto-calculated from user birthday' },
-          triedHealthyBefore: { type: 'boolean' },
-          hungryTime: { type: 'string' },
           favoriteMeal: { type: 'string' },
           activityLevel: { type: 'string', enum: ['sedentary', 'lightly-active', 'moderately-active', 'very-active', 'extremely-active'] },
           averageDay: { type: 'string' },
@@ -257,6 +255,7 @@ const swaggerSpec = {
         properties: {
           key: { type: 'string', description: 'Disease key from GET /api/diseases', example: 'diabetes' },
           diagnosedAt: { type: 'string', format: 'date-time', description: 'When the user was diagnosed (optional)' },
+          stage: { type: 'integer', minimum: 1, maximum: 5, description: 'Disease stage (applies to kidney-disease CKD stages 1–5). Stage 4+ blocks AI meal plan generation.' },
           indicators: {
             type: 'array',
             description: 'Optional. Each indicator key must belong to this disease in the catalog.',

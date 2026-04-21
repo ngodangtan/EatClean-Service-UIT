@@ -838,3 +838,273 @@
 21:14:08 [32minfo[39m: Generating Day 6 lunch...
 21:14:10 [32minfo[39m: Generating Day 6 dinner...
 21:14:11 [32minfo[39m: Generating Day 7 breakfast...
+12:08:21 [32minfo[39m: RAG Indexer: Guidelines done — indexed 10, errors 0
+12:08:21 [32minfo[39m: RAG Indexer: Ingredients progress 10/52
+12:08:22 [32minfo[39m: RAG Indexer: Recipes progress 10/40
+12:08:22 [32minfo[39m: RAG Indexer: Ingredients progress 20/52
+12:08:22 [32minfo[39m: RAG Indexer: Recipes progress 20/40
+12:08:22 [32minfo[39m: RAG Indexer: Ingredients progress 30/52
+12:08:23 [32minfo[39m: RAG Indexer: Recipes progress 30/40
+12:08:23 [32minfo[39m: RAG Indexer: Ingredients progress 40/52
+12:08:23 [32minfo[39m: RAG Indexer: Recipes progress 40/40
+12:08:23 [32minfo[39m: RAG Indexer: Recipes done — indexed 40, errors 0
+12:08:23 [32minfo[39m: RAG Indexer: Ingredients progress 50/52
+12:08:23 [32minfo[39m: RAG Indexer: Ingredients progress 52/52
+12:08:27 [32minfo[39m: MongoDB connected
+12:08:27 [32minfo[39m: Server listening on http://localhost:4000
+12:08:27 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+12:10:59 [32minfo[39m: RAG Indexer: Recipes progress 10/40
+12:10:59 [32minfo[39m: RAG Indexer: Ingredients progress 10/52
+12:11:00 [32minfo[39m: RAG Indexer: Guidelines done — indexed 10, errors 0
+12:11:00 [32minfo[39m: RAG Indexer: Recipes progress 20/40
+12:11:00 [32minfo[39m: RAG Indexer: Ingredients progress 20/52
+12:11:01 [32minfo[39m: RAG Indexer: Recipes progress 30/40
+12:11:01 [32minfo[39m: RAG Indexer: Ingredients progress 30/52
+12:11:01 [32minfo[39m: RAG Indexer: Recipes progress 40/40
+12:11:01 [32minfo[39m: RAG Indexer: Recipes done — indexed 40, errors 0
+12:11:01 [32minfo[39m: RAG Indexer: Ingredients progress 40/52
+12:11:02 [32minfo[39m: RAG Indexer: Ingredients progress 50/52
+12:11:02 [32minfo[39m: RAG Indexer: Ingredients progress 52/52
+14:44:27 [32minfo[39m: MongoDB connected
+14:44:27 [32minfo[39m: Server listening on http://localhost:4000
+14:44:27 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:44:30 [32minfo[39m: MongoDB connected
+14:44:30 [32minfo[39m: Server listening on http://localhost:4000
+14:44:30 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:44:32 [32minfo[39m: MongoDB connected
+14:44:32 [32minfo[39m: Server listening on http://localhost:4000
+14:44:32 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:44:36 [32minfo[39m: MongoDB connected
+14:44:36 [32minfo[39m: Server listening on http://localhost:4000
+14:44:36 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:44:38 [32minfo[39m: MongoDB connected
+14:44:38 [32minfo[39m: Server listening on http://localhost:4000
+14:44:38 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:56:46 [32minfo[39m: MongoDB connected
+14:56:46 [32minfo[39m: Server listening on http://localhost:4000
+14:56:46 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:56:48 [32minfo[39m: MongoDB connected
+14:56:48 [32minfo[39m: Server listening on http://localhost:4000
+14:56:48 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:56:55 [32minfo[39m: MongoDB connected
+14:56:55 [32minfo[39m: Server listening on http://localhost:4000
+14:56:55 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:56:59 [32minfo[39m: MongoDB connected
+14:56:59 [32minfo[39m: Server listening on http://localhost:4000
+14:56:59 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:57:06 [32minfo[39m: MongoDB connected
+14:57:06 [32minfo[39m: Server listening on http://localhost:4000
+14:57:06 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+14:57:21 [32minfo[39m: MongoDB connected
+14:57:21 [32minfo[39m: Server listening on http://localhost:4000
+14:57:21 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:01:59 [32minfo[39m: MongoDB connected
+15:01:59 [32minfo[39m: Server listening on http://localhost:4000
+15:01:59 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:02:02 [32minfo[39m: MongoDB connected
+15:02:02 [32minfo[39m: Server listening on http://localhost:4000
+15:02:02 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:02:10 [32minfo[39m: MongoDB connected
+15:02:10 [32minfo[39m: Server listening on http://localhost:4000
+15:02:10 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:02:24 [32minfo[39m: MongoDB connected
+15:02:24 [32minfo[39m: Server listening on http://localhost:4000
+15:02:24 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:02:30 [32minfo[39m: MongoDB connected
+15:02:30 [32minfo[39m: Server listening on http://localhost:4000
+15:02:30 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:08:13 [32minfo[39m: MongoDB connected
+15:08:13 [32minfo[39m: Server listening on http://localhost:4000
+15:08:13 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:08:20 [32minfo[39m: MongoDB connected
+15:08:20 [32minfo[39m: Server listening on http://localhost:4000
+15:08:20 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:08:30 [32minfo[39m: MongoDB connected
+15:08:30 [32minfo[39m: Server listening on http://localhost:4000
+15:08:30 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:25:10 [33mwarn[39m: RAG: Embedding request failed with status 500
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "diêm mạch" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "gạo lứt" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "yến mạch" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "cá hồi" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "ức gà" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "đậu hũ" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "lòng trắng trứng" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "đậu lăng" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "đậu gà" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "khoai lang" — skipping
+15:25:10 [32minfo[39m: RAG Indexer: Ingredients progress 10/52
+15:25:10 [33mwarn[39m: RAG: Embedding request failed with status 500
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Cháo yến mạch với quả mọng và hạt chia" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Phở gà" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Sữa chua Hy Lạp với các loại hạt" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Bánh mì trứng" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Trứng chiên lòng trắng kiểu Địa Trung Hải" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Cháo gạo lứt với gừng" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Bánh mì nướng bơ với trứng chần" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Đậu hũ xào rau củ" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Cá hồi nướng với bông cải xanh hấp" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Bún gà" — skipping
+15:25:10 [32minfo[39m: RAG Indexer: Recipes progress 10/40
+15:25:10 [33mwarn[39m: RAG: Embedding request failed with status 500
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Tô diêm mạch kiểu Buddha" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Gà xào rau củ" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Salad đậu gà kiểu Địa Trung Hải" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Gỏi cuốn tôm thịt" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Súp đậu lăng đỏ" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Cá hấp gừng hành" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Tô cơm súp lơ với gà nướng" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Gà nướng với khoai lang" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Canh chua cá" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Cá tuyết nướng kiểu Địa Trung Hải" — skipping
+15:25:10 [32minfo[39m: RAG Indexer: Recipes progress 20/40
+15:25:10 [33mwarn[39m: RAG: Embedding request failed with status 500
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "bông cải xanh" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "súp lơ trắng" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "rau bina" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "cải kale" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "ớt chuông" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "dưa leo" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "quả bơ" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "việt quất" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "anh đào" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "tỏi" — skipping
+15:25:10 [32minfo[39m: RAG Indexer: Ingredients progress 20/52
+15:25:10 [33mwarn[39m: RAG: Embedding request failed with status 500
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Cà ri xanh đậu hũ và rau củ" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Ức gà tây nướng với rau củ" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Cơm gà" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Trứng nướng rau bina kiểu Ý" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Đậu hũ hấp cải thìa với gạo lứt" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Cá hồi áo rau thơm với diêm mạch" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Táo cắt lát với bơ hạnh nhân" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Hỗn hợp hạt và quả mọng" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Gỏi cuốn chay (bữa phụ)" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed recipe "Hummus với dưa leo và ớt chuông" — skipping
+15:25:10 [32minfo[39m: RAG Indexer: Recipes progress 30/40
+15:25:10 [33mwarn[39m: RAG: Embedding request failed with status 500
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "gừng" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "dầu ô liu" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "óc chó" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "hạnh nhân" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "hạt chia" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "sữa chua Hy Lạp không đường" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "sữa hạnh nhân" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "chanh" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "nghệ" — skipping
+15:25:10 [33mwarn[39m: RAG Indexer: Failed to embed ingredient "quế" — skipping
+15:25:10 [32minfo[39m: RAG Indexer: Ingredients progress 30/52
+15:25:12 [32minfo[39m: RAG Indexer: Recipes progress 40/40
+15:25:12 [32minfo[39m: RAG Indexer: Recipes done — indexed 10, errors 30
+15:25:12 [32minfo[39m: RAG Indexer: Ingredients progress 40/52
+15:25:12 [32minfo[39m: RAG Indexer: Guidelines done — indexed 10, errors 0
+15:25:13 [32minfo[39m: RAG Indexer: Ingredients progress 50/52
+15:25:13 [32minfo[39m: RAG Indexer: Ingredients progress 52/52
+15:25:16 [32minfo[39m: MongoDB connected
+15:25:16 [32minfo[39m: Server listening on http://localhost:4000
+15:25:16 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:26:18 [32minfo[39m: MongoDB connected
+15:26:18 [32minfo[39m: Server listening on http://localhost:4000
+15:26:18 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:27:08 [32minfo[39m: RAG Indexer: Recipes progress 10/40
+15:27:09 [32minfo[39m: RAG Indexer: Recipes progress 20/40
+15:27:09 [32minfo[39m: RAG Indexer: Recipes progress 30/40
+15:27:10 [32minfo[39m: RAG Indexer: Recipes progress 40/40
+15:27:10 [32minfo[39m: RAG Indexer: Recipes done — indexed 40, errors 0
+15:27:10 [32minfo[39m: RAG Indexer: Guidelines done — indexed 10, errors 0
+15:27:11 [32minfo[39m: RAG Indexer: Ingredients progress 10/52
+15:27:11 [32minfo[39m: RAG Indexer: Ingredients progress 20/52
+15:27:12 [32minfo[39m: RAG Indexer: Ingredients progress 30/52
+15:27:12 [32minfo[39m: RAG Indexer: Ingredients progress 40/52
+15:27:12 [32minfo[39m: RAG Indexer: Ingredients progress 50/52
+15:27:12 [32minfo[39m: RAG Indexer: Ingredients progress 52/52
+15:27:14 [32minfo[39m: MongoDB connected
+15:27:14 [32minfo[39m: Server listening on http://localhost:4000
+15:27:14 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:27:22 [32minfo[39m: GET /api/health-profile 401 65ms {"requestId":"2d56b185-bb38-43da-96e9-bbcfa5ffa49a","method":"GET","path":"/api/health-profile","status":401,"duration":65}
+15:27:23 [32minfo[39m: GET /api/auth/profile 401 56ms {"requestId":"70ce951a-db43-43e6-ae14-b3c796260eb8","method":"GET","path":"/api/auth/profile","status":401,"duration":56}
+15:27:40 [32minfo[39m: POST /api/auth/login 401 105ms {"requestId":"9a72018a-b8fb-47b8-9cd6-0d8d4d03a540","method":"POST","path":"/api/auth/login","status":401,"duration":105}
+15:27:42 [32minfo[39m: POST /api/auth/login 401 133ms {"requestId":"6e6fe5a1-c5dd-46d3-989f-dc3c32e36abd","method":"POST","path":"/api/auth/login","status":401,"duration":133}
+15:27:43 [32minfo[39m: POST /api/auth/login 401 53ms {"requestId":"e4af7d96-1a54-467d-8a48-922d91884587","method":"POST","path":"/api/auth/login","status":401,"duration":53}
+15:27:43 [32minfo[39m: POST /api/auth/login 401 54ms {"requestId":"72aa5906-29a3-492e-b3fa-6feb7954f0fc","method":"POST","path":"/api/auth/login","status":401,"duration":54}
+15:27:53 [32minfo[39m: POST /api/auth/login 401 56ms {"requestId":"734d0f7b-b573-4954-ab5c-446baa657757","method":"POST","path":"/api/auth/login","status":401,"duration":56}
+15:27:53 [32minfo[39m: POST /api/auth/login 429 1ms {"requestId":"dacb2de7-70bd-44c7-ac83-6a1dcd3ba338","method":"POST","path":"/api/auth/login","status":429,"duration":1}
+15:27:53 [32minfo[39m: POST /api/auth/login 429 1ms {"requestId":"e6a8262d-a6ea-4a37-a864-fad82e87c7c9","method":"POST","path":"/api/auth/login","status":429,"duration":1}
+15:27:54 [32minfo[39m: POST /api/auth/login 429 1ms {"requestId":"5f6aab0e-1067-4a7a-a2bf-edbd0a49c7ee","method":"POST","path":"/api/auth/login","status":429,"duration":1}
+15:27:54 [32minfo[39m: POST /api/auth/login 429 2ms {"requestId":"3d03aef1-c956-45d3-978e-4542102ab7d0","method":"POST","path":"/api/auth/login","status":429,"duration":2}
+15:27:54 [32minfo[39m: POST /api/auth/login 429 1ms {"requestId":"1bbd262c-608a-4952-92c2-c758fe180d54","method":"POST","path":"/api/auth/login","status":429,"duration":1}
+15:28:31 [32minfo[39m: GET /api/docs/ 304 12ms {"requestId":"38563b0c-2124-4e90-adb2-149b4fd2b903","method":"GET","path":"/api/docs/","status":304,"duration":12}
+15:28:32 [32minfo[39m: GET /api/docs/swagger-ui.css 200 23ms {"requestId":"89f465c5-a915-4265-a3d7-90f53d358a6f","method":"GET","path":"/api/docs/swagger-ui.css","status":200,"duration":23}
+15:28:32 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"b1582b7f-c0ea-469c-b3d5-88750519040e","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
+15:28:32 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 200 30ms {"requestId":"0598b425-a8a3-4cb7-a514-aaa0dfede75d","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":200,"duration":30}
+15:28:32 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 200 42ms {"requestId":"b30b09c1-9cfc-4578-8886-83cc82d944bd","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":200,"duration":42}
+15:33:27 [32minfo[39m: POST /api/auth/login 429 14ms {"requestId":"26c7f5a8-afd4-4c7d-a456-badcb3593026","method":"POST","path":"/api/auth/login","status":429,"duration":14}
+15:34:33 [32minfo[39m: POST /api/auth/register 201 282ms {"requestId":"ad863290-c009-4b48-832d-c1e1df0130a8","method":"POST","path":"/api/auth/register","status":201,"duration":282}
+15:34:33 [32minfo[39m: GET /api/health-profile 404 102ms {"requestId":"d8c8e272-ffab-4a15-9275-bce2fa067729","method":"GET","path":"/api/health-profile","status":404,"duration":102,"userId":"69e493988cebbb93f344e60f"}
+15:34:36 [32minfo[39m: GET /api/auth/profile 200 159ms {"requestId":"152a4740-1331-4206-9b4f-257f5e8c58b6","method":"GET","path":"/api/auth/profile","status":200,"duration":159,"userId":"69e493988cebbb93f344e60f"}
+15:34:40 [32minfo[39m: GET /api/diseases 200 1ms {"requestId":"923745f8-46d4-470a-b343-e91bea893c92","method":"GET","path":"/api/diseases","status":200,"duration":1}
+15:40:16 [32minfo[39m: MongoDB connected
+15:40:16 [32minfo[39m: Server listening on http://localhost:4000
+15:40:16 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:40:27 [32minfo[39m: MongoDB connected
+15:40:27 [32minfo[39m: Server listening on http://localhost:4000
+15:40:27 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:40:30 [32minfo[39m: MongoDB connected
+15:40:30 [32minfo[39m: Server listening on http://localhost:4000
+15:40:30 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:40:31 [32minfo[39m: MongoDB connected
+15:40:31 [32minfo[39m: Server listening on http://localhost:4000
+15:40:31 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:47:37 [32minfo[39m: RAG Indexer: Recipes progress 10/40
+15:47:37 [32minfo[39m: RAG Indexer: Recipes progress 20/40
+15:47:37 [32minfo[39m: RAG Indexer: Recipes progress 30/40
+15:47:38 [32minfo[39m: RAG Indexer: Recipes progress 40/40
+15:47:38 [32minfo[39m: RAG Indexer: Recipes done — indexed 40, errors 0
+15:47:38 [32minfo[39m: RAG Indexer: Guidelines done — indexed 10, errors 0
+15:47:39 [32minfo[39m: RAG Indexer: Ingredients progress 10/52
+15:47:39 [32minfo[39m: RAG Indexer: Ingredients progress 20/52
+15:47:40 [32minfo[39m: RAG Indexer: Ingredients progress 30/52
+15:47:40 [32minfo[39m: RAG Indexer: Ingredients progress 40/52
+15:47:41 [32minfo[39m: RAG Indexer: Ingredients progress 50/52
+15:47:41 [32minfo[39m: RAG Indexer: Ingredients progress 52/52
+15:47:43 [32minfo[39m: MongoDB connected
+15:47:43 [32minfo[39m: Server listening on http://localhost:4000
+15:47:43 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+15:47:47 [32minfo[39m: GET /api/health-profile 404 336ms {"requestId":"4e78769c-559a-401a-a3b3-78038a7275fa","method":"GET","path":"/api/health-profile","status":404,"duration":336,"userId":"69e493988cebbb93f344e60f"}
+15:47:49 [32minfo[39m: GET /api/meal-plans/latest 404 105ms {"requestId":"cd5d3223-7de5-4d80-872a-0d99bd8630ca","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":105,"userId":"69e493988cebbb93f344e60f"}
+15:47:51 [32minfo[39m: GET /api/meal-plans/latest 404 117ms {"requestId":"c4ea1cdd-f018-4b1c-9c0d-ca5198b08b77","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":117,"userId":"69e493988cebbb93f344e60f"}
+15:47:54 [32minfo[39m: GET /api/auth/profile 304 105ms {"requestId":"e1596b53-2f25-4631-96d5-a0854619b9fa","method":"GET","path":"/api/auth/profile","status":304,"duration":105,"userId":"69e493988cebbb93f344e60f"}
+15:47:56 [32minfo[39m: GET /api/meal-plans/latest 404 251ms {"requestId":"2e9dcef3-3a18-4e8f-b5b7-e08703ab68d0","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":251,"userId":"69e493988cebbb93f344e60f"}
+15:48:00 [32minfo[39m: GET /api/auth/profile 304 162ms {"requestId":"a2966e0c-c91e-41bd-a0a2-185bcd390f12","method":"GET","path":"/api/auth/profile","status":304,"duration":162,"userId":"69e493988cebbb93f344e60f"}
+15:48:01 [32minfo[39m: GET /api/meal-plans/latest 404 103ms {"requestId":"d409c1b5-8e1f-4572-9297-8f4c6a8f3afc","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":103,"userId":"69e493988cebbb93f344e60f"}
+15:52:42 [32minfo[39m: GET /api/auth/profile 401 100ms {"requestId":"d9620cbb-0afa-49e6-a3fc-40996bed2af5","method":"GET","path":"/api/auth/profile","status":401,"duration":100}
+15:52:58 [32minfo[39m: POST /api/auth/login 200 301ms {"requestId":"15431487-1ce6-497c-b1c0-dae1d030d762","method":"POST","path":"/api/auth/login","status":200,"duration":301}
+15:53:02 [32minfo[39m: GET /api/meal-plans/latest 404 105ms {"requestId":"80fb0a53-32fa-47ba-b372-30ca868f0255","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":105,"userId":"69e493988cebbb93f344e60f"}
+15:53:24 [32minfo[39m: POST /api/auth/login 200 183ms {"requestId":"97dfd281-efe5-4458-9a04-96706117613d","method":"POST","path":"/api/auth/login","status":200,"duration":183}
+15:53:47 [32minfo[39m: GET /api/meal-plans?limit=10&skip=0 200 202ms {"requestId":"7df46ab8-1a32-477a-b3d2-5993dcef9f09","method":"GET","path":"/api/meal-plans?limit=10&skip=0","status":200,"duration":202,"userId":"69e493988cebbb93f344e60f"}
+15:53:55 [32minfo[39m: GET /api/meal-plans?limit=10&skip=0 304 234ms {"requestId":"c328484a-8681-4923-b118-4f70d388afbd","method":"GET","path":"/api/meal-plans?limit=10&skip=0","status":304,"duration":234,"userId":"69e493988cebbb93f344e60f"}
+15:53:56 [32minfo[39m: GET /api/meal-plans?limit=10&skip=0 304 153ms {"requestId":"e4dac27f-f3bb-4660-b041-57270523067f","method":"GET","path":"/api/meal-plans?limit=10&skip=0","status":304,"duration":153,"userId":"69e493988cebbb93f344e60f"}
+15:54:11 [32minfo[39m: GET /api/meal-plans?limit=10&skip=0 304 153ms {"requestId":"3c9d6c0e-cdb9-4693-a6b4-239c0c99251a","method":"GET","path":"/api/meal-plans?limit=10&skip=0","status":304,"duration":153,"userId":"69e493988cebbb93f344e60f"}
+15:54:11 [32minfo[39m: GET /api/meal-plans?limit=10&skip=0 304 172ms {"requestId":"47182116-e7c0-4c82-a515-0a005a7d1ed7","method":"GET","path":"/api/meal-plans?limit=10&skip=0","status":304,"duration":172,"userId":"69e493988cebbb93f344e60f"}
+15:54:11 [32minfo[39m: GET /api/meal-plans?limit=10&skip=0 304 153ms {"requestId":"a7e73bf5-aad3-42aa-a6d8-de4c140589e1","method":"GET","path":"/api/meal-plans?limit=10&skip=0","status":304,"duration":153,"userId":"69e493988cebbb93f344e60f"}
+15:54:12 [32minfo[39m: GET /api/meal-plans?limit=10&skip=0 304 220ms {"requestId":"ec25a6f6-2953-42e5-9600-67eddcec2ad4","method":"GET","path":"/api/meal-plans?limit=10&skip=0","status":304,"duration":220,"userId":"69e493988cebbb93f344e60f"}
+15:54:12 [32minfo[39m: GET /api/meal-plans?limit=10&skip=0 304 149ms {"requestId":"26ce3c60-0a9e-4fe5-aa79-9eae8ebea64c","method":"GET","path":"/api/meal-plans?limit=10&skip=0","status":304,"duration":149,"userId":"69e493988cebbb93f344e60f"}
+16:28:31 [32minfo[39m: GET /api/health-profile 401 794ms {"requestId":"2871e8ea-8ab3-4f9b-b7f0-18670f53d83e","method":"GET","path":"/api/health-profile","status":401,"duration":794}
+16:28:35 [32minfo[39m: GET /api/meal-plans/latest 401 50ms {"requestId":"6d16135b-a367-4d8e-b14b-bc9e0da94b17","method":"GET","path":"/api/meal-plans/latest","status":401,"duration":50}
+16:29:14 [32minfo[39m: POST /api/auth/login 200 231ms {"requestId":"16acb7b2-3b82-4983-9929-b50f1491f75b","method":"POST","path":"/api/auth/login","status":200,"duration":231}
+16:29:14 [32minfo[39m: GET /api/health-profile 404 162ms {"requestId":"18c3533a-df70-4c13-a279-8f5c5a864379","method":"GET","path":"/api/health-profile","status":404,"duration":162,"userId":"69e493988cebbb93f344e60f"}
+16:29:21 [32minfo[39m: GET /api/meal-plans/latest 404 106ms {"requestId":"91e8db20-36b0-4e60-8745-0cc9c913ffc1","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":106,"userId":"69e493988cebbb93f344e60f"}
+16:29:24 [32minfo[39m: GET /api/auth/profile 200 109ms {"requestId":"bbf4801a-c1a4-4f9f-a3e4-8c1076c060c1","method":"GET","path":"/api/auth/profile","status":200,"duration":109,"userId":"69e493988cebbb93f344e60f"}
+16:29:25 [32minfo[39m: GET /api/meal-plans/latest 404 137ms {"requestId":"3362b9c3-9c00-41b2-a20e-bee43229a0e7","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":137,"userId":"69e493988cebbb93f344e60f"}
+16:29:40 [32minfo[39m: GET /api/diseases 304 36ms {"requestId":"63608ee9-8d6f-4a6c-9065-1bb46f9bb97d","method":"GET","path":"/api/diseases","status":304,"duration":36}
+16:35:29 [32minfo[39m: GET /api/health-profile 404 114ms {"requestId":"66280bfd-397d-499c-89bd-3fd2a46bc197","method":"GET","path":"/api/health-profile","status":404,"duration":114,"userId":"69e493988cebbb93f344e60f"}
+16:35:43 [32minfo[39m: POST /api/meal-plans/generate 404 121ms {"requestId":"b82b5e1a-594d-4013-bfae-043aa73164c7","method":"POST","path":"/api/meal-plans/generate","status":404,"duration":121,"userId":"69e493988cebbb93f344e60f"}
+16:35:46 [32minfo[39m: POST /api/meal-plans/generate 404 101ms {"requestId":"552f499f-8548-4e7f-9692-660bba1a27cc","method":"POST","path":"/api/meal-plans/generate","status":404,"duration":101,"userId":"69e493988cebbb93f344e60f"}
+16:36:07 [32minfo[39m: GET /api/auth/profile 304 97ms {"requestId":"2816dc2b-173e-4533-8859-6932d5ea6151","method":"GET","path":"/api/auth/profile","status":304,"duration":97,"userId":"69e493988cebbb93f344e60f"}
+16:36:07 [32minfo[39m: GET /api/meal-plans/latest 404 98ms {"requestId":"bbcbb09e-faa4-4b11-b2bf-e8f1992b7b4b","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":98,"userId":"69e493988cebbb93f344e60f"}
+16:36:09 [32minfo[39m: GET /api/meal-plans/latest 404 93ms {"requestId":"187a155b-5047-4545-911d-496b1270b5c4","method":"GET","path":"/api/meal-plans/latest","status":404,"duration":93,"userId":"69e493988cebbb93f344e60f"}
+16:36:13 [32minfo[39m: POST /api/meal-plans/generate 404 102ms {"requestId":"26274d85-8987-48bb-b4e1-da2245080208","method":"POST","path":"/api/meal-plans/generate","status":404,"duration":102,"userId":"69e493988cebbb93f344e60f"}
+16:36:21 [32minfo[39m: POST /api/meal-plans/generate 404 165ms {"requestId":"c9108809-9c58-4529-8612-81a0c2596475","method":"POST","path":"/api/meal-plans/generate","status":404,"duration":165,"userId":"69e493988cebbb93f344e60f"}
+16:36:21 [32minfo[39m: POST /api/meal-plans/generate 404 182ms {"requestId":"49135c00-a362-4477-8339-0dc43204dee5","method":"POST","path":"/api/meal-plans/generate","status":404,"duration":182,"userId":"69e493988cebbb93f344e60f"}
+16:36:22 [32minfo[39m: POST /api/meal-plans/generate 404 98ms {"requestId":"9cd2058a-4c6b-400b-b403-ca3a54f4fafa","method":"POST","path":"/api/meal-plans/generate","status":404,"duration":98,"userId":"69e493988cebbb93f344e60f"}
+16:36:22 [32minfo[39m: POST /api/meal-plans/generate 404 162ms {"requestId":"1ea61511-6832-4534-b4aa-4877ca661171","method":"POST","path":"/api/meal-plans/generate","status":404,"duration":162,"userId":"69e493988cebbb93f344e60f"}

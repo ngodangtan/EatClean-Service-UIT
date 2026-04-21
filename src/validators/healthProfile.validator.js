@@ -12,12 +12,11 @@ const indicatorValueSchema = Joi.object({
 const diseaseEntrySchema = Joi.object({
   key: Joi.string().trim().required(),
   diagnosedAt: Joi.date(),
+  stage: Joi.number().integer().min(1).max(5),
   indicators: Joi.array().items(indicatorValueSchema).default([])
 });
 
 export const healthProfileSchema = Joi.object({
-  triedHealthyBefore: Joi.boolean(),
-  hungryTime: Joi.string().trim(),
   favoriteMeal: Joi.string().trim(),
   activityLevel: Joi.string().valid('sedentary', 'lightly-active', 'moderately-active', 'very-active', 'extremely-active'),
   averageDay: Joi.string().trim(),

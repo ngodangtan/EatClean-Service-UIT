@@ -1,3 +1,5 @@
+import { getDiseaseByKey } from '../data/diseaseCatalog.js';
+
 /**
  * Purpose-specific safety + planning rules for meal plan generation.
  *
@@ -6,6 +8,15 @@
  * weightGoal) and decides whether the request itself is safe to honour given
  * the user's diseases — before we spend any AI budget.
  */
+
+const LIMIT_OPERATORS = {
+  gte: (a, b) => a >= b,
+  gt:  (a, b) => a > b,
+  lte: (a, b) => a <= b,
+  lt:  (a, b) => a < b,
+  eq:  (a, b) => a === b,
+  neq: (a, b) => a !== b
+};
 
 /**
  * Conditions that medically contraindicate certain weight-management goals.
@@ -21,6 +32,56 @@ const WEIGHT_GOAL_CONTRAINDICATIONS = {
   // Aggressive deficit is risky when the user is already nutritionally compromised
   'lose-weight': ['anemia']
 };
+
+/**
+ * Evaluate catalog-defined `generationLimits` against the user's disease entries.
+ * Returns on the first matching limit found — conditions are checked in catalog order.
+ *
+ * Adding a new block rule requires only a `generationLimits` entry in diseaseCatalog.js;
+ * no changes to this function or the controller are needed.
+ *
+ * @param {Array<{key: string, [field: string]: any}>} diseaseEntries — full disease array from health profile
+ * @returns {{ blocked: boolean, reason?: string, message?: string, disease?: string }}
+ */
+export function checkDiseaseGenerationLimits(diseaseEntries) {
+  if (!Array.isArray(diseaseEntries)) return { blocked: false };
+
+  for (const entry of diseaseEntries) {
+    const catalogEntry = getDiseaseByKey(entry?.key);
+    if (!catalogEntry?.generationLimits?.length) continue;
+
+    for (const limit of catalogEntry.generationLimits) {
+      let fieldValue;
+
+      if (limit.source === 'indicator') {
+        // Resolve value from entry.indicators[].value where indicator key matches
+        const indicator = Array.isArray(entry.indicators)
+          ? entry.indicators.find(i => i.key === limit.field)
+          : null;
+        fieldValue = indicator?.value;
+      } else {
+        // Default: direct field on the disease entry (e.g. stage)
+        fieldValue = entry[limit.field];
+      }
+
+      if (fieldValue == null) continue;
+
+      const evaluate = LIMIT_OPERATORS[limit.operator];
+      if (!evaluate) continue;
+
+      if (evaluate(fieldValue, limit.value)) {
+        // Build template vars: entry fields + the resolved indicator value under its key
+        const templateVars = limit.source === 'indicator'
+          ? { ...entry, [limit.field]: fieldValue }
+          : entry;
+        const message = limit.messageVi.replace(/\{(\w+)\}/g, (_, key) => templateVars[key] ?? key);
+        return { blocked: true, reason: limit.reason, message, disease: entry.key };
+      }
+    }
+  }
+
+  return { blocked: false };
+}
 
 /**
  * @param {string} weightGoal

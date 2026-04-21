@@ -27,6 +27,8 @@ const diseaseEntrySchema = new mongoose.Schema(
   {
     key: { type: String, required: true },
     diagnosedAt: { type: Date },
+    // CKD stage (1–5). Stage 4+ requires a doctor-prescribed diet and blocks AI generation.
+    stage: { type: Number, min: 1, max: 5 },
     indicators: { type: [indicatorValueSchema], default: [] }
   },
   { _id: false }
@@ -41,12 +43,6 @@ const healthProfileSchema = new mongoose.Schema(
     // Age (auto-calculated from User birthday)
     age: { type: Number, min: 1, max: 120 },
 
-    // 2) Have you tried to eat healthy before but couldn't keep it consistent?
-    triedHealthyBefore: { type: Boolean },
-    
-    // 3) What time of the day do you usually feel hungry?
-    hungryTime: { type: String }, // e.g., 'morning', 'afternoon', 'evening', 'night'
-    
     // 4) What is your favorite meal?
     favoriteMeal: { type: String },
     
