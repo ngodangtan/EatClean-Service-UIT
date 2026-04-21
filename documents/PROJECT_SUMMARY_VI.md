@@ -1,6 +1,8 @@
 # Eat Clean API — Tổng Quan Kỹ Thuật Toàn Diện
 
-> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-04-05 | Dựa trên tất cả tài liệu yêu cầu và phân tích toàn bộ mã nguồn
+> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-04-21 | Dựa trên tất cả tài liệu yêu cầu và phân tích toàn bộ mã nguồn
+>
+> **Cập nhật 2026-04-21:** Danh mục bệnh mở rộng từ 10 lên 11 — thêm `insomnia` (`supported: false`). Cập nhật đếm bệnh trong `diseaseGuidelines.json`, `recipes.json`, `ingredients.json`. Sửa params chat LM Studio (`temperature: 0.7 → 0.2`, `max_tokens: 800 → 2000`, thêm system message). Sửa kích thước vector embedding (`768 → 1024 chiều`). Sửa mô tả regex ingredient filter (`\b` → Unicode-aware lookaround). Xóa dòng inconsistency `temperature: 0.2` (đã được fix). Thêm section triết lý thiết kế DISEASE_RULES vs DISEASE_CATALOG vào §10.2.
 
 ---
 
@@ -96,7 +98,7 @@ eat-clean-api/
 │   │   ├── mealPlanGenerate.validator.js   # Joi schema purpose-aware cho POST /generate
 │   │   └── mealPlan.schema.js              # AJV JSON schema cho đầu ra AI
 │   ├── data/
-│   │   └── diseaseCatalog.js               # Danh mục 10 bệnh (4 hỗ trợ macro + 6 chưa hỗ trợ)
+│   │   └── diseaseCatalog.js               # Danh mục 11 bệnh (4 hỗ trợ macro + 7 chưa hỗ trợ)
 │   ├── services/
 │   │   ├── mealPlanPurposeService.js       # Bảo vệ purpose: chống chỉ định, ánh xạ goal, TDEE từ HealthKit
 │   │   ├── nutrition/                      # Tính toán dinh dưỡng tất định
@@ -276,10 +278,13 @@ Tất cả giá trị dinh dưỡng dạng số (calories, protein, carbs, fat) 
 POST http://localhost:1234/v1/chat/completions
 {
   model: "local-model",
-  messages: [{ role: "user", content: <prompt đã xây dựng> }],
-  temperature: 0.7,
-  max_tokens: 800,
-  stream: false
+  messages: [
+    { role: "system", content: "You are a JSON-only meal content generator..." },
+    { role: "user", content: <prompt đã xây dựng> }
+  ],
+  temperature: 0.2,
+  max_tokens: 2000,
+  top_p: 0.9
 }
 ```
 
@@ -340,7 +345,7 @@ Pipeline RAG theo từng MealType:
 "breakfast meal for diabetes goal vietnamese cuisine"
      │
      ▼ embeddingClient.getEmbedding()
-[vector truy vấn 768 chiều]
+[vector truy vấn 1024 chiều]
      │
      ▼ vectorStore.queryDocuments(RECIPES, vector, { nResults: 3, where: { mealType: 'breakfast' } })
 [Top 3 công thức tương tự từ ChromaDB]
@@ -379,9 +384,9 @@ Mỗi công thức có:
 }
 ```
 
-Phạm vi bao phủ: tất cả 4 mealTypes, tất cả 3 goals (`lose-weight`, `gain-weight`, `improve-health`), tất cả 10 bệnh trong catalog, 4 phong cách ẩm thực (western, vietnamese, asian, mediterranean).
+Phạm vi bao phủ: tất cả 4 mealTypes, tất cả 3 goals (`lose-weight`, `gain-weight`, `improve-health`), tất cả 11 bệnh trong catalog, 4 phong cách ẩm thực (western, vietnamese, asian, mediterranean).
 
-#### `diseaseGuidelines.json` — 10 hướng dẫn bệnh lý
+#### `diseaseGuidelines.json` — 11 hướng dẫn bệnh lý
 
 Mỗi tài liệu:
 ```json
@@ -399,7 +404,7 @@ Mỗi tài liệu:
 }
 ```
 
-Bao phủ tất cả 10 bệnh trong catalog: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`.
+Bao phủ tất cả 11 bệnh trong catalog: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`, `insomnia`.
 
 #### `ingredients.json` — 52 mục nguyên liệu tham khảo
 
@@ -417,7 +422,7 @@ Mỗi nguyên liệu:
 }
 ```
 
-Bao phủ tất cả danh mục thực phẩm. Tất cả giá trị `safeFor`/`avoidFor` tham chiếu đến tên bệnh từ catalog đầy đủ 10 bệnh.
+Bao phủ tất cả danh mục thực phẩm. Tất cả giá trị `safeFor`/`avoidFor` tham chiếu đến tên bệnh từ catalog đầy đủ 11 bệnh.
 
 ### File Dịch Vụ RAG (`src/services/rag/`)
 
@@ -1207,9 +1212,9 @@ filterIngredients(meal, diseases)              ingredientFilter.js
   │
   │  forbidden = getForbiddenIngredients(diseases)
   │  với mỗi thuật ngữ bị cấm:
-  │    xây dựng regex: /\bterm\b/i
-  │    (word-boundary ngăn "ham" khớp "edamame",
-  │     "beer" khớp "beet")
+  │    xây dựng regex: /(?<![\p{L}\p{N}])term(?![\p{L}\p{N}])/iu
+  │    (Unicode-aware lookaround — an toàn với dấu tiếng Việt;
+  │     ngăn "ham" khớp "edamame", "beer" khớp "beet")
   │  quét mọi chuỗi nguyên liệu
   │  thu thập flagged[]
   │
@@ -1217,6 +1222,14 @@ filterIngredients(meal, diseases)              ingredientFilter.js
 
 Kết quả: { safe: bool, reasons: ["Forbidden ingredients found: X, Y"] }
 ```
+
+**Triết lý thiết kế DISEASE_RULES vs DISEASE_CATALOG:**
+
+`DISEASE_CATALOG` (`src/data/diseaseCatalog.js`) liệt kê **toàn bộ 11 bệnh** mà hệ thống có thể ghi nhận trên hồ sơ sức khỏe người dùng. `DISEASE_RULES` (`src/services/disease/diseaseRules.js`) chỉ bao phủ **4 bệnh được đánh dấu `supported: true`** — những bệnh có quy tắc dinh dưỡng đủ cụ thể để tự động hóa an toàn.
+
+7 bệnh `supported: false` (fatty-liver, high-cholesterol, heart-disease, obesity, anemia, gastritis, insomnia) vẫn được lưu trên hồ sơ, hiển thị qua `GET /api/diseases`, và được tham chiếu bởi các kiểm tra chống chỉ định trong `mealPlanPurposeService.js` (ví dụ: `obesity` chặn `gain-weight`, `anemia` chặn `lose-weight`) — nhưng bộ máy macro có chủ đích bỏ qua chúng. Điều này tránh tạo ra thực đơn sai về mặt y tế cho các bệnh có quy tắc chế độ ăn quá phức tạp hoặc phụ thuộc vào tình trạng cụ thể để có thể mã hóa thành một bộ quy tắc duy nhất.
+
+Để mở rộng hỗ trợ cho một bệnh mới chỉ cần hai thay đổi: thêm entry `macroAdjustment + forbiddenIngredients + limitedIngredients + preferredIngredients` vào `DISEASE_RULES` và đổi `supported: false → true` trong catalog. Không cần thay đổi bất kỳ code controller hay service nào.
 
 ---
 
@@ -1657,7 +1670,6 @@ Kiến trúc này đảm bảo **an toàn y tế không bao giờ được ủy 
 
 | Yêu cầu | Trạng thái triển khai |
 |----------|----------------------|
-| `temperature: 0.2` | Được triển khai là `temperature: 0.7` trong `aiClient.js` |
 | Giới hạn lập trình sodium/potassium/sugar | KHÔNG được thực thi có chủ đích (cần cơ sở dữ liệu dinh dưỡng); danh sách đen nguyên liệu được dùng thay thế |
 | Logging request bằng Morgan | Morgan có trong dependencies nhưng không sử dụng; `requestLogger` tùy chỉnh bằng Winston được dùng thay thế |
 | Bộ lọc ChromaDB `$in` cho mảng bệnh | Không được ChromaDB hỗ trợ trên metadata chuỗi; lọc tương thích bệnh để cho prompt xử lý |

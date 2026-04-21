@@ -1,10 +1,12 @@
 # Eat Clean API — Comprehensive Technical Summary
 
-> Generated: 2026-03-12 | Last updated: 2026-04-12 | Based on all requirement documents and full source code analysis
+> Generated: 2026-03-12 | Last updated: 2026-04-21 | Based on all requirement documents and full source code analysis
 >
 > **2026-04-11 update notes:** Vietnamese-only product (LM Studio embedding model: `bge-m3`, knowledge base + prompts in Vietnamese). `POST /api/meal-plans/generate` is now **purpose-driven** (`daily_health_based | weight_management | disease_based`). `desiredWeight` is no longer stored on the health profile — it is request-scoped on `/generate`. The orphaned `/api/recipes` resource and its model/controller/routes/validator/tests have been removed. `HealthProfile.diseases` is now a structured subdocument array (`{ key, diagnosedAt, indicators[] }`) backed by the disease catalog.
 >
 > **2026-04-12 update notes:** Fixed embedding model references from `nomic-embed-text` to `bge-m3` (multilingual, 1024-dim) throughout. Corrected AI client params (temperature: 0.2, max_tokens: 2000, system+user messages). Fixed ingredient filter regex description to show actual Unicode-aware lookaround pattern. Added missing `favorite.routes.js` to directory listing. Added missing test files (mealPlanPurposeService, mealPlanGenerate.validator, integration tests). Fixed guidelines indexer count (4→10). Updated knowledge base examples to show actual Vietnamese content. Removed stale temperature inconsistency from Known Inconsistencies table.
+>
+> **2026-04-21 update notes:** Disease catalog expanded from 10 to 11 diseases — added `insomnia` (`supported: false`). `diseaseGuidelines.json` and `recipes.json` coverage updated accordingly. Added DISEASE_RULES vs DISEASE_CATALOG design philosophy section to §10.2. Fixed `diseaseCatalog.js` comment in directory listing (was `6 unsupported`, now `7 unsupported`).
 >
 > **2026-04-12 update notes (v2):** **Removed `goal` from HealthProfile entirely** — `goal` is no longer stored on the profile, the Mongoose schema, the Joi validator, the Swagger spec, or the controller. The nutrition engine now defaults to `'improve-health'` when no `goalOverride` is supplied (previously fell back to `healthProfile.goal`). `goalOverride` is only used by `weight_management` to inject the request-scoped `weightGoal`. The `swapMeal` controller now hardcodes `goal: 'improve-health'` instead of reading from the profile. **RAG indexer now deletes collections before re-indexing** for clean re-index behavior (new `deleteCollection()` export in `vectorStore.js`). ChromaDB `embeddingFunction` changed from a no-op wrapper to `null`. Fixed `getEmbeddingBatch` default model from `nomic-embed-text` to `bge-m3`.
 
@@ -132,10 +134,10 @@ eat-clean-api/
 │   │   ├── mealPlanPurposeService.js       # Purpose-level rules: contraindications, weightGoal mapping, Apple Watch TDEE override
 │   │   └── shoppingListService.js          # Shopping list aggregation
 │   ├── data/
-│   │   ├── diseaseCatalog.js               # 10 diseases (4 supported + 6 unsupported), indicators, supported flag
+│   │   ├── diseaseCatalog.js               # 11 diseases (4 supported + 7 unsupported), indicators, supported flag
 │   │   └── knowledgeBase/                  # Curated reference data (Vietnamese, version controlled)
 │   │       ├── recipes.json                # 40 Vietnamese reference recipes
-│   │       ├── diseaseGuidelines.json      # 10 disease dietary guidelines (Vietnamese)
+│   │       ├── diseaseGuidelines.json      # 11 disease dietary guidelines (Vietnamese)
 │   │       └── ingredients.json            # 52 ingredients (Vietnamese names, disease safety flags)
 │   └── utils/
 │       ├── AppError.js                     # Custom error class + factory functions
@@ -392,9 +394,9 @@ Each recipe has (all content in **Vietnamese**; metadata keys remain English):
 }
 ```
 
-Coverage: all 4 mealTypes, all 3 goals (`lose-weight`, `gain-weight`, `improve-health`), all 10 catalog diseases, 4 cuisines (western, vietnamese, asian, mediterranean).
+Coverage: all 4 mealTypes, all 3 goals (`lose-weight`, `gain-weight`, `improve-health`), all 11 catalog diseases, 4 cuisines (western, vietnamese, asian, mediterranean).
 
-#### `diseaseGuidelines.json` — 10 disease guidelines
+#### `diseaseGuidelines.json` — 11 disease guidelines
 
 Each document (all content in **Vietnamese**; metadata keys remain English):
 ```json
@@ -412,7 +414,7 @@ Each document (all content in **Vietnamese**; metadata keys remain English):
 }
 ```
 
-Covers all 10 catalog diseases: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`.
+Covers all 11 catalog diseases: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`, `insomnia`.
 
 #### `ingredients.json` — 52 ingredient reference entries
 
@@ -1313,6 +1315,14 @@ filterIngredients(meal, diseases)              ingredientFilter.js
 
 Result: { safe: bool, reasons: ["Forbidden ingredients found: X, Y"] }
 ```
+
+**DISEASE_RULES vs DISEASE_CATALOG — Design Philosophy:**
+
+`DISEASE_CATALOG` (`src/data/diseaseCatalog.js`) lists **all 11 diseases** the system can record on a user's health profile. `DISEASE_RULES` (`src/services/disease/diseaseRules.js`) covers only the **4 diseases marked `supported: true`** — the ones whose dietary rules are specific enough to automate safely.
+
+The 7 `supported: false` diseases (fatty-liver, high-cholesterol, heart-disease, obesity, anemia, gastritis, insomnia) are still stored on the profile, surfaced via `GET /api/diseases`, and consulted by contraindication checks in `mealPlanPurposeService.js` (e.g. `obesity` blocks `gain-weight`, `anemia` blocks `lose-weight`) — but the macro engine intentionally ignores them. This avoids generating medically incorrect plans for conditions whose dietary rules are too complex or condition-dependent to encode as a single rule set.
+
+Extending support to a new disease requires only two changes: add a `macroAdjustment + forbiddenIngredients + limitedIngredients + preferredIngredients` entry in `DISEASE_RULES` and flip `supported: false → true` in the catalog. No controller or service code needs to change.
 
 ---
 
