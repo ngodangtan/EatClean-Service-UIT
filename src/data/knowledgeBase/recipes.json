@@ -438,5 +438,49 @@
     "ingredients": ["khoai tây", "cà rốt", "hành tây", "dầu ô liu", "sữa hạnh nhân", "ngò tây"],
     "description": "Súp nghiền mịn dễ nuốt, không kích thích, phù hợp giai đoạn viêm dạ dày cấp hoặc sau khi đau dạ dày.",
     "tags": ["easy-to-digest", "bland", "soft-texture"]
+  },
+  {
+    "id": "rec_041",
+    "name": "Cháo yến mạch chuối với hạt óc chó",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": ["improve-health"],
+    "diseaseCompatible": ["insomnia", "hypertension", "obesity"],
+    "ingredients": ["yến mạch cán dẹt", "chuối", "óc chó", "sữa hạnh nhân", "mật ong nguyên chất", "quế"],
+    "description": "Bữa sáng giàu tryptophan và magie từ yến mạch, chuối và óc chó — bộ ba dinh dưỡng hỗ trợ sản xuất serotonin suốt ban ngày để đêm ngủ sâu hơn.",
+    "tags": ["tryptophan-rich", "magnesium-rich", "sleep-supporting"]
+  },
+  {
+    "id": "rec_042",
+    "name": "Cơm gạo lứt cá hồi hấp rau xanh",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": ["improve-health"],
+    "diseaseCompatible": ["insomnia", "hypertension", "heart-disease"],
+    "ingredients": ["gạo lứt", "cá hồi", "cải thìa", "tỏi", "gừng", "dầu ô liu", "chanh", "hành lá"],
+    "description": "Bữa trưa cân bằng với cá hồi giàu vitamin D và omega-3 hỗ trợ điều hòa melatonin, cơm gạo lứt tryptophan, rau xanh magie.",
+    "tags": ["omega-3", "vitamin-d", "sleep-supporting"]
+  },
+  {
+    "id": "rec_043",
+    "name": "Canh bí đỏ đậu hũ non nhẹ nhàng",
+    "mealType": "dinner",
+    "cuisine": "vietnamese",
+    "goal": ["improve-health"],
+    "diseaseCompatible": ["insomnia", "gastritis", "obesity"],
+    "ingredients": ["bí đỏ", "đậu hũ non", "hành lá", "gừng", "dầu mè", "rau ngò"],
+    "description": "Bữa tối nhẹ, dễ tiêu với bí đỏ và đậu hũ giàu tryptophan và magie. Không dầu mỡ nặng, giúp dạ dày thoải mái trước khi ngủ.",
+    "tags": ["light-dinner", "tryptophan-rich", "sleep-supporting", "easy-to-digest"]
+  },
+  {
+    "id": "rec_044",
+    "name": "Snack tối hạt hỗn hợp với anh đào",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": ["improve-health"],
+    "diseaseCompatible": ["insomnia", "hypertension", "high-cholesterol"],
+    "ingredients": ["óc chó", "hạnh nhân", "hạt bí ngô", "anh đào chua", "trà hoa cúc"],
+    "description": "Bữa phụ buổi tối nhẹ kết hợp melatonin từ óc chó và anh đào, magie từ hạt bí ngô và hạnh nhân, kèm trà hoa cúc không caffeine giúp thư giãn thần kinh trước giấc ngủ.",
+    "tags": ["melatonin-rich", "magnesium-rich", "pre-sleep", "caffeine-free"]
   }
 ]

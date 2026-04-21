@@ -151,6 +151,17 @@ const DISEASE_CATALOG = [
       { key: 'h_pylori', name: 'H. pylori test', unit: '', normalRange: 'Âm tính' },
       { key: 'pepsinogen_ratio', name: 'Pepsinogen I/II ratio', unit: '', normalRange: '> 3' }
     ]
+  },
+  {
+    key: 'insomnia',
+    name: 'Mất ngủ',
+    supported: false,
+    relatedIndicators: [
+      { key: 'sleep_total', name: 'Thời gian ngủ chính', unit: 'giờ', normalRange: '7 - 9' },
+      { key: 'sleep_deep', name: 'Thời gian ngủ sâu', unit: 'phút', normalRange: '90 - 120' },
+      { key: 'sleep_rem', name: 'Thời gian ngủ REM', unit: 'phút', normalRange: '90 - 120' },
+      { key: 'sleep_awake', name: 'Thời gian thức giữa đêm', unit: 'phút', normalRange: '< 20' }
+    ]
   }
 ];
 

@@ -225,5 +225,29 @@
       "Chọn phương pháp nấu nhẹ nhàng: hấp, luộc, nướng thay vì chiên rán",
       "Hạn chế cà phê và trà đặc — caffeine kích thích tiết axit dạ dày"
     ]
+  },
+  {
+    "id": "guide_insomnia",
+    "disease": "insomnia",
+    "summary": "Hỗ trợ giấc ngủ tự nhiên thông qua thực phẩm giàu tryptophan, magie, melatonin và vitamin B6. Tránh caffeine, rượu bia và bữa tối nặng. Ăn nhẹ trước ngủ với thực phẩm giúp thư giãn thần kinh.",
+    "recommendedFoods": [
+      "anh đào chua", "chuối", "yến mạch", "óc chó", "hạnh nhân", "hạt bí ngô",
+      "sữa ấm", "trà hoa cúc", "kiwi", "cá hồi", "gạo lứt", "bí đỏ",
+      "hạt chia", "nghệ", "mật ong nguyên chất"
+    ],
+    "avoidFoods": [
+      "cà phê", "trà đặc", "nước tăng lực", "rượu bia", "socola đen nhiều",
+      "thức ăn cay nóng vào buổi tối", "bữa tối nhiều dầu mỡ",
+      "nước ngọt có cafein", "đồ ăn nhiều đường trước khi ngủ"
+    ],
+    "mealTips": [
+      "Ăn anh đào chua hoặc uống nước ép anh đào chua trước ngủ — chứa melatonin tự nhiên giúp điều hòa chu kỳ giấc ngủ",
+      "Bữa tối nhẹ và ăn trước giờ ngủ ít nhất 3 tiếng — dạ dày đầy làm gián đoạn giấc ngủ sâu",
+      "Ăn một nắm nhỏ óc chó hoặc hạnh nhân buổi tối — cung cấp melatonin và magie giúp thư giãn cơ và thần kinh",
+      "Uống trà hoa cúc hoặc sữa ấm trước khi ngủ 30-60 phút để thư giãn hệ thần kinh",
+      "Tránh hoàn toàn caffeine sau 14:00 — thời gian bán thải của caffeine là 5-6 giờ nên uống cà phê chiều vẫn ảnh hưởng giấc ngủ đêm",
+      "Bổ sung thực phẩm giàu tryptophan (yến mạch, chuối, hạt bí ngô) vào bữa tối để hỗ trợ sản xuất serotonin và melatonin",
+      "Kiwi ăn trước ngủ 1 tiếng — nghiên cứu cho thấy kiwi cải thiện thời gian và chất lượng giấc ngủ nhờ serotonin và chất chống oxy hóa"
+    ]
   }
 ]

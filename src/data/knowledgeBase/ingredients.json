@@ -24,9 +24,9 @@
     "name": "yến mạch",
     "category": "grains",
     "aliases": ["yến mạch cán dẹt", "yến mạch cắt thép", "oats", "oatmeal"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis", "insomnia"],
     "avoidFor": [],
-    "nutritionProfile": "giàu chất xơ beta-glucan giúp giảm cholesterol và ổn định đường huyết",
+    "nutritionProfile": "giàu chất xơ beta-glucan giúp giảm cholesterol và ổn định đường huyết; chứa tryptophan hỗ trợ sản xuất melatonin",
     "substitutes": ["diêm mạch", "gạo lứt", "kiều mạch"]
   },
   {
@@ -94,9 +94,9 @@
     "name": "khoai lang",
     "category": "produce",
     "aliases": ["sweet potato"],
-    "safeFor": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "anemia", "gastritis"],
+    "safeFor": ["diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "anemia", "gastritis", "insomnia"],
     "avoidFor": [],
-    "nutritionProfile": "giàu beta-carotene, chất xơ, kali và vitamin C; chỉ số đường huyết thấp hơn khoai tây trắng",
+    "nutritionProfile": "giàu beta-carotene, chất xơ, kali và vitamin C; chứa magie và vitamin B6 hỗ trợ sản xuất serotonin giúp ngủ ngon",
     "substitutes": ["bí đỏ", "bí ngô", "cà rốt"]
   },
   {
@@ -184,9 +184,9 @@
     "name": "anh đào",
     "category": "produce",
     "aliases": ["cherry", "cherries", "anh đào chua", "anh đào ngọt"],
-    "safeFor": ["high-uric-acid", "diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "anemia"],
+    "safeFor": ["high-uric-acid", "diabetes", "hypertension", "fatty-liver", "high-cholesterol", "heart-disease", "anemia", "insomnia"],
     "avoidFor": [],
-    "nutritionProfile": "chứa anthocyanin trực tiếp giảm axit uric và viêm trong bệnh gút",
+    "nutritionProfile": "chứa anthocyanin giảm axit uric; là một trong số ít thực phẩm chứa melatonin tự nhiên giúp điều hòa giấc ngủ",
     "substitutes": ["việt quất", "dâu tây", "nho"]
   },
   {
@@ -224,9 +224,9 @@
     "name": "óc chó",
     "category": "pantry",
     "aliases": ["hạt óc chó", "walnuts"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "insomnia"],
     "avoidFor": [],
-    "nutritionProfile": "nguồn omega-3 ALA thực vật cao nhất, melatonin, chất chống oxy hóa, magie",
+    "nutritionProfile": "nguồn omega-3 ALA thực vật cao nhất; chứa melatonin và magie tự nhiên — hai yếu tố then chốt giúp cải thiện chất lượng giấc ngủ",
     "substitutes": ["hạnh nhân", "hạt hồ đào", "hạt mắc ca"]
   },
   {
@@ -234,9 +234,9 @@
     "name": "hạnh nhân",
     "category": "pantry",
     "aliases": ["hạnh nhân sống", "bơ hạnh nhân", "almonds"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "insomnia"],
     "avoidFor": [],
-    "nutritionProfile": "giàu vitamin E, magie, chất béo không bão hòa đơn, chất xơ; hỗ trợ kiểm soát đường huyết",
+    "nutritionProfile": "giàu vitamin E, magie và chất béo không bão hòa đơn; magie cao giúp thư giãn cơ và hệ thần kinh, hỗ trợ giấc ngủ sâu",
     "substitutes": ["óc chó", "hạt điều", "hạt hướng dương"]
   },
   {
@@ -244,9 +244,9 @@
     "name": "hạt chia",
     "category": "pantry",
     "aliases": ["chia"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "insomnia"],
     "avoidFor": [],
-    "nutritionProfile": "giàu omega-3 ALA, chất xơ hòa tan, canxi, đạm; tạo gel làm chậm tiêu hóa",
+    "nutritionProfile": "giàu omega-3 ALA, tryptophan và magie; omega-3 giảm viêm thần kinh giúp cải thiện chất lượng giấc ngủ REM",
     "substitutes": ["hạt lanh", "hạt gai dầu", "vỏ mã đề"]
   },
   {
@@ -474,9 +474,9 @@
     "name": "bí đỏ",
     "category": "produce",
     "aliases": ["bí ngô", "pumpkin", "squash"],
-    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis"],
+    "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia", "gastritis", "insomnia"],
     "avoidFor": [],
-    "nutritionProfile": "giàu beta-carotene, chất xơ hòa tan, vitamin A; mềm dễ tiêu, làm dịu niêm mạc dạ dày",
+    "nutritionProfile": "giàu beta-carotene, magie và tryptophan; mềm dễ tiêu, làm dịu dạ dày; tryptophan hỗ trợ tổng hợp serotonin giúp ngủ sâu",
     "substitutes": ["khoai lang", "cà rốt", "bí đao"]
   },
   {
@@ -518,5 +518,35 @@
     "avoidFor": [],
     "nutritionProfile": "giàu canxi, chất béo lành mạnh và lignan sesamin giúp hạ huyết áp",
     "substitutes": ["bơ hạnh nhân", "bơ hạt hướng dương", "bơ đậu phộng"]
+  },
+  {
+    "id": "ing_053",
+    "name": "chuối",
+    "category": "produce",
+    "aliases": ["chuối chín", "banana"],
+    "safeFor": ["insomnia", "hypertension", "anemia", "gastritis", "obesity"],
+    "avoidFor": ["diabetes", "kidney-disease"],
+    "nutritionProfile": "giàu tryptophan, vitamin B6 và magie — bộ ba dinh dưỡng thúc đẩy tổng hợp serotonin và melatonin; kali cao không phù hợp bệnh thận",
+    "substitutes": ["kiwi", "táo", "lê"]
+  },
+  {
+    "id": "ing_054",
+    "name": "trà hoa cúc",
+    "category": "pantry",
+    "aliases": ["hoa cúc khô", "chamomile tea"],
+    "safeFor": ["insomnia", "gastritis", "hypertension"],
+    "avoidFor": [],
+    "nutritionProfile": "chứa apigenin liên kết thụ thể GABA-A tạo tác dụng镇静 nhẹ; không caffeine, giảm lo âu và co thắt dạ dày",
+    "substitutes": ["trà tâm sen", "trà valerian", "sữa ấm"]
+  },
+  {
+    "id": "ing_055",
+    "name": "hạt bí ngô",
+    "category": "pantry",
+    "aliases": ["hạt bí", "pumpkin seeds", "pepitas"],
+    "safeFor": ["insomnia", "diabetes", "anemia", "hypertension"],
+    "avoidFor": [],
+    "nutritionProfile": "nguồn magie và tryptophan thực vật đặc biệt cao; magie điều hòa hệ thần kinh, tryptophan là tiền chất trực tiếp của serotonin và melatonin",
+    "substitutes": ["hạt hướng dương", "hạt điều", "hạnh nhân"]
   }
 ]
