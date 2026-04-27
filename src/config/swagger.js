@@ -76,10 +76,7 @@ const swaggerSpec = {
           userId: { type: 'string' },
           gender: { type: 'string', enum: ['male', 'female'], readOnly: true, description: 'Auto-populated from user account' },
           age: { type: 'number', readOnly: true, description: 'Auto-calculated from user birthday' },
-          favoriteMeal: { type: 'string' },
           activityLevel: { type: 'string', enum: ['sedentary', 'lightly-active', 'moderately-active', 'very-active', 'extremely-active'] },
-          averageDay: { type: 'string' },
-          workSchedule: { type: 'string' },
           sleepDuration: { type: 'number', description: 'Sleep duration in hours' },
           diseases: {
             type: 'array',

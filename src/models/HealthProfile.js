@@ -43,9 +43,6 @@ const healthProfileSchema = new mongoose.Schema(
     // Age (auto-calculated from User birthday)
     age: { type: Number, min: 1, max: 120 },
 
-    // 4) What is your favorite meal?
-    favoriteMeal: { type: String },
-    
     // 5) How tall are you? (in cm)
     height: { type: Number },
     
@@ -54,12 +51,6 @@ const healthProfileSchema = new mongoose.Schema(
 
     // 7) How active are you?
     activityLevel: { type: String, enum: ['sedentary', 'lightly-active', 'moderately-active', 'very-active', 'extremely-active'] },
-    
-    // 9) Describe your average day
-    averageDay: { type: String },
-    
-    // 10) What is your work schedule?
-    workSchedule: { type: String }, // e.g., '9-5', 'flexible', 'shift-work'
     
     // 11) Sleep duration (in hours)
     sleepDuration: { type: Number },

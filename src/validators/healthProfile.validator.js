@@ -17,10 +17,7 @@ const diseaseEntrySchema = Joi.object({
 });
 
 export const healthProfileSchema = Joi.object({
-  favoriteMeal: Joi.string().trim(),
   activityLevel: Joi.string().valid('sedentary', 'lightly-active', 'moderately-active', 'very-active', 'extremely-active'),
-  averageDay: Joi.string().trim(),
-  workSchedule: Joi.string().trim(),
   sleepDuration: Joi.number().min(0).max(24),
   diseases: Joi.array().items(diseaseEntrySchema),
   dietPreference: Joi.string().trim(),

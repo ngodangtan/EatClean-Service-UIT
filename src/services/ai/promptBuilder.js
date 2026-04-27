@@ -38,7 +38,6 @@ export function buildMealPrompt({
   dietPreference,
   cuisinePreference,
   diseases,
-  favoriteMeal,
   forbiddenIngredients,
   limitedIngredients,
   preferredIngredients,
@@ -48,7 +47,6 @@ export function buildMealPrompt({
   const safeMealType = sanitizePromptInput(mealType, 20);
   const safeGoal = sanitizePromptInput(goal);
   const safeDiet = sanitizePromptInput(dietPreference) || 'balanced';
-  const safeFavorite = sanitizePromptInput(favoriteMeal) || 'none specified';
   const safeCuisines = sanitizePromptArray(cuisinePreference);
   const safeDiseases = sanitizePromptArray(diseases);
 
@@ -66,7 +64,6 @@ User Preferences:
 - Goal: ${safeGoal}
 - Diet: ${safeDiet}
 - Cuisines: ${cuisineList}
-- Favorite food: ${safeFavorite}
 - Health conditions: ${diseasesList}
 
 Return ONLY this JSON (no markdown, no text), with ALL string values in Vietnamese:

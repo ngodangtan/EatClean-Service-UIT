@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises';
+import { readFile, readdir } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
 import { getEmbeddingBatch } from './embeddingClient.js';
@@ -9,11 +9,23 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const KB_DIR = join(__dirname, '../../data/knowledgeBase');
 
 /**
- * Read and parse a knowledge base JSON file.
+ * Read and parse a single knowledge base JSON file.
  */
 async function readKnowledgeBase(filename) {
   const content = await readFile(join(KB_DIR, filename), 'utf-8');
   return JSON.parse(content);
+}
+
+/**
+ * Read and merge all JSON files inside a knowledge base subdirectory.
+ */
+async function readKnowledgeBaseDir(dirName) {
+  const dir = join(KB_DIR, dirName);
+  const files = (await readdir(dir)).filter(f => f.endsWith('.json')).sort();
+  const chunks = await Promise.all(
+    files.map(async f => JSON.parse(await readFile(join(dir, f), 'utf-8')))
+  );
+  return chunks.flat();
 }
 
 /**
@@ -38,7 +50,7 @@ export async function indexAllCollections() {
 export async function indexRecipes() {
   await deleteCollection(COLLECTIONS.RECIPES).catch(() => {});
   await initializeCollection(COLLECTIONS.RECIPES);
-  const recipes = await readKnowledgeBase('recipes.json');
+  const recipes = await readKnowledgeBaseDir('recipes');
 
   let indexed = 0;
   let errors = 0;
@@ -140,7 +152,7 @@ export async function indexGuidelines() {
 export async function indexIngredients() {
   await deleteCollection(COLLECTIONS.INGREDIENTS).catch(() => {});
   await initializeCollection(COLLECTIONS.INGREDIENTS);
-  const ingredients = await readKnowledgeBase('ingredients.json');
+  const ingredients = await readKnowledgeBaseDir('ingredients');
 
   let indexed = 0;
   let errors = 0;

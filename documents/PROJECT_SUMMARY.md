@@ -1,12 +1,16 @@
 # Eat Clean API — Comprehensive Technical Summary
 
-> Generated: 2026-03-12 | Last updated: 2026-04-21 | Based on all requirement documents and full source code analysis
+> Generated: 2026-03-12 | Last updated: 2026-04-27 | Based on all requirement documents and full source code analysis
 >
 > **2026-04-11 update notes:** Vietnamese-only product (LM Studio embedding model: `bge-m3`, knowledge base + prompts in Vietnamese). `POST /api/meal-plans/generate` is now **purpose-driven** (`daily_health_based | weight_management | disease_based`). `desiredWeight` is no longer stored on the health profile — it is request-scoped on `/generate`. The orphaned `/api/recipes` resource and its model/controller/routes/validator/tests have been removed. `HealthProfile.diseases` is now a structured subdocument array (`{ key, diagnosedAt, indicators[] }`) backed by the disease catalog.
 >
 > **2026-04-12 update notes:** Fixed embedding model references from `nomic-embed-text` to `bge-m3` (multilingual, 1024-dim) throughout. Corrected AI client params (temperature: 0.2, max_tokens: 2000, system+user messages). Fixed ingredient filter regex description to show actual Unicode-aware lookaround pattern. Added missing `favorite.routes.js` to directory listing. Added missing test files (mealPlanPurposeService, mealPlanGenerate.validator, integration tests). Fixed guidelines indexer count (4→10). Updated knowledge base examples to show actual Vietnamese content. Removed stale temperature inconsistency from Known Inconsistencies table.
 >
 > **2026-04-21 update notes:** Disease catalog expanded from 10 to 11 diseases — added `insomnia` (`supported: false`). `diseaseGuidelines.json` and `recipes.json` coverage updated accordingly. Added DISEASE_RULES vs DISEASE_CATALOG design philosophy section to §10.2. Fixed `diseaseCatalog.js` comment in directory listing (was `6 unsupported`, now `7 unsupported`).
+>
+> **2026-04-26 update notes:** Removed `favoriteMeal`, `averageDay`, and `workSchedule` from `HealthProfile` — model, Joi validator, controller, and Swagger spec all updated. `buildMealPrompt()` no longer accepts or injects `favoriteMeal` ("Favorite food:" line removed from prompt). `retrieveRelevantMeals()` no longer accepts `favoriteMeal` as a param or appends it to the query string. Added undocumented `stage` field (optional integer 1–5, CKD staging) to `diseaseEntrySchema`. Fixed disease-count reference from 10→11 in health profile constraints section.
+>
+> **2026-04-27 update notes:** Knowledge base split into subdirectories — `recipes/` now contains 4 files by mealType (`breakfast.json`, `lunch.json`, `dinner.json`, `snack.json`); `ingredients/` now contains 5 files by category (`dairy.json`, `grains.json`, `pantry.json`, `produce.json`, `protein.json`). Total recipe count grew from 40 to 96 (11 new `lose-weight` dishes added). Ingredient count grew from 52 to 85. Directory listing in §2 updated accordingly.
 >
 > **2026-04-12 update notes (v2):** **Removed `goal` from HealthProfile entirely** — `goal` is no longer stored on the profile, the Mongoose schema, the Joi validator, the Swagger spec, or the controller. The nutrition engine now defaults to `'improve-health'` when no `goalOverride` is supplied (previously fell back to `healthProfile.goal`). `goalOverride` is only used by `weight_management` to inject the request-scoped `weightGoal`. The `swapMeal` controller now hardcodes `goal: 'improve-health'` instead of reading from the profile. **RAG indexer now deletes collections before re-indexing** for clean re-index behavior (new `deleteCollection()` export in `vectorStore.js`). ChromaDB `embeddingFunction` changed from a no-op wrapper to `null`. Fixed `getEmbeddingBatch` default model from `nomic-embed-text` to `bge-m3`.
 
@@ -136,9 +140,9 @@ eat-clean-api/
 │   ├── data/
 │   │   ├── diseaseCatalog.js               # 11 diseases (4 supported + 7 unsupported), indicators, supported flag
 │   │   └── knowledgeBase/                  # Curated reference data (Vietnamese, version controlled)
-│   │       ├── recipes.json                # 40 Vietnamese reference recipes
+│   │       ├── recipes/                    # 96 Vietnamese reference recipes split by mealType (breakfast, lunch, dinner, snack)
 │   │       ├── diseaseGuidelines.json      # 11 disease dietary guidelines (Vietnamese)
-│   │       └── ingredients.json            # 52 ingredients (Vietnamese names, disease safety flags)
+│   │       └── ingredients/                # 85 ingredients split by category (dairy, grains, pantry, produce, protein)
 │   └── utils/
 │       ├── AppError.js                     # Custom error class + factory functions
 │       └── logger.js                       # Winston logger
@@ -377,7 +381,7 @@ Per-MealType RAG Pipeline:
 
 These are **version-controlled JSON files** — the source of truth for the knowledge base. Any update to them requires re-running `npm run rag:index` to sync ChromaDB.
 
-#### `recipes.json` — 40 reference recipes
+#### `recipes/` — 96 reference recipes (split by mealType)
 
 Each recipe has (all content in **Vietnamese**; metadata keys remain English):
 ```json
@@ -416,7 +420,7 @@ Each document (all content in **Vietnamese**; metadata keys remain English):
 
 Covers all 11 catalog diseases: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`, `insomnia`.
 
-#### `ingredients.json` — 52 ingredient reference entries
+#### `ingredients/` — 85 ingredient reference entries (split by category)
 
 Each ingredient (Vietnamese names and descriptions; metadata keys remain English):
 ```json
@@ -432,7 +436,7 @@ Each ingredient (Vietnamese names and descriptions; metadata keys remain English
 }
 ```
 
-Covers all food categories. All `safeFor`/`avoidFor` values reference disease names from the full 10-disease catalog.
+Covers all food categories. All `safeFor`/`avoidFor` values reference disease names from the full 11-disease catalog.
 
 ### RAG Service Files (`src/services/rag/`)
 
@@ -478,7 +482,7 @@ Responsibility: high-level retrieval — compose embeddingClient + vectorStore.
 
 ```javascript
 // Exports:
-retrieveRelevantMeals({ mealType, goal, diseases, cuisine, favoriteMeal, nResults })
+retrieveRelevantMeals({ mealType, goal, diseases, cuisine, nResults })
 // → builds query string from non-null params, embeds it, queries RECIPES with mealType filter
 // → returns raw ChromaDB result | null
 
@@ -528,9 +532,9 @@ Responsibility: one-time and incremental indexing of JSON files into ChromaDB.
 ```javascript
 // Exports:
 indexAllCollections()    // indexes all three files concurrently, returns { recipes, guidelines, ingredients, errors }
-indexRecipes()           // deletes RECIPES collection, then reads recipes.json, batches of 10, upserts
+indexRecipes()           // deletes RECIPES collection, then reads recipes/ dir (all JSON files), batches of 10, upserts
 indexGuidelines()        // deletes GUIDELINES collection, then reads diseaseGuidelines.json, upserts
-indexIngredients()       // deletes INGREDIENTS collection, then reads ingredients.json, batches of 10, upserts
+indexIngredients()       // deletes INGREDIENTS collection, then reads ingredients/ dir (all JSON files), batches of 10, upserts
 
 // Document string format (what gets embedded + stored):
 // Recipe:    "{name}. {mealType} for {goal}. Ingredients: {ingredients}. {description}"
@@ -640,9 +644,9 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 ### 5.2 Health Profile APIs
 
 #### POST `/api/health-profile` / PUT `/api/health-profile`
-- **Input:** `{ triedHealthyBefore?, hungryTime?, favoriteMeal?, activityLevel?, averageDay?, workSchedule?, sleepDuration?, diseases?, dietPreference?, mealsPerDay?, cuisinePreference? }`
+- **Input:** `{ activityLevel?, sleepDuration?, diseases?, dietPreference?, mealsPerDay?, cuisinePreference? }`
 - **Note:** `desiredWeight` is **not** part of this resource — it is now a request-scoped field on `POST /api/meal-plans/generate` (purpose=weight_management). `gender`, `birthday`, `height`, `currentWeight` come from the User account at registration time and are not editable here.
-- **`diseases` shape:** array of `{ key, diagnosedAt?, indicators: [{ key, value, unit?, measuredAt?, note? }] }`. Disease keys, indicator keys, "indicator belongs to disease", and duplicates are cross-checked against `src/data/diseaseCatalog.js` after Joi validation. Indicator units are snapshotted from the catalog at write time so historical records stay interpretable if catalog units change.
+- **`diseases` shape:** array of `{ key, diagnosedAt?, stage?, indicators: [{ key, value, unit?, measuredAt?, note? }] }`. `stage` (integer 1–5) records CKD staging for `kidney-disease`. Disease keys, indicator keys, "indicator belongs to disease", and duplicates are cross-checked against `src/data/diseaseCatalog.js` after Joi validation. Indicator units are snapshotted from the catalog at write time so historical records stay interpretable if catalog units change.
 - **Action:** POST creates or upserts; PUT is the same handler — accepts partial payloads (omitted fields preserved). Arrays like `diseases` are replaced wholesale, so the frontend should send the complete array, not a delta.
 - **Usage:** Profile is the foundation for all meal plan generation
 
@@ -815,7 +819,7 @@ The orphaned `/api/recipes` resource (model, controller, routes, validator, test
 | Model | Key Fields | Indexes |
 |-------|-----------|---------|
 | `User` | email, password (bcrypt), gender, birthday, height, currentWeight, refreshTokens[] | email (unique) |
-| `HealthProfile` | userId, gender (snapshot), age (derived), diseases[] (subdocument array of `{ key, diagnosedAt, indicators[] }`) | userId (unique) |
+| `HealthProfile` | userId, gender (snapshot), age (derived), diseases[] (subdocument array of `{ key, diagnosedAt, stage?, indicators[] }`) | userId (unique) |
 | `MealPlan` | userId, **purpose** (`daily_health_based\|weight_management\|disease_based`), days[], swapHistory, swapCount, duration | userId + createdAt (compound) |
 | `Favorite` | userId, targetType (`'meal-plan'` only), targetId | userId+targetType+targetId (unique compound) |
 | `TokenBlacklist` | token, expiresAt | token (unique), expiresAt (TTL — auto-delete) |
@@ -861,8 +865,8 @@ The orphaned `/api/recipes` resource (model, controller, routes, validator, test
 activityLevel: 'sedentary' | 'lightly-active' | 'moderately-active' | 'very-active' | 'extremely-active'
 mealsPerDay:   1–6
 sleepDuration: 0–24 (hours)
-diseases:      [{ key, diagnosedAt?, indicators: [{ key, value, unit?, measuredAt?, note? }] }]
-               — disease keys cross-checked against src/data/diseaseCatalog.js (10 keys total)
+diseases:      [{ key, diagnosedAt?, stage?, indicators: [{ key, value, unit?, measuredAt?, note? }] }]
+               — disease keys cross-checked against src/data/diseaseCatalog.js (11 keys total)
                — indicator keys cross-checked against the disease's relatedIndicators
                — duplicate disease keys and duplicate indicator keys rejected
 cuisinePreference: array (max 10)
@@ -1329,7 +1333,7 @@ Extending support to a new disease requires only two changes: add a `macroAdjust
 ### 10.3 RAG Layer (`src/services/rag/`)
 
 ```
-Input: { mealType, goal, diseases[], cuisine, favoriteMeal }  per unique mealType
+Input: { mealType, goal, diseases[], cuisine }  per unique mealType
                                     │
          ┌──────────────────────────▼──────────────────────────┐
          │               retriever.js                          │
@@ -1340,7 +1344,7 @@ Input: { mealType, goal, diseases[], cuisine, favoriteMeal }  per unique mealTyp
          │  retrieveRelevantMeals():                           │
          │    Build query string (omit null fields):           │
          │    "{mealType} meal for {goal} goal                 │
-         │     {cuisine} cuisine {favoriteMeal}"               │
+         │     {cuisine} cuisine"                              │
          │                                                     │
          │  retrieveDiseaseGuidelines(diseases):               │
          │    For each unique disease:                         │
@@ -1461,7 +1465,7 @@ indexAllCollections() runs these in parallel:
 ```
 Input: mealInput { mealType, calories, protein, carbs, fat, goal,
                    dietPreference, cuisinePreference, diseases,
-                   favoriteMeal, forbiddenIngredients, limitedIngredients,
+                   forbiddenIngredients, limitedIngredients,
                    preferredIngredients, retrievedContext }
 callBudget: { remaining: N }
                                     │
@@ -1502,7 +1506,7 @@ callBudget: { remaining: N }
          │  │  calories, protein, carbs, fat              │   │
          │  ├─────────────────────────────────────────────┤   │
          │  │ User Preferences:                           │   │
-         │  │  goal, diet, cuisines, favorite, diseases   │   │
+         │  │  goal, diet, cuisines, diseases             │   │
          │  ├─────────────────────────────────────────────┤   │
          │  │ JSON format instruction + example           │   │
          │  ├─────────────────────────────────────────────┤   │
@@ -1697,7 +1701,7 @@ POST /api/meal-plans/generate
          │    Single Promise.all() fetches everything:          │
          │      - retrieveDiseaseGuidelines(diseases) — once    │
          │      - retrieveRelevantMeals({ mealType, goal,      │
-         │          diseases, cuisine, favoriteMeal })          │
+         │          diseases, cuisine })                        │
          │          — one per unique mealType, all in parallel  │
          │    for each mealType:                               │
          │      ragContextByMealType[mealType] =               │
@@ -1720,7 +1724,7 @@ POST /api/meal-plans/generate
          │      calories, protein, carbs, fat,                 │
          │      goal: nutritionPlan.goal,  ← effective goal    │
          │      dietPreference, cuisinePreference,             │
-         │      diseases, favoriteMeal,                        │
+         │      diseases,                                      │
          │      forbiddenIngredients, limitedIngredients,      │
          │      preferredIngredients,                          │
          │      retrievedContext: ragContextByMealType[mealType]│

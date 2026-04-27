@@ -179,8 +179,7 @@ export async function generateMealPlan(req, res) {
             mealType,
             goal: nutritionPlan.goal,
             diseases: effectiveDiseases,
-            cuisine: healthProfile.cuisinePreference?.[0] ?? null,
-            favoriteMeal: healthProfile.favoriteMeal ?? null
+            cuisine: healthProfile.cuisinePreference?.[0] ?? null
           })
         )
       ]);
@@ -236,7 +235,6 @@ export async function generateMealPlan(req, res) {
                 dietPreference: healthProfile.dietPreference,
                 cuisinePreference: healthProfile.cuisinePreference,
                 diseases,
-                favoriteMeal: healthProfile.favoriteMeal,
                 forbiddenIngredients,
                 limitedIngredients,
                 preferredIngredients,
@@ -285,7 +283,6 @@ export async function generateMealPlan(req, res) {
                     dietPreference: healthProfile.dietPreference,
                     cuisinePreference: healthProfile.cuisinePreference,
                     diseases,
-                    favoriteMeal: healthProfile.favoriteMeal,
                     forbiddenIngredients,
                     limitedIngredients,
                     preferredIngredients,
@@ -611,7 +608,6 @@ export async function swapMeal(req, res) {
       dietPreference: healthProfile?.dietPreference,
       cuisinePreference: healthProfile?.cuisinePreference,
       diseases,
-      favoriteMeal: healthProfile?.favoriteMeal,
       forbiddenIngredients,
       limitedIngredients,
       preferredIngredients
@@ -632,7 +628,6 @@ export async function swapMeal(req, res) {
           dietPreference: healthProfile?.dietPreference,
           cuisinePreference: healthProfile?.cuisinePreference,
           diseases,
-          favoriteMeal: healthProfile?.favoriteMeal,
           forbiddenIngredients,
           limitedIngredients,
           preferredIngredients,

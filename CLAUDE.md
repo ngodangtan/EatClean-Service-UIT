@@ -41,7 +41,7 @@ Test framework: **Vitest** (tests in `tests/` directory). No linter is configure
 - `src/services/disease/` — disease restriction & personalization engine
 - `src/services/rag/` — RAG layer (embedding client, ChromaDB vector store, retriever, context builder, indexer)
 - `src/services/mealPlanPurposeService.js` — request-level rules for `POST /api/meal-plans/generate`: weight-goal contraindication checks, weightGoal→engine-goal mapping, Apple Watch TDEE override
-- `src/data/knowledgeBase/` — curated Vietnamese JSON knowledge base (recipes.json, diseaseGuidelines.json, ingredients.json)
+- `src/data/knowledgeBase/` — curated Vietnamese JSON knowledge base (`recipes/` dir, `diseaseGuidelines.json`, `ingredients/` dir)
 - `src/services/mealValidationService.js` — post-generation logical validation (calorie consistency, macro consistency, meals-per-day)
 - `src/services/shoppingListService.js` — shopping list generation from meal plans
 - `scripts/` — CLI utilities (`indexKnowledgeBase.js`)
@@ -83,7 +83,7 @@ The generation flow in `mealplan.controller.js`:
 
 Supports 4 diseases (macro adjustment + ingredient filtering): `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`.
 
-The disease **catalog** (`src/data/diseaseCatalog.js`) is broader — it lists 10 conditions total (the 4 supported above plus `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`) with Vietnamese display names and per-disease health-test indicators (key, name, unit, normalRange). Unsupported entries can still be recorded on the user's profile and surfaced via `GET /api/diseases`; they are ignored by the macro engine but **are still consulted by the meal-plan purpose-level contraindication checks**.
+The disease **catalog** (`src/data/diseaseCatalog.js`) is broader — it lists 11 conditions total (the 4 supported above plus `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`, `insomnia`) with Vietnamese display names and per-disease health-test indicators (key, name, unit, normalRange). Unsupported entries can still be recorded on the user's profile and surfaced via `GET /api/diseases`; they are ignored by the macro engine but **are still consulted by the meal-plan purpose-level contraindication checks**.
 
 **Files:**
 - `diseaseRules.js` — rule config per disease (macro caps, forbidden/limited/preferred ingredients). Exports `SUPPORTED_DISEASES`, `getDiseaseRules()`, `getForbiddenIngredients()`, `getLimitedIngredients()`, `getPreferredIngredients()`
@@ -134,9 +134,9 @@ Retrieval-Augmented Generation — grounds AI meal generation in a curated knowl
 **Knowledge base (`src/data/knowledgeBase/`):**
 
 All content is **Vietnamese**. Filter metadata fields (`mealType`, `cuisine`, `goal`, `diseaseCompatible`, `tags`, `category`, `safeFor`, `avoidFor`, `disease`) remain English to keep retriever filters and the disease engine schema-stable.
-- `recipes.json` — 40 curated Vietnamese recipes covering all 4 mealTypes, 3 goals, all 10 catalog diseases, 4+ cuisines
-- `diseaseGuidelines.json` — Vietnamese dietary guidelines for all 10 catalog diseases with recommended/avoid foods and meal tips
-- `ingredients.json` — 52 ingredients (Vietnamese names) with disease safety flags (`safeFor`/`avoidFor`) referencing all 10 catalog diseases, nutrition profiles, substitutes
+- `recipes/` — 96 curated Vietnamese recipes split across `breakfast.json`, `lunch.json`, `dinner.json`, `snack.json` covering all 4 mealTypes, 3 goals, all 11 catalog diseases, 4+ cuisines
+- `diseaseGuidelines.json` — Vietnamese dietary guidelines for all 11 catalog diseases with recommended/avoid foods and meal tips
+- `ingredients/` — 85 ingredients (Vietnamese names) split across `dairy.json`, `grains.json`, `pantry.json`, `produce.json`, `protein.json`; disease safety flags (`safeFor`/`avoidFor`) reference all 11 catalog diseases, nutrition profiles, substitutes
 
 **Infrastructure:**
 - `docker-compose.rag.yml` — ChromaDB persistent container on port 8000

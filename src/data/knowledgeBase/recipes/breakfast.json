@@ -1,0 +1,704 @@
+[
+  {
+    "id": "rec_001",
+    "name": "Cháo yến mạch với quả mọng và hạt chia",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity"
+    ],
+    "ingredients": [
+      "yến mạch cán dẹt",
+      "việt quất",
+      "dâu tây",
+      "hạt chia",
+      "sữa hạnh nhân",
+      "quế"
+    ],
+    "description": "Bữa sáng giàu chất xơ, chỉ số đường huyết thấp với quả mọng giàu chất chống oxy hóa và hạt chia chứa omega-3.",
+    "tags": [
+      "high-fiber",
+      "low-glycemic",
+      "dairy-free"
+    ]
+  },
+  {
+    "id": "rec_002",
+    "name": "Phở gà",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "gastritis"
+    ],
+    "ingredients": [
+      "bánh phở",
+      "ức gà",
+      "hoa hồi",
+      "gừng",
+      "hành tây",
+      "giá đỗ",
+      "rau thơm",
+      "chanh"
+    ],
+    "description": "Món phở Việt Nam ấm nóng với ức gà nạc, gia vị thơm và rau thơm tươi.",
+    "tags": [
+      "high-protein",
+      "warming",
+      "traditional"
+    ]
+  },
+  {
+    "id": "rec_003",
+    "name": "Sữa chua Hy Lạp với các loại hạt",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "fatty-liver",
+      "high-cholesterol",
+      "obesity",
+      "gastritis"
+    ],
+    "ingredients": [
+      "sữa chua Hy Lạp không đường",
+      "óc chó",
+      "hạnh nhân",
+      "việt quất",
+      "hạt lanh",
+      "quế"
+    ],
+    "description": "Sữa chua giàu protein kết hợp quả mọng có chỉ số đường huyết thấp và chất béo lành mạnh từ hạt.",
+    "tags": [
+      "high-protein",
+      "low-glycemic",
+      "probiotic"
+    ]
+  },
+  {
+    "id": "rec_004",
+    "name": "Bánh mì trứng",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "anemia"
+    ],
+    "ingredients": [
+      "bánh mì baguette",
+      "trứng gà",
+      "dưa leo",
+      "củ cải trắng",
+      "cà rốt",
+      "ngò rí",
+      "sốt mayonnaise"
+    ],
+    "description": "Bánh mì trứng truyền thống của Việt Nam với rau củ chua ngọt và rau thơm trên bánh mì giòn.",
+    "tags": [
+      "high-calorie",
+      "traditional",
+      "satisfying"
+    ]
+  },
+  {
+    "id": "rec_005",
+    "name": "Trứng chiên lòng trắng kiểu Địa Trung Hải",
+    "mealType": "breakfast",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "hypertension",
+      "kidney-disease",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity"
+    ],
+    "ingredients": [
+      "lòng trắng trứng",
+      "ớt chuông",
+      "cà chua",
+      "dưa leo",
+      "dầu ô liu",
+      "húng quế tươi",
+      "lá oregano"
+    ],
+    "description": "Trứng chiên lòng trắng nhẹ nhàng với rau củ nhiều màu sắc, nêm bằng rau thơm thay vì muối.",
+    "tags": [
+      "low-sodium",
+      "high-protein",
+      "low-fat"
+    ]
+  },
+  {
+    "id": "rec_006",
+    "name": "Cháo gạo lứt với gừng",
+    "mealType": "breakfast",
+    "cuisine": "asian",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "kidney-disease",
+      "fatty-liver",
+      "gastritis"
+    ],
+    "ingredients": [
+      "gạo lứt",
+      "gừng",
+      "hành lá",
+      "dầu mè",
+      "lòng trắng trứng",
+      "cải thìa"
+    ],
+    "description": "Cháo gạo dễ tiêu với gừng kháng viêm và rau xanh ít kali, tốt cho người bệnh thận.",
+    "tags": [
+      "easy-to-digest",
+      "warming",
+      "low-potassium"
+    ]
+  },
+  {
+    "id": "rec_007",
+    "name": "Bánh mì nướng bơ với trứng chần",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "improve-health",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "high-cholesterol",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "bánh mì nguyên cám",
+      "quả bơ",
+      "trứng gà",
+      "nước cốt chanh",
+      "ớt vảy",
+      "rau mầm"
+    ],
+    "description": "Bánh mì nướng giàu dinh dưỡng với chất béo tốt từ bơ và protein chất lượng cao từ trứng.",
+    "tags": [
+      "high-protein",
+      "healthy-fats",
+      "potassium-rich"
+    ]
+  },
+  {
+    "id": "rec_008",
+    "name": "Đậu hũ xào rau củ",
+    "mealType": "breakfast",
+    "cuisine": "asian",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-uric-acid",
+      "diabetes",
+      "fatty-liver",
+      "high-cholesterol",
+      "obesity"
+    ],
+    "ingredients": [
+      "đậu hũ cứng",
+      "nghệ",
+      "ớt chuông",
+      "rau bina",
+      "tỏi",
+      "dầu ô liu",
+      "men dinh dưỡng"
+    ],
+    "description": "Món xào thực vật với đậu hũ, rau ít purin và nghệ kháng viêm.",
+    "tags": [
+      "vegan",
+      "low-purine",
+      "high-protein"
+    ]
+  },
+  {
+    "id": "rec_034",
+    "name": "Cháo gừng Việt Nam",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "kidney-disease",
+      "hypertension",
+      "fatty-liver",
+      "gastritis"
+    ],
+    "ingredients": [
+      "gạo trắng",
+      "gừng",
+      "hành lá",
+      "dầu mè",
+      "cá thịt trắng"
+    ],
+    "description": "Cháo gạo dịu nhẹ kiểu Việt phù hợp cho người bệnh thận, chỉ nêm với gừng.",
+    "tags": [
+      "easy-to-digest",
+      "low-potassium",
+      "traditional"
+    ]
+  },
+  {
+    "id": "rec_038",
+    "name": "Cháo bí đỏ thịt bằm",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "gastritis",
+      "anemia"
+    ],
+    "ingredients": [
+      "gạo trắng",
+      "bí đỏ",
+      "thịt heo nạc bằm",
+      "hành lá",
+      "gừng",
+      "dầu ô liu"
+    ],
+    "description": "Cháo mềm dễ tiêu với bí đỏ bảo vệ niêm mạc dạ dày, thịt nạc cung cấp đạm nhẹ nhàng, phù hợp người viêm dạ dày.",
+    "tags": [
+      "easy-to-digest",
+      "stomach-friendly",
+      "soft-texture"
+    ]
+  },
+  {
+    "id": "rec_041",
+    "name": "Cháo yến mạch chuối với hạt óc chó",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "insomnia",
+      "hypertension",
+      "obesity"
+    ],
+    "ingredients": [
+      "yến mạch cán dẹt",
+      "chuối",
+      "óc chó",
+      "sữa hạnh nhân",
+      "mật ong nguyên chất",
+      "quế"
+    ],
+    "description": "Bữa sáng giàu tryptophan và magie từ yến mạch, chuối và óc chó — bộ ba dinh dưỡng hỗ trợ sản xuất serotonin suốt ban ngày để đêm ngủ sâu hơn.",
+    "tags": [
+      "tryptophan-rich",
+      "magnesium-rich",
+      "sleep-supporting"
+    ]
+  },
+  {
+    "id": "rec_045",
+    "name": "Xôi đậu đen hạt sen",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "heart-disease",
+      "insomnia"
+    ],
+    "ingredients": [
+      "gạo nếp",
+      "đậu đen",
+      "hạt sen",
+      "dầu mè",
+      "muối biển ít"
+    ],
+    "description": "Xôi truyền thống Việt Nam với đậu đen giàu sắt, folate và anthocyanin, hạt sen giàu magie giúp thư giãn thần kinh — bữa sáng no lâu, hỗ trợ phục hồi thiếu máu và cải thiện giấc ngủ.",
+    "tags": [
+      "iron-rich",
+      "traditional",
+      "high-calorie",
+      "magnesium-rich"
+    ]
+  },
+  {
+    "id": "rec_046",
+    "name": "Cháo đậu xanh gừng",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "kidney-disease",
+      "gastritis",
+      "obesity",
+      "high-uric-acid"
+    ],
+    "ingredients": [
+      "gạo trắng",
+      "đậu xanh tách vỏ",
+      "gừng tươi",
+      "hành lá",
+      "dầu mè"
+    ],
+    "description": "Cháo đậu xanh mát lành, giải nhiệt, dễ tiêu với chỉ số đường huyết trung bình thấp, ít kali và purin — thích hợp cho người bệnh thận, tiểu đường và viêm dạ dày.",
+    "tags": [
+      "easy-to-digest",
+      "low-glycemic",
+      "cooling",
+      "low-potassium",
+      "low-purine"
+    ]
+  },
+  {
+    "id": "rec_047",
+    "name": "Sinh tố xanh cải kale táo gừng",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "hypertension",
+      "diabetes",
+      "obesity",
+      "high-cholesterol",
+      "heart-disease",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "cải kale",
+      "táo xanh",
+      "gừng tươi",
+      "dưa leo",
+      "chanh",
+      "nước lọc"
+    ],
+    "description": "Sinh tố xanh không thêm đường với cải kale giàu vitamin K và sulforaphane, táo pectin hỗ trợ hạ cholesterol, gừng kháng viêm — ít calo, no lâu và thanh lọc cơ thể.",
+    "tags": [
+      "low-calorie",
+      "anti-inflammatory",
+      "detox",
+      "no-sugar-added",
+      "fiber-rich"
+    ]
+  },
+  {
+    "id": "rec_048",
+    "name": "Cháo cá rau ngót",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "kidney-disease",
+      "hypertension"
+    ],
+    "ingredients": [
+      "gạo trắng",
+      "cá thịt trắng",
+      "rau ngót",
+      "gừng tươi",
+      "hành lá",
+      "dầu mè"
+    ],
+    "description": "Cháo cá mềm dịu với rau ngót giàu sắt phi-heme và vitamin C tự nhiên giúp tăng hấp thu sắt lên 2-3 lần — phù hợp người thiếu máu, thận yếu và cần kiểm soát huyết áp.",
+    "tags": [
+      "iron-rich",
+      "low-potassium",
+      "easy-to-digest",
+      "low-sodium"
+    ]
+  },
+  {
+    "id": "rec_049",
+    "name": "Phô mai cottage với trái cây tươi",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-uric-acid",
+      "obesity",
+      "high-cholesterol",
+      "gastritis"
+    ],
+    "ingredients": [
+      "phô mai cottage ít béo",
+      "dâu tây",
+      "kiwi",
+      "việt quất",
+      "hạt chia"
+    ],
+    "description": "Phô mai cottage ít béo là nguồn đạm cao, ít purin và ít cholesterol, kết hợp trái cây giàu vitamin C và hạt chia omega-3 — bữa sáng nhẹ nhưng đủ dinh dưỡng, thân thiện với dạ dày.",
+    "tags": [
+      "high-protein",
+      "low-purine",
+      "low-fat",
+      "vitamin-c-rich"
+    ]
+  },
+  {
+    "id": "rec_050",
+    "name": "Mì soba lạnh rau xanh",
+    "mealType": "breakfast",
+    "cuisine": "asian",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "high-cholesterol",
+      "obesity",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "mì soba kiều mạch",
+      "dưa leo",
+      "cà rốt bào sợi",
+      "cải thìa",
+      "hành lá",
+      "dầu mè",
+      "giấm gạo",
+      "gừng tươi"
+    ],
+    "description": "Mì soba kiều mạch có chỉ số đường huyết thấp, giàu rutin hỗ trợ tim mạch và quercetin kháng viêm — ăn lạnh cùng rau xanh thanh mát với nước chấm ít muối.",
+    "tags": [
+      "low-glycemic",
+      "heart-healthy",
+      "light",
+      "high-fiber"
+    ]
+  },
+  {
+    "id": "rec_051",
+    "name": "Bánh cuốn thịt gà hấp",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "gastritis",
+      "hypertension"
+    ],
+    "ingredients": [
+      "bột gạo",
+      "ức gà bằm",
+      "nấm mèo",
+      "hành tím",
+      "ngò rí",
+      "nước mắm pha loãng chanh"
+    ],
+    "description": "Bánh cuốn hấp mềm mịn nhân gà nạc và nấm mèo giàu sắt — món sáng truyền thống Việt dễ tiêu, ít dầu mỡ, không kích ứng niêm mạc dạ dày.",
+    "tags": [
+      "light",
+      "traditional",
+      "high-protein",
+      "steamed",
+      "low-fat"
+    ]
+  },
+  {
+    "id": "rec_052",
+    "name": "Trứng chiên rau củ nhẹ",
+    "mealType": "breakfast",
+    "cuisine": "asian",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "anemia"
+    ],
+    "ingredients": [
+      "trứng gà",
+      "cà rốt bào sợi",
+      "hành lá",
+      "ớt chuông đỏ",
+      "dầu ô liu",
+      "tiêu đen"
+    ],
+    "description": "Trứng chiên ít dầu với rau củ nhiều màu sắc — bổ sung sắt heme từ trứng và vitamin C từ ớt chuông đỏ giúp tăng hấp thu sắt, ít natri và ít calo.",
+    "tags": [
+      "high-protein",
+      "colorful",
+      "low-sodium",
+      "iron-rich"
+    ]
+  },
+  {
+    "id": "rec_086",
+    "name": "Trứng cuộn rau củ kiểu Nhật",
+    "mealType": "breakfast",
+    "cuisine": "asian",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "anemia"
+    ],
+    "ingredients": [
+      "trứng gà",
+      "cà rốt bào sợi",
+      "bắp cải thái mỏng",
+      "ớt chuông vàng",
+      "hành lá",
+      "nước tương nhạt"
+    ],
+    "description": "Cuộn trứng kiểu Nhật nướng lò không dầu với rau củ nhiều màu — giàu protein từ trứng, vitamin A và C từ rau, tổng calo dưới 180 kcal và no lâu.",
+    "tags": [
+      "high-protein",
+      "low-fat",
+      "low-calorie",
+      "no-oil"
+    ]
+  },
+  {
+    "id": "rec_087",
+    "name": "Bột yến mạch qua đêm vị việt quất",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "high-cholesterol",
+      "hypertension",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "yến mạch cắt thép",
+      "sữa hạnh nhân không đường",
+      "hạt chia",
+      "việt quất tươi",
+      "quế",
+      "tinh chất vani"
+    ],
+    "description": "Yến mạch ngâm lạnh qua đêm giữ nguyên beta-glucan hòa tan — không cần nấu, no lâu suốt buổi sáng, chỉ số đường huyết thấp, giàu chất chống oxy hóa từ việt quất.",
+    "tags": [
+      "meal-prep",
+      "high-fiber",
+      "low-glycemic",
+      "beta-glucan",
+      "dairy-free"
+    ]
+  },
+  {
+    "id": "rec_088",
+    "name": "Cháo gà rau muống",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "anemia",
+      "hypertension"
+    ],
+    "ingredients": [
+      "gạo trắng",
+      "ức gà",
+      "rau muống",
+      "gừng tươi",
+      "hành lá",
+      "dầu mè"
+    ],
+    "description": "Cháo gà truyền thống Việt với rau muống giàu sắt, vitamin A và C — tỷ lệ rau cao, lượng gạo thấp giúp ít tinh bột hơn cháo thông thường, đạm từ gà giữ no lâu mà vẫn nhẹ bụng.",
+    "tags": [
+      "high-protein",
+      "iron-rich",
+      "traditional",
+      "low-fat"
+    ]
+  },
+  {
+    "id": "rec_083",
+    "name": "Cháo yến mạch mặn với trứng luộc",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "high-cholesterol",
+      "hypertension",
+      "obesity",
+      "gastritis"
+    ],
+    "ingredients": [
+      "yến mạch cắt thép",
+      "trứng gà",
+      "hành lá",
+      "gừng tươi",
+      "dầu mè",
+      "rau cải thìa",
+      "tiêu đen"
+    ],
+    "description": "Yến mạch mặn kiểu Á với trứng luộc và rau xanh — beta-glucan trong yến mạch làm giảm LDL cholesterol và ổn định đường huyết, trứng cung cấp choline và chất béo tốt.",
+    "tags": [
+      "beta-glucan",
+      "cholesterol-lowering",
+      "low-glycemic",
+      "savory"
+    ]
+  }
+]

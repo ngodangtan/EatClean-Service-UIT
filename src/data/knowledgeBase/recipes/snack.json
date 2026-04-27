@@ -1,0 +1,494 @@
+[
+  {
+    "id": "rec_027",
+    "name": "Táo cắt lát với bơ hạnh nhân",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "obesity",
+      "gastritis"
+    ],
+    "ingredients": [
+      "táo",
+      "bơ hạnh nhân",
+      "quế"
+    ],
+    "description": "Bữa phụ cân bằng với đường tự nhiên từ trái cây kết hợp chất béo lành mạnh và đạm để làm chậm hấp thu đường.",
+    "tags": [
+      "blood-sugar-stable",
+      "satisfying",
+      "natural"
+    ]
+  },
+  {
+    "id": "rec_028",
+    "name": "Hỗn hợp hạt và quả mọng",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "óc chó",
+      "hạnh nhân",
+      "việt quất",
+      "nam việt quất",
+      "hạt bí ngô"
+    ],
+    "description": "Hỗn hợp giàu chất chống oxy hóa với các loại hạt không muối và hạt tốt cho tim, cung cấp năng lượng bền.",
+    "tags": [
+      "antioxidant-rich",
+      "heart-healthy",
+      "unsalted"
+    ]
+  },
+  {
+    "id": "rec_029",
+    "name": "Gỏi cuốn chay (bữa phụ)",
+    "mealType": "snack",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-uric-acid",
+      "diabetes",
+      "fatty-liver",
+      "obesity",
+      "gastritis"
+    ],
+    "ingredients": [
+      "bánh tráng",
+      "rau xà lách",
+      "dưa leo",
+      "cà rốt",
+      "rau húng",
+      "đậu hũ",
+      "bún tươi"
+    ],
+    "description": "Gỏi cuốn chay nhẹ nhàng kiểu Việt với rau thơm tươi và đạm thực vật, ít purin.",
+    "tags": [
+      "low-calorie",
+      "fresh",
+      "vegan"
+    ]
+  },
+  {
+    "id": "rec_030",
+    "name": "Hummus với dưa leo và ớt chuông",
+    "mealType": "snack",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity"
+    ],
+    "ingredients": [
+      "sốt hummus",
+      "dưa leo",
+      "ớt chuông",
+      "que cà rốt",
+      "nước cốt chanh"
+    ],
+    "description": "Sốt chấm giàu chất xơ và đạm thực vật ăn kèm rau ít calo, không thêm muối.",
+    "tags": [
+      "high-fiber",
+      "plant-protein",
+      "low-sodium"
+    ]
+  },
+  {
+    "id": "rec_031",
+    "name": "Bánh gạo lứt với bơ",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "kidney-disease",
+      "hypertension",
+      "fatty-liver",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "bánh gạo lứt",
+      "quả bơ",
+      "nước cốt chanh",
+      "ớt vảy"
+    ],
+    "description": "Bữa phụ nhẹ ít kali với chất béo tốt từ bơ trên bánh gạo nhạt.",
+    "tags": [
+      "low-sodium",
+      "low-potassium",
+      "light"
+    ]
+  },
+  {
+    "id": "rec_032",
+    "name": "Đậu nành Nhật hấp (edamame)",
+    "mealType": "snack",
+    "cuisine": "asian",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "high-uric-acid",
+      "fatty-liver",
+      "high-cholesterol",
+      "obesity"
+    ],
+    "ingredients": [
+      "đậu edamame",
+      "muối biển"
+    ],
+    "description": "Bữa phụ đạm thực vật hoàn chỉnh, giàu chất xơ và axit amin thiết yếu, ít purin.",
+    "tags": [
+      "high-protein",
+      "plant-based",
+      "low-glycemic"
+    ]
+  },
+  {
+    "id": "rec_033",
+    "name": "Sữa chua Hy Lạp với óc chó và mật ong",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "improve-health",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "fatty-liver",
+      "high-cholesterol",
+      "gastritis"
+    ],
+    "ingredients": [
+      "sữa chua Hy Lạp không đường",
+      "óc chó",
+      "quế",
+      "tinh chất vani"
+    ],
+    "description": "Sữa chua giàu protein chứa lợi khuẩn, kèm óc chó tốt cho não và quế ổn định đường huyết.",
+    "tags": [
+      "high-protein",
+      "probiotic",
+      "brain-healthy"
+    ]
+  },
+  {
+    "id": "rec_044",
+    "name": "Snack tối hạt hỗn hợp với anh đào",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "insomnia",
+      "hypertension",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "óc chó",
+      "hạnh nhân",
+      "hạt bí ngô",
+      "anh đào chua",
+      "trà hoa cúc"
+    ],
+    "description": "Bữa phụ buổi tối nhẹ kết hợp melatonin từ óc chó và anh đào, magie từ hạt bí ngô và hạnh nhân, kèm trà hoa cúc không caffeine giúp thư giãn thần kinh trước giấc ngủ.",
+    "tags": [
+      "melatonin-rich",
+      "magnesium-rich",
+      "pre-sleep",
+      "caffeine-free"
+    ]
+  },
+  {
+    "id": "rec_073",
+    "name": "Sữa chua ít béo với kiwi",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "insomnia",
+      "obesity",
+      "high-cholesterol",
+      "gastritis"
+    ],
+    "ingredients": [
+      "sữa chua ít béo",
+      "kiwi",
+      "hạt chia"
+    ],
+    "description": "Sữa chua ít béo giàu lợi khuẩn kết hợp kiwi — nghiên cứu cho thấy ăn kiwi trước ngủ 1 tiếng cải thiện chất lượng giấc ngủ nhờ serotonin và actinidin.",
+    "tags": [
+      "probiotic",
+      "sleep-supporting",
+      "low-fat",
+      "vitamin-c-rich"
+    ]
+  },
+  {
+    "id": "rec_074",
+    "name": "Cam quýt với hạt điều không muối",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "hypertension",
+      "high-cholesterol",
+      "obesity"
+    ],
+    "ingredients": [
+      "cam",
+      "quýt",
+      "hạt điều rang không muối"
+    ],
+    "description": "Cam quýt giàu vitamin C tăng hấp thu sắt phi-heme kết hợp hạt điều giàu magie, đồng và chất béo lành mạnh — bữa phụ cân bằng, không thêm muối.",
+    "tags": [
+      "vitamin-c-rich",
+      "iron-absorption",
+      "unsalted",
+      "magnesium-rich"
+    ]
+  },
+  {
+    "id": "rec_075",
+    "name": "Dưa hấu lạnh với bạc hà tươi",
+    "mealType": "snack",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-uric-acid",
+      "hypertension",
+      "obesity",
+      "kidney-disease"
+    ],
+    "ingredients": [
+      "dưa hấu",
+      "lá bạc hà tươi",
+      "chanh"
+    ],
+    "description": "Dưa hấu giàu nước và citrulline giúp đào thải axit uric, lycopene chống oxy hóa — bữa phụ mát lành, cực ít calo, hỗ trợ lợi tiểu nhẹ.",
+    "tags": [
+      "hydrating",
+      "uric-acid-lowering",
+      "low-calorie",
+      "cooling"
+    ]
+  },
+  {
+    "id": "rec_076",
+    "name": "Trà xanh với hạnh nhân rang",
+    "mealType": "snack",
+    "cuisine": "asian",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "high-cholesterol",
+      "heart-disease",
+      "fatty-liver",
+      "obesity"
+    ],
+    "ingredients": [
+      "trà xanh pha ấm",
+      "hạnh nhân rang không muối"
+    ],
+    "description": "Trà xanh giàu EGCG hỗ trợ chức năng gan, hạ cholesterol và cải thiện độ nhạy insulin, kết hợp hạnh nhân giàu vitamin E và chất béo không bão hòa đơn.",
+    "tags": [
+      "antioxidant-rich",
+      "liver-supporting",
+      "heart-healthy",
+      "low-calorie"
+    ]
+  },
+  {
+    "id": "rec_077",
+    "name": "Nước ép cà rốt táo gừng",
+    "mealType": "snack",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "diabetes",
+      "hypertension",
+      "obesity",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "cà rốt",
+      "táo xanh",
+      "gừng tươi",
+      "chanh"
+    ],
+    "description": "Nước ép cà rốt táo gừng tươi không thêm đường — beta-carotene và vitamin C từ cà rốt và táo hỗ trợ hấp thu sắt, gingerol từ gừng kháng viêm và hỗ trợ tiêu hóa.",
+    "tags": [
+      "vitamin-c-rich",
+      "anti-inflammatory",
+      "no-sugar-added",
+      "iron-absorption"
+    ]
+  },
+  {
+    "id": "rec_078",
+    "name": "Phô mai cottage với dưa leo cà chua bi",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "obesity",
+      "hypertension",
+      "high-cholesterol",
+      "high-uric-acid"
+    ],
+    "ingredients": [
+      "phô mai cottage ít béo",
+      "dưa leo",
+      "cà chua bi",
+      "rau thơm tươi"
+    ],
+    "description": "Phô mai cottage ít béo ít purin kết hợp rau củ tươi mát — giàu đạm, ít calo và ít chất béo bão hòa, không thêm muối, phù hợp người cần giảm cân và kiểm soát cholesterol.",
+    "tags": [
+      "high-protein",
+      "low-calorie",
+      "low-purine",
+      "low-sodium"
+    ]
+  },
+  {
+    "id": "rec_095",
+    "name": "Cần tây dưa leo ớt chuông chấm sốt đậu trắng",
+    "mealType": "snack",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "heart-disease",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "cần tây",
+      "dưa leo",
+      "ớt chuông đỏ",
+      "đậu trắng luộc",
+      "tỏi",
+      "chanh",
+      "dầu ô liu",
+      "thì là"
+    ],
+    "description": "Rau củ tươi giòn ít calo chấm với sốt đậu trắng tự làm — đậu trắng giàu chất xơ hòa tan và đạm thực vật giúp no lâu; tổng calo cả bữa phụ dưới 150 kcal, hoàn toàn tự nhiên.",
+    "tags": [
+      "very-low-calorie",
+      "high-fiber",
+      "plant-protein",
+      "satisfying",
+      "no-processed"
+    ]
+  },
+  {
+    "id": "rec_096",
+    "name": "Trái cây nhiệt đới ít đường",
+    "mealType": "snack",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "high-uric-acid"
+    ],
+    "ingredients": [
+      "ổi",
+      "thanh long trắng",
+      "xoài xanh",
+      "chanh dây",
+      "bạc hà tươi"
+    ],
+    "description": "Tổ hợp trái cây nhiệt đới ít đường — ổi giàu vitamin C và chất xơ, thanh long trắng hỗ trợ lợi khuẩn đường ruột, xoài xanh chứa enzyme tiêu hóa; tổng calo thấp, thích hợp bữa phụ giảm cân mà không bỏ vị ngọt tự nhiên.",
+    "tags": [
+      "low-sugar",
+      "high-fiber",
+      "vitamin-c-rich",
+      "natural",
+      "tropical"
+    ]
+  },
+  {
+    "id": "rec_079",
+    "name": "Đậu phộng rang tự nhiên với táo xanh",
+    "mealType": "snack",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "high-cholesterol",
+      "anemia",
+      "obesity"
+    ],
+    "ingredients": [
+      "đậu phộng rang không muối",
+      "táo xanh",
+      "quế"
+    ],
+    "description": "Đậu phộng rang không muối giàu niacin, magie và chất béo không bão hòa đơn kết hợp táo pectin hạ cholesterol và quế ổn định đường huyết — bữa phụ bền năng lượng.",
+    "tags": [
+      "unsalted",
+      "blood-sugar-stable",
+      "cholesterol-lowering",
+      "sustained-energy"
+    ]
+  }
+]

@@ -4,22 +4,28 @@
     "disease": "diabetes",
     "summary": "Tập trung vào thực phẩm có chỉ số đường huyết thấp. Hạn chế carbohydrate tinh chế và đường bổ sung. Ưu tiên thực phẩm giàu chất xơ giúp làm chậm hấp thu glucose.",
     "recommendedFoods": [
-      "gạo lứt", "diêm mạch", "rau xanh lá", "quả mọng", "các loại đậu", "yến mạch",
-      "khoai lang", "đậu lăng", "đậu gà", "các loại hạt", "hạt giống", "quế",
-      "giấm táo", "rau củ ít tinh bột"
+      "gạo lứt", "diêm mạch", "mì soba kiều mạch", "yến mạch cắt thép", "rau xanh lá",
+      "quả mọng", "táo", "lê", "các loại đậu", "đậu xanh", "đậu đen",
+      "khoai lang", "đậu lăng", "đậu gà", "các loại hạt", "hạt chia", "quế",
+      "giấm táo", "rau củ ít tinh bột", "khổ qua", "đậu bắp", "cá thịt trắng",
+      "đậu hũ", "ức gà", "nghệ", "sả", "bông cải xanh", "súp lơ trắng"
     ],
     "avoidFoods": [
-      "bánh mì trắng", "nước ngọt", "cơm trắng", "kẹo", "đồ ăn vặt chế biến sẵn",
-      "nước ép trái cây đóng hộp", "bánh donut", "bánh ngọt", "ngũ cốc có đường", "siro"
+      "bánh mì trắng", "nước ngọt", "cơm trắng nhiều", "kẹo", "đồ ăn vặt chế biến sẵn",
+      "nước ép trái cây đóng hộp", "bánh donut", "bánh ngọt", "ngũ cốc có đường",
+      "siro", "chuối chín", "xoài chín", "mít chín", "khoai tây chiên", "gạo nếp"
     ],
     "mealTips": [
-      "Kết hợp tinh bột với đạm hoặc chất béo lành mạnh để làm chậm hấp thu glucose",
+      "Kết hợp tinh bột với đạm hoặc chất béo lành mạnh để làm chậm hấp thu glucose — ví dụ cơm gạo lứt ăn kèm ức gà và rau xanh",
       "Chọn ngũ cốc nguyên cám thay vì ngũ cốc tinh chế trong mỗi bữa ăn",
-      "Ăn rau giàu chất xơ trong mỗi bữa để giảm tình trạng tăng đường huyết đột ngột",
-      "Ăn khẩu phần đều đặn vào giờ cố định để duy trì đường huyết ổn định",
-      "Sử dụng quế, hồ lô ba (fenugreek) và nghệ làm gia vị thân thiện với đường huyết",
-      "Ưu tiên quả mọng hơn trái cây nhiệt đới để có vị ngọt tự nhiên với chỉ số đường huyết thấp hơn",
-      "Khoai lang nên luộc hoặc hấp nguyên vỏ với khẩu phần ~150g/bữa — tránh nướng quá chín vì làm tăng chỉ số đường huyết"
+      "Ăn rau giàu chất xơ trong mỗi bữa để giảm tình trạng tăng đường huyết đột ngột sau ăn",
+      "Ăn khẩu phần đều đặn vào giờ cố định, không bỏ bữa để duy trì đường huyết ổn định",
+      "Sử dụng quế, nghệ và giấm táo làm gia vị thân thiện với đường huyết trong nấu ăn hàng ngày",
+      "Ưu tiên quả mọng và táo hơn trái cây nhiệt đới ngọt như xoài, mít — chỉ số đường huyết thấp hơn nhiều",
+      "Khoai lang nên luộc hoặc hấp nguyên vỏ, khẩu phần ~150g/bữa — tránh nướng vì làm tăng chỉ số đường huyết",
+      "Khổ qua (mướp đắng) nấu canh hoặc ép nước là thực phẩm chức năng hỗ trợ hạ đường huyết tự nhiên",
+      "Đậu bắp chứa pectin làm chậm hấp thu đường — thêm vào canh và xào thường xuyên",
+      "Ăn chậm, nhai kỹ và dừng ăn khi no 80% — kỷ luật bữa ăn quan trọng như chọn thực phẩm"
     ]
   },
   {
@@ -27,21 +33,27 @@
     "disease": "kidney-disease",
     "summary": "Quản lý lượng đạm, kali, phốt pho và natri nạp vào. Hạn chế thực phẩm giàu kali và phốt pho. Tránh thực phẩm chế biến và bảo quản nhiều natri.",
     "recommendedFoods": [
-      "súp lơ trắng", "bắp cải", "ớt chuông", "dưa leo", "táo", "việt quất",
-      "lòng trắng trứng", "gạo trắng", "mì ống", "dầu ô liu", "rau thơm tươi", "tỏi"
+      "súp lơ trắng", "bắp cải", "ớt chuông", "dưa leo", "bí ngòi", "cải thìa",
+      "táo", "việt quất", "lê", "nho",
+      "lòng trắng trứng", "gạo trắng", "bún tươi", "mì ống gạo", "đậu hũ non",
+      "cá thịt trắng hấp", "ức gà hấp", "dầu ô liu", "rau thơm tươi", "sả", "gừng"
     ],
     "avoidFoods": [
-      "thịt chế biến", "súp đóng hộp", "nước tương", "dưa muối", "hạt rang muối",
-      "mì gói", "thức ăn nhanh", "nước ngọt sậm màu", "bánh mì nguyên cám",
-      "gạo lứt", "các loại đậu", "chuối", "quả bơ", "cam", "rau bina", "khoai tây"
+      "thịt chế biến", "xúc xích", "lạp xưởng", "súp đóng hộp", "nước tương",
+      "dưa muối", "hạt rang muối", "mì gói", "thức ăn nhanh", "nước ngọt sậm màu",
+      "bánh mì nguyên cám", "gạo lứt", "các loại đậu hạt", "chuối", "quả bơ",
+      "cam", "rau bina", "khoai tây", "cà chua nhiều", "nước dừa", "sô cô la"
     ],
     "mealTips": [
-      "Hạn chế khẩu phần đạm để giảm gánh nặng cho thận — ưu tiên lòng trắng trứng thay vì trứng nguyên quả khi cần giảm đạm",
-      "Ngâm rau giàu kali bằng cách gọt vỏ, cắt nhỏ và luộc trong nhiều nước để rút bớt kali",
-      "Tránh muối thay thế vì thường chứa kali clorua làm tăng kali trong máu",
-      "Chọn rau củ tươi hoặc đông lạnh không thêm muối thay vì rau đóng hộp",
-      "Dùng rau thơm tươi, nước cốt chanh và giấm để tăng hương vị mà không cần natri",
-      "Theo dõi lượng nước nạp vào theo chỉ định của bác sĩ thận"
+      "Hạn chế khẩu phần đạm theo chỉ định bác sĩ thận — ưu tiên lòng trắng trứng thay vì trứng nguyên quả khi cần giảm phốt pho",
+      "Ngâm rau giàu kali: gọt vỏ, cắt nhỏ, ngâm nước lạnh 2 giờ rồi luộc trong nhiều nước — giảm được 30-50% kali",
+      "Tránh muối thay thế vì thường chứa kali clorua — nguy hiểm với người bệnh thận",
+      "Chọn rau củ tươi hoặc đông lạnh không ướp muối thay vì rau đóng hộp ngâm muối",
+      "Dùng rau thơm tươi (sả, gừng, ngò), nước cốt chanh và giấm gạo để tạo hương vị mà không cần muối",
+      "Theo dõi lượng nước nạp vào theo chỉ định của bác sĩ — không tự ý uống nhiều nước",
+      "Cháo cá nấu gạo trắng với cải thìa và gừng là bữa ăn lý tưởng — ít kali, ít phốt pho, dễ tiêu",
+      "Tránh các loại hạt và ngũ cốc nguyên cám vì giàu phốt pho — phốt pho cao làm tổn thương thận thêm",
+      "Kiểm tra nhãn thực phẩm — các phụ gia phốt pho (E number 338-341) hấp thu gần 100%, nguy hiểm hơn phốt pho tự nhiên"
     ]
   },
   {
@@ -49,20 +61,28 @@
     "disease": "high-uric-acid",
     "summary": "Giảm thực phẩm giàu purin làm tăng sản xuất axit uric. Uống đủ nước. Hạn chế rượu bia và thực phẩm giàu fructose. Ưu tiên đạm thực vật hơn đạm động vật.",
     "recommendedFoods": [
-      "sữa ít béo", "trứng", "đậu hũ", "anh đào", "cơm",
-      "yến mạch", "dưa leo", "cần tây", "dưa hấu", "trái cây họ cam quýt", "quả mọng"
+      "sữa ít béo", "phô mai cottage ít béo", "lòng trắng trứng", "đậu hũ", "đậu xanh", "đậu edamame",
+      "anh đào chua", "dưa hấu", "việt quất", "táo", "lê", "cần tây", "dưa leo",
+      "yến mạch", "gạo trắng", "bún tươi", "mì soba", "rau xanh lá ít purin",
+      "nghệ", "gừng", "sả", "chanh"
     ],
     "avoidFoods": [
-      "nội tạng động vật", "thịt đỏ", "hải sản có vỏ", "cá mòi", "cá trích", "cá cơm",
-      "bia", "rượu", "siro bắp giàu fructose", "nước ngọt"
+      "nội tạng động vật (gan, thận, lòng)", "thịt đỏ nhiều", "hải sản có vỏ (sò, hàu, nghêu)",
+      "cá mòi", "cá trích", "cá cơm", "cá thu nhiều",
+      "bia (đặc biệt nguy hiểm)", "rượu mạnh", "rượu vang đỏ",
+      "siro bắp giàu fructose", "nước ngọt", "nước ép trái cây đóng hộp",
+      "đậu lăng", "đậu đen nhiều", "rau bina", "nấm nhiều", "măng tây nhiều"
     ],
     "mealTips": [
-      "Uống ít nhất 8 ly nước mỗi ngày để giúp thải axit uric qua thận",
-      "Ăn anh đào hoặc uống nước ép anh đào chua — các hợp chất trong anh đào giúp hạ axit uric",
-      "Chọn các sản phẩm sữa ít béo hoặc tách béo vì giúp tăng đào thải axit uric",
-      "Hạn chế khẩu phần thịt khoảng 85-100g mỗi bữa và phân bố đạm đều trong ngày",
-      "Ưu tiên đạm thực vật (đậu hũ, đậu đỗ) và sữa ít béo, trứng hơn thịt — ức gà vẫn dùng được nhưng giới hạn 85-100g/bữa vì purin trung bình",
-      "Tránh nhịn ăn vì giảm cân quá nhanh có thể kích hoạt cơn gút do tăng axit uric"
+      "Uống 2-3 lít nước mỗi ngày để pha loãng và tăng đào thải axit uric qua thận — nước là thuốc gút tốt nhất",
+      "Ăn anh đào hoặc uống nước ép anh đào chua 1-2 lần/ngày — anthocyanin trong anh đào ức chế enzym xanthine oxidase làm giảm sản xuất axit uric",
+      "Chọn sữa ít béo và phô mai cottage — casein trong sữa tăng đào thải axit uric qua nước tiểu",
+      "Hạn chế thịt tối đa 85-100g/bữa và không ăn thịt mỗi ngày — phân bố đạm đều trong tuần",
+      "Ưu tiên đạm từ đậu hũ, đậu xanh, lòng trắng trứng và sữa ít béo thay vì đạm động vật",
+      "Tuyệt đối tránh bia — bia vừa giàu purin vừa cạnh tranh đào thải axit uric, là nguyên nhân gút số một",
+      "Không nhịn ăn hoặc giảm cân quá nhanh — tế bào mỡ phân giải nhanh làm tăng axit uric máu kích hoạt cơn gút",
+      "Thêm nghệ và gừng vào món ăn hàng ngày — curcumin và gingerol kháng viêm hỗ trợ giảm đau khớp",
+      "Gỏi cuốn chay, bún chay đậu hũ và cháo đậu xanh là các món Việt an toàn và no lâu cho người tăng uric"
     ]
   },
   {
@@ -70,22 +90,30 @@
     "disease": "hypertension",
     "summary": "Áp dụng chế độ ăn theo phong cách DASH: nhiều trái cây, rau củ, ngũ cốc nguyên cám và sữa ít béo. Hạn chế nghiêm ngặt natri, chất béo bão hòa và đường bổ sung.",
     "recommendedFoods": [
-      "chuối", "rau xanh lá", "quả mọng", "cá hồi", "tỏi",
-      "yến mạch", "củ dền", "khoai lang", "quả bơ", "hạt không muối",
-      "các loại đậu", "sữa ít béo", "ngũ cốc nguyên cám không thêm muối", "rau củ giàu kali"
+      "chuối", "rau xanh lá", "quả mọng", "cá hồi", "cá thu", "tỏi",
+      "yến mạch", "củ dền", "khoai lang", "quả bơ", "bí đỏ",
+      "hạt không muối", "hạt điều", "hạnh nhân", "hạt bí ngô",
+      "các loại đậu", "đậu đen", "đậu gà", "sữa ít béo",
+      "ngũ cốc nguyên cám không thêm muối", "rau củ giàu kali",
+      "sả", "gừng", "nghệ", "rau ngót"
     ],
     "avoidFoods": [
-      "muối ăn", "nước tương", "thịt chế biến", "thực phẩm đóng hộp", "dưa muối",
-      "snack khoai tây", "thức ăn nhanh", "tương cà", "viên nêm", "thức ăn đông lạnh chế biến sẵn"
+      "muối ăn quá mức", "nước tương", "nước mắm nguyên chất nhiều",
+      "thịt chế biến", "xúc xích", "lạp xưởng", "thực phẩm đóng hộp",
+      "dưa muối", "kim chi", "snack khoai tây", "thức ăn nhanh",
+      "tương cà ketchup", "viên nêm", "bột nêm", "thức ăn đông lạnh chế biến sẵn",
+      "rượu bia", "nước ngọt", "cà phê quá nhiều"
     ],
     "mealTips": [
-      "Mục tiêu dưới 1500mg natri mỗi ngày — dùng rau thơm, gia vị và chanh thay thế",
-      "Tăng kali từ thực phẩm tự nhiên như chuối, khoai lang và rau xanh để cân bằng natri",
-      "Áp dụng khung chế độ DASH: 4-5 phần rau và trái cây mỗi ngày",
-      "Chọn hạt không muối thay vì đồ ăn vặt mặn — magie trong hạt hỗ trợ kiểm soát huyết áp",
-      "Tự nấu ăn tại nhà để kiểm soát lượng natri — đồ ăn nhà hàng và chế biến sẵn thường rất nhiều muối",
-      "Giảm tiêu thụ rượu bia vì rượu bia làm tăng huyết áp khi dùng quá mức",
-      "Chọn bánh mì, ngũ cốc nguyên cám nhãn 'không muối' hoặc tự nấu — một số loại bánh mì nguyên cám thương mại vẫn chứa natri cao"
+      "Mục tiêu dưới 1500mg natri mỗi ngày — thay muối bằng sả, gừng, nghệ, rau thơm và chanh",
+      "Tăng kali từ thực phẩm tự nhiên: chuối, khoai lang, bí đỏ, rau ngót — kali đối kháng natri, giúp hạ huyết áp",
+      "Áp dụng khung chế độ DASH: 4-5 phần rau và trái cây mỗi ngày, hạn chế thịt đỏ",
+      "Chọn hạt không muối thay vì đồ ăn vặt mặn — magie trong hạt giãn mạch và hỗ trợ kiểm soát huyết áp",
+      "Tự nấu ăn tại nhà để kiểm soát hoàn toàn lượng natri — đồ ăn nhà hàng thường có 2-4g muối/bữa",
+      "Giảm rượu bia — mỗi đơn vị rượu làm tăng huyết áp tâm thu ~1mmHg; huyết áp giảm rõ sau 4 tuần bỏ rượu",
+      "Bổ sung củ dền hoặc nước ép củ dền — nitrat tự nhiên chuyển thành nitric oxide giãn mạch, hạ huyết áp tâm thu 4-10mmHg",
+      "Canh rau củ nấu nhạt (bí đao, cải thìa, cà rốt) là bữa tối lý tưởng — vừa tăng kali vừa giảm natri",
+      "Cá hồi và cá thu 2-3 lần/tuần — omega-3 làm giảm cứng động mạch và huyết áp tâm trương"
     ]
   },
   {
@@ -103,12 +131,16 @@
       "thịt chế biến", "mì gói", "đồ ăn vặt đóng gói"
     ],
     "mealTips": [
-      "Tuyệt đối tránh rượu bia vì rượu là nguyên nhân chính gây tổn thương gan và tích tụ mỡ gan",
-      "Ưu tiên cá giàu omega-3 như cá hồi 2-3 lần/tuần để giảm viêm gan",
-      "Thay chất béo bão hòa (mỡ heo, bơ) bằng chất béo không bão hòa (dầu ô liu, các loại hạt)",
-      "Giảm đường bổ sung và fructose — đường dư thừa chuyển hóa thành mỡ tích tụ trong gan",
-      "Tăng chất xơ từ rau xanh, ngũ cốc nguyên cám và các loại đậu để hỗ trợ chức năng gan",
-      "Uống cà phê không đường vừa phải (2-3 tách/ngày) — nghiên cứu cho thấy cà phê có lợi cho gan"
+      "Tuyệt đối tránh rượu bia — rượu là nguyên nhân gây tổn thương tế bào gan trực tiếp và làm tích mỡ nghiêm trọng",
+      "Ưu tiên cá hồi, cá thu giàu omega-3 2-3 lần/tuần — omega-3 giảm viêm và kháng xơ hóa gan",
+      "Thay chất béo bão hòa (mỡ heo, bơ động vật) bằng dầu ô liu, dầu mè và các loại hạt không muối",
+      "Giảm hoàn toàn đường bổ sung và fructose — 80% fructose chuyển hóa trực tiếp thành mỡ tại gan",
+      "Tăng chất xơ từ rau xanh, ngũ cốc nguyên cám và các loại đậu để nuôi vi khuẩn có lợi hỗ trợ chức năng gan",
+      "Uống cà phê không đường vừa phải 2-3 tách/ngày — EGCG và chlorogenic acid giảm tích mỡ gan đáng kể",
+      "Uống trà xanh không đường — catechin EGCG trong trà xanh bảo vệ tế bào gan khỏi tổn thương oxy hóa",
+      "Bổ sung nghệ vào bữa ăn hàng ngày — curcumin giảm chất béo trung tính trong gan và phục hồi enzyme gan",
+      "Khổ qua và tỏi là 'thực phẩm chức năng' cho người mỡ gan — nên nấu canh khổ qua 3-4 lần/tuần",
+      "Tránh ăn khuya và ăn quá no — gan hoạt động giải độc ban đêm sẽ bị cản trở bởi tiêu hóa"
     ]
   },
   {
@@ -185,22 +217,29 @@
     "disease": "anemia",
     "summary": "Tăng cường thực phẩm giàu sắt (cả sắt heme từ động vật và sắt non-heme từ thực vật). Kết hợp vitamin C để tăng hấp thu sắt. Tránh các chất ức chế hấp thu sắt trong bữa ăn.",
     "recommendedFoods": [
-      "thịt bò nạc", "gan gà", "thịt gà", "cá", "rau bina", "cải kale",
-      "đậu lăng", "đậu đen", "đậu gà", "ngũ cốc tăng cường sắt", "hạt bí ngô",
-      "trái cây giàu vitamin C", "cam", "ổi", "ớt chuông đỏ"
+      "thịt bò nạc", "gan gà", "thịt heo nạc", "ức gà", "tôm tươi",
+      "cá thu", "cá hồi", "nấm mèo (mộc nhĩ)",
+      "rau ngót", "cải kale", "cải thìa", "đậu đen", "đậu lăng", "đậu gà",
+      "xôi đậu đen", "hạt bí ngô", "hạt điều",
+      "cam", "quýt", "kiwi", "ổi", "ớt chuông đỏ", "cà chua",
+      "ngũ cốc tăng cường sắt"
     ],
     "avoidFoods": [
-      "trà đặc trong bữa ăn", "cà phê trong bữa ăn", "sữa bò trong bữa ăn giàu sắt",
-      "thực phẩm giàu canxi cùng lúc với sắt", "ngũ cốc tinh chế", "đồ ăn vặt calo rỗng"
+      "trà đặc trong bữa ăn", "cà phê trong bữa ăn",
+      "sữa bò trong bữa ăn giàu sắt", "phô mai cùng bữa thịt sắt",
+      "thực phẩm giàu canxi cùng lúc với sắt", "ngũ cốc tinh chế",
+      "đồ ăn vặt calo rỗng", "mì gói", "thức ăn nhanh"
     ],
     "mealTips": [
-      "Kết hợp thực phẩm giàu sắt với vitamin C (cam, chanh, ớt chuông) để tăng hấp thu sắt lên 2-3 lần",
-      "Ăn thịt đỏ nạc 2-3 lần/tuần — sắt heme từ thịt hấp thu tốt hơn 2-3 lần so với sắt thực vật",
-      "Tránh uống trà và cà phê trong hoặc ngay sau bữa ăn vì tanin ức chế hấp thu sắt",
-      "Không uống sữa hoặc bổ sung canxi cùng lúc với thực phẩm giàu sắt — canxi cạnh tranh hấp thu",
-      "Nấu bằng nồi gang (cast iron) giúp bổ sung thêm sắt vào thức ăn",
-      "Ngâm và nảy mầm đậu trước khi nấu để giảm phytate — chất ức chế hấp thu sắt",
-      "Rau bina và cải kale giàu sắt non-heme nhưng chứa oxalate — luộc sơ 1-2 phút và chắt bỏ nước để giảm oxalate, luôn ăn kèm vitamin C"
+      "Kết hợp thực phẩm giàu sắt với vitamin C trong cùng bữa ăn — cam, kiwi, ớt chuông đỏ tăng hấp thu sắt phi-heme lên 2-3 lần",
+      "Ăn thịt bò nạc hoặc gan gà 2-3 lần/tuần — sắt heme từ thịt đỏ và nội tạng hấp thu tốt nhất",
+      "Tránh uống trà và cà phê trong hoặc ngay sau bữa ăn giàu sắt — tanin ức chế hấp thu mạnh, uống trước bữa ăn ít nhất 1 giờ",
+      "Không uống sữa hoặc bổ sung canxi cùng lúc với thực phẩm giàu sắt — canxi cạnh tranh trực tiếp với sắt",
+      "Bổ sung nấm mèo (mộc nhĩ đen) vào bữa ăn thường xuyên — giàu sắt phi-heme và hỗ trợ lưu thông máu",
+      "Rau ngót là nguồn sắt phi-heme và vitamin C tự nhiên đặc biệt tốt trong bữa canh Việt",
+      "Xôi đậu đen là bữa sáng lý tưởng — đậu đen giàu sắt và folate, tốt hơn xôi trắng nhiều lần",
+      "Ngâm và nảy mầm đậu trước khi nấu để phân giải phytate — chất ức chế hấp thu sắt 30-80%",
+      "Bò xào ớt chuông đỏ là món ăn 'tăng cường sắt' tối ưu — sắt heme từ bò + vitamin C từ ớt = hấp thu tối đa"
     ]
   },
   {
@@ -208,22 +247,37 @@
     "disease": "gastritis",
     "summary": "Bảo vệ niêm mạc dạ dày bằng thực phẩm dễ tiêu, không kích thích. Tránh thực phẩm cay, chua, chiên và rượu bia. Ăn nhiều bữa nhỏ thay vì ít bữa lớn.",
     "recommendedFoods": [
-      "cháo gạo", "bánh mì nướng", "chuối", "gừng", "đậu hũ non", "cá hấp",
-      "ức gà hấp", "khoai lang hấp", "sữa chua", "yến mạch nấu chín",
-      "bí ngô", "cải thìa", "táo", "lê"
+      "cháo gạo trắng", "cháo đậu xanh", "cháo bí đỏ", "cháo cá",
+      "bánh mì nướng vừa", "bánh cuốn hấp",
+      "chuối chín", "táo hấp", "lê", "ổi chín",
+      "gừng tươi", "đậu hũ non hấp", "đậu hũ cứng áp chảo nhẹ",
+      "cá thịt trắng hấp", "ức gà hấp", "trứng luộc",
+      "khoai lang hấp", "khoai tây luộc",
+      "sữa chua không đường ít béo", "yến mạch nấu chín",
+      "bí đỏ", "bí đao", "cải thìa", "bắp cải luộc",
+      "sữa hạnh nhân ấm"
     ],
     "avoidFoods": [
-      "ớt", "tiêu", "tương ớt", "mù tạt", "rượu bia", "cà phê đặc",
-      "đồ chiên rán", "nước ngọt có ga", "cà chua sống", "giấm", "dưa muối",
-      "thức ăn nhanh", "sô cô la", "bạc hà", "tỏi sống", "hành sống", "trái cây chua khi đói"
+      "ớt tươi", "ớt khô", "tiêu đen nhiều", "tương ớt", "mù tạt", "wasabi",
+      "rượu bia", "cà phê đặc", "trà đặc",
+      "đồ chiên rán", "mỡ động vật", "da gà",
+      "nước ngọt có ga", "nước tăng lực",
+      "cà chua sống", "giấm", "dưa muối", "kim chi chua",
+      "thức ăn nhanh", "sô cô la", "bạc hà đặc",
+      "tỏi sống nhiều", "hành sống nhiều",
+      "trái cây chua khi đói (chanh, cam, bưởi)", "cà tím"
     ],
     "mealTips": [
-      "Chia thành 5-6 bữa nhỏ trong ngày thay vì 3 bữa lớn để giảm áp lực lên dạ dày",
-      "Ăn gừng tươi hoặc trà gừng — gừng có tác dụng kháng viêm và bảo vệ niêm mạc dạ dày",
-      "Nấu chín kỹ rau củ thay vì ăn sống để dễ tiêu hóa hơn",
-      "Tránh ăn quá no và không nằm ngay sau bữa ăn — đợi ít nhất 2-3 giờ trước khi nằm",
-      "Chọn phương pháp nấu nhẹ nhàng: hấp, luộc, nướng thay vì chiên rán",
-      "Hạn chế cà phê và trà đặc — caffeine kích thích tiết axit dạ dày"
+      "Chia thành 5-6 bữa nhỏ trong ngày thay vì 3 bữa lớn — lượng axit dạ dày tiết ra cân bằng hơn",
+      "Ăn gừng tươi nhỏ hoặc uống trà gừng loãng — gingerol bảo vệ niêm mạc và giảm co thắt dạ dày",
+      "Nấu chín kỹ rau củ (hấp, luộc mềm) thay vì ăn sống — cellulose cứng trong rau sống tạo ma sát cơ học với niêm mạc",
+      "Không nằm ngay sau bữa ăn — đứng hoặc ngồi ít nhất 2-3 giờ để tránh trào ngược axit",
+      "Ưu tiên hấp, luộc, nướng thay vì chiên rán — dầu mỡ nhiều kích thích tăng tiết axit và làm chậm rỗng dạ dày",
+      "Tránh cà phê — cafein kích thích tế bào parietal tiết axit HCl trực tiếp; nếu cần, dùng cà phê espresso ít axit hơn cà phê lọc",
+      "Cháo gạo trắng nấu nhuyễn là lựa chọn an toàn nhất khi dạ dày đang đau cấp — tinh bột hòa tan tạo lớp bảo vệ niêm mạc",
+      "Chuối chín tốt cho dạ dày — antacid tự nhiên, trung hòa axit và kích thích sản xuất chất nhầy bảo vệ",
+      "Sữa chua ít béo không đường hàng ngày — lợi khuẩn Lactobacillus ức chế H. pylori, nguyên nhân phổ biến gây viêm dạ dày",
+      "Ăn chậm, nhai kỹ 20-30 lần/miếng — nước bọt có bicarbonate trung hòa axit và amylase giảm tải cho dạ dày"
     ]
   },
   {

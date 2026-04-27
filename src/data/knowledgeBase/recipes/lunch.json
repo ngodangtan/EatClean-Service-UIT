@@ -1,0 +1,953 @@
+[
+  {
+    "id": "rec_009",
+    "name": "Cá hồi nướng với bông cải xanh hấp",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "hypertension",
+      "high-uric-acid",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity"
+    ],
+    "ingredients": [
+      "phi lê cá hồi",
+      "bông cải xanh",
+      "chanh",
+      "dầu ô liu",
+      "tỏi",
+      "thì là"
+    ],
+    "description": "Bữa ăn nhẹ giàu protein với axit béo omega-3 và rau họ cải.",
+    "tags": [
+      "high-protein",
+      "low-carb",
+      "gluten-free"
+    ]
+  },
+  {
+    "id": "rec_010",
+    "name": "Bún gà",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "obesity",
+      "anemia"
+    ],
+    "ingredients": [
+      "bún tươi",
+      "ức gà",
+      "rau xà lách",
+      "dưa leo",
+      "rau húng",
+      "ngò rí",
+      "nước cốt chanh",
+      "nước mắm pha loãng"
+    ],
+    "description": "Bún gà mát lạnh kiểu Việt với ức gà nạc và nhiều rau thơm tươi.",
+    "tags": [
+      "high-protein",
+      "fresh",
+      "low-fat"
+    ]
+  },
+  {
+    "id": "rec_011",
+    "name": "Tô diêm mạch kiểu Buddha",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity"
+    ],
+    "ingredients": [
+      "diêm mạch",
+      "đậu gà nướng",
+      "quả bơ",
+      "cải kale",
+      "cà chua bi",
+      "sốt tahini",
+      "nước cốt chanh"
+    ],
+    "description": "Tô ngũ cốc với protein hoàn chỉnh, đậu gà giàu chất xơ, chất béo tốt và rau xanh.",
+    "tags": [
+      "high-fiber",
+      "complete-protein",
+      "vegan"
+    ]
+  },
+  {
+    "id": "rec_012",
+    "name": "Gà xào rau củ",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "hypertension",
+      "fatty-liver",
+      "anemia"
+    ],
+    "ingredients": [
+      "ức gà",
+      "ớt chuông",
+      "bông cải xanh",
+      "đậu Hà Lan",
+      "gừng",
+      "tỏi",
+      "dầu mè",
+      "gạo lứt"
+    ],
+    "description": "Món gà xào giàu protein với rau củ nhiều màu trên cơm gạo lứt, dùng gia vị ít muối.",
+    "tags": [
+      "high-protein",
+      "low-sodium",
+      "colorful"
+    ]
+  },
+  {
+    "id": "rec_013",
+    "name": "Salad đậu gà kiểu Địa Trung Hải",
+    "mealType": "lunch",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "anemia"
+    ],
+    "ingredients": [
+      "đậu gà",
+      "dưa leo",
+      "cà chua bi",
+      "hành tím",
+      "dầu ô liu",
+      "nước cốt chanh",
+      "ngò tây",
+      "lá oregano"
+    ],
+    "description": "Salad Địa Trung Hải giàu chất xơ với đạm thực vật, dầu ô liu tốt cho tim và rau thơm tươi.",
+    "tags": [
+      "high-fiber",
+      "plant-protein",
+      "low-sodium"
+    ]
+  },
+  {
+    "id": "rec_014",
+    "name": "Gỏi cuốn tôm thịt",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "fatty-liver",
+      "obesity",
+      "gastritis"
+    ],
+    "ingredients": [
+      "bánh tráng",
+      "tôm",
+      "bún tươi",
+      "rau xà lách",
+      "rau húng",
+      "dưa leo",
+      "cà rốt",
+      "tương hoisin"
+    ],
+    "description": "Gỏi cuốn tươi không chiên với nhiều rau và đạm nạc, ít purin.",
+    "tags": [
+      "low-calorie",
+      "fresh",
+      "low-purine"
+    ]
+  },
+  {
+    "id": "rec_015",
+    "name": "Súp đậu lăng đỏ",
+    "mealType": "lunch",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "anemia"
+    ],
+    "ingredients": [
+      "đậu lăng đỏ",
+      "cà rốt",
+      "cần tây",
+      "hành tây",
+      "bột cumin",
+      "nghệ",
+      "nước cốt chanh",
+      "dầu ô liu"
+    ],
+    "description": "Súp thực vật no lâu, giàu chất xơ và đạm thực vật cùng gia vị kháng viêm.",
+    "tags": [
+      "high-fiber",
+      "plant-protein",
+      "anti-inflammatory"
+    ]
+  },
+  {
+    "id": "rec_016",
+    "name": "Cá hấp gừng hành",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "hypertension",
+      "high-uric-acid",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "gastritis"
+    ],
+    "ingredients": [
+      "phi lê cá thịt trắng",
+      "gừng",
+      "hành lá",
+      "dầu mè",
+      "rượu gạo",
+      "cải thìa"
+    ],
+    "description": "Cá hấp thanh đạm với gừng và hành thơm, giữ trọn vị tự nhiên mà không cần thêm muối.",
+    "tags": [
+      "low-sodium",
+      "high-protein",
+      "light"
+    ]
+  },
+  {
+    "id": "rec_017",
+    "name": "Tô cơm súp lơ với gà nướng",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "kidney-disease",
+      "diabetes",
+      "fatty-liver",
+      "high-cholesterol",
+      "obesity"
+    ],
+    "ingredients": [
+      "súp lơ",
+      "ức gà",
+      "ớt chuông",
+      "dầu ô liu",
+      "tỏi",
+      "chanh",
+      "ngò tây"
+    ],
+    "description": "Cơm súp lơ ít carb với ức gà nạc, lý tưởng cho người kiểm soát đường huyết và bệnh thận.",
+    "tags": [
+      "low-carb",
+      "low-potassium",
+      "high-protein"
+    ]
+  },
+  {
+    "id": "rec_035",
+    "name": "Salad tabbouleh",
+    "mealType": "lunch",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "anemia"
+    ],
+    "ingredients": [
+      "lúa mì bulgur",
+      "ngò tây",
+      "rau húng",
+      "cà chua",
+      "dưa leo",
+      "nước cốt chanh",
+      "dầu ô liu"
+    ],
+    "description": "Salad ngũ cốc chủ yếu là rau thơm, ít carb, giàu chất chống oxy hóa từ rau thơm tươi.",
+    "tags": [
+      "high-fiber",
+      "antioxidant-rich",
+      "fresh"
+    ]
+  },
+  {
+    "id": "rec_036",
+    "name": "Bò xào ớt chuông với cơm gạo lứt",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia"
+    ],
+    "ingredients": [
+      "thịt bò nạc",
+      "ớt chuông đỏ",
+      "hành tây",
+      "tỏi",
+      "gừng",
+      "dầu ô liu",
+      "gạo lứt",
+      "ngò rí"
+    ],
+    "description": "Món bò xào giàu sắt heme kết hợp ớt chuông đỏ giàu vitamin C giúp tăng hấp thu sắt 2-3 lần, lý tưởng cho người thiếu máu.",
+    "tags": [
+      "iron-rich",
+      "high-protein",
+      "vitamin-c-pairing"
+    ]
+  },
+  {
+    "id": "rec_040",
+    "name": "Súp khoai tây cà rốt nghiền",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "gastritis"
+    ],
+    "ingredients": [
+      "khoai tây",
+      "cà rốt",
+      "hành tây",
+      "dầu ô liu",
+      "sữa hạnh nhân",
+      "ngò tây"
+    ],
+    "description": "Súp nghiền mịn dễ nuốt, không kích thích, phù hợp giai đoạn viêm dạ dày cấp hoặc sau khi đau dạ dày.",
+    "tags": [
+      "easy-to-digest",
+      "bland",
+      "soft-texture"
+    ]
+  },
+  {
+    "id": "rec_042",
+    "name": "Cơm gạo lứt cá hồi hấp rau xanh",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "insomnia",
+      "hypertension",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "gạo lứt",
+      "cá hồi",
+      "cải thìa",
+      "tỏi",
+      "gừng",
+      "dầu ô liu",
+      "chanh",
+      "hành lá"
+    ],
+    "description": "Bữa trưa cân bằng với cá hồi giàu vitamin D và omega-3 hỗ trợ điều hòa melatonin, cơm gạo lứt tryptophan, rau xanh magie.",
+    "tags": [
+      "omega-3",
+      "vitamin-d",
+      "sleep-supporting"
+    ]
+  },
+  {
+    "id": "rec_053",
+    "name": "Phở bò nạm gầu",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia"
+    ],
+    "ingredients": [
+      "bánh phở",
+      "thịt bò nạm",
+      "hành tây",
+      "hoa hồi",
+      "quế",
+      "gừng nướng",
+      "giá đỗ",
+      "rau thơm",
+      "chanh"
+    ],
+    "description": "Phở bò truyền thống với thịt bò nạm giàu sắt heme và vitamin B12, nước dùng hầm xương khoáng chất — lý tưởng cho người thiếu máu cần phục hồi nhanh.",
+    "tags": [
+      "iron-rich",
+      "b12-rich",
+      "traditional",
+      "warming",
+      "high-protein"
+    ]
+  },
+  {
+    "id": "rec_054",
+    "name": "Canh khổ qua nhồi thịt nạc",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "obesity",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "khổ qua",
+      "thịt heo nạc bằm",
+      "nấm mèo",
+      "hành lá",
+      "gừng tươi",
+      "tiêu đen",
+      "cơm gạo lứt"
+    ],
+    "description": "Canh khổ qua nhồi thịt nạc — khổ qua chứa charantin và polypeptide-p giúp hạ đường huyết tự nhiên, thịt nạc cung cấp đạm không tăng mỡ.",
+    "tags": [
+      "blood-sugar-lowering",
+      "low-fat",
+      "traditional",
+      "high-fiber"
+    ]
+  },
+  {
+    "id": "rec_055",
+    "name": "Cơm gạo lứt cá thu nướng",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "heart-disease",
+      "high-cholesterol",
+      "hypertension",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "gạo lứt",
+      "cá thu",
+      "nghệ",
+      "sả băm",
+      "tỏi",
+      "rau muống luộc",
+      "chanh",
+      "dầu ô liu"
+    ],
+    "description": "Cá thu giàu omega-3 EPA/DHA bậc nhất trong các loại cá, nướng với nghệ kháng viêm và sả thơm — kết hợp cơm gạo lứt nguyên cám giúp kiểm soát cholesterol và bảo vệ tim.",
+    "tags": [
+      "omega-3",
+      "heart-healthy",
+      "anti-inflammatory",
+      "high-protein"
+    ]
+  },
+  {
+    "id": "rec_056",
+    "name": "Salad cá ngừ Địa Trung Hải",
+    "mealType": "lunch",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "heart-disease",
+      "high-cholesterol",
+      "hypertension",
+      "diabetes",
+      "obesity",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "cá ngừ đóng hộp trong nước",
+      "dưa leo",
+      "cà chua bi",
+      "ô liu đen",
+      "hành tím",
+      "cần tây",
+      "dầu ô liu",
+      "chanh",
+      "ngò tây"
+    ],
+    "description": "Salad Địa Trung Hải giàu protein nạc, omega-3, chất xơ và chất chống oxy hóa lycopene — không thêm muối, ít calo nhưng no lâu, hỗ trợ giảm cân và bảo vệ tim mạch.",
+    "tags": [
+      "omega-3",
+      "high-protein",
+      "low-calorie",
+      "low-sodium",
+      "mediterranean"
+    ]
+  },
+  {
+    "id": "rec_057",
+    "name": "Mì udon gà hấp nước dashi nhạt",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "gastritis",
+      "anemia",
+      "kidney-disease"
+    ],
+    "ingredients": [
+      "mì udon",
+      "ức gà hấp",
+      "nước dashi",
+      "cải thìa",
+      "cà rốt",
+      "gừng tươi",
+      "hành lá"
+    ],
+    "description": "Mì udon trong nước dashi nhạt ấm nóng với gà hấp mềm và rau củ — ít muối, dễ tiêu hóa, không kích thích dạ dày, giúp phục hồi sức khỏe.",
+    "tags": [
+      "easy-to-digest",
+      "low-sodium",
+      "warming",
+      "stomach-friendly"
+    ]
+  },
+  {
+    "id": "rec_058",
+    "name": "Canh rau củ hầm nhạt",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "kidney-disease",
+      "hypertension",
+      "obesity",
+      "gastritis"
+    ],
+    "ingredients": [
+      "cải thìa",
+      "bí đao",
+      "cà rốt",
+      "đậu Hà Lan",
+      "hành tím",
+      "gừng tươi",
+      "dầu ô liu"
+    ],
+    "description": "Canh rau củ hầm nhạt, không nêm muối — bí đao lợi tiểu nhẹ, cà rốt beta-carotene, cải thìa ít kali — phù hợp người bệnh thận cần kiểm soát natri và kali.",
+    "tags": [
+      "low-sodium",
+      "low-potassium",
+      "light",
+      "kidney-friendly"
+    ]
+  },
+  {
+    "id": "rec_059",
+    "name": "Bún chay rau củ đậu hũ",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-uric-acid",
+      "diabetes",
+      "obesity",
+      "fatty-liver",
+      "gastritis"
+    ],
+    "ingredients": [
+      "bún tươi",
+      "đậu hũ cứng áp chảo",
+      "cải thìa",
+      "cà rốt",
+      "giá đỗ",
+      "rau húng",
+      "nước tương nhạt",
+      "chanh"
+    ],
+    "description": "Bún chay thanh đạm với đậu hũ ít purin và rau củ tươi — không dầu mỡ nặng, không hải sản, phù hợp người tăng axit uric và cần giảm cân.",
+    "tags": [
+      "vegan",
+      "low-purine",
+      "low-calorie",
+      "fresh"
+    ]
+  },
+  {
+    "id": "rec_060",
+    "name": "Cơm chiên gạo lứt rau củ trứng",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "high-cholesterol",
+      "anemia"
+    ],
+    "ingredients": [
+      "gạo lứt",
+      "cà rốt",
+      "ớt chuông đỏ",
+      "đậu Hà Lan",
+      "trứng gà",
+      "tỏi",
+      "dầu mè",
+      "hành lá"
+    ],
+    "description": "Cơm chiên gạo lứt với rau củ nhiều màu và trứng gà — giàu chất xơ, beta-carotene, sắt heme; chỉ số đường huyết thấp hơn cơm chiên gạo trắng thông thường.",
+    "tags": [
+      "low-glycemic",
+      "colorful",
+      "high-fiber",
+      "iron-rich"
+    ]
+  },
+  {
+    "id": "rec_061",
+    "name": "Đậu lăng hầm cà rốt khoai lang",
+    "mealType": "lunch",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "anemia",
+      "heart-disease",
+      "hypertension",
+      "obesity",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "đậu lăng đỏ",
+      "cà rốt",
+      "khoai lang",
+      "hành tây",
+      "nghệ",
+      "bột cumin",
+      "dầu ô liu",
+      "ngò tây",
+      "chanh"
+    ],
+    "description": "Súp đậu lăng hầm rau củ kiểu Địa Trung Hải — giàu sắt phi-heme, folate, chất xơ hòa tan và beta-carotene; no lâu và hỗ trợ kiểm soát đường huyết.",
+    "tags": [
+      "iron-rich",
+      "high-fiber",
+      "plant-protein",
+      "anti-inflammatory"
+    ]
+  },
+  {
+    "id": "rec_062",
+    "name": "Salad lúa mì nguyên cám rau củ nướng",
+    "mealType": "lunch",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "high-cholesterol",
+      "heart-disease",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "lúa mì bulgur",
+      "bí ngòi",
+      "ớt chuông đỏ",
+      "cà tím",
+      "hành tây",
+      "dầu ô liu",
+      "nước cốt chanh",
+      "ngò tây",
+      "óc chó"
+    ],
+    "description": "Ngũ cốc nguyên cám kết hợp rau củ nướng thơm và óc chó omega-3 — chỉ số đường huyết thấp, giàu chất xơ và chất chống oxy hóa, hỗ trợ kiểm soát cân nặng.",
+    "tags": [
+      "high-fiber",
+      "low-glycemic",
+      "omega-3",
+      "plant-based"
+    ]
+  },
+  {
+    "id": "rec_080",
+    "name": "Súp bí đỏ nghệ kem hạnh nhân",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "gastritis",
+      "insomnia",
+      "hypertension"
+    ],
+    "ingredients": [
+      "bí đỏ",
+      "hành tây",
+      "tỏi",
+      "nghệ",
+      "bột cumin",
+      "sữa hạnh nhân",
+      "dầu ô liu",
+      "ngò tây",
+      "hạt bí ngô"
+    ],
+    "description": "Súp bí đỏ nghiền mịn ấm nóng với nghệ curcumin kháng viêm, tryptophan từ bí đỏ và hạt bí ngô hỗ trợ sản xuất melatonin, dùng sữa hạnh nhân thay kem béo.",
+    "tags": [
+      "anti-inflammatory",
+      "tryptophan-rich",
+      "dairy-free",
+      "easy-to-digest"
+    ]
+  },
+  {
+    "id": "rec_082",
+    "name": "Salad đậu bắp cà chua kiểu Việt",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "obesity",
+      "heart-disease",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "đậu bắp luộc",
+      "cà chua",
+      "hành tím",
+      "ngò rí",
+      "chanh",
+      "dầu ô liu",
+      "tỏi băm"
+    ],
+    "description": "Đậu bắp chứa chất nhầy pectin giúp làm chậm hấp thu đường và cholesterol vào máu — ăn ghém cùng cà chua lycopene và rau thơm tươi, không thêm muối.",
+    "tags": [
+      "blood-sugar-lowering",
+      "cholesterol-lowering",
+      "low-sodium",
+      "fresh"
+    ]
+  },
+  {
+    "id": "rec_089",
+    "name": "Salad gà nướng sả tắc",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "ức gà",
+      "sả",
+      "tắc",
+      "rau xà lách",
+      "bắp cải tím",
+      "cà chua bi",
+      "dưa leo",
+      "cà rốt bào sợi",
+      "ngò rí"
+    ],
+    "description": "Gà nướng sả thơm trộn cùng rau xanh và nước sốt tắc chanh không dầu — bữa trưa cao đạm, ít carb, ít calo nhưng đầy đủ vi chất từ rau củ nhiều màu sắc, no lâu mà không tăng cân.",
+    "tags": [
+      "high-protein",
+      "low-carb",
+      "low-calorie",
+      "fresh",
+      "traditional"
+    ]
+  },
+  {
+    "id": "rec_090",
+    "name": "Canh bầu thịt nạc gừng",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "kidney-disease",
+      "gastritis"
+    ],
+    "ingredients": [
+      "bầu",
+      "thịt heo nạc",
+      "gừng tươi",
+      "hành lá",
+      "dầu ô liu"
+    ],
+    "description": "Canh bầu thanh mát ít natri — bầu có hàm lượng nước trên 95%, giàu kali và kẽm; kết hợp thịt nạc cung cấp đạm đầy đủ; tổng calo toàn bữa rất thấp nhưng vẫn no lâu.",
+    "tags": [
+      "low-calorie",
+      "hydrating",
+      "light",
+      "low-sodium",
+      "traditional"
+    ]
+  },
+  {
+    "id": "rec_091",
+    "name": "Đậu gà rang gia vị cà ri với salad xanh",
+    "mealType": "lunch",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "heart-disease",
+      "high-cholesterol",
+      "hypertension",
+      "anemia"
+    ],
+    "ingredients": [
+      "đậu gà",
+      "bột cà ri",
+      "nghệ",
+      "bột cumin",
+      "dầu ô liu",
+      "cải kale",
+      "dưa leo",
+      "cà chua bi",
+      "chanh"
+    ],
+    "description": "Đậu gà rang giòn gia vị cà ri — giàu chất xơ hòa tan và đạm thực vật, chỉ số đường huyết thấp, no lâu; ăn kèm salad kale tươi tạo bữa trưa đủ vi chất và hỗ trợ đốt mỡ.",
+    "tags": [
+      "plant-protein",
+      "high-fiber",
+      "low-glycemic",
+      "satisfying",
+      "crunchy"
+    ]
+  },
+  {
+    "id": "rec_084",
+    "name": "Gỏi bưởi tôm thịt",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "hypertension",
+      "high-cholesterol",
+      "obesity",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "bưởi",
+      "tôm hấp",
+      "thịt heo nạc luộc",
+      "rau húng",
+      "ngò rí",
+      "hành phi",
+      "nước mắm pha ít muối",
+      "chanh",
+      "đậu phộng rang"
+    ],
+    "description": "Gỏi bưởi tươi mát truyền thống Việt — bưởi giàu naringenin và vitamin C, tôm nạc ít calo, không chiên rán, ít dầu mỡ — hỗ trợ hạ cholesterol và thanh lọc cơ thể.",
+    "tags": [
+      "traditional",
+      "fresh",
+      "low-calorie",
+      "vitamin-c-rich",
+      "cholesterol-lowering"
+    ]
+  }
+]

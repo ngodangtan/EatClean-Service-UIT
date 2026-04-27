@@ -1,0 +1,472 @@
+[
+  {
+    "id": "ing_004",
+    "name": "cá hồi",
+    "category": "protein",
+    "aliases": [
+      "phi lê cá hồi",
+      "cá hồi Đại Tây Dương",
+      "salmon"
+    ],
+    "safeFor": [
+      "hypertension",
+      "high-uric-acid",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease"
+    ],
+    "avoidFor": [],
+    "nutritionProfile": "giàu axit béo omega-3 EPA và DHA, đạm chất lượng cao, vitamin D",
+    "substitutes": [
+      "cá tuyết",
+      "cá rô phi",
+      "cá hồi vân"
+    ]
+  },
+  {
+    "id": "ing_005",
+    "name": "ức gà",
+    "category": "protein",
+    "aliases": [
+      "thịt gà",
+      "ức gà không xương",
+      "chicken breast"
+    ],
+    "safeFor": [
+      "diabetes",
+      "hypertension",
+      "high-uric-acid",
+      "kidney-disease",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "anemia",
+      "gastritis"
+    ],
+    "avoidFor": [],
+    "nutritionProfile": "đạm hoàn chỉnh nạc, ít chất béo bão hòa, giàu vitamin B và selen",
+    "substitutes": [
+      "ức gà tây",
+      "lòng trắng trứng",
+      "đậu hũ"
+    ]
+  },
+  {
+    "id": "ing_006",
+    "name": "đậu hũ",
+    "category": "protein",
+    "aliases": [
+      "đậu phụ",
+      "đậu hũ cứng",
+      "đậu hũ non",
+      "tofu"
+    ],
+    "safeFor": [
+      "diabetes",
+      "hypertension",
+      "high-uric-acid",
+      "kidney-disease",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "gastritis"
+    ],
+    "avoidFor": [],
+    "nutritionProfile": "đạm thực vật hoàn chỉnh, isoflavone, canxi, ít purin",
+    "substitutes": [
+      "tempeh",
+      "ức gà",
+      "lòng trắng trứng"
+    ]
+  },
+  {
+    "id": "ing_007",
+    "name": "lòng trắng trứng",
+    "category": "protein",
+    "aliases": [
+      "egg whites"
+    ],
+    "safeFor": [
+      "diabetes",
+      "hypertension",
+      "high-uric-acid",
+      "kidney-disease",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "gastritis"
+    ],
+    "avoidFor": [],
+    "nutritionProfile": "đạm tinh khiết không chất béo và cholesterol, lý tưởng cho người bệnh thận cần hạn chế phốt pho",
+    "substitutes": [
+      "đậu hũ",
+      "ức gà"
+    ]
+  },
+  {
+    "id": "ing_008",
+    "name": "đậu lăng",
+    "category": "protein",
+    "aliases": [
+      "đậu lăng đỏ",
+      "đậu lăng xanh",
+      "lentils"
+    ],
+    "safeFor": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "anemia"
+    ],
+    "avoidFor": [
+      "high-uric-acid"
+    ],
+    "nutritionProfile": "giàu đạm thực vật và chất xơ hòa tan, sắt, folate và carbohydrate giải phóng chậm",
+    "substitutes": [
+      "đậu gà",
+      "đậu Hà Lan tách hạt",
+      "diêm mạch"
+    ]
+  },
+  {
+    "id": "ing_009",
+    "name": "đậu gà",
+    "category": "protein",
+    "aliases": [
+      "đậu garbanzo",
+      "chickpeas"
+    ],
+    "safeFor": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "anemia"
+    ],
+    "avoidFor": [],
+    "nutritionProfile": "giàu chất xơ và đạm thực vật, chỉ số đường huyết thấp, hỗ trợ kiểm soát đường huyết và cholesterol",
+    "substitutes": [
+      "đậu lăng",
+      "đậu đen",
+      "đậu trắng"
+    ]
+  },
+  {
+    "id": "ing_031",
+    "name": "cá thịt trắng",
+    "category": "protein",
+    "aliases": [
+      "cá tuyết",
+      "cá rô phi",
+      "cá bơn",
+      "white fish"
+    ],
+    "safeFor": [
+      "hypertension",
+      "high-uric-acid",
+      "kidney-disease",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "anemia",
+      "gastritis"
+    ],
+    "avoidFor": [],
+    "nutritionProfile": "cá thịt trắng nạc rất ít chất béo và purin, đạm chất lượng cao, selen",
+    "substitutes": [
+      "ức gà",
+      "đậu hũ",
+      "tôm"
+    ]
+  },
+  {
+    "id": "ing_039",
+    "name": "đậu edamame",
+    "category": "protein",
+    "aliases": [
+      "đậu nành Nhật",
+      "edamame"
+    ],
+    "safeFor": [
+      "diabetes",
+      "high-uric-acid",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "obesity",
+      "anemia"
+    ],
+    "avoidFor": [],
+    "nutritionProfile": "đạm thực vật hoàn chỉnh với chất xơ, folate và isoflavone; ít purin hơn đậu nành trưởng thành",
+    "substitutes": [
+      "đậu Hà Lan",
+      "đậu gà",
+      "đậu lima"
+    ]
+  },
+  {
+    "id": "ing_047",
+    "name": "thịt bò nạc",
+    "category": "protein",
+    "aliases": [
+      "thịt bò thăn",
+      "bò nạc",
+      "lean beef"
+    ],
+    "safeFor": [
+      "anemia"
+    ],
+    "avoidFor": [
+      "high-uric-acid",
+      "high-cholesterol",
+      "heart-disease",
+      "kidney-disease"
+    ],
+    "nutritionProfile": "nguồn sắt heme và vitamin B12 hàng đầu, đạm hoàn chỉnh; purin và chất béo bão hòa trung bình",
+    "substitutes": [
+      "gan gà",
+      "thịt cừu nạc",
+      "thịt heo nạc"
+    ]
+  },
+  {
+    "id": "ing_048",
+    "name": "gan gà",
+    "category": "protein",
+    "aliases": [
+      "chicken liver"
+    ],
+    "safeFor": [
+      "anemia"
+    ],
+    "avoidFor": [
+      "high-uric-acid",
+      "high-cholesterol",
+      "heart-disease"
+    ],
+    "nutritionProfile": "nguồn sắt heme, vitamin B12 và folate cao nhất, hỗ trợ phục hồi thiếu máu; cholesterol và purin cao",
+    "substitutes": [
+      "thịt bò nạc",
+      "gan heo",
+      "lòng đỏ trứng"
+    ]
+  },
+  {
+    "id": "ing_051",
+    "name": "thịt heo nạc",
+    "category": "protein",
+    "aliases": [
+      "thịt heo thăn",
+      "lean pork"
+    ],
+    "safeFor": [
+      "anemia",
+      "gastritis"
+    ],
+    "avoidFor": [
+      "high-uric-acid",
+      "high-cholesterol"
+    ],
+    "nutritionProfile": "đạm hoàn chỉnh, vitamin B1 cao, sắt heme vừa phải; chọn phần nạc bỏ mỡ để giảm bão hòa",
+    "substitutes": [
+      "ức gà",
+      "thịt bò nạc",
+      "cá thịt trắng"
+    ]
+  },
+  {
+    "id": "ing_058",
+    "name": "cá thu",
+    "category": "protein",
+    "aliases": [
+      "cá thu đại dương",
+      "cá thu đóng hộp",
+      "mackerel"
+    ],
+    "safeFor": [
+      "heart-disease",
+      "fatty-liver",
+      "high-cholesterol",
+      "hypertension",
+      "anemia",
+      "diabetes"
+    ],
+    "avoidFor": [
+      "high-uric-acid"
+    ],
+    "nutritionProfile": "nguồn omega-3 EPA/DHA cao nhất trong các loại cá phổ biến, giàu vitamin D, B12 và selen; purin ở mức trung bình-cao",
+    "substitutes": [
+      "cá hồi",
+      "cá trích",
+      "cá ngừ"
+    ]
+  },
+  {
+    "id": "ing_059",
+    "name": "tôm tươi",
+    "category": "protein",
+    "aliases": [
+      "tôm sú",
+      "tôm thẻ",
+      "tôm sông",
+      "shrimp",
+      "prawns"
+    ],
+    "safeFor": [
+      "anemia",
+      "fatty-liver",
+      "obesity",
+      "diabetes"
+    ],
+    "avoidFor": [
+      "high-uric-acid",
+      "high-cholesterol"
+    ],
+    "nutritionProfile": "đạm nạc rất cao, giàu iốt, selen và vitamin B12; cholesterol và purin ở mức trung bình — dùng vừa phải",
+    "substitutes": [
+      "cá thịt trắng",
+      "mực ống",
+      "ức gà"
+    ]
+  },
+  {
+    "id": "ing_060",
+    "name": "trứng gà nguyên quả",
+    "category": "protein",
+    "aliases": [
+      "trứng gà ta",
+      "trứng gà công nghiệp",
+      "whole egg"
+    ],
+    "safeFor": [
+      "anemia",
+      "gastritis",
+      "obesity"
+    ],
+    "avoidFor": [
+      "high-cholesterol",
+      "kidney-disease"
+    ],
+    "nutritionProfile": "đạm hoàn chỉnh với đầy đủ axit amin, lòng đỏ giàu choline, sắt heme, vitamin A, D, E và lutein bảo vệ mắt; hạn chế ở người cao cholesterol",
+    "substitutes": [
+      "lòng trắng trứng",
+      "đậu hũ",
+      "ức gà"
+    ]
+  },
+  {
+    "id": "ing_061",
+    "name": "đậu đen",
+    "category": "protein",
+    "aliases": [
+      "đậu đen hạt nhỏ",
+      "black beans"
+    ],
+    "safeFor": [
+      "anemia",
+      "diabetes",
+      "heart-disease",
+      "high-cholesterol",
+      "obesity",
+      "hypertension"
+    ],
+    "avoidFor": [
+      "high-uric-acid"
+    ],
+    "nutritionProfile": "giàu anthocyanin chống oxy hóa mạnh, sắt phi-heme, folate, chất xơ hòa tan và đạm thực vật; anthocyanin đặc biệt hỗ trợ sức khỏe tim mạch",
+    "substitutes": [
+      "đậu đỏ",
+      "đậu gà",
+      "đậu lăng"
+    ]
+  },
+  {
+    "id": "ing_077",
+    "name": "đậu xanh",
+    "category": "protein",
+    "aliases": [
+      "đậu xanh tách vỏ",
+      "đậu xanh nguyên vỏ",
+      "mung beans"
+    ],
+    "safeFor": [
+      "diabetes",
+      "kidney-disease",
+      "gastritis",
+      "obesity",
+      "high-uric-acid",
+      "high-cholesterol"
+    ],
+    "avoidFor": [],
+    "nutritionProfile": "đậu thanh nhiệt, mát lành, dễ tiêu hóa; giàu chất xơ và đạm thực vật với hàm lượng purin và kali thấp hơn các loại đậu khác",
+    "substitutes": [
+      "đậu lăng đỏ",
+      "đậu gà",
+      "đậu Hà Lan"
+    ]
+  },
+  {
+    "id": "ing_078",
+    "name": "đậu trắng",
+    "category": "protein",
+    "aliases": [
+      "đậu cannellini",
+      "đậu navy",
+      "white beans",
+      "haricot beans"
+    ],
+    "safeFor": [
+      "diabetes",
+      "anemia",
+      "heart-disease",
+      "high-cholesterol",
+      "obesity",
+      "hypertension"
+    ],
+    "avoidFor": [
+      "high-uric-acid"
+    ],
+    "nutritionProfile": "giàu chất xơ hòa tan, sắt phi-heme, kali và folate; chỉ số đường huyết thấp, hỗ trợ kiểm soát đường huyết và cholesterol",
+    "substitutes": [
+      "đậu gà",
+      "đậu lăng",
+      "đậu đen"
+    ]
+  },
+  {
+    "id": "ing_085",
+    "name": "cá ngừ đóng hộp",
+    "category": "protein",
+    "aliases": [
+      "cá ngừ trong nước",
+      "tuna canned in water"
+    ],
+    "safeFor": [
+      "heart-disease",
+      "high-cholesterol",
+      "hypertension",
+      "obesity",
+      "diabetes",
+      "anemia"
+    ],
+    "avoidFor": [
+      "high-uric-acid",
+      "kidney-disease"
+    ],
+    "nutritionProfile": "đạm nạc cao với omega-3 DHA/EPA, giàu selen và vitamin D; chọn loại trong nước (không trong dầu) và kiểm soát natri — purin ở mức trung bình",
+    "substitutes": [
+      "cá hồi",
+      "cá thu",
+      "ức gà"
+    ]
+  }
+]

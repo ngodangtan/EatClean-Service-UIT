@@ -1,3 +1,5 @@
+import logger from '../../utils/logger.js';
+
 const LM_STUDIO_TIMEOUT = 30000; // 30 seconds
 const MAX_RESPONSE_SIZE = 50 * 1024; // 50KB guard
 
@@ -10,6 +12,13 @@ const SYSTEM_MESSAGE = 'You are a JSON-only meal content generator. Output only 
 export async function callLMStudio(prompt) {
   const lmStudioUrl = process.env.LM_STUDIO_URL || 'http://localhost:1234/v1/chat/completions';
 
+  const messages = [
+    { role: 'system', content: SYSTEM_MESSAGE },
+    { role: 'user', content: prompt }
+  ];
+
+  logger.info('[LLM] Full context being sent to LM Studio:\n' + JSON.stringify(messages, null, 2));
+
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), LM_STUDIO_TIMEOUT);
 
@@ -20,10 +29,7 @@ export async function callLMStudio(prompt) {
       signal: controller.signal,
       body: JSON.stringify({
         model: process.env.LM_STUDIO_MODEL || 'local-model',
-        messages: [
-          { role: 'system', content: SYSTEM_MESSAGE },
-          { role: 'user', content: prompt }
-        ],
+        messages,
         temperature: 0.2,
         max_tokens: 2000,
         top_p: 0.9

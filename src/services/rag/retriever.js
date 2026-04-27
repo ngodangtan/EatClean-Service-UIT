@@ -58,13 +58,13 @@ function isRagEnabled() {
 
 /**
  * Retrieve semantically similar reference meals from the vector store.
- * @param {{ mealType: string, goal: string, diseases: string[], cuisine?: string, favoriteMeal?: string, nResults?: number }} params
+ * @param {{ mealType: string, goal: string, diseases: string[], cuisine?: string, nResults?: number }} params
  * @returns {Promise<object|null>} Raw ChromaDB results or null
  */
 export async function retrieveRelevantMeals(params) {
   if (!isRagEnabled()) return null;
 
-  const { mealType, goal, diseases = [], cuisine, favoriteMeal, nResults = 3 } = params;
+  const { mealType, goal, diseases = [], cuisine, nResults = 3 } = params;
 
   // Build Vietnamese query string from non-empty fields. bge-m3 is multilingual,
   // so querying in Vietnamese against a Vietnamese KB gives the best semantic match.
@@ -76,7 +76,6 @@ export async function retrieveRelevantMeals(params) {
   const parts = [`món ${mealTypeVi}`];
   if (goalVi) parts.push(`cho mục tiêu ${goalVi}`);
   if (cuisineVi) parts.push(`ẩm thực ${cuisineVi}`);
-  if (favoriteMeal) parts.push(favoriteMeal);
   const queryString = parts.join(' ');
 
   const embedding = await getEmbedding(queryString);

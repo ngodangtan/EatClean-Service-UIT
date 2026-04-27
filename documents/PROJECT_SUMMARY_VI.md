@@ -1,8 +1,10 @@
 # Eat Clean API — Tổng Quan Kỹ Thuật Toàn Diện
 
-> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-04-21 | Dựa trên tất cả tài liệu yêu cầu và phân tích toàn bộ mã nguồn
+> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-04-26 | Dựa trên tất cả tài liệu yêu cầu và phân tích toàn bộ mã nguồn
 >
 > **Cập nhật 2026-04-21:** Danh mục bệnh mở rộng từ 10 lên 11 — thêm `insomnia` (`supported: false`). Cập nhật đếm bệnh trong `diseaseGuidelines.json`, `recipes.json`, `ingredients.json`. Sửa params chat LM Studio (`temperature: 0.7 → 0.2`, `max_tokens: 800 → 2000`, thêm system message). Sửa kích thước vector embedding (`768 → 1024 chiều`). Sửa mô tả regex ingredient filter (`\b` → Unicode-aware lookaround). Xóa dòng inconsistency `temperature: 0.2` (đã được fix). Thêm section triết lý thiết kế DISEASE_RULES vs DISEASE_CATALOG vào §10.2.
+>
+> **Cập nhật 2026-04-26:** Xóa `favoriteMeal`, `averageDay`, `workSchedule` khỏi `HealthProfile` — model, Joi validator, controller, Swagger spec đều đã cập nhật. `buildMealPrompt()` không còn nhận hoặc chèn `favoriteMeal` (xóa dòng "Favorite food:" khỏi prompt). `retrieveRelevantMeals()` không còn nhận `favoriteMeal` làm tham số hay ghép vào chuỗi truy vấn. Bổ sung tài liệu cho trường `stage` (integer 1–5, phân giai đoạn CKD) trong `diseaseEntrySchema`. Sửa số bệnh `10 → 11` trong ràng buộc hồ sơ sức khỏe. Cập nhật bảng model MongoDB và ràng buộc hồ sơ sức khỏe cho khớp với code hiện tại.
 
 ---
 
@@ -131,7 +133,7 @@ eat-clean-api/
 │   ├── data/
 │   │   └── knowledgeBase/                  # Dữ liệu tham khảo được tuyển chọn (quản lý phiên bản)
 │   │       ├── recipes.json                # 40 công thức tham khảo
-│   │       ├── diseaseGuidelines.json      # 10 hướng dẫn chế độ ăn theo bệnh
+│   │       ├── diseaseGuidelines.json      # 11 hướng dẫn chế độ ăn theo bệnh
 │   │       └── ingredients.json            # 52 nguyên liệu với cờ an toàn theo bệnh
 │   └── utils/
 │       ├── AppError.js                     # Lớp lỗi tùy chỉnh + hàm factory
@@ -468,7 +470,7 @@ Trách nhiệm: truy xuất cấp cao — kết hợp embeddingClient + vectorSt
 
 ```javascript
 // Exports:
-retrieveRelevantMeals({ mealType, goal, diseases, cuisine, favoriteMeal, nResults })
+retrieveRelevantMeals({ mealType, goal, diseases, cuisine, nResults })
 // → xây dựng chuỗi truy vấn từ các tham số khác null, embed, truy vấn RECIPES với bộ lọc mealType
 // → trả về kết quả ChromaDB thô | null
 
@@ -630,7 +632,7 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 ### 5.2 API Hồ Sơ Sức Khỏe
 
 #### POST `/api/health-profile`
-- **Đầu vào:** `{ goal, activityLevel, mealsPerDay, diseases?, cuisinePreference?, favoriteMeal?, dietPreference? }`
+- **Đầu vào:** `{ activityLevel?, sleepDuration?, diseases?, dietPreference?, mealsPerDay?, cuisinePreference? }`
 - **Hành động:** Upsert (tạo hoặc cập nhật) hồ sơ sức khỏe cho người dùng đã xác thực. Mỗi người dùng một hồ sơ được đảm bảo bởi unique index trên `userId`. `gender`, `age` (suy ra từ `birthday`), `height`, `currentWeight` được lấy tự động từ tài khoản User và không thể chỉnh sửa qua endpoint này.
 - **Lưu ý:** `desiredWeight` **không** thuộc resource này — nó được chuyển thành trường theo từng request trên `POST /api/meal-plans/generate` (purpose=weight_management).
 - **Cách dùng:** Hồ sơ là nền tảng cho mọi quá trình tạo kế hoạch bữa ăn
@@ -751,11 +753,10 @@ Resource `/api/recipes` mồ côi (model, controller, routes, validator, tests) 
 
 | Model | Trường chính | Indexes |
 |-------|-------------|---------|
-| `User` | email, password (bcrypt), height, currentWeight, refreshTokens[] | email (unique) |
-| `HealthProfile` | userId, age, weight, diseases[], goals | userId (unique) |
-| `MealPlan` | userId, days[], swapHistory, swapCount, duration | userId + createdAt (compound) |
-| `Recipe` | title, macros, tags, ingredients | title (text), tags, author |
-| `Favorite` | userId, targetType, targetId | userId+targetType+targetId (unique compound) |
+| `User` | email, password (bcrypt), gender, birthday, height, currentWeight, refreshTokens[] | email (unique) |
+| `HealthProfile` | userId, gender (snapshot), age (tính từ birthday), diseases[] (mảng subdocument `{ key, diagnosedAt, stage?, indicators[] }`) | userId (unique) |
+| `MealPlan` | userId, **purpose** (`daily_health_based\|weight_management\|disease_based`), days[], swapHistory, swapCount, duration | userId + createdAt (compound) |
+| `Favorite` | userId, targetType (`'meal-plan'` only), targetId | userId+targetType+targetId (unique compound) |
 | `TokenBlacklist` | token, expiresAt | token (unique), expiresAt (TTL — tự động xóa) |
 
 ### Pipeline Biến Đổi Dữ Liệu Cho Kế Hoạch Bữa Ăn
@@ -796,11 +797,14 @@ Resource `/api/recipes` mồ côi (model, controller, routes, validator, tests) 
 ### Ràng Buộc Hồ Sơ Sức Khỏe
 
 ```
-goal:          'lose-weight' | 'gain-weight' | 'improve-health'
 activityLevel: 'sedentary' | 'lightly-active' | 'moderately-active' | 'very-active' | 'extremely-active'
-mealsPerDay:   3 | 4 | 5
-diseases:      mảng các disease key (diabetes, kidney-disease, high-uric-acid,
-               hypertension, obesity, anemia, high-cholesterol, heart-disease, ...)
+mealsPerDay:   1–6
+sleepDuration: 0–24 (giờ)
+diseases:      [{ key, diagnosedAt?, stage?, indicators: [{ key, value, unit?, measuredAt?, note? }] }]
+               — key cross-check với src/data/diseaseCatalog.js (11 bệnh)
+               — stage (integer 1–5) cho phân giai đoạn CKD (kidney-disease)
+               — indicator key cross-check với relatedIndicators của bệnh đó
+               — key trùng lặp và indicator trùng lặp bị từ chối
 cuisinePreference: mảng (tối đa 10)
 ```
 
@@ -1236,7 +1240,7 @@ Kết quả: { safe: bool, reasons: ["Forbidden ingredients found: X, Y"] }
 ### 10.3 Lớp RAG (`src/services/rag/`)
 
 ```
-Đầu vào: { mealType, goal, diseases[], cuisine, favoriteMeal }  theo mỗi mealType duy nhất
+Đầu vào: { mealType, goal, diseases[], cuisine }  theo mỗi mealType duy nhất
                                     │
          ┌──────────────────────────▼──────────────────────────┐
          │               retriever.js                          │
@@ -1247,7 +1251,7 @@ Kết quả: { safe: bool, reasons: ["Forbidden ingredients found: X, Y"] }
          │  retrieveRelevantMeals():                           │
          │    Xây dựng chuỗi truy vấn (bỏ qua trường null):   │
          │    "{mealType} meal for {goal} goal                 │
-         │     {cuisine} cuisine {favoriteMeal}"               │
+         │     {cuisine} cuisine"                              │
          │                                                     │
          │  retrieveDiseaseGuidelines(diseases):               │
          │    Với mỗi bệnh duy nhất:                           │
@@ -1368,7 +1372,7 @@ indexAllCollections() chạy song song:
 ```
 Đầu vào: mealInput { mealType, calories, protein, carbs, fat, goal,
                    dietPreference, cuisinePreference, diseases,
-                   favoriteMeal, forbiddenIngredients, limitedIngredients,
+                   forbiddenIngredients, limitedIngredients,
                    preferredIngredients, retrievedContext }
 callBudget: { remaining: N }
                                     │
@@ -1409,7 +1413,7 @@ callBudget: { remaining: N }
          │  │  calories, protein, carbs, fat              │   │
          │  ├─────────────────────────────────────────────┤   │
          │  │ Sở thích người dùng:                        │   │
-         │  │  goal, diet, cuisines, favorite, diseases   │   │
+         │  │  goal, diet, cuisines, diseases             │   │
          │  ├─────────────────────────────────────────────┤   │
          │  │ Hướng dẫn định dạng JSON + ví dụ            │   │
          │  ├─────────────────────────────────────────────┤   │
@@ -1569,7 +1573,7 @@ POST /api/meal-plans/generate
          │    Một Promise.all() duy nhất lấy tất cả:           │
          │      - retrieveDiseaseGuidelines(diseases) — 1 lần  │
          │      - retrieveRelevantMeals({ mealType, goal,      │
-         │          diseases, cuisine, favoriteMeal })          │
+         │          diseases, cuisine })                        │
          │          — mỗi mealType, tất cả song song           │
          │    với mỗi mealType:                                │
          │      ragContextByMealType[mealType] =               │
@@ -1590,7 +1594,7 @@ POST /api/meal-plans/generate
          │      mealType: dist.mealType,                       │
          │      calories, protein, carbs, fat,                 │
          │      goal, dietPreference, cuisinePreference,       │
-         │      diseases, favoriteMeal,                        │
+         │      diseases,                                      │
          │      forbiddenIngredients, limitedIngredients,      │
          │      preferredIngredients,                          │
          │      retrievedContext: ragContextByMealType[mealType]│
