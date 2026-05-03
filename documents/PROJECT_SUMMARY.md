@@ -953,7 +953,7 @@ function sanitizeResponse(parsed) {
 }
 ```
 
-This rule also applies to the knowledge base: `recipes.json` contains **no calorie or macro numbers** — only ingredient names, descriptions, and tags. The RAG context cannot introduce numeric nutrition values into the prompt.
+This rule also applies to the knowledge base: the `recipes/` directory contains **no calorie or macro numbers** — only ingredient names, descriptions, and tags. The RAG context cannot introduce numeric nutrition values into the prompt.
 
 ---
 
@@ -1454,8 +1454,8 @@ indexAllCollections() runs these in parallel:
   └─────────────────┴──────────────────┴──────────────────┘
         │                 │                   │
         └─────────────────┴───────────────────┘
-        Upsert to ChromaDB (idempotent — safe to re-run)
-        Returns: { recipes: 40, guidelines: 10, ingredients: 52, errors: 0 }
+        Delete then re-index each collection (clean re-index, not idempotent upsert)
+        Returns: { recipes: 96, guidelines: 11, ingredients: 85, errors: 0 }
 ```
 
 ---
