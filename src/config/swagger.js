@@ -143,7 +143,6 @@ const swaggerSpec = {
           title: { type: 'string', description: 'e.g. "7-Day Meal Plan"' },
           days: { type: 'array', items: { $ref: '#/components/schemas/MealPlanDay' } },
           duration: { $ref: '#/components/schemas/MealPlanDuration' },
-          swapCount: { type: 'integer', description: 'Number of meals swapped so far' },
           aiModel: { type: 'string' },
           notes: { type: 'string' },
           createdAt: { type: 'string', format: 'date-time' },
@@ -202,15 +201,6 @@ const swaggerSpec = {
           mealPlan: { $ref: '#/components/schemas/MealPlan' },
           disclaimer: { type: 'string', description: 'Medical disclaimer, present when diseases are set' },
           unsupportedDiseases: { type: 'array', items: { type: 'string' }, description: 'Disease names not supported by the engine' }
-        }
-      },
-      MealPlanListResponse: {
-        type: 'object',
-        properties: {
-          mealPlans: { type: 'array', items: { $ref: '#/components/schemas/MealPlan' } },
-          total: { type: 'integer' },
-          limit: { type: 'integer' },
-          skip: { type: 'integer' }
         }
       },
       DiseaseIndicator: {
@@ -507,7 +497,8 @@ const swaggerSpec = {
         tags: ['Meal Plans'],
         summary: 'Generate personalized meal plan via AI',
         description:
-          'Generates a meal plan via LM Studio AI. The shape of the plan depends on `purpose`:\n\n' +
+          'Generates a meal plan via LM Studio AI. **Each user has at most one active plan — generating a new plan replaces the previous one.**\n\n' +
+          'The shape of the plan depends on `purpose`:\n\n' +
           '- **daily_health_based** — generates a single day, optionally driven by an Apple Watch ' +
           '`healthSnapshot` (resting + active energy override the BMR-based TDEE).\n' +
           '- **weight_management** — generates a 1/2/4-week plan tied to a request-scoped `weightGoal` ' +
@@ -530,54 +521,29 @@ const swaggerSpec = {
         }
       }
     },
-    '/api/meal-plans/latest': {
+    '/api/meal-plans': {
       get: {
         tags: ['Meal Plans'],
-        summary: 'Get most recent meal plan',
+        summary: 'Get the current meal plan',
+        description: 'Returns the user\'s active meal plan. Each user has at most one plan at a time.',
         security: [{ bearerAuth: [] }],
         responses: {
           '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/MealPlan' } } } },
           '401': { description: 'Unauthorized' },
           '404': { description: 'No meal plan found' }
         }
-      }
-    },
-    '/api/meal-plans': {
-      get: {
-        tags: ['Meal Plans'],
-        summary: 'List meal plans (paginated)',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'limit', in: 'query', schema: { type: 'integer', default: 10 } },
-          { name: 'skip', in: 'query', schema: { type: 'integer', default: 0 } }
-        ],
-        responses: {
-          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/MealPlanListResponse' } } } },
-          '401': { description: 'Unauthorized' }
-        }
       },
       delete: {
         tags: ['Meal Plans'],
-        summary: 'Delete all meal plans',
+        summary: 'Delete the current meal plan',
         security: [{ bearerAuth: [] }],
         responses: {
-          '200': { description: 'All deleted' },
+          '200': { description: 'Deleted' },
           '401': { description: 'Unauthorized' }
         }
       }
     },
     '/api/meal-plans/{id}': {
-      get: {
-        tags: ['Meal Plans'],
-        summary: 'Get a meal plan by ID',
-        security: [{ bearerAuth: [] }],
-        parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
-        responses: {
-          '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/MealPlan' } } } },
-          '401': { description: 'Unauthorized' },
-          '404': { description: 'Not found' }
-        }
-      },
       delete: {
         tags: ['Meal Plans'],
         summary: 'Delete a meal plan',
@@ -587,52 +553,6 @@ const swaggerSpec = {
           '200': { description: 'Deleted' },
           '401': { description: 'Unauthorized' },
           '404': { description: 'Not found' }
-        }
-      }
-    },
-    '/api/meal-plans/{planId}/swap': {
-      post: {
-        tags: ['Meal Plans'],
-        summary: 'Swap a meal in a plan',
-        description: 'Regenerates a single meal in-place using the same macros and user health context. Limited to a maximum number of swaps per plan.',
-        security: [{ bearerAuth: [] }],
-        parameters: [{ name: 'planId', in: 'path', required: true, schema: { type: 'string' } }],
-        requestBody: {
-          required: true,
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                required: ['day', 'mealIndex'],
-                properties: {
-                  day: { type: 'integer', description: 'Day number (1-based) from the plan' },
-                  mealIndex: { type: 'integer', description: 'Index of the meal within the day\'s meals array' }
-                }
-              }
-            }
-          }
-        },
-        responses: {
-          '200': {
-            description: 'Meal swapped',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: {
-                    ok: { type: 'boolean' },
-                    message: { type: 'string' },
-                    swapCount: { type: 'integer' },
-                    swappedMeal: { $ref: '#/components/schemas/Meal' }
-                  }
-                }
-              }
-            }
-          },
-          '400': { description: 'Missing fields or swap limit reached' },
-          '401': { description: 'Unauthorized' },
-          '404': { description: 'Plan, day, or meal not found' },
-          '500': { description: 'Could not generate a safe replacement meal' }
         }
       }
     },

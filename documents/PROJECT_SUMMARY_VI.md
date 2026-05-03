@@ -695,17 +695,9 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 }
 ```
 
-#### GET `/api/meal-plans/latest`
-- **Hành động:** Trả về kế hoạch bữa ăn mới nhất của người dùng
-
 #### GET `/api/meal-plans`
-- **Đầu vào:** Tùy chọn `?limit=10&skip=0`
-- **Phản hồi:** `{ mealPlans: [...], total, limit, skip }`
-
-#### POST `/api/meal-plans/:planId/swap`
-- **Đầu vào:** `{ day, mealIndex }`
-- **Hành động:** Tạo lại một bữa ăn duy nhất sử dụng cùng mục tiêu dinh dưỡng. Giới hạn 5 lần hoán đổi mỗi kế hoạch.
-- **Phản hồi:** `{ ok: true, swapCount, swappedMeal }`
+- **Hành động:** Trả về kế hoạch bữa ăn hiện tại của người dùng. Mỗi người dùng chỉ có tối đa một kế hoạch — tạo mới sẽ thay thế kế hoạch cũ.
+- **Phản hồi:** Object `MealPlan`
 
 #### GET `/api/meal-plans/:planId/shopping-list`
 - **Đầu vào:** Tùy chọn `?startDay=1&endDay=7`
@@ -729,7 +721,7 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 ```
 
 #### DELETE `/api/meal-plans/:id`
-#### DELETE `/api/meal-plans` (xóa tất cả kế hoạch của người dùng)
+#### DELETE `/api/meal-plans` (xóa kế hoạch bữa ăn hiện tại của người dùng)
 
 ---
 
@@ -762,7 +754,7 @@ Resource `/api/recipes` mồ côi (model, controller, routes, validator, tests) 
 |-------|-------------|---------|
 | `User` | email, password (bcrypt), gender, birthday, height, currentWeight, refreshTokens[] | email (unique) |
 | `HealthProfile` | userId, gender (snapshot), age (tính từ birthday), diseases[] (mảng subdocument `{ key, diagnosedAt, stage?, indicators[] }`) | userId (unique) |
-| `MealPlan` | userId, **purpose** (`daily_health_based\|weight_management\|disease_based`), days[], swapHistory, swapCount, duration | userId + createdAt (compound) |
+| `MealPlan` | userId, **purpose** (`daily_health_based\|weight_management\|disease_based`), days[], duration | userId + createdAt (compound) |
 | `Favorite` | userId, targetType (`'meal-plan'` only), targetId | userId+targetType+targetId (unique compound) |
 | `TokenBlacklist` | token, expiresAt | token (unique), expiresAt (TTL — tự động xóa) |
 
@@ -1010,16 +1002,7 @@ Bước 3: Tạo Kế Hoạch Bữa Ăn
        Nếu có bệnh: thêm medicalDisclaimer
        Nếu có unsupportedDiseases: liệt kê trong phản hồi
 
-Bước 4: Hoán đổi bữa ăn
-  POST /api/meal-plans/:planId/swap { day, mealIndex }
-  → Xác định vị trí bữa ăn mục tiêu trong kế hoạch
-  → Chạy lại tạo AI cho một bữa ăn đó (cùng mục tiêu dinh dưỡng)
-  → Xác thực an toàn
-  → Cập nhật bữa ăn tại chỗ
-  → Tăng swapCount, thêm vào swapHistory
-  → Tối đa 5 lần hoán đổi mỗi kế hoạch
-
-Bước 5: Danh sách mua sắm
+Bước 4: Danh sách mua sắm
   GET /api/meal-plans/:planId/shopping-list?startDay=1&endDay=7
   → Tổng hợp tất cả chuỗi nguyên liệu từ các ngày được chọn
   → Phân loại theo mẫu từ khóa

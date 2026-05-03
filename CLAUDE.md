@@ -182,7 +182,7 @@ All routes prefixed with `/api`:
 - `/api/auth` — register, login, logout, get profile, update profile, refresh token, revoke token, delete user
 - `/api/health-profile` — create (POST), update (PUT, same handler — accepts partial payloads, arrays like `diseases` are replaced as a whole), get (GET), delete (DELETE) — one profile per user. **`desiredWeight` is not part of this resource — it lives on the meal-plan generate request.**
 - `/api/diseases` — `GET` returns the disease catalog (`src/data/diseaseCatalog.js`) used by the create/update health-profile screen and indicator entry
-- `/api/meal-plans` — AI generation (`POST /generate` — **requires `purpose` body field**, see Meal Plan Generation Pipeline above), list with pagination, get one, get latest (`GET /latest`), swap a meal (`POST /:planId/swap`), delete one, delete all
+- `/api/meal-plans` — AI generation (`POST /generate` — **requires `purpose` body field**, see Meal Plan Generation Pipeline above), get current plan (`GET /` — one plan per user, replaced on every generate), delete current plan (`DELETE /`), delete by ID (`DELETE /:id`)
 - `/api/health` — health check endpoint
 
 **Not yet mounted:** `/api/favorites` — controller (`favorite.controller.js`) and routes (`favorite.routes.js`) exist but are not imported/mounted in `src/routes/index.js`

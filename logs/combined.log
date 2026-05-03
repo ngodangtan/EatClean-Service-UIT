@@ -52,3 +52,240 @@
 19:30:26 [32minfo[39m: MongoDB connected
 19:30:26 [32minfo[39m: Server listening on http://localhost:4000
 19:30:26 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+21:44:06 [32minfo[39m: RAG Indexer: Recipes progress 10/96
+21:44:07 [32minfo[39m: RAG Indexer: Recipes progress 20/96
+21:44:07 [32minfo[39m: RAG Indexer: Recipes progress 30/96
+21:44:08 [32minfo[39m: RAG Indexer: Recipes progress 40/96
+21:44:08 [32minfo[39m: RAG Indexer: Recipes progress 50/96
+21:44:09 [32minfo[39m: RAG Indexer: Recipes progress 60/96
+21:44:09 [32minfo[39m: RAG Indexer: Recipes progress 70/96
+21:44:10 [32minfo[39m: RAG Indexer: Recipes progress 80/96
+21:44:10 [32minfo[39m: RAG Indexer: Recipes progress 90/96
+21:44:10 [32minfo[39m: RAG Indexer: Recipes progress 96/96
+21:44:10 [32minfo[39m: RAG Indexer: Recipes done — indexed 96, errors 0
+21:44:11 [32minfo[39m: RAG Indexer: Guidelines done — indexed 11, errors 0
+21:44:12 [32minfo[39m: RAG Indexer: Ingredients progress 10/85
+21:44:12 [32minfo[39m: RAG Indexer: Ingredients progress 20/85
+21:44:13 [32minfo[39m: RAG Indexer: Ingredients progress 30/85
+21:44:13 [32minfo[39m: RAG Indexer: Ingredients progress 40/85
+21:44:13 [32minfo[39m: RAG Indexer: Ingredients progress 50/85
+21:44:14 [32minfo[39m: RAG Indexer: Ingredients progress 60/85
+21:44:14 [32minfo[39m: RAG Indexer: Ingredients progress 70/85
+21:44:15 [32minfo[39m: RAG Indexer: Ingredients progress 80/85
+21:44:15 [32minfo[39m: RAG Indexer: Ingredients progress 85/85
+21:44:18 [32minfo[39m: MongoDB connected
+21:45:54 [32minfo[39m: RAG Indexer: Recipes progress 10/96
+21:45:54 [32minfo[39m: RAG Indexer: Recipes progress 20/96
+21:45:55 [32minfo[39m: RAG Indexer: Recipes progress 30/96
+21:45:55 [32minfo[39m: RAG Indexer: Recipes progress 40/96
+21:45:56 [32minfo[39m: RAG Indexer: Recipes progress 50/96
+21:45:56 [32minfo[39m: RAG Indexer: Recipes progress 60/96
+21:45:57 [32minfo[39m: RAG Indexer: Recipes progress 70/96
+21:45:57 [32minfo[39m: RAG Indexer: Recipes progress 80/96
+21:45:58 [32minfo[39m: RAG Indexer: Recipes progress 90/96
+21:45:58 [32minfo[39m: RAG Indexer: Recipes progress 96/96
+21:45:58 [32minfo[39m: RAG Indexer: Recipes done — indexed 96, errors 0
+21:45:59 [32minfo[39m: RAG Indexer: Guidelines done — indexed 11, errors 0
+21:45:59 [32minfo[39m: RAG Indexer: Ingredients progress 10/85
+21:46:00 [32minfo[39m: RAG Indexer: Ingredients progress 20/85
+21:46:00 [32minfo[39m: RAG Indexer: Ingredients progress 30/85
+21:46:01 [32minfo[39m: RAG Indexer: Ingredients progress 40/85
+21:46:01 [32minfo[39m: RAG Indexer: Ingredients progress 50/85
+21:46:02 [32minfo[39m: RAG Indexer: Ingredients progress 60/85
+21:46:02 [32minfo[39m: RAG Indexer: Ingredients progress 70/85
+21:46:03 [32minfo[39m: RAG Indexer: Ingredients progress 80/85
+21:46:03 [32minfo[39m: RAG Indexer: Ingredients progress 85/85
+21:46:05 [32minfo[39m: MongoDB connected
+21:46:45 [32minfo[39m: RAG Indexer: Recipes progress 10/96
+21:46:46 [32minfo[39m: RAG Indexer: Recipes progress 20/96
+21:46:46 [32minfo[39m: RAG Indexer: Recipes progress 30/96
+21:46:47 [32minfo[39m: RAG Indexer: Recipes progress 40/96
+21:46:47 [32minfo[39m: RAG Indexer: Recipes progress 50/96
+21:46:48 [32minfo[39m: RAG Indexer: Recipes progress 60/96
+21:46:48 [32minfo[39m: RAG Indexer: Recipes progress 70/96
+21:46:48 [32minfo[39m: RAG Indexer: Recipes progress 80/96
+21:46:49 [32minfo[39m: RAG Indexer: Recipes progress 90/96
+21:46:49 [32minfo[39m: RAG Indexer: Recipes progress 96/96
+21:46:49 [32minfo[39m: RAG Indexer: Recipes done — indexed 96, errors 0
+21:46:50 [32minfo[39m: RAG Indexer: Guidelines done — indexed 11, errors 0
+21:46:51 [32minfo[39m: RAG Indexer: Ingredients progress 10/85
+21:46:51 [32minfo[39m: RAG Indexer: Ingredients progress 20/85
+21:46:51 [32minfo[39m: RAG Indexer: Ingredients progress 30/85
+21:46:52 [32minfo[39m: RAG Indexer: Ingredients progress 40/85
+21:46:52 [32minfo[39m: RAG Indexer: Ingredients progress 50/85
+21:46:53 [32minfo[39m: RAG Indexer: Ingredients progress 60/85
+21:46:53 [32minfo[39m: RAG Indexer: Ingredients progress 70/85
+21:46:54 [32minfo[39m: RAG Indexer: Ingredients progress 80/85
+21:46:54 [32minfo[39m: RAG Indexer: Ingredients progress 85/85
+21:46:55 [32minfo[39m: MongoDB connected
+21:46:55 [32minfo[39m: Server listening on http://localhost:4000
+21:46:55 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+21:48:57 [32minfo[39m: POST /api/auth/login 401 145ms {"requestId":"cfc286f8-53ef-451f-9e82-4a9f58cb8631","method":"POST","path":"/api/auth/login","status":401,"duration":145,"body":{"email":"tan7@yopmail.com","password":"[REDACTED]"}}
+21:49:14 [32minfo[39m: POST /api/auth/login 200 203ms {"requestId":"ec33693a-43cc-404b-968e-620e8b99556f","method":"POST","path":"/api/auth/login","status":200,"duration":203,"body":{"email":"tan7@yopmail.com","password":"[REDACTED]"}}
+21:49:19 [32minfo[39m: GET /api/meal-plans/latest 200 340ms {"requestId":"536339df-5432-4d4f-9b16-3d3c214d3e76","method":"GET","path":"/api/meal-plans/latest","status":200,"duration":340,"userId":"69f7492596203530b599a0e5"}
+21:49:19 [32minfo[39m: GET /api/auth/profile 200 100ms {"requestId":"525a4199-6a3e-4ad5-9318-d09a6d8458ac","method":"GET","path":"/api/auth/profile","status":200,"duration":100,"userId":"69f7492596203530b599a0e5"}
+21:58:47 [32minfo[39m: GET / 404 24ms {"requestId":"d9335c7c-4bb0-4884-872a-dd833b73f90b","method":"GET","path":"/","status":404,"duration":24}
+21:58:48 [32minfo[39m: GET / 404 1ms {"requestId":"a9db7bcd-66d6-41ed-b8d2-60b613d6a1e3","method":"GET","path":"/","status":404,"duration":1}
+21:58:49 [32minfo[39m: GET / 404 0ms {"requestId":"55a5be52-aba5-4548-807f-2e3623aaf5fd","method":"GET","path":"/","status":404,"duration":0}
+21:58:50 [32minfo[39m: GET / 404 1ms {"requestId":"83974db1-f557-42f3-9f90-0242328fa893","method":"GET","path":"/","status":404,"duration":1}
+21:58:51 [32minfo[39m: GET / 404 1ms {"requestId":"61ad4081-594b-487a-b932-4792aba8f9fe","method":"GET","path":"/","status":404,"duration":1}
+21:58:52 [32minfo[39m: GET / 404 0ms {"requestId":"f700476f-b18f-4de5-8da2-97bd988f2c45","method":"GET","path":"/","status":404,"duration":0}
+21:58:53 [32minfo[39m: GET / 404 1ms {"requestId":"222028eb-5389-439f-b6f4-407609ed8dbd","method":"GET","path":"/","status":404,"duration":1}
+21:58:54 [32minfo[39m: GET / 404 0ms {"requestId":"b26b98b3-bf60-4a4e-87b5-4de188121c61","method":"GET","path":"/","status":404,"duration":0}
+21:58:55 [32minfo[39m: GET / 404 1ms {"requestId":"60c00b72-fd06-478c-91ca-0ad7716ab4d6","method":"GET","path":"/","status":404,"duration":1}
+21:58:56 [32minfo[39m: GET / 404 1ms {"requestId":"76a649b4-7f5b-4983-824d-f9c96c0b97b7","method":"GET","path":"/","status":404,"duration":1}
+21:58:57 [32minfo[39m: GET / 404 0ms {"requestId":"e844a205-9f5e-4162-8753-46cfb3ca77ae","method":"GET","path":"/","status":404,"duration":0}
+21:58:58 [32minfo[39m: GET / 404 1ms {"requestId":"346e5184-a832-4d1b-9b16-ecbd87951f25","method":"GET","path":"/","status":404,"duration":1}
+21:59:00 [32minfo[39m: GET / 404 1ms {"requestId":"6878d836-b150-4afb-9cae-821512cc959c","method":"GET","path":"/","status":404,"duration":1}
+21:59:01 [32minfo[39m: GET / 404 1ms {"requestId":"f3f61842-b914-4c2a-847c-0fd923a2207d","method":"GET","path":"/","status":404,"duration":1}
+21:59:03 [32minfo[39m: GET / 404 1ms {"requestId":"4ef8a4d2-b319-4714-820c-1ad3457b0442","method":"GET","path":"/","status":404,"duration":1}
+21:59:06 [32minfo[39m: GET / 404 1ms {"requestId":"d64babcb-855b-4c60-8759-ed1a5dccd6ff","method":"GET","path":"/","status":404,"duration":1}
+21:59:08 [32minfo[39m: GET / 404 0ms {"requestId":"a78cb6f2-3068-4729-9b4b-787a866de5bd","method":"GET","path":"/","status":404,"duration":0}
+21:59:14 [32minfo[39m: GET / 404 1ms {"requestId":"2ae96839-4bb8-4c33-9999-8d33f3e22e4c","method":"GET","path":"/","status":404,"duration":1}
+21:59:18 [32minfo[39m: GET / 404 0ms {"requestId":"dbf1f66c-bd37-4916-a454-4418b01bff75","method":"GET","path":"/","status":404,"duration":0}
+21:59:24 [32minfo[39m: GET / 404 0ms {"requestId":"b8a455b1-1d4b-4c12-a228-abc58623e7e8","method":"GET","path":"/","status":404,"duration":0}
+21:59:26 [32minfo[39m: GET / 404 0ms {"requestId":"14e04192-e364-42fc-998e-163666b19717","method":"GET","path":"/","status":404,"duration":0}
+21:59:31 [32minfo[39m: GET / 404 1ms {"requestId":"44b97854-2772-4597-a2ef-3a88eaeffd39","method":"GET","path":"/","status":404,"duration":1}
+21:59:37 [32minfo[39m: GET / 404 1ms {"requestId":"eb3d0bbc-4bb3-4086-aeb4-4c3e34b8d3ea","method":"GET","path":"/","status":404,"duration":1}
+21:59:42 [32minfo[39m: GET / 404 0ms {"requestId":"2a692bb5-812c-4f60-bd4f-51e9e8bd16f6","method":"GET","path":"/","status":404,"duration":0}
+21:59:45 [32minfo[39m: GET / 404 1ms {"requestId":"2ce80541-ae4c-41e9-8fd3-5c126eb523e0","method":"GET","path":"/","status":404,"duration":1}
+21:59:49 [32minfo[39m: GET / 404 1ms {"requestId":"9907d778-1330-4045-ab10-2b8f86d879bd","method":"GET","path":"/","status":404,"duration":1}
+21:59:54 [32minfo[39m: GET / 404 0ms {"requestId":"39b3a9da-c5fb-4eb3-8a40-55a08a34a6f2","method":"GET","path":"/","status":404,"duration":0}
+21:59:58 [32minfo[39m: GET / 404 0ms {"requestId":"e5aa6f2d-2e78-4150-af5e-5af5500b1fd0","method":"GET","path":"/","status":404,"duration":0}
+22:00:00 [32minfo[39m: GET / 404 0ms {"requestId":"ace9f22b-c82f-4b2a-acaa-250b2277a8ad","method":"GET","path":"/","status":404,"duration":0}
+22:00:05 [32minfo[39m: GET / 404 3ms {"requestId":"dd7a0a18-c7d3-4897-9804-54f0917678a2","method":"GET","path":"/","status":404,"duration":3}
+22:00:08 [32minfo[39m: GET / 404 2ms {"requestId":"7dc7e181-4a0d-472f-9953-cabfef0d5499","method":"GET","path":"/","status":404,"duration":2}
+22:02:47 [32minfo[39m: GET /api/auth/profile 304 122ms {"requestId":"3fbddeff-37f8-4b78-ac65-8f97ea321556","method":"GET","path":"/api/auth/profile","status":304,"duration":122,"userId":"69f7492596203530b599a0e5"}
+22:02:51 [32minfo[39m: POST /api/auth/logout 200 119ms {"requestId":"ef2386ca-369e-40db-bac3-bb7b6d38e521","method":"POST","path":"/api/auth/logout","status":200,"duration":119,"userId":"69f7492596203530b599a0e5"}
+22:03:50 [32minfo[39m: GET / 404 2ms {"requestId":"cc6a45b5-da5c-40f8-88bb-81705345562d","method":"GET","path":"/","status":404,"duration":2}
+22:03:51 [32minfo[39m: GET / 404 1ms {"requestId":"5a6759ea-31d2-4c55-a59f-36ba09033788","method":"GET","path":"/","status":404,"duration":1}
+22:03:52 [32minfo[39m: GET / 404 1ms {"requestId":"2f6da084-51f0-4472-b16a-6fe47fb940c1","method":"GET","path":"/","status":404,"duration":1}
+22:03:53 [32minfo[39m: GET / 404 1ms {"requestId":"42d1ea02-2b0c-408e-853f-5d6d4446fc76","method":"GET","path":"/","status":404,"duration":1}
+22:11:07 [32minfo[39m: RAG Indexer: Recipes progress 10/96
+22:11:08 [32minfo[39m: RAG Indexer: Recipes progress 20/96
+22:11:08 [32minfo[39m: RAG Indexer: Recipes progress 30/96
+22:11:09 [32minfo[39m: RAG Indexer: Recipes progress 40/96
+22:11:09 [32minfo[39m: RAG Indexer: Recipes progress 50/96
+22:11:10 [32minfo[39m: RAG Indexer: Recipes progress 60/96
+22:11:10 [32minfo[39m: RAG Indexer: Recipes progress 70/96
+22:11:11 [32minfo[39m: RAG Indexer: Recipes progress 80/96
+22:11:11 [32minfo[39m: RAG Indexer: Recipes progress 90/96
+22:11:11 [32minfo[39m: RAG Indexer: Recipes progress 96/96
+22:11:11 [32minfo[39m: RAG Indexer: Recipes done — indexed 96, errors 0
+22:11:12 [32minfo[39m: RAG Indexer: Guidelines done — indexed 11, errors 0
+22:11:13 [32minfo[39m: RAG Indexer: Ingredients progress 10/85
+22:11:13 [32minfo[39m: RAG Indexer: Ingredients progress 20/85
+22:11:14 [32minfo[39m: RAG Indexer: Ingredients progress 30/85
+22:11:14 [32minfo[39m: RAG Indexer: Ingredients progress 40/85
+22:11:14 [32minfo[39m: RAG Indexer: Ingredients progress 50/85
+22:11:15 [32minfo[39m: RAG Indexer: Ingredients progress 60/85
+22:11:15 [32minfo[39m: RAG Indexer: Ingredients progress 70/85
+22:11:16 [32minfo[39m: RAG Indexer: Ingredients progress 80/85
+22:11:16 [32minfo[39m: RAG Indexer: Ingredients progress 85/85
+22:11:18 [32minfo[39m: MongoDB connected
+22:11:18 [32minfo[39m: Server listening on http://localhost:4000
+22:11:18 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:12:26 [32minfo[39m: RAG Indexer: Recipes progress 10/96
+22:12:26 [32minfo[39m: RAG Indexer: Recipes progress 20/96
+22:12:27 [32minfo[39m: RAG Indexer: Recipes progress 30/96
+22:12:27 [32minfo[39m: RAG Indexer: Recipes progress 40/96
+22:12:28 [32minfo[39m: RAG Indexer: Recipes progress 50/96
+22:12:28 [32minfo[39m: RAG Indexer: Recipes progress 60/96
+22:12:29 [32minfo[39m: RAG Indexer: Recipes progress 70/96
+22:12:29 [32minfo[39m: RAG Indexer: Recipes progress 80/96
+22:12:29 [32minfo[39m: RAG Indexer: Recipes progress 90/96
+22:12:30 [32minfo[39m: RAG Indexer: Recipes progress 96/96
+22:12:30 [32minfo[39m: RAG Indexer: Recipes done — indexed 96, errors 0
+22:12:31 [32minfo[39m: RAG Indexer: Guidelines done — indexed 11, errors 0
+22:12:31 [32minfo[39m: RAG Indexer: Ingredients progress 10/85
+22:12:31 [32minfo[39m: RAG Indexer: Ingredients progress 20/85
+22:12:32 [32minfo[39m: RAG Indexer: Ingredients progress 30/85
+22:12:32 [32minfo[39m: RAG Indexer: Ingredients progress 40/85
+22:12:33 [32minfo[39m: RAG Indexer: Ingredients progress 50/85
+22:12:33 [32minfo[39m: RAG Indexer: Ingredients progress 60/85
+22:12:34 [32minfo[39m: RAG Indexer: Ingredients progress 70/85
+22:12:34 [32minfo[39m: RAG Indexer: Ingredients progress 80/85
+22:12:34 [32minfo[39m: RAG Indexer: Ingredients progress 85/85
+22:12:36 [32minfo[39m: MongoDB connected
+22:12:36 [32minfo[39m: Server listening on http://localhost:4000
+22:12:36 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:12:44 [32minfo[39m: GET /api/docs/ 200 8ms {"requestId":"e3e2cde8-21ec-4574-8718-776ecf3119f0","method":"GET","path":"/api/docs/","status":200,"duration":8}
+22:12:45 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 3ms {"requestId":"5bdb811f-5982-44ee-b754-7b85cbdda48c","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":3}
+22:12:45 [32minfo[39m: GET /api/docs/swagger-ui.css 304 1ms {"requestId":"5b835c2b-ec7e-4638-a9c5-5502801d18b2","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":1}
+22:12:45 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 1ms {"requestId":"752bb50e-92f6-4ac4-bd1d-e12b65152d0b","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":1}
+22:12:45 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 0ms {"requestId":"57b2d6ff-fb97-49a8-a5ab-510ba0eb1bae","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":0}
+22:17:44 [32minfo[39m: POST /api/auth/login 401 293ms {"requestId":"5b8acd6d-c54c-474b-8ce0-2d40ea7ea419","method":"POST","path":"/api/auth/login","status":401,"duration":293,"body":{"email":"tan7@yopmail.com","password":"[REDACTED]"}}
+22:18:00 [32minfo[39m: POST /api/auth/login 200 312ms {"requestId":"e38b20bc-2f9d-4d37-8206-bfb3f4eed08d","method":"POST","path":"/api/auth/login","status":200,"duration":312,"body":{"email":"tan7@yopmail.com","password":"[REDACTED]"}}
+22:18:00 [32minfo[39m: GET /api/health-profile 304 163ms {"requestId":"5bddb498-918a-482a-8db9-252ab2879da1","method":"GET","path":"/api/health-profile","status":304,"duration":163,"userId":"69f7492596203530b599a0e5"}
+22:18:03 [32minfo[39m: GET /api/meal-plans/latest 304 247ms {"requestId":"ce09fdf7-7610-4fbe-8c03-93648cabad99","method":"GET","path":"/api/meal-plans/latest","status":304,"duration":247,"userId":"69f7492596203530b599a0e5"}
+22:18:04 [32minfo[39m: GET /api/auth/profile 200 110ms {"requestId":"d28d8c28-6739-459f-9ec0-64900296e7a6","method":"GET","path":"/api/auth/profile","status":200,"duration":110,"userId":"69f7492596203530b599a0e5"}
+22:18:08 [32minfo[39m: GET /api/auth/profile 304 113ms {"requestId":"31bcedf0-c58a-477c-a754-e008cf35429b","method":"GET","path":"/api/auth/profile","status":304,"duration":113,"userId":"69f7492596203530b599a0e5"}
+22:18:10 [32minfo[39m: GET /api/meal-plans/latest 304 227ms {"requestId":"1e66d6bc-3c3b-44bd-813f-e6c5278f830a","method":"GET","path":"/api/meal-plans/latest","status":304,"duration":227,"userId":"69f7492596203530b599a0e5"}
+22:18:49 [32minfo[39m: POST /api/auth/login 200 216ms {"requestId":"6eebfa45-2259-441b-9ee0-8bb3370dd7ad","method":"POST","path":"/api/auth/login","status":200,"duration":216,"body":{"email":"tan7@yopmail.com","password":"[REDACTED]"}}
+22:19:17 [32minfo[39m: GET /api/meal-plans/latest 304 284ms {"requestId":"d9a4ed41-2787-4965-8bc4-a6ee00433994","method":"GET","path":"/api/meal-plans/latest","status":304,"duration":284,"userId":"69f7492596203530b599a0e5"}
+22:22:20 [32minfo[39m: MongoDB connected
+22:22:20 [32minfo[39m: Server listening on http://localhost:4000
+22:22:20 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:22:33 [32minfo[39m: MongoDB connected
+22:22:33 [32minfo[39m: Server listening on http://localhost:4000
+22:22:33 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:24:21 [32minfo[39m: GET /api/docs/ 304 8ms {"requestId":"aea7366d-b336-428a-89de-0f43f111b159","method":"GET","path":"/api/docs/","status":304,"duration":8}
+22:24:21 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 1ms {"requestId":"bb8cb0fb-e729-4f93-bbcf-1f039cd71de4","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":1}
+22:24:21 [32minfo[39m: GET /api/docs/swagger-ui.css 304 5ms {"requestId":"8ffce2c7-df7c-48ff-bba1-5b00840b132a","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":5}
+22:24:21 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 2ms {"requestId":"edcb775b-e5a0-4b7a-8521-95d6a82c9c3f","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":2}
+22:24:21 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"bd1eb7c3-7c82-451e-b166-583d20508939","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+22:24:21 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"76006eac-4e77-40e4-8f9d-a4f0c4383652","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:24:49 [32minfo[39m: GET /api/docs/ 304 0ms {"requestId":"6ed97a26-0504-44d9-b2e5-6cb014da6de1","method":"GET","path":"/api/docs/","status":304,"duration":0}
+22:24:49 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 1ms {"requestId":"a6eca90b-b375-4195-97fc-9b4b162bf5fb","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":1}
+22:24:49 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"652398b1-95a4-4f18-9f6b-7e891f81b86c","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+22:24:49 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 1ms {"requestId":"29c5c2eb-3100-408b-9f92-d08f0a0f3565","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":1}
+22:24:49 [32minfo[39m: GET /api/docs/swagger-ui.css 304 1ms {"requestId":"ba5486dc-adff-4350-afc7-178ae53f87ff","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":1}
+22:24:50 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"455d795d-8ca5-44f1-be32-21f1c70c831a","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:24:50 [32minfo[39m: GET /api/docs/ 304 1ms {"requestId":"6794884f-0ecb-4788-ac87-4e3aa3f621fa","method":"GET","path":"/api/docs/","status":304,"duration":1}
+22:24:50 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 1ms {"requestId":"e1890adb-fe37-4865-a67e-e0c88ecff2cb","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":1}
+22:24:50 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 3ms {"requestId":"4c5ee8cf-60b3-48ba-836f-16004ec56fdc","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":3}
+22:24:50 [32minfo[39m: GET /api/docs/swagger-ui.css 304 4ms {"requestId":"06249e5e-f0b2-4718-a4f5-5208510567ce","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":4}
+22:24:50 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 3ms {"requestId":"3e907e4b-9023-46d5-b41a-16396829992a","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":3}
+22:24:50 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 0ms {"requestId":"0e095e4d-92aa-4c25-822c-b0bd676b3374","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":0}
+22:25:27 [32minfo[39m: MongoDB connected
+22:25:27 [32minfo[39m: Server listening on http://localhost:4000
+22:25:27 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:25:38 [32minfo[39m: MongoDB connected
+22:25:38 [32minfo[39m: Server listening on http://localhost:4000
+22:25:38 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:25:47 [32minfo[39m: MongoDB connected
+22:25:47 [32minfo[39m: Server listening on http://localhost:4000
+22:25:47 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:26:00 [32minfo[39m: GET /api/docs/ 304 6ms {"requestId":"e8f4c1bd-fb77-45d1-90c6-d50f4717976d","method":"GET","path":"/api/docs/","status":304,"duration":6}
+22:26:00 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 1ms {"requestId":"c4be014e-cd59-4c1e-9c85-01cf0d80a62c","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":1}
+22:26:00 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 3ms {"requestId":"0600dd4e-566f-40a4-a07a-01c12e23ddc4","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":3}
+22:26:00 [32minfo[39m: GET /api/docs/swagger-ui.css 304 0ms {"requestId":"ab312ee1-4990-4f27-9709-a67526cdbb2a","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":0}
+22:26:00 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 1ms {"requestId":"f61c877b-9e5f-40ca-87f9-d9d0e067483e","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":1}
+22:26:00 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"99d1c728-f49f-474b-a92c-d6935b9f2ebb","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:26:01 [32minfo[39m: GET /api/docs/ 304 2ms {"requestId":"39694da6-1754-48b1-afc1-9dd8b80abb8c","method":"GET","path":"/api/docs/","status":304,"duration":2}
+22:26:01 [32minfo[39m: GET /api/docs/swagger-ui-init.js 304 0ms {"requestId":"955c01b6-954e-4fdd-a728-631fe13f8c02","method":"GET","path":"/api/docs/swagger-ui-init.js","status":304,"duration":0}
+22:26:01 [32minfo[39m: GET /api/docs/swagger-ui.css 304 3ms {"requestId":"15e5a3cf-9490-44cc-81b7-c1a991743fe0","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":3}
+22:26:01 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 3ms {"requestId":"41857dd4-81e7-4a28-9f28-ca38e20fad48","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":3}
+22:26:01 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 2ms {"requestId":"8a723445-061f-499a-b0d7-81fd391ff982","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":2}
+22:26:01 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"5283eb55-e4b9-49ca-9af8-8cf1ed11a2b4","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}
+22:29:07 [32minfo[39m: MongoDB connected
+22:29:07 [32minfo[39m: Server listening on http://localhost:4000
+22:29:07 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:29:09 [32minfo[39m: MongoDB connected
+22:29:09 [32minfo[39m: Server listening on http://localhost:4000
+22:29:09 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:29:26 [32minfo[39m: MongoDB connected
+22:29:26 [32minfo[39m: Server listening on http://localhost:4000
+22:29:26 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:29:32 [32minfo[39m: MongoDB connected
+22:29:32 [32minfo[39m: Server listening on http://localhost:4000
+22:29:32 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:29:36 [32minfo[39m: MongoDB connected
+22:29:36 [32minfo[39m: Server listening on http://localhost:4000
+22:29:36 [32minfo[39m: Network access: http://<your-mac-ip>:4000
+22:32:11 [32minfo[39m: GET /api/docs/ 304 8ms {"requestId":"ae904696-93d7-443b-97bd-cdd3ed31930f","method":"GET","path":"/api/docs/","status":304,"duration":8}
+22:32:11 [32minfo[39m: GET /api/docs/swagger-ui.css 304 2ms {"requestId":"9417cbaa-b4a8-4a77-8212-4e6b5c672871","method":"GET","path":"/api/docs/swagger-ui.css","status":304,"duration":2}
+22:32:11 [32minfo[39m: GET /api/docs/swagger-ui-bundle.js 304 2ms {"requestId":"aee93bdc-7787-4ef8-8073-ae3c70a0c57f","method":"GET","path":"/api/docs/swagger-ui-bundle.js","status":304,"duration":2}
+22:32:11 [32minfo[39m: GET /api/docs/swagger-ui-init.js 200 2ms {"requestId":"a7f022fa-62ed-4441-a43a-9215e31623f8","method":"GET","path":"/api/docs/swagger-ui-init.js","status":200,"duration":2}
+22:32:11 [32minfo[39m: GET /api/docs/swagger-ui-standalone-preset.js 304 3ms {"requestId":"381cec0d-472f-4634-9493-e57753c54f35","method":"GET","path":"/api/docs/swagger-ui-standalone-preset.js","status":304,"duration":3}
+22:32:11 [32minfo[39m: GET /api/docs/favicon-32x32.png 304 1ms {"requestId":"57769899-a039-45c6-8701-33df2689a27f","method":"GET","path":"/api/docs/favicon-32x32.png","status":304,"duration":1}

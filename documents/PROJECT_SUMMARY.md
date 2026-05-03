@@ -751,17 +751,9 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
   - `404` — Health profile not found
   - `500` — Generation failed (AI error, safety validation failed, or infeasible disease combination)
 
-#### GET `/api/meal-plans/latest`
-- **Action:** Returns most recently created meal plan for user
-
 #### GET `/api/meal-plans`
-- **Input:** Optional `?limit=10&skip=0`
-- **Response:** `{ mealPlans: [...], total, limit, skip }`
-
-#### POST `/api/meal-plans/:planId/swap`
-- **Input:** `{ day, mealIndex }`
-- **Action:** Regenerates a single meal using the same nutrition targets. Limited to 5 swaps per plan.
-- **Response:** `{ ok: true, swapCount, swappedMeal }`
+- **Action:** Returns the user's current meal plan. Each user has at most one active plan — generating replaces it.
+- **Response:** `MealPlan` object
 
 #### GET `/api/meal-plans/:planId/shopping-list`
 - **Input:** Optional `?startDay=1&endDay=7`
@@ -785,7 +777,7 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 ```
 
 #### DELETE `/api/meal-plans/:id`
-#### DELETE `/api/meal-plans` (deletes all plans for user)
+#### DELETE `/api/meal-plans` (deletes the user's current plan)
 
 ---
 
@@ -820,7 +812,7 @@ The orphaned `/api/recipes` resource (model, controller, routes, validator, test
 |-------|-----------|---------|
 | `User` | email, password (bcrypt), gender, birthday, height, currentWeight, refreshTokens[] | email (unique) |
 | `HealthProfile` | userId, gender (snapshot), age (derived), diseases[] (subdocument array of `{ key, diagnosedAt, stage?, indicators[] }`) | userId (unique) |
-| `MealPlan` | userId, **purpose** (`daily_health_based\|weight_management\|disease_based`), days[], swapHistory, swapCount, duration | userId + createdAt (compound) |
+| `MealPlan` | userId, **purpose** (`daily_health_based\|weight_management\|disease_based`), days[], duration | userId + createdAt (compound) |
 | `Favorite` | userId, targetType (`'meal-plan'` only), targetId | userId+targetType+targetId (unique compound) |
 | `TokenBlacklist` | token, expiresAt | token (unique), expiresAt (TTL — auto-delete) |
 
@@ -1077,16 +1069,7 @@ Step 3: Meal Plan Generation
        If diseases: append medicalDisclaimer
        If unsupportedDiseases: list them in response
 
-Step 4: Meal Swap
-  POST /api/meal-plans/:planId/swap { day, mealIndex }
-  → Locate target meal in plan
-  → Re-run AI generation for that single meal (same nutrition targets, goal hardcoded to 'improve-health')
-  → Safety validation
-  → Update meal in-place
-  → Increment swapCount, append to swapHistory
-  → Max 5 swaps per plan enforced
-
-Step 5: Shopping List
+Step 4: Shopping List
   GET /api/meal-plans/:planId/shopping-list?startDay=1&endDay=7
   → Aggregate all ingredient strings from selected days
   → Categorize by keyword patterns

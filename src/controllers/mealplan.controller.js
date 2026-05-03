@@ -436,6 +436,9 @@ export async function generateMealPlan(req, res) {
       ? { weeks: 0, totalDays: 1 }
       : { weeks: duration.weeks, totalDays: duration.totalDays };
 
+    // Replace any existing plan — one plan per user at a time.
+    await MealPlan.deleteMany({ userId });
+
     const mealPlan = await MealPlan.create({
       userId,
       healthProfileId: healthProfile._id,
@@ -495,34 +498,6 @@ export async function getMealPlan(req, res) {
   }
 }
 
-// Get all meal plans for user (pagination optional)
-export async function getMealPlans(req, res) {
-  try {
-    const userId = req.user?.id;
-    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
-
-    const limit = parseInt(req.query.limit) || 10;
-    const skip = parseInt(req.query.skip) || 0;
-
-    const mealPlans = await MealPlan.find({ userId })
-      .sort({ createdAt: -1 })
-      .limit(limit)
-      .skip(skip)
-      .populate('healthProfileId');
-
-    const total = await MealPlan.countDocuments({ userId });
-
-    return res.json({
-      mealPlans,
-      total,
-      limit,
-      skip
-    });
-  } catch (error) {
-    logger.error('Get meal plans error:', error);
-    return res.status(500).json({ message: error.message });
-  }
-}
 
 // Delete meal plan
 export async function deleteMealPlan(req, res) {
@@ -555,120 +530,6 @@ export async function deleteAllMealPlans(req, res) {
     return res.json({ ok: true, message: 'All meal plans deleted successfully' });
   } catch (error) {
     logger.error('Delete all meal plans error:', error);
-    return res.status(500).json({ message: error.message });
-  }
-}
-
-const MAX_SWAPS = 5;
-
-// Swap a meal in an existing plan
-export async function swapMeal(req, res) {
-  try {
-    const userId = req.user?.id;
-    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
-
-    const { planId } = req.params;
-    const { day, mealIndex } = req.body;
-
-    if (day == null || mealIndex == null) {
-      return res.status(400).json({ message: 'day and mealIndex are required' });
-    }
-
-    const mealPlan = await MealPlan.findOne({ _id: planId, userId });
-    if (!mealPlan) return res.status(404).json({ message: 'Meal plan not found' });
-
-    if (mealPlan.swapCount >= MAX_SWAPS) {
-      return res.status(400).json({ message: `Maximum swap limit (${MAX_SWAPS}) reached for this plan` });
-    }
-
-    const dayObj = mealPlan.days.find(d => d.day === day);
-    if (!dayObj) return res.status(404).json({ message: `Day ${day} not found in plan` });
-
-    const meal = dayObj.meals[mealIndex];
-    if (!meal) return res.status(404).json({ message: `Meal at index ${mealIndex} not found on day ${day}` });
-
-    // Get health profile for generation context
-    const healthProfile = await HealthProfile.findById(mealPlan.healthProfileId);
-    const diseases = extractSupportedDiseaseKeys(healthProfile?.diseases);
-    const forbiddenIngredients = getForbiddenIngredients(diseases);
-    const limitedIngredients = getLimitedIngredients(diseases);
-    const preferredIngredients = getPreferredIngredients(diseases);
-
-    const callBudget = { remaining: 5 };
-    const oldMealName = meal.name;
-
-    // Generate replacement meal with same macros
-    let newMealContent = await generateMeal({
-      mealType: meal.mealType,
-      calories: meal.calories,
-      protein: meal.macros.protein,
-      carbs: meal.macros.carbs,
-      fat: meal.macros.fat,
-      goal: 'improve-health',
-      dietPreference: healthProfile?.dietPreference,
-      cuisinePreference: healthProfile?.cuisinePreference,
-      diseases,
-      forbiddenIngredients,
-      limitedIngredients,
-      preferredIngredients
-    }, callBudget);
-
-    // Safety validation for disease users
-    if (diseases.length > 0) {
-      const result = validateGeneratedMeal(newMealContent, diseases);
-      if (!result.safe) {
-        // One retry
-        newMealContent = await generateMeal({
-          mealType: meal.mealType,
-          calories: meal.calories,
-          protein: meal.macros.protein,
-          carbs: meal.macros.carbs,
-          fat: meal.macros.fat,
-          goal: 'improve-health',
-          dietPreference: healthProfile?.dietPreference,
-          cuisinePreference: healthProfile?.cuisinePreference,
-          diseases,
-          forbiddenIngredients,
-          limitedIngredients,
-          preferredIngredients,
-          errorFeedback: `Unsafe ingredients: ${result.reasons.join('; ')}`
-        }, callBudget);
-
-        const retryResult = validateGeneratedMeal(newMealContent, diseases);
-        if (!retryResult.safe) {
-          return res.status(500).json({ message: 'Could not generate a safe replacement meal' });
-        }
-      }
-    }
-
-    // Update the meal in place
-    dayObj.meals[mealIndex] = {
-      ...dayObj.meals[mealIndex],
-      name: newMealContent.name,
-      description: newMealContent.description,
-      ingredients: newMealContent.ingredients,
-      benefits: newMealContent.benefits
-    };
-
-    mealPlan.swapCount += 1;
-    mealPlan.swapHistory.push({
-      day,
-      mealIndex,
-      oldMealName,
-      newMealName: newMealContent.name
-    });
-
-    mealPlan.markModified('days');
-    await mealPlan.save();
-
-    return res.json({
-      ok: true,
-      message: 'Meal swapped successfully',
-      swapCount: mealPlan.swapCount,
-      swappedMeal: dayObj.meals[mealIndex]
-    });
-  } catch (error) {
-    logger.error('Swap meal error:', error);
     return res.status(500).json({ message: error.message });
   }
 }

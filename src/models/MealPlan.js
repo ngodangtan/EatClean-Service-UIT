@@ -51,14 +51,6 @@ const mealPlanSchema = new mongoose.Schema(
       weeks: { type: Number },
       totalDays: { type: Number }
     },
-    swapCount: { type: Number, default: 0 },
-    swapHistory: [{
-      day: { type: Number },
-      mealIndex: { type: Number },
-      oldMealName: { type: String },
-      newMealName: { type: String },
-      swappedAt: { type: Date, default: Date.now }
-    }]
   },
   { timestamps: true }
 );
