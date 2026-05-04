@@ -644,11 +644,57 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 ### 5.2 Health Profile APIs
 
 #### POST `/api/health-profile` / PUT `/api/health-profile`
+- **Auth:** Bearer token required
 - **Input:** `{ activityLevel?, sleepDuration?, diseases?, dietPreference?, mealsPerDay?, cuisinePreference? }`
 - **Note:** `desiredWeight` is **not** part of this resource — it is now a request-scoped field on `POST /api/meal-plans/generate` (purpose=weight_management). `gender`, `birthday`, `height`, `currentWeight` come from the User account at registration time and are not editable here.
-- **`diseases` shape:** array of `{ key, diagnosedAt?, stage?, indicators: [{ key, value, unit?, measuredAt?, note? }] }`. `stage` (integer 1–5) records CKD staging for `kidney-disease`. Disease keys, indicator keys, "indicator belongs to disease", and duplicates are cross-checked against `src/data/diseaseCatalog.js` after Joi validation. Indicator units are snapshotted from the catalog at write time so historical records stay interpretable if catalog units change.
+- **`diseases` shape:** array of `{ key, diagnosedAt?, stage?, indicators: [{ key, value, unit?, measuredAt?, note? }] }`. `stage` (integer 1–5) records CKD staging for `kidney-disease`. Stage 4+ blocks AI meal plan generation. Disease keys, indicator keys, "indicator belongs to disease", and duplicates are cross-checked against `src/data/diseaseCatalog.js` after Joi validation. Indicator units are snapshotted from the catalog at write time so historical records stay interpretable if catalog units change.
 - **Action:** POST creates or upserts; PUT is the same handler — accepts partial payloads (omitted fields preserved). Arrays like `diseases` are replaced wholesale, so the frontend should send the complete array, not a delta.
 - **Usage:** Profile is the foundation for all meal plan generation
+- **Example request body (full profile with diseases):**
+```json
+{
+  "activityLevel": "moderately-active",
+  "sleepDuration": 7,
+  "mealsPerDay": 3,
+  "dietPreference": "Ưu tiên món Việt, ít dầu mỡ",
+  "cuisinePreference": ["vietnamese", "japanese"],
+  "diseases": [
+    {
+      "key": "diabetes",
+      "diagnosedAt": "2023-06-01T00:00:00.000Z",
+      "indicators": [
+        { "key": "hba1c", "value": 6.8, "measuredAt": "2024-11-01T00:00:00.000Z" },
+        { "key": "fasting_glucose", "value": 118, "measuredAt": "2024-11-01T00:00:00.000Z" }
+      ]
+    },
+    {
+      "key": "hypertension",
+      "diagnosedAt": "2022-03-15T00:00:00.000Z",
+      "indicators": [
+        { "key": "systolic_bp", "value": 145, "measuredAt": "2024-11-01T00:00:00.000Z" },
+        { "key": "diastolic_bp", "value": 92, "measuredAt": "2024-11-01T00:00:00.000Z" }
+      ]
+    },
+    {
+      "key": "kidney-disease",
+      "stage": 2,
+      "indicators": [
+        { "key": "gfr", "value": 65, "measuredAt": "2024-10-20T00:00:00.000Z" },
+        { "key": "creatinine", "value": 1.4, "measuredAt": "2024-10-20T00:00:00.000Z" }
+      ]
+    }
+  ]
+}
+```
+- **Example request body (minimal / partial update — omitted fields are preserved):**
+```json
+{
+  "activityLevel": "lightly-active",
+  "mealsPerDay": 4
+}
+```
+- **Valid `activityLevel` values:** `sedentary` | `lightly-active` | `moderately-active` | `very-active` | `extremely-active`
+- **Valid disease `key` values:** obtained from `GET /api/diseases`. Supported by macro engine: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`. Unsupported (recorded only): `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`, `insomnia`
 
 #### GET `/api/health-profile`
 - **Response:** Full health profile document
