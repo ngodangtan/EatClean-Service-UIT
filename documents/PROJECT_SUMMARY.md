@@ -799,7 +799,76 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 #### GET `/api/meal-plans`
 - **Action:** Returns the user's current meal plan. Each user has at most one active plan — generating replaces it.
-- **Response:** `MealPlan` object
+- **Response:**
+```json
+{
+  "_id": "664a1b2c3d4e5f6789abcdef",
+  "userId": "663f1a0b2c3d4e5f6789ab01",
+  "healthProfileId": "663f1a0b2c3d4e5f6789ab02",
+  "purpose": "daily_health_based",
+  "title": "Kế hoạch ăn uống 1 ngày",
+  "duration": { "weeks": 0, "totalDays": 1 },
+  "days": [
+    {
+      "day": 1,
+      "title": "Ngày 1",
+      "theme": "Thanh đạm & giàu chất xơ",
+      "totalCalories": 1850,
+      "macros": { "protein": 138, "carbs": 231, "fat": 41 },
+      "meals": [
+        {
+          "mealType": "breakfast",
+          "name": "Cháo yến mạch chuối mật ong",
+          "description": "Bữa sáng nhẹ nhàng, cung cấp năng lượng bền vững với yến mạch nguyên cám và chuối chín.",
+          "ingredients": ["Yến mạch nguyên cám", "Chuối", "Mật ong", "Sữa hạt óc chó"],
+          "benefits": ["Giàu chất xơ hòa tan giúp ổn định đường huyết", "Cung cấp kali từ chuối tốt cho tim mạch"],
+          "calories": 370,
+          "macros": { "protein": 12, "carbs": 65, "fat": 7 }
+        },
+        {
+          "mealType": "lunch",
+          "name": "Cơm gạo lứt ức gà áp chảo rau củ",
+          "description": "Bữa trưa cân bằng với protein nạc, tinh bột phức hợp và rau xanh đa dạng.",
+          "ingredients": ["Gạo lứt", "Ức gà", "Bông cải xanh", "Cà rốt", "Dầu ô liu", "Tỏi"],
+          "benefits": ["Protein nạc hỗ trợ phục hồi cơ bắp", "Gạo lứt cung cấp năng lượng lâu dài"],
+          "calories": 620,
+          "macros": { "protein": 52, "carbs": 78, "fat": 12 }
+        },
+        {
+          "mealType": "snack",
+          "name": "Sữa chua Hy Lạp hạt chia",
+          "description": "Bữa phụ giàu protein và probiotics hỗ trợ tiêu hóa.",
+          "ingredients": ["Sữa chua Hy Lạp không đường", "Hạt chia", "Dâu tây"],
+          "benefits": ["Probiotics tốt cho hệ tiêu hóa", "Hạt chia giàu omega-3"],
+          "calories": 210,
+          "macros": { "protein": 18, "carbs": 22, "fat": 5 }
+        },
+        {
+          "mealType": "dinner",
+          "name": "Cá hồi áp chảo rau cải luộc",
+          "description": "Bữa tối thanh đạm với cá hồi giàu omega-3 và rau xanh hấp giữ nguyên dưỡng chất.",
+          "ingredients": ["Cá hồi", "Cải thìa", "Đậu Hà Lan", "Chanh", "Dầu ô liu", "Gừng"],
+          "benefits": ["Omega-3 từ cá hồi hỗ trợ tim mạch và não bộ", "Ít calo, phù hợp cho bữa tối"],
+          "calories": 650,
+          "macros": { "protein": 56, "carbs": 66, "fat": 17 }
+        }
+      ],
+      "tips": [
+        "Uống đủ 2–2.5 lít nước trong ngày.",
+        "Ăn chậm, nhai kỹ để hỗ trợ tiêu hóa tốt hơn.",
+        "Nên ăn bữa tối trước 20:00 để cơ thể có thời gian tiêu hóa trước khi ngủ."
+      ]
+    }
+  ],
+  "aiModel": "lm-studio",
+  "notes": null,
+  "createdAt": "2026-05-06T07:30:00.000Z",
+  "updatedAt": "2026-05-06T07:30:00.000Z"
+}
+```
+- **Error responses:**
+  - `401` — Unauthorized
+  - `404` — No meal plan found
 
 #### GET `/api/meal-plans/:planId/shopping-list`
 - **Input:** Optional `?startDay=1&endDay=7`

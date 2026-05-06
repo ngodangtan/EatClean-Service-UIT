@@ -34,7 +34,8 @@
       "Bash(npm ls:*)",
       "Bash(wc -l /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/data/knowledgeBase/*.json)",
       "Bash(grep -n \"mealPlanGenerate\\\\|mealPlan\\\\|auth\\\\|healthProfile\" /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/validators/*.validator.js /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/validators/*.schema.js)",
-      "Bash(grep *)"
+      "Bash(grep *)",
+      "Bash(sort -t_ -k2 -n)"
     ]
   }
 }
