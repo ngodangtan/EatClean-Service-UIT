@@ -35,7 +35,10 @@
       "Bash(wc -l /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/data/knowledgeBase/*.json)",
       "Bash(grep -n \"mealPlanGenerate\\\\|mealPlan\\\\|auth\\\\|healthProfile\" /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/validators/*.validator.js /Users/felixngo/Desktop/UIT-Project/eat-clean-api/src/validators/*.schema.js)",
       "Bash(grep *)",
-      "Bash(sort -t_ -k2 -n)"
+      "Bash(sort -t_ -k2 -n)",
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); goals={}; [goals.setdefault\\(g,[]\\).append\\(d['id']\\) for d in data for g in d.get\\('goal',[]\\)] ; print\\(json.dumps\\({k:len\\(v\\) for k,v in goals.items\\(\\)}, indent=2\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); ids=[d['id'] for d in data]; print\\('Max ID:', max\\(ids\\), 'Count:', len\\(ids\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\([d['id'] for d in data]\\)\")"
     ]
   }
 }

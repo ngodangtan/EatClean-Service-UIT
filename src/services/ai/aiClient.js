@@ -30,8 +30,8 @@ export async function callLMStudio(prompt) {
       body: JSON.stringify({
         model: process.env.LM_STUDIO_MODEL || 'local-model',
         messages,
-        temperature: 0.2,
-        max_tokens: 2000,
+        temperature: 0.7,
+        max_tokens: 500,
         top_p: 0.9
       })
     });

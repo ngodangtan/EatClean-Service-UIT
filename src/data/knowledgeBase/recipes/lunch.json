@@ -949,5 +949,394 @@
       "vitamin-c-rich",
       "cholesterol-lowering"
     ]
+  },
+  {
+    "id": "rec_109",
+    "name": "Cơm gạo lứt ức gà nướng và khoai lang hấp",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "muscle-gain"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "gạo lứt",
+      "ức gà",
+      "khoai lang",
+      "bông cải xanh",
+      "tỏi",
+      "dầu ô liu",
+      "ớt vảy",
+      "chanh"
+    ],
+    "description": "Bộ ba tăng cơ kinh điển — ức gà nướng cung cấp trên 40g protein nạc, khoai lang cung cấp carb phức hợp bổ sung glycogen cho cơ bắp, gạo lứt và bông cải xanh tạo nền tảng vi chất và chất xơ hoàn chỉnh.",
+    "tags": [
+      "high-protein",
+      "muscle-building",
+      "complex-carbs",
+      "post-workout",
+      "meal-prep"
+    ]
+  },
+  {
+    "id": "rec_110",
+    "name": "Bún thịt bò nướng sả lemon",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "anemia"
+    ],
+    "ingredients": [
+      "bún tươi",
+      "thịt bò nạc",
+      "sả băm",
+      "tỏi",
+      "hành tím",
+      "rau xà lách",
+      "dưa leo",
+      "cà rốt bào sợi",
+      "đậu phộng rang",
+      "nước mắm pha"
+    ],
+    "description": "Bún bò nướng sả thơm phức truyền thống Việt — thịt bò nạc giàu sắt heme, kẽm và creatine tự nhiên hỗ trợ tổng hợp cơ; bún cung cấp carb nhanh phục hồi năng lượng sau tập.",
+    "tags": [
+      "high-protein",
+      "iron-rich",
+      "muscle-building",
+      "traditional",
+      "post-workout"
+    ]
+  },
+  {
+    "id": "rec_111",
+    "name": "Salad cá ngừ đậu đen và trứng luộc",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "muscle-gain",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "high-cholesterol",
+      "heart-disease",
+      "hypertension"
+    ],
+    "ingredients": [
+      "cá ngừ đóng hộp trong nước",
+      "đậu đen hấp",
+      "trứng gà luộc",
+      "rau xà lách",
+      "cà chua bi",
+      "ớt chuông vàng",
+      "dầu ô liu",
+      "giấm balsamic",
+      "ngò tây"
+    ],
+    "description": "Salad protein kép với cá ngừ và trứng cung cấp amino acid hoàn chỉnh, đậu đen bổ sung đạm thực vật và chất xơ — bữa trưa tăng cơ không cần nấu nướng phức tạp.",
+    "tags": [
+      "high-protein",
+      "muscle-building",
+      "omega-3",
+      "fiber-rich",
+      "no-cook"
+    ]
+  },
+  {
+    "id": "rec_112",
+    "name": "Cơm tấm sườn nạc nướng rau củ",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "gạo tấm",
+      "sườn heo nạc",
+      "trứng ốp la",
+      "cà chua",
+      "dưa leo",
+      "hành lá",
+      "nước mắm pha",
+      "mỡ hành"
+    ],
+    "description": "Cơm tấm sườn nướng kinh điển miền Nam — sườn nạc ướp thảo mộc và nướng không chiên giữ đủ đạm và kẽm, cơm tấm cung cấp carb tinh bột nhanh phục hồi sau tập, trứng ốp la thêm đạm và choline.",
+    "tags": [
+      "high-protein",
+      "high-calorie",
+      "muscle-building",
+      "traditional",
+      "southern-vietnamese"
+    ]
+  },
+  {
+    "id": "rec_113",
+    "name": "Cơm chiên trứng tôm và rau củ",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia"
+    ],
+    "ingredients": [
+      "cơm trắng nguội",
+      "tôm tươi",
+      "trứng gà",
+      "ngô ngọt",
+      "đậu Hà Lan",
+      "cà rốt",
+      "tỏi",
+      "hành lá",
+      "dầu ô liu",
+      "nước tương nhạt"
+    ],
+    "description": "Cơm chiên hải sản kiểu Việt với tôm tươi và trứng — bữa trưa giàu năng lượng từ cơm, đạm từ tôm và trứng, cùng rau củ nhiều màu cung cấp vitamin A và sắt — thích hợp người cần tăng cân lành mạnh.",
+    "tags": [
+      "high-calorie",
+      "high-protein",
+      "colorful",
+      "traditional",
+      "iron-rich"
+    ]
+  },
+  {
+    "id": "rec_114",
+    "name": "Mì xào bò và rau củ theo phong cách Á",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia"
+    ],
+    "ingredients": [
+      "mì trứng",
+      "thịt bò nạc thái lát",
+      "ớt chuông",
+      "cải thìa",
+      "cà rốt",
+      "tỏi",
+      "gừng",
+      "dầu mè",
+      "nước tương",
+      "hạt mè"
+    ],
+    "description": "Mì bò xào rau củ đậm đà theo phong cách châu Á — mì trứng cung cấp carb và đạm, thịt bò giàu sắt heme và kẽm thúc đẩy sản sinh hồng cầu, rau củ nhiều màu bổ sung vitamin và chất chống oxy hóa.",
+    "tags": [
+      "high-calorie",
+      "high-protein",
+      "iron-rich",
+      "energizing",
+      "asian-style"
+    ]
+  },
+  {
+    "id": "rec_115",
+    "name": "Bánh mì kẹp thịt nướng phô mai đặc biệt",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "gain-weight"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "bánh mì hoa cúc",
+      "ức gà nướng",
+      "phô mai mozzarella",
+      "bơ trái",
+      "cà chua",
+      "rau xà lách",
+      "sốt mù tạt mật ong",
+      "tiêu đen"
+    ],
+    "description": "Bánh mì sandwich phong phú với gà nướng, phô mai mozzarella chảy và bơ trái — cung cấp trên 600 kcal từ đạm, chất béo lành mạnh và carb; bữa trưa lý tưởng cho người cần nạp nhiều năng lượng để tăng cân.",
+    "tags": [
+      "high-calorie",
+      "high-protein",
+      "healthy-fats",
+      "filling",
+      "satisfying"
+    ]
+  },
+  {
+    "id": "rec_116",
+    "name": "Cháo thịt heo đặc biệt với hạt sen",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "gastritis",
+      "anemia",
+      "insomnia"
+    ],
+    "ingredients": [
+      "gạo trắng",
+      "thịt heo nạc",
+      "hạt sen",
+      "nấm mèo",
+      "gừng tươi",
+      "hành lá",
+      "dầu mè",
+      "tiêu đen"
+    ],
+    "description": "Cháo thịt heo hạt sen bổ dưỡng Việt Nam — hạt sen giàu magie và tryptophan giúp thư giãn thần kinh, thịt heo nạc cung cấp đạm dồi dào và vitamin B1; bữa trưa no lâu, dễ tiêu và giúp tăng cân ổn định.",
+    "tags": [
+      "high-calorie",
+      "high-protein",
+      "easy-to-digest",
+      "traditional",
+      "magnesium-rich"
+    ]
+  },
+  {
+    "id": "rec_117",
+    "name": "Salad ức gà nướng rau củ nhiều màu",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "high-cholesterol",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "ức gà",
+      "rau xà lách hỗn hợp",
+      "cà chua bi",
+      "ớt chuông đỏ và vàng",
+      "dưa leo",
+      "cà rốt bào sợi",
+      "nước cốt chanh",
+      "dầu ô liu",
+      "thảo mộc khô"
+    ],
+    "description": "Salad gà nướng nhiều màu sắc với rau xanh và rau củ — mỗi suất trên 35g protein, dưới 350 kcal; không dùng sốt kem béo, thay bằng nước cốt chanh và dầu ô liu giúp hấp thu vitamin tan trong dầu.",
+    "tags": [
+      "high-protein",
+      "low-calorie",
+      "low-carb",
+      "colorful",
+      "satisfying"
+    ]
+  },
+  {
+    "id": "rec_118",
+    "name": "Canh bí đao tôm ít muối",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "kidney-disease",
+      "gastritis"
+    ],
+    "ingredients": [
+      "bí đao",
+      "tôm tươi",
+      "gừng tươi",
+      "hành lá",
+      "dầu ô liu"
+    ],
+    "description": "Canh bí đao tôm nhẹ nhàng — bí đao trên 96% là nước, ít calo và lợi tiểu tự nhiên; tôm cung cấp đạm chất lượng cao và iốt; toàn bộ bữa trưa dưới 200 kcal và không thêm muối — lý tưởng cho chế độ giảm cân.",
+    "tags": [
+      "low-calorie",
+      "low-sodium",
+      "hydrating",
+      "light",
+      "traditional"
+    ]
+  },
+  {
+    "id": "rec_119",
+    "name": "Đậu hũ sốt cà chua thảo mộc",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-uric-acid",
+      "diabetes",
+      "obesity",
+      "high-cholesterol",
+      "hypertension",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "đậu hũ cứng",
+      "cà chua",
+      "tỏi",
+      "hành tây",
+      "dầu ô liu",
+      "ngò rí",
+      "tiêu đen",
+      "cơm gạo lứt"
+    ],
+    "description": "Đậu hũ sốt cà chua thơm ngon — đạm thực vật từ đậu hũ ít purin và ít calo, lycopene trong cà chua nấu chín tăng gấp đôi khả năng hấp thu chống oxy hóa; ăn cùng gạo lứt tạo bữa trưa chay giảm cân hoàn chỉnh.",
+    "tags": [
+      "vegan",
+      "low-calorie",
+      "low-purine",
+      "lycopene-rich",
+      "plant-protein"
+    ]
+  },
+  {
+    "id": "rec_120",
+    "name": "Cơm gạo lứt cá hồi hấp và cải xanh luộc",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "hypertension",
+      "high-cholesterol",
+      "heart-disease",
+      "diabetes",
+      "obesity"
+    ],
+    "ingredients": [
+      "gạo lứt",
+      "phi lê cá hồi",
+      "cải thìa",
+      "tỏi",
+      "gừng",
+      "chanh",
+      "dầu ô liu"
+    ],
+    "description": "Bữa trưa giảm cân cân đối — cá hồi hấp bảo toàn omega-3 EPA/DHA tốt cho tim mạch và não bộ, gạo lứt chỉ số đường huyết thấp, cải xanh giàu canxi và vitamin K; tổng calo vừa phải và no lâu.",
+    "tags": [
+      "omega-3",
+      "heart-healthy",
+      "low-glycemic",
+      "high-protein",
+      "balanced"
+    ]
   }
 ]

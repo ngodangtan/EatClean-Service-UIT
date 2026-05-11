@@ -700,5 +700,364 @@
       "low-glycemic",
       "savory"
     ]
+  },
+  {
+    "id": "rec_097",
+    "name": "Cơm gạo lứt trứng ốp la và ức gà áp chảo",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "muscle-gain"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "gạo lứt",
+      "ức gà",
+      "trứng gà",
+      "dầu ô liu",
+      "tỏi băm",
+      "hành lá",
+      "tiêu đen"
+    ],
+    "description": "Bữa sáng tăng cơ bắp với cơm gạo lứt cung cấp carb phức hợp, ức gà nạc và trứng ốp la tạo nên gần 45g protein hoàn chỉnh — nạp năng lượng bền vững cho buổi tập sáng.",
+    "tags": [
+      "high-protein",
+      "muscle-building",
+      "complex-carbs",
+      "post-workout"
+    ]
+  },
+  {
+    "id": "rec_098",
+    "name": "Sinh tố protein chuối bơ đậu phộng và yến mạch",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "chuối chín",
+      "bơ đậu phộng tự nhiên",
+      "yến mạch cán dẹt",
+      "sữa tươi ít béo",
+      "mật ong nguyên chất",
+      "hạt chia"
+    ],
+    "description": "Sinh tố đặc giàu calo với chuối cung cấp carb nhanh, bơ đậu phộng và yến mạch bổ sung đạm thực vật và chất béo lành mạnh — lý tưởng uống trước hoặc sau tập thể dục để tăng cơ.",
+    "tags": [
+      "high-calorie",
+      "high-protein",
+      "muscle-building",
+      "pre-workout",
+      "quick-prep"
+    ]
+  },
+  {
+    "id": "rec_099",
+    "name": "Bánh mì ngũ cốc nguyên hạt với trứng bác và gà xé",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "muscle-gain"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "bánh mì nguyên cám",
+      "trứng gà",
+      "ức gà luộc xé",
+      "rau xà lách",
+      "cà chua",
+      "dầu ô liu",
+      "tiêu đen",
+      "ớt sa tế nhẹ"
+    ],
+    "description": "Sandwich nguyên cám với trứng bác và gà xé — mỗi suất cung cấp trên 35g protein và carb phức hợp từ bánh mì nguyên cám để duy trì năng lượng suốt buổi sáng và hỗ trợ tổng hợp cơ.",
+    "tags": [
+      "high-protein",
+      "complex-carbs",
+      "muscle-building",
+      "filling"
+    ]
+  },
+  {
+    "id": "rec_100",
+    "name": "Cháo thịt bò bổ sung sắt và khoai lang",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "anemia"
+    ],
+    "ingredients": [
+      "gạo trắng",
+      "thịt bò nạc bằm",
+      "khoai lang",
+      "gừng tươi",
+      "hành lá",
+      "tiêu đen",
+      "dầu mè"
+    ],
+    "description": "Cháo bò khoai lang đậm đà dinh dưỡng — thịt bò cung cấp sắt heme, kẽm và creatine tự nhiên giúp tổng hợp cơ; khoai lang bổ sung carb lành mạnh và beta-carotene.",
+    "tags": [
+      "high-protein",
+      "iron-rich",
+      "muscle-building",
+      "warming",
+      "traditional"
+    ]
+  },
+  {
+    "id": "rec_101",
+    "name": "Xôi gà nấm đông cô",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia"
+    ],
+    "ingredients": [
+      "gạo nếp",
+      "ức gà",
+      "nấm đông cô",
+      "hành phi",
+      "nước tương",
+      "dầu mè",
+      "hành lá"
+    ],
+    "description": "Xôi gà nấm truyền thống Việt Nam dẻo thơm — gạo nếp cung cấp lượng carb cao giúp tăng cân lành mạnh, nấm đông cô bổ sung beta-glucan tăng miễn dịch và gà nạc cung cấp đạm đầy đủ.",
+    "tags": [
+      "high-calorie",
+      "high-protein",
+      "traditional",
+      "immune-boosting"
+    ]
+  },
+  {
+    "id": "rec_102",
+    "name": "Bánh mì bơ phô mai với trứng chiên",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "gain-weight"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "bánh mì sandwich",
+      "bơ lạt",
+      "phô mai cheddar",
+      "trứng gà",
+      "thịt jambon heo",
+      "tiêu đen",
+      "rau xà lách"
+    ],
+    "description": "Bánh mì sandwich nóng hổi với phô mai chảy, bơ và trứng chiên — cung cấp lượng calo dồi dào từ chất béo lành mạnh và đạm chất lượng cao, thích hợp cho người cần tăng cân.",
+    "tags": [
+      "high-calorie",
+      "high-protein",
+      "high-fat",
+      "filling",
+      "quick-prep"
+    ]
+  },
+  {
+    "id": "rec_103",
+    "name": "Cháo đậu đỏ nước dừa",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "gạo trắng",
+      "đậu đỏ",
+      "nước dừa tươi",
+      "đường thốt nốt",
+      "gừng tươi",
+      "dầu dừa"
+    ],
+    "description": "Cháo đậu đỏ nước dừa béo ngậy — đậu đỏ giàu sắt, kali và đạm thực vật; nước dừa cung cấp điện giải tự nhiên; dầu dừa MCT cho năng lượng tức thì — bữa sáng ngon miệng giúp tăng cân hiệu quả.",
+    "tags": [
+      "high-calorie",
+      "iron-rich",
+      "plant-protein",
+      "traditional",
+      "energizing"
+    ]
+  },
+  {
+    "id": "rec_104",
+    "name": "Bát acai berry protein",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-cholesterol",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "bột acai",
+      "chuối đông lạnh",
+      "sữa hạnh nhân",
+      "yến mạch",
+      "granola",
+      "mật ong",
+      "việt quất",
+      "hạt điều"
+    ],
+    "description": "Bát acai mịn mát với topping granola giòn và hạt điều — acai giàu anthocyanin chống oxy hóa, chuối và granola cung cấp carb bền vững, hạt điều thêm chất béo lành mạnh cho bữa sáng nhiều năng lượng.",
+    "tags": [
+      "high-calorie",
+      "antioxidant-rich",
+      "energizing",
+      "meal-prep"
+    ]
+  },
+  {
+    "id": "rec_105",
+    "name": "Trứng luộc với salad rau cải và hạt bí",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "trứng gà",
+      "rau xà lách xanh",
+      "cải rổ",
+      "cà chua bi",
+      "hạt bí ngô",
+      "giấm táo",
+      "dầu ô liu"
+    ],
+    "description": "Bữa sáng nhẹ nhàng với trứng luộc giàu protein, rau xanh nhiều chất xơ và hạt bí ngô giàu magie — ít hơn 250 kcal, no lâu và không làm tăng đường huyết đột ngột.",
+    "tags": [
+      "low-calorie",
+      "high-protein",
+      "low-glycemic",
+      "magnesium-rich"
+    ]
+  },
+  {
+    "id": "rec_106",
+    "name": "Sinh tố xanh rau bina dứa gừng",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "obesity",
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "rau bina",
+      "dứa tươi",
+      "gừng tươi",
+      "dưa leo",
+      "chanh",
+      "nước lọc"
+    ],
+    "description": "Sinh tố xanh không thêm đường với rau bina giàu sắt và folate, dứa chứa bromelain hỗ trợ tiêu hóa, gừng kháng viêm và giảm thèm ăn — tổng calo dưới 130 kcal, lý tưởng để bắt đầu ngày giảm cân.",
+    "tags": [
+      "low-calorie",
+      "detox",
+      "anti-inflammatory",
+      "iron-rich",
+      "no-sugar-added"
+    ]
+  },
+  {
+    "id": "rec_107",
+    "name": "Bánh mì nguyên cám nướng với bơ trái và trứng luộc",
+    "mealType": "breakfast",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "high-cholesterol",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "bánh mì nguyên cám",
+      "bơ trái",
+      "trứng gà luộc",
+      "cà chua",
+      "ớt vảy",
+      "muối biển ít",
+      "tiêu đen"
+    ],
+    "description": "Toast bơ nguyên cám với trứng luộc — chất béo không bão hòa đơn từ bơ trái giúp no lâu và hấp thu vitamin tan trong dầu; bánh mì nguyên cám chỉ số đường huyết thấp; trứng cung cấp 6g protein chất lượng cao mỗi quả.",
+    "tags": [
+      "healthy-fats",
+      "high-protein",
+      "low-glycemic",
+      "potassium-rich",
+      "satisfying"
+    ]
+  },
+  {
+    "id": "rec_108",
+    "name": "Cháo đậu xanh ít muối thanh đạm",
+    "mealType": "breakfast",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "kidney-disease",
+      "hypertension",
+      "high-uric-acid",
+      "gastritis"
+    ],
+    "ingredients": [
+      "gạo lứt",
+      "đậu xanh tách vỏ",
+      "gừng tươi",
+      "hành lá",
+      "dầu mè"
+    ],
+    "description": "Cháo gạo lứt đậu xanh không nêm muối — kết hợp hai nguồn đạm thực vật và carb nguyên cám giúp chỉ số đường huyết ổn định; tổng calo thấp mà vẫn cung cấp đủ khoáng chất và chất xơ cho buổi sáng giảm cân.",
+    "tags": [
+      "low-calorie",
+      "low-glycemic",
+      "low-sodium",
+      "low-purine",
+      "plant-protein"
+    ]
   }
 ]

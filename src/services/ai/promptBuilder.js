@@ -42,7 +42,9 @@ export function buildMealPrompt({
   limitedIngredients,
   preferredIngredients,
   errorFeedback,
-  retrievedContext
+  retrievedContext,
+  dayNumber,
+  avoidMealNames
 }) {
   const safeMealType = sanitizePromptInput(mealType, 20);
   const safeGoal = sanitizePromptInput(goal);
@@ -52,6 +54,7 @@ export function buildMealPrompt({
 
   const cuisineList = safeCuisines.length > 0 ? safeCuisines.join(', ') : 'diverse';
   const diseasesList = safeDiseases.length > 0 ? safeDiseases.join(', ') : 'none';
+  const safeAvoidNames = sanitizePromptArray(avoidMealNames || [], 20, 80);
 
   let prompt = `You are a professional Vietnamese nutritionist. Generate ONE creative ${safeMealType} meal suitable for Vietnamese users. Return ONLY valid JSON.
 
@@ -65,7 +68,7 @@ User Preferences:
 - Diet: ${safeDiet}
 - Cuisines: ${cuisineList}
 - Health conditions: ${diseasesList}
-
+${safeAvoidNames.length > 0 ? `\nVARIETY REQUIREMENT: This is Day ${dayNumber}. You MUST generate a completely DIFFERENT meal — do NOT use any of these already-used names: ${safeAvoidNames.join(', ')}. Pick a distinct dish with different main ingredients.\n` : ''}
 Return ONLY this JSON (no markdown, no text), with ALL string values in Vietnamese:
 {
   "name": "Tên món ăn",

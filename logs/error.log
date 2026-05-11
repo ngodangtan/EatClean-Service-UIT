@@ -123,3 +123,4 @@
 21:12:43 [31merror[39m: Meal generation attempt 2/3 failed:
 21:14:07 [31merror[39m: Attempt 3: Meal generation failed -
 21:14:07 [31merror[39m: All retries exhausted. Last errors: {"0":"Global AI call budget exhausted"}
+22:07:59 [31merror[39m: Meal generation attempt 1/3 failed:

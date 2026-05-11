@@ -22,6 +22,7 @@ import logger from '../utils/logger.js';
 
 const MAX_RETRIES = 2;
 const DEFAULT_TEMPLATE_DAYS = 7;
+const MAX_TEMPLATE_DAYS = 14; // cap unique days generated; plans longer than this repeat a 14-day cycle
 const DAILY_TEMPLATE_DAYS = 1; // purpose=daily_health_based generates a single day
 const CONCURRENCY_LIMIT = 3;
 // Allows 2 regeneration attempts per meal (validate → regen → validate → regen → validate)
@@ -160,6 +161,12 @@ export async function generateMealPlan(req, res) {
     });
     logger.info('Plan duration:', duration);
 
+    // Scale template to cover unique days up to MAX_TEMPLATE_DAYS.
+    // Plans longer than 14 days repeat the 14-day cycle (e.g. 4-week: weeks 3-4 = weeks 1-2).
+    if (templateDays > 1) {
+      templateDays = Math.min(duration.totalDays, MAX_TEMPLATE_DAYS);
+    }
+
     // Step 4: Get ingredient lists for prompt
     const forbiddenIngredients = getForbiddenIngredients(diseases);
     const limitedIngredients = getLimitedIngredients(diseases);
@@ -193,9 +200,10 @@ export async function generateMealPlan(req, res) {
       ragContextByMealType = {};
     }
 
-    // Shared call budget across all retries (dynamic based on meals per day)
+    // Shared call budget across all retries (dynamic based on meals per day).
+    // Factor of 3 allows ~1 safety-regen retry per meal on average.
     const mealsPerDay = nutritionPlan.mealDistribution.length;
-    const aiCallBudget = Math.min(60, templateDays * mealsPerDay * 2 + 10);
+    const aiCallBudget = Math.min(200, templateDays * mealsPerDay * 3 + 10);
     const callBudget = { remaining: aiCallBudget };
 
     // Step 5: Retry loop — generate template (7 days, or 1 day for daily_health_based),
@@ -214,95 +222,112 @@ export async function generateMealPlan(req, res) {
       }
 
       try {
-        // Build all meal generation tasks (templateDays x mealsPerDay)
-        const mealTasks = [];
-        const mealMeta = []; // track dayIndex + dist for assembly
-
-        for (let dayIndex = 0; dayIndex < templateDays; dayIndex++) {
-          for (const dist of nutritionPlan.mealDistribution) {
-            mealMeta.push({ dayIndex, dist });
-            mealTasks.push(() => {
-              logger.info(`Generating Day ${dayIndex + 1} ${dist.mealType}...`);
-              return generateMeal({
-                mealType: dist.mealType,
-                calories: dist.calories,
-                protein: dist.protein,
-                carbs: dist.carbs,
-                fat: dist.fat,
-                // Use the effective goal (after purpose override), not the stored profile goal,
-                // so the AI prompt matches the macros it's being asked to hit.
-                goal: nutritionPlan.goal,
-                dietPreference: healthProfile.dietPreference,
-                cuisinePreference: healthProfile.cuisinePreference,
-                diseases,
-                forbiddenIngredients,
-                limitedIngredients,
-                preferredIngredients,
-                retrievedContext: ragContextByMealType[dist.mealType] ?? null
-              }, callBudget);
-            });
-          }
-        }
-
-        // Run meal generation with concurrency limit
-        const mealResults = await runWithConcurrency(mealTasks, CONCURRENCY_LIMIT);
-
-        // Step 6: Post-AI safety validation per meal (with per-meal retries)
+        // Generate days sequentially so each day's prompt knows what was already used
+        // for that mealType. Meals within a single day run in parallel.
         const validatedMeals = [];
+        const mealMeta = [];
         let safetyFailed = false;
 
-        for (let i = 0; i < mealResults.length; i++) {
-          let mealContent = mealResults[i];
-          const dist = mealMeta[i].dist;
-          const dayIndex = mealMeta[i].dayIndex;
+        // Per-mealType name tracking to enforce variety across days
+        const usedMealNames = {};
+        for (const dist of nutritionPlan.mealDistribution) {
+          usedMealNames[dist.mealType] = [];
+        }
 
-          if (hasDiseases) {
-            let mealSafe = false;
-            for (let regenAttempt = 0; regenAttempt <= MAX_MEAL_REGEN_ATTEMPTS; regenAttempt++) {
-              const result = validateGeneratedMeal(mealContent, diseases);
-              if (result.safe) {
-                mealSafe = true;
-                break;
-              }
-
-              logger.warn(
-                `Day ${dayIndex + 1} ${dist.mealType} safety check failed (attempt ${regenAttempt + 1}):`,
-                result.reasons
-              );
-
-              // Regenerate this specific meal if budget allows
-              if (regenAttempt < MAX_MEAL_REGEN_ATTEMPTS && callBudget.remaining > 0) {
-                try {
-                  mealContent = await generateMeal({
-                    mealType: dist.mealType,
-                    calories: dist.calories,
-                    protein: dist.protein,
-                    carbs: dist.carbs,
-                    fat: dist.fat,
-                    goal: nutritionPlan.goal,
-                    dietPreference: healthProfile.dietPreference,
-                    cuisinePreference: healthProfile.cuisinePreference,
-                    diseases,
-                    forbiddenIngredients,
-                    limitedIngredients,
-                    preferredIngredients,
-                    errorFeedback: `Unsafe ingredients detected: ${result.reasons.join('; ')}`
-                  }, callBudget);
-                } catch (regenErr) {
-                  logger.error(`Meal regeneration failed:`, regenErr.message);
-                  break;
-                }
-              }
-            }
-
-            if (!mealSafe) {
-              safetyFailed = true;
-              lastErrors = ['Unable to generate safe meal plan for selected health conditions'];
-              break;
-            }
+        for (let dayIndex = 0; dayIndex < templateDays; dayIndex++) {
+          if (callBudget.remaining <= 0) {
+            lastErrors = ['Global AI call budget exhausted'];
+            safetyFailed = true;
+            break;
           }
 
-          validatedMeals.push(mealContent);
+          // Capture avoidNames snapshot before any async work this day
+          const dayAvoidNames = {};
+          for (const dist of nutritionPlan.mealDistribution) {
+            dayAvoidNames[dist.mealType] = [...usedMealNames[dist.mealType]];
+          }
+
+          const dayTasks = nutritionPlan.mealDistribution.map(dist => () => {
+            logger.info(`Generating Day ${dayIndex + 1} ${dist.mealType}...`);
+            return generateMeal({
+              mealType: dist.mealType,
+              calories: dist.calories,
+              protein: dist.protein,
+              carbs: dist.carbs,
+              fat: dist.fat,
+              goal: nutritionPlan.goal,
+              dietPreference: healthProfile.dietPreference,
+              cuisinePreference: healthProfile.cuisinePreference,
+              diseases,
+              forbiddenIngredients,
+              limitedIngredients,
+              preferredIngredients,
+              retrievedContext: ragContextByMealType[dist.mealType] ?? null,
+              dayNumber: dayIndex + 1,
+              avoidMealNames: dayAvoidNames[dist.mealType]
+            }, callBudget);
+          });
+
+          const dayResults = await runWithConcurrency(dayTasks, CONCURRENCY_LIMIT);
+
+          // Step 6: Post-AI safety validation + name tracking for this day's meals
+          for (let mealIdx = 0; mealIdx < dayResults.length; mealIdx++) {
+            let mealContent = dayResults[mealIdx];
+            const dist = nutritionPlan.mealDistribution[mealIdx];
+
+            if (hasDiseases) {
+              let mealSafe = false;
+              for (let regenAttempt = 0; regenAttempt <= MAX_MEAL_REGEN_ATTEMPTS; regenAttempt++) {
+                const result = validateGeneratedMeal(mealContent, diseases);
+                if (result.safe) {
+                  mealSafe = true;
+                  break;
+                }
+
+                logger.warn(
+                  `Day ${dayIndex + 1} ${dist.mealType} safety check failed (attempt ${regenAttempt + 1}):`,
+                  result.reasons
+                );
+
+                if (regenAttempt < MAX_MEAL_REGEN_ATTEMPTS && callBudget.remaining > 0) {
+                  try {
+                    mealContent = await generateMeal({
+                      mealType: dist.mealType,
+                      calories: dist.calories,
+                      protein: dist.protein,
+                      carbs: dist.carbs,
+                      fat: dist.fat,
+                      goal: nutritionPlan.goal,
+                      dietPreference: healthProfile.dietPreference,
+                      cuisinePreference: healthProfile.cuisinePreference,
+                      diseases,
+                      forbiddenIngredients,
+                      limitedIngredients,
+                      preferredIngredients,
+                      dayNumber: dayIndex + 1,
+                      avoidMealNames: dayAvoidNames[dist.mealType],
+                      errorFeedback: `Unsafe ingredients detected: ${result.reasons.join('; ')}`
+                    }, callBudget);
+                  } catch (regenErr) {
+                    logger.error(`Meal regeneration failed:`, regenErr.message);
+                    break;
+                  }
+                }
+              }
+
+              if (!mealSafe) {
+                safetyFailed = true;
+                lastErrors = ['Unable to generate safe meal plan for selected health conditions'];
+                break;
+              }
+            }
+
+            usedMealNames[dist.mealType].push(mealContent.name);
+            mealMeta.push({ dayIndex, dist });
+            validatedMeals.push(mealContent);
+          }
+
+          if (safetyFailed) break;
         }
 
         if (safetyFailed) continue;
@@ -363,12 +388,11 @@ export async function generateMealPlan(req, res) {
           continue;
         }
 
-        // Template validated — replicate across weeks. For daily_health_based
-        // (templateDays=1) we always cover a single day, so this collapses to
-        // a copy of the single template day.
+        // Expand template to full plan duration. For plans longer than MAX_TEMPLATE_DAYS
+        // the template repeats on a 14-day cycle (weeks 3-4 repeat weeks 1-2 for 4-week plans).
         const totalDays = templateDays === DAILY_TEMPLATE_DAYS
           ? 1
-          : duration.weeks * templateDays;
+          : duration.totalDays;
         const allDays = [];
         for (let i = 0; i < totalDays; i++) {
           const templateDay = templateDayObjs[i % templateDays];

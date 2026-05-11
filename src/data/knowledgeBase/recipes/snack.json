@@ -490,5 +490,351 @@
       "cholesterol-lowering",
       "sustained-energy"
     ]
+  },
+  {
+    "id": "rec_133",
+    "name": "Sữa chua Hy Lạp mật ong hạt điều",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "muscle-gain",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "gastritis",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "sữa chua Hy Lạp không béo",
+      "mật ong nguyên chất",
+      "hạt điều rang không muối",
+      "chuối"
+    ],
+    "description": "Bữa phụ tăng cơ nhanh gọn — sữa chua Hy Lạp cung cấp 15-18g protein casein hấp thu chậm, lý tưởng giữa các bữa chính; mật ong và chuối bổ sung carb nhanh; hạt điều thêm magie và kẽm thiết yếu cho tổng hợp protein.",
+    "tags": [
+      "high-protein",
+      "muscle-building",
+      "casein",
+      "quick-prep",
+      "zinc-rich"
+    ]
+  },
+  {
+    "id": "rec_134",
+    "name": "Trứng luộc và bánh gạo nguyên cám",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "muscle-gain",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "trứng gà",
+      "bánh gạo lứt",
+      "muối biển ít",
+      "tiêu đen"
+    ],
+    "description": "Combo bữa phụ đơn giản cao đạm thấp calo — mỗi trứng luộc chứa 6g protein hoàn chỉnh và choline; bánh gạo lứt cung cấp carb nguyên cám ít calo; tổng dưới 180 kcal, hoàn hảo giữa các buổi tập.",
+    "tags": [
+      "high-protein",
+      "low-calorie",
+      "muscle-building",
+      "no-cook",
+      "portable"
+    ]
+  },
+  {
+    "id": "rec_135",
+    "name": "Sinh tố sữa chuối mật ong bổ sung đạm",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "chuối chín",
+      "sữa tươi nguyên kem",
+      "mật ong nguyên chất",
+      "bơ đậu phộng tự nhiên",
+      "hạt chia",
+      "đá viên"
+    ],
+    "description": "Sinh tố tăng cơ béo dinh dưỡng — chuối cung cấp carb và kali giảm chuột rút; sữa nguyên kem bổ sung whey và casein tự nhiên; bơ đậu phộng thêm đạm thực vật và chất béo lành mạnh; hạt chia omega-3 hỗ trợ phục hồi cơ.",
+    "tags": [
+      "high-protein",
+      "high-calorie",
+      "muscle-building",
+      "pre-workout",
+      "potassium-rich"
+    ]
+  },
+  {
+    "id": "rec_136",
+    "name": "Bánh mì nguyên cám với bơ đậu phộng và chuối",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "bánh mì nguyên cám",
+      "bơ đậu phộng tự nhiên",
+      "chuối chín",
+      "mật ong nguyên chất",
+      "hạt mè"
+    ],
+    "description": "Toast nguyên cám bơ đậu phộng chuối — bữa phụ tăng cơ phổ biến với vận động viên: nguyên cám cung cấp carb phức hợp và chất xơ, bơ đậu phộng bổ sung đạm và chất béo lành mạnh, chuối cung cấp kali và carb nhanh.",
+    "tags": [
+      "high-calorie",
+      "high-protein",
+      "muscle-building",
+      "potassium-rich",
+      "sustained-energy"
+    ]
+  },
+  {
+    "id": "rec_137",
+    "name": "Chè đậu đỏ nước cốt dừa ít đường",
+    "mealType": "snack",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "đậu đỏ",
+      "nước cốt dừa",
+      "đường thốt nốt",
+      "gừng tươi"
+    ],
+    "description": "Chè đậu đỏ nước cốt dừa truyền thống Việt Nam — đậu đỏ giàu sắt phi-heme, folate và đạm thực vật; nước cốt dừa cung cấp MCT cho năng lượng nhanh; đường thốt nốt ít tinh chế hơn đường trắng — bữa phụ tăng cân ngon ngọt.",
+    "tags": [
+      "high-calorie",
+      "iron-rich",
+      "plant-protein",
+      "traditional",
+      "energizing"
+    ]
+  },
+  {
+    "id": "rec_138",
+    "name": "Chuối nướng mật ong và hạt óc chó",
+    "mealType": "snack",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "insomnia",
+      "hypertension",
+      "obesity"
+    ],
+    "ingredients": [
+      "chuối chín",
+      "mật ong nguyên chất",
+      "hạt óc chó",
+      "quế"
+    ],
+    "description": "Chuối nướng mật ong thơm lừng với hạt óc chó — chuối giàu kali, tryptophan và carb tự nhiên; óc chó cung cấp omega-3 ALA và magie hỗ trợ sản xuất serotonin; mật ong và quế giúp ổn định đường huyết — bữa phụ tăng cân lành mạnh.",
+    "tags": [
+      "high-calorie",
+      "tryptophan-rich",
+      "omega-3",
+      "potassium-rich",
+      "traditional"
+    ]
+  },
+  {
+    "id": "rec_139",
+    "name": "Sữa hạt óc chó hạnh nhân với granola",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-cholesterol",
+      "heart-disease",
+      "insomnia"
+    ],
+    "ingredients": [
+      "sữa óc chó",
+      "sữa hạnh nhân",
+      "granola nguyên cám",
+      "mật ong",
+      "hạt bí ngô",
+      "quế"
+    ],
+    "description": "Bữa phụ hạt dinh dưỡng — sữa hạt kép cung cấp omega-3, vitamin E và magie; granola nguyên cám thêm chất xơ và carb bền; hạt bí ngô giàu kẽm và tryptophan — bữa chiều thơm ngon giúp tăng cân lành mạnh.",
+    "tags": [
+      "high-calorie",
+      "omega-3",
+      "magnesium-rich",
+      "vitamin-e-rich",
+      "dairy-free"
+    ]
+  },
+  {
+    "id": "rec_140",
+    "name": "Bánh mì bơ phô mai nướng nóng",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "gain-weight"
+    ],
+    "diseaseCompatible": [],
+    "ingredients": [
+      "bánh mì sandwich",
+      "bơ lạt",
+      "phô mai mozzarella",
+      "phô mai parmesan",
+      "thảo mộc khô"
+    ],
+    "description": "Bánh mì phô mai hai loại nướng giòn — phô mai mozzarella và parmesan chảy cung cấp đạm, canxi và chất béo lành mạnh; bơ lạt thêm năng lượng từ chất béo sữa; bữa phụ nóng hổi calo cao cho người cần tăng cân.",
+    "tags": [
+      "high-calorie",
+      "high-protein",
+      "calcium-rich",
+      "warming",
+      "quick-prep"
+    ]
+  },
+  {
+    "id": "rec_141",
+    "name": "Cần tây chấm bơ đậu phộng tự nhiên",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "obesity",
+      "hypertension",
+      "high-cholesterol"
+    ],
+    "ingredients": [
+      "cần tây",
+      "bơ đậu phộng tự nhiên không muối",
+      "hạt nho khô"
+    ],
+    "description": "Combo cần tây bơ đậu phộng kinh điển — cần tây cực ít calo và giàu vitamin K, xơ; bơ đậu phộng tự nhiên cung cấp đạm và chất béo không bão hòa giúp no lâu; hạt nho khô thêm vị ngọt tự nhiên và sắt — bữa phụ giảm cân đầy đủ vi chất.",
+    "tags": [
+      "low-calorie",
+      "high-protein",
+      "fiber-rich",
+      "satisfying",
+      "no-cook"
+    ]
+  },
+  {
+    "id": "rec_142",
+    "name": "Nước ép rau xanh cà rốt nghệ",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "obesity",
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "high-uric-acid"
+    ],
+    "ingredients": [
+      "rau bina",
+      "cần tây",
+      "cà rốt",
+      "nghệ tươi",
+      "gừng tươi",
+      "chanh",
+      "táo xanh"
+    ],
+    "description": "Nước ép xanh tươi không thêm đường — rau bina và cần tây cực ít calo giàu vitamin K và folate; nghệ curcumin kháng viêm; gừng hỗ trợ tiêu hóa; táo thêm vị ngọt nhẹ và pectin hạ cholesterol; tổng dưới 100 kcal.",
+    "tags": [
+      "very-low-calorie",
+      "anti-inflammatory",
+      "detox",
+      "no-sugar-added",
+      "vitamin-k-rich"
+    ]
+  },
+  {
+    "id": "rec_143",
+    "name": "Edamame hấp muối ít",
+    "mealType": "snack",
+    "cuisine": "asian",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-uric-acid",
+      "diabetes",
+      "obesity",
+      "high-cholesterol",
+      "hypertension"
+    ],
+    "ingredients": [
+      "đậu edamame",
+      "muối biển ít"
+    ],
+    "description": "Đậu edamame hấp — bữa phụ đơn giản nhất giàu đạm thực vật hoàn chỉnh (8g protein/100g), chất xơ và isoflavone hỗ trợ sức khỏe tim mạch; ít calo, ít purin và no lâu — lựa chọn vàng cho bữa phụ giảm cân.",
+    "tags": [
+      "high-protein",
+      "low-calorie",
+      "plant-protein",
+      "low-purine",
+      "minimal-prep"
+    ]
+  },
+  {
+    "id": "rec_144",
+    "name": "Dưa hấu phô mai tươi bạc hà",
+    "mealType": "snack",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "high-uric-acid",
+      "hypertension",
+      "obesity",
+      "kidney-disease"
+    ],
+    "ingredients": [
+      "dưa hấu",
+      "phô mai ricotta ít béo",
+      "lá bạc hà tươi",
+      "chanh"
+    ],
+    "description": "Dưa hấu mát lạnh với phô mai ricotta ít béo và bạc hà — dưa hấu citrulline hỗ trợ lưu thông máu và đào thải axit uric; phô mai ricotta cung cấp đạm whey và canxi với ít calo; combo bữa phụ mùa hè dưới 150 kcal.",
+    "tags": [
+      "low-calorie",
+      "hydrating",
+      "uric-acid-lowering",
+      "high-protein",
+      "refreshing"
+    ]
   }
 ]
