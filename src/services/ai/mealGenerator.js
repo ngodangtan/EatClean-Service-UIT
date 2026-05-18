@@ -46,10 +46,23 @@ export function sanitizeResponse(parsed) {
  * @param {object} mealInput.retrievedContext - Pre-sanitized RAG context string (optional)
  * @param {object} [callBudget] - Optional shared budget tracker { remaining: number }
  */
+// Delay before retry: longer for network errors (server may need time to recover)
+// than for parse errors (which are safe to retry immediately).
+function isNetworkError(err) {
+  return err.message === 'fetch failed' || err.name === 'AbortError' || err.message.includes('ECONNREFUSED') || err.message.includes('ECONNRESET');
+}
+
 export async function generateMeal({ retrievedContext = null, ...mealInput }, callBudget) {
   let lastError = null;
 
   for (let attempt = 0; attempt <= MAX_MEAL_RETRIES; attempt++) {
+    // Back off before retrying: network errors need a longer pause so LM Studio
+    // can recover; parse/sanitize errors can retry after a short pause.
+    if (attempt > 0) {
+      const delay = isNetworkError(lastError) ? 3000 : 500;
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+
     // Check global call budget before each AI call
     if (callBudget) {
       if (callBudget.remaining <= 0) {
@@ -58,7 +71,7 @@ export async function generateMeal({ retrievedContext = null, ...mealInput }, ca
       callBudget.remaining--;
     }
 
-    const errorFeedback = lastError ? lastError.message : null;
+    const errorFeedback = lastError && !isNetworkError(lastError) ? lastError.message : null;
     const prompt = buildMealPrompt({ ...mealInput, errorFeedback, retrievedContext });
 
     try {

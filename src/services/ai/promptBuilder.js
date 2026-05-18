@@ -44,7 +44,9 @@ export function buildMealPrompt({
   errorFeedback,
   retrievedContext,
   dayNumber,
-  avoidMealNames
+  avoidMealNames,
+  dayMealInspiration,
+  avoidPrimaryIngredients
 }) {
   const safeMealType = sanitizePromptInput(mealType, 20);
   const safeGoal = sanitizePromptInput(goal);
@@ -55,8 +57,10 @@ export function buildMealPrompt({
   const cuisineList = safeCuisines.length > 0 ? safeCuisines.join(', ') : 'diverse';
   const diseasesList = safeDiseases.length > 0 ? safeDiseases.join(', ') : 'none';
   const safeAvoidNames = sanitizePromptArray(avoidMealNames || [], 20, 80);
+  const safeInspiration = sanitizePromptInput(dayMealInspiration || '', 120);
+  const safeAvoidIngredients = sanitizePromptArray(avoidPrimaryIngredients || [], 8, 40);
 
-  let prompt = `You are a professional Vietnamese nutritionist. Generate ONE creative ${safeMealType} meal suitable for Vietnamese users. Return ONLY valid JSON.
+  let prompt = `You are a professional Vietnamese nutritionist. Generate ONE creative ${safeMealType} meal suitable for Vietnamese users.
 
 LANGUAGE REQUIREMENT: All text fields (name, description, ingredients, benefits) MUST be written in Vietnamese (tiếng Việt) with proper Vietnamese diacritics. Do NOT use English. Prefer common Vietnamese dishes and ingredients familiar to the Vietnamese market.
 
@@ -68,8 +72,8 @@ User Preferences:
 - Diet: ${safeDiet}
 - Cuisines: ${cuisineList}
 - Health conditions: ${diseasesList}
-${safeAvoidNames.length > 0 ? `\nVARIETY REQUIREMENT: This is Day ${dayNumber}. You MUST generate a completely DIFFERENT meal — do NOT use any of these already-used names: ${safeAvoidNames.join(', ')}. Pick a distinct dish with different main ingredients.\n` : ''}
-Return ONLY this JSON (no markdown, no text), with ALL string values in Vietnamese:
+${safeInspiration ? `\nCOOKING STYLE INSTRUCTION: Today's required dish format is based on: "${safeInspiration}". You MUST create a meal using the SAME cooking method and main ingredient category. Examples: if the reference is a cháo/porridge → make a porridge; if it uses eggs/trứng → build around eggs; if it is a salad → make a salad; if it uses fish/cá → use fish; if it uses tofu/đậu hũ → use tofu. Adapt specific seasonings and accompaniments freely, but DO NOT replace the core dish format with something unrelated like bánh or a generic rice bowl.\n` : ''}${safeAvoidNames.length > 0 ? `\nVARIETY REQUIREMENT: This is Day ${dayNumber}. You MUST generate a completely DIFFERENT meal — do NOT use any of these already-used names: ${safeAvoidNames.join(', ')}. Pick a distinct dish with different main ingredients.\n` : ''}${safeAvoidIngredients.length > 0 ? `\nINGREDIENT OVERUSE RESTRICTION: The following ingredients have already appeared too many times in this meal plan. Do NOT use them as the PRIMARY or MAIN ingredient in this meal: ${safeAvoidIngredients.join(', ')}. You MUST choose a completely different protein source, carb base, or vegetable as the star of the dish.\n` : ''}
+Output this JSON with ALL string values in Vietnamese:
 {
   "name": "Tên món ăn",
   "description": "Mô tả ngắn gọn về món ăn",
@@ -78,8 +82,13 @@ Return ONLY this JSON (no markdown, no text), with ALL string values in Vietname
 }
 `;
 
-  // Inject RAG context as inspiration between preferences and strict rules
-  if (retrievedContext && retrievedContext.trim()) {
+  // Inject RAG context only when there is NO COOKING STYLE INSTRUCTION.
+  // When a KB-sampled dish format is already provided, the RAG context repeats
+  // the same 3 top-matching meals every day (the query never changes), adding
+  // noise that competes with and often overwrites the day-specific COOKING STYLE.
+  // For Day 1 (no KB sample yet) or if the KB sample was null, RAG still grounds
+  // the model in relevant examples.
+  if (retrievedContext && retrievedContext.trim() && !safeInspiration) {
     prompt += `
 REFERENCE CONTEXT (inspiration only — do not copy):
 ${retrievedContext}

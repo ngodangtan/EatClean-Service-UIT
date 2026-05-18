@@ -1,0 +1,1286 @@
+{
+  "duration": {
+    "weeks": 2,
+    "totalDays": 14
+  },
+  "_id": "6a020660b1a5e35f51102919",
+  "userId": "69f7492596203530b599a0e5",
+  "healthProfileId": {
+    "_id": "69f749dd96203530b599a0f8",
+    "userId": "69f7492596203530b599a0e5",
+    "gender": "male",
+    "age": 34,
+    "height": 170,
+    "currentWeight": 80,
+    "activityLevel": "sedentary",
+    "sleepDuration": 5,
+    "diseases": [
+      {
+        "key": "diabetes",
+        "indicators": [
+          {
+            "key": "fasting_glucose",
+            "value": 22,
+            "unit": "mg/dL"
+          },
+          {
+            "key": "hba1c",
+            "value": 22,
+            "unit": "%"
+          },
+          {
+            "key": "fasting_insulin",
+            "value": 22,
+            "unit": "µU/mL"
+          }
+        ]
+      }
+    ],
+    "dietPreference": "balanced",
+    "mealsPerDay": 3,
+    "cuisinePreference": [
+      "Vietnamese",
+      "Chinese"
+    ],
+    "createdAt": "2026-05-03T13:13:01.040Z",
+    "updatedAt": "2026-05-03T13:38:23.069Z",
+    "__v": 2
+  },
+  "purpose": "weight_management",
+  "title": "2-Week Meal Plan",
+  "days": [
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 1,
+      "title": "Day 1",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Cháo gạo lứt với quả mọng và hạt óc chó",
+          "description": "Một bữa sáng cân bằng giúp giảm nguy cơ mắc bệnh tiểu đường, giàu chất xơ và protein từ gạo lứt, quả mọng và hạt óc chó.",
+          "ingredients": [
+            "gạo lứt",
+            "quả mọng",
+            "hạt óc chó",
+            "dầu ô liu",
+            "hành lá"
+          ],
+          "benefits": [
+            "giảm nguy cơ mắc bệnh tiểu đường",
+            "tăng cường chất xơ và protein",
+            "cải thiện sức khỏe tim mạch",
+            "tăng cường hệ miễn dịch"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110291b"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm gà nướng với rau củ",
+          "description": "Món ăn này gồm cơm lứt nướng với gà hấp đậm đà và các loại rau củ tươi ngon, giúp kiểm soát lượng đường huyết và cung cấp chất xơ dồi dào.",
+          "ingredients": [
+            "gạo lứt",
+            "ức gà",
+            "củ đậu",
+            "bông cải xanh",
+            "quả mọng",
+            "hành lá",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "giúp kiểm soát lượng đường huyết",
+            "cung cấp chất xơ dồi dào"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f5110291c"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Cá Chép Hấp Gạo Lứt",
+          "description": "Món cá chép hấp gạo lứt là một lựa chọn tuyệt vời cho người bị tiểu đường, giúp kiểm soát lượng đường trong máu và cung cấp nguồn protein dồi dào.",
+          "ingredients": [
+            "cá chép",
+            "gạo lứt",
+            "dầu ô liu",
+            "gừng tươi",
+            "hành tây",
+            "rau thơm"
+          ],
+          "benefits": [
+            "giúp kiểm soát lượng đường trong máu",
+            "cung cấp nguồn protein dồi dào",
+            "lợi ích sức khỏe cho người bị tiểu đường"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110291d"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f5110291a"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 2,
+      "title": "Day 2",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh mì gạo lứt nướng với quả mọng và hạt sen",
+          "description": "Món ăn sáng lành mạnh giúp kiểm soát đường huyết và hỗ trợ giảm cân.",
+          "ingredients": [
+            "gạo lứt",
+            "hạt sen",
+            "quả mọng",
+            "rau mùi",
+            "bơ",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "cải thiện kiểm soát đường huyết",
+            "hỗ trợ giảm cân",
+            "cung cấp chất xơ và vitamin tốt cho sức khỏe"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110291f"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm gà nướng với rau cải",
+          "description": "Món cơm gà nướng được kết hợp với rau cải và các nguyên liệu tự nhiên khác để tạo nên một bữa ăn lành mạnh và ngon miệng.",
+          "ingredients": [
+            "gạo lứt",
+            "ức gà",
+            "rau cải",
+            "quả chanh",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "giúp kiểm soát đường huyết",
+            "cung cấp chất xơ và vitamin cho cơ thể"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102920"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Gạo lứt xào đậu gà và rau xanh",
+          "description": "Món gạo lứt xào đậu gà và rau xanh là một lựa chọn tuyệt vời cho bữa tối, giúp giảm cân và cải thiện sức khỏe.",
+          "ingredients": [
+            "gạo lứt",
+            "đậu gà",
+            "rau xanh",
+            "tỏi",
+            "gừng tươi",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "giảm cân",
+            "cải thiện sức khỏe",
+            "chỉ số đường huyết thấp",
+            "thực phẩm giàu chất xơ"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102921"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f5110291e"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 3,
+      "title": "Day 3",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh mì gạo lứt nướng với khoai lang và đậu lăng",
+          "description": "Món bánh mì gạo lứt nướng với khoai lang và đậu lăng là một lựa chọn tuyệt vời cho bữa sáng. Gạo lứt giàu chất xơ, khoai lang cung cấp năng lượng và đậu lăng giúp kiểm soát đường huyết.",
+          "ingredients": [
+            "gạo lứt",
+            "khoai lang",
+            "đậu lăng",
+            "rau xanh",
+            "dầu mè"
+          ],
+          "benefits": [
+            "giàu chất xơ",
+            "kiểm soát đường huyết",
+            "cung cấp năng lượng"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102923"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm gà nướng với rau củ và quả mọng",
+          "description": "Món ăn này kết hợp giữa cơm lứt nướng với ức gà, rau xanh, đậu lăng và quả mọng tạo nên một bữa ăn cân đối và ngon miệng.",
+          "ingredients": [
+            "cơm lứt",
+            "ức gà",
+            "rau xà lách",
+            "đậu lăng",
+            "quả mọng",
+            "quế"
+          ],
+          "benefits": [
+            "thúc đẩy trao đổi chất",
+            "cải thiện sức khỏe tim mạch"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102924"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Cá bớp nướng với rau củ và khoai lang",
+          "description": "Món cá bớp nướng với rau củ và khoai lang là một món ăn ngon miệng và tốt cho sức khỏe, đặc biệt phù hợp với người mắc bệnh tiểu đường.",
+          "ingredients": [
+            "cá bớp tươi",
+            "khoai lang",
+            "bông cải xanh",
+            "hành tây",
+            "tỏi",
+            "gừng tươi",
+            "dầu ô liu",
+            "quế",
+            "chanh"
+          ],
+          "benefits": [
+            "cá bớp giàu chất béo omega-3 tốt cho tim mạch",
+            "khoai lang giúp kiểm soát lượng đường trong máu"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102925"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f51102922"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 4,
+      "title": "Day 4",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Gỏi cuốn dưa hấu và đậu xanh",
+          "description": "Món ăn này kết hợp giữa dưa hấu tươi ngon với đậu xanh nấu chín, tạo nên hương vị mát mẻ và giàu dinh dưỡng.",
+          "ingredients": [
+            "dưa hấu",
+            "đậu xanh",
+            "bánh tráng gạo lứt",
+            "hành lá",
+            "dấm gạo"
+          ],
+          "benefits": [
+            "có lợi ích tốt cho sức khỏe tim mạch",
+            "giúp giảm cân và cải thiện tiêu hóa"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102927"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm chiên thập cẩm với rau củ",
+          "description": "Một món cơm chiên đa dạng với các loại rau củ và hạt để giúp kiểm soát đường huyết hiệu quả.",
+          "ingredients": [
+            "Gạo lứt",
+            "Khoai lang",
+            "Đậu gà",
+            "Rau xà lách",
+            "Cà chua bi",
+            "Bông cải xanh",
+            "Quả mọng",
+            "Dầu ô liu"
+          ],
+          "benefits": [
+            "Giúp kiểm soát đường huyết hiệu quả",
+            "Cung cấp chất xơ và vitamin cho cơ thể"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102928"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Cá thu nướng với rau củ và quinoa",
+          "description": "Món cá thu nướng được kết hợp với rau củ và quinoa tạo nên một bữa ăn cân bằng và dinh dưỡng.",
+          "ingredients": [
+            "cá thu",
+            "quinoa",
+            "cà rốt",
+            "hành tây",
+            "tỏi",
+            "gừng tươi",
+            "dầu ô liu",
+            "ngò rí"
+          ],
+          "benefits": [
+            "giúp kiểm soát lượng đường trong máu",
+            "cung cấp chất xơ và vitamin cho cơ thể"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102929"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f51102926"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 5,
+      "title": "Day 5",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh yến mạch nướng với quả mọng và hạt óc chó",
+          "description": "Một món bánh ngon và lành mạnh giúp hỗ trợ giảm cân và kiểm soát lượng đường trong máu.",
+          "ingredients": [
+            "yến mạch",
+            "quả mọng",
+            "hạt óc chó"
+          ],
+          "benefits": [
+            "giúp giảm cân",
+            "kiểm soát lượng đường trong máu"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110292b"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Gỏi cuốn tôm thịt với rau củ",
+          "description": "Món gỏi cuốn thơm ngon với tôm thịt và rau củ tươi mát, giúp bổ sung chất xơ và vitamin cho cơ thể.",
+          "ingredients": [
+            "tôm",
+            "thịt lợn",
+            "bánh tráng",
+            "rau xà lách",
+            "cà rốt",
+            "cần tây",
+            "hành tây"
+          ],
+          "benefits": [
+            "cung cấp chất xơ và vitamin",
+            "giúp kiểm soát lượng đường trong máu"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f5110292c"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Cà Chay Xào Đậu Lăng",
+          "description": "Món cà chay xào đậu lăng là một lựa chọn tuyệt vời cho người mắc bệnh tiểu đường. Cà chay và đậu lăng cung cấp chất xơ và protein, giúp kiểm soát lượng đường trong máu.",
+          "ingredients": [
+            "cà chay",
+            "đậu lăng",
+            "rau mùi",
+            "gừng tươi",
+            "tiêu đen"
+          ],
+          "benefits": [
+            "giúp kiểm soát lượng đường trong máu",
+            "cung cấp chất xơ và protein"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110292d"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f5110292a"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 6,
+      "title": "Day 6",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Cháo gạo lứt nấu với đậu gà và quả mọng",
+          "description": "Một bữa sáng ngon miệng và bổ dưỡng giúp kiểm soát đường huyết, giảm cân hiệu quả.",
+          "ingredients": [
+            "gạo lứt",
+            "đậu gà",
+            "quả mọng"
+          ],
+          "benefits": [
+            "hỗ trợ kiểm soát đường huyết",
+            "cải thiện trao đổi chất"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110292f"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Tô khoai lang vàng với đậu lăng và rau củ",
+          "description": "Món ăn này kết hợp giữa khoai lang vàng và đậu lăng tạo thành một bữa cơm đầy đủ và cân bằng. Các loại rau củ như cà rốt, hành tây và thì là thêm vào món ăn để tăng cường hương vị và giá trị dinh dưỡng.",
+          "ingredients": [
+            "khoai lang vàng",
+            "đậu lăng",
+            "cà rốt",
+            "hành tây",
+            "thì là",
+            "dầu ô liu",
+            "nước cốt chanh"
+          ],
+          "benefits": [
+            "giúp kiểm soát lượng đường trong máu",
+            "cung cấp chất xơ và vitamin tốt cho sức khỏe"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102930"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Gà nướng với khoai lang và rau xanh",
+          "description": "Món gà nướng được kết hợp với khoai lang và các loại rau xanh như cần tây, hành tây để tạo nên một bữa ăn cân bằng và giàu chất xơ.",
+          "ingredients": [
+            "gà",
+            "khoai lang",
+            "cần tây",
+            "hành tây",
+            "gừng tươi",
+            "dầu ô liu",
+            "tiêu đen"
+          ],
+          "benefits": [
+            "giúp kiểm soát lượng đường trong máu",
+            "cung cấp chất xơ và vitamin cho cơ thể"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102931"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f5110292e"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 7,
+      "title": "Day 7",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh mì yến mạch nướng với quả mọng và hạt điều",
+          "description": "Món bánh mì yến mạch nướng với quả mọng và hạt điều giúp giảm cân, cải thiện sức khỏe. Nguyên liệu được chọn lọc để phù hợp với người mắc bệnh tiểu đường.",
+          "ingredients": [
+            "yến mạch cán dẹt",
+            "quả mọng",
+            "hạt điều",
+            "dầu ô liu",
+            "hành lá"
+          ],
+          "benefits": [
+            "giảm cân",
+            "cải thiện sức khỏe",
+            "phù hợp với người mắc bệnh tiểu đường"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102933"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm chiên gà với rau củ và hạt điều",
+          "description": "Một món cơm chiên ngon và dễ dàng thực hiện với thịt gà nướng, các loại rau củ tươi và hạt điều bổ dưỡng",
+          "ingredients": [
+            "thịt gà",
+            "cà rốt",
+            "bông cải xanh",
+            "hạt điều",
+            "gạo lứt",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "cung cấp chất xơ và vitamin cho cơ thể",
+            "giúp kiểm soát đường huyết"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102934"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Gà nướng với dưa chuột và rau mùi",
+          "description": "Món gà nướng nguyên con với dưa chuột tươi và rau mùi thêm chút quế tạo nên hương vị đặc trưng của ẩm thực Việt Nam.",
+          "ingredients": [
+            "gà",
+            "dưa chuột",
+            "rau mùi",
+            "quế",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "có lợi ích cho sức khỏe tim mạch",
+            "giúp kiểm soát lượng đường trong máu"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102935"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f51102932"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 8,
+      "title": "Day 8",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh cuốn gạo lứt với đậu xanh và rau cải",
+          "description": "Món bánh cuốn này được làm từ gạo lứt và đậu xanh, giúp giảm thiểu lượng đường huyết trong máu. Ăn kèm với các loại rau cải sẽ cung cấp nhiều chất xơ và khoáng chất.",
+          "ingredients": [
+            "gạo lứt",
+            "đậu xanh",
+            "rau cải",
+            "hành lá"
+          ],
+          "benefits": [
+            "giảm thiểu lượng đường huyết",
+            "cung cấp chất xơ và khoáng chất"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102937"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm chiên bông cải xanh với đậu gà và hạt điều",
+          "description": "Một món ăn cân bằng và ngon miệng để hỗ trợ sức khỏe và giảm cân.",
+          "ingredients": [
+            "bông cải xanh",
+            "đậu gà",
+            "hạt điều",
+            "gạo lứt",
+            "dầu ô liu",
+            "tỏi",
+            "quế"
+          ],
+          "benefits": [
+            "Tăng cường sức khỏe tim mạch và giảm nguy cơ mắc bệnh tiểu đường.",
+            "Cung cấp chất xơ và các khoáng chất quan trọng cho cơ thể."
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102938"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Gà nướng với cà rốt và rau quế",
+          "description": "Món gà nướng thơm ngon được kết hợp với cà rốt và rau quế, tạo nên một bữa ăn cân bằng và bổ dưỡng.",
+          "ingredients": [
+            "Gà thả",
+            "Cà rốt",
+            "Rau quế",
+            "Gừng tươi",
+            "Dầu ô liu"
+          ],
+          "benefits": [
+            "Tăng cường sức khỏe tim mạch",
+            "Cung cấp chất xơ và vitamin tốt cho tiêu hóa"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102939"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f51102936"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 9,
+      "title": "Day 9",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Xôi gạo lứt cuộn với rau củ và quả mọng",
+          "description": "Món ăn sáng cân bằng giúp hỗ trợ kiểm soát đường huyết, giảm cân và cải thiện sức khỏe tổng thể.",
+          "ingredients": [
+            "gạo lứt",
+            "khoai lang",
+            "bắp cải thái mỏng",
+            "cà rốt bào sợi",
+            "quả mọng",
+            "hạt điều"
+          ],
+          "benefits": [
+            "giúp kiểm soát đường huyết",
+            "cải thiện sức khỏe tim mạch",
+            "cung cấp chất xơ và vitamin"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110293b"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm chiên khoai lang và rau củ",
+          "description": "Món cơm chiên ngon miệng với khoai lang và các loại rau củ tươi ngon",
+          "ingredients": [
+            "khoai lang vàng",
+            "bông cải xanh",
+            "cà rốt",
+            "đậu lăng",
+            "quả mọng đen",
+            "dầu ô liu",
+            "tỏi"
+          ],
+          "benefits": [
+            "Cung cấp chất xơ giúp hỗ trợ tiêu hóa và kiểm soát đường huyết",
+            "Lợi ích sức khỏe từ các loại rau củ tươi ngon"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f5110293c"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Cá Hồi Xào Rau Củ và Quinoa",
+          "description": "Món cá hồi xào rau củ và quinoa là một lựa chọn tuyệt vời cho người mắc bệnh tiểu đường. Cá hồi giàu chất béo omega-3, giúp giảm viêm và cải thiện tình trạng sức khỏe.",
+          "ingredients": [
+            "Cá hồi",
+            "Rau cải xanh",
+            "Bí ngòi",
+            "Măng tây",
+            "Quinoa",
+            "Tỏi",
+            "Gừng tươi"
+          ],
+          "benefits": [
+            "Giảm viêm và cải thiện tình trạng sức khỏe",
+            "Cung cấp chất béo omega-3 tốt cho tim mạch"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110293d"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f5110293a"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 10,
+      "title": "Day 10",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh khoai lang nướng với quả mọng và hạt điều",
+          "description": "Một món ăn sáng dễ dàng và giàu chất xơ giúp hỗ trợ kiểm soát đường huyết tốt hơn.",
+          "ingredients": [
+            "khoai lang",
+            "quả mọng",
+            "hạt điều",
+            "rau xanh",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "Cung cấp chất xơ và khoáng chất thiết yếu cho sức khỏe tổng thể.",
+            "Hỗ trợ kiểm soát đường huyết và giảm nguy cơ mắc bệnh tiểu đường."
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110293f"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm chiên bông cải xanh với đậu gà và quế",
+          "description": "Món cơm chiên này là sự kết hợp hoàn hảo giữa bông cải xanh tươi ngon, đậu gà mềm ngọt và quế ấm áp. Món ăn này sẽ giúp giảm cân hiệu quả và cải thiện sức khỏe tổng thể.",
+          "ingredients": [
+            "bông cải xanh",
+            "đậu gà",
+            "quế",
+            "gạo lứt",
+            "dầu ô liu",
+            "tỏi"
+          ],
+          "benefits": [
+            "giảm cân hiệu quả",
+            "cải thiện sức khỏe tổng thể",
+            "hỗ trợ kiểm soát đường huyết"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102940"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Thịt gà nướng với khoai lang và rau thơm",
+          "description": "Món ăn này gồm thịt gà được nướng chín cùng với khoai lang và các loại rau thơm, tạo nên hương vị đậm đà và bổ dưỡng.",
+          "ingredients": [
+            "thịt gà",
+            "khoai lang",
+            "rau mùi",
+            "cỏ xạ dầu",
+            "dầu ô liu",
+            "tiêu đen"
+          ],
+          "benefits": [
+            "Giúp kiểm soát đường huyết và giảm cân",
+            "Cung cấp chất xơ và vitamin cho cơ thể"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102941"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f5110293e"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 11,
+      "title": "Day 11",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh khoai lang nướng với dâu tây và hạt chia",
+          "description": "Một món ăn sáng cân bằng với khoai lang nướng, dâu tây tươi và hạt chia giàu chất xơ giúp kiểm soát đường huyết.",
+          "ingredients": [
+            "khoai lang",
+            "dâu tây",
+            "hạt chia",
+            "dầu ô liu",
+            "quế"
+          ],
+          "benefits": [
+            "giúp giảm lượng đường trong máu",
+            "cung cấp chất xơ và vitamin tốt cho sức khỏe"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102943"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm chiên bông cải xanh với đậu gà và quinoa",
+          "description": "Món ăn cân bằng này kết hợp bông cải xanh, đậu gà, và quinoa để tạo ra một bữa ăn bổ dưỡng cho người mắc diabetes.",
+          "ingredients": [
+            "bông cải xanh",
+            "đậu gà",
+            "quinoa",
+            "ớt chuông",
+            "hành tây",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "giúp kiểm soát đường huyết",
+            "cung cấp chất xơ và vitamin quan trọng"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102944"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Bò bía xào đậu lăng và rau xanh",
+          "description": "Món bò bía xào đậu lăng và rau xanh là một lựa chọn tuyệt vời cho người mắc bệnh tiểu đường, giúp kiểm soát lượng đường trong máu và cung cấp chất xơ dồi dào.",
+          "ingredients": [
+            "bò bía",
+            "đậu lăng",
+            "rau xanh",
+            "gừng tươi",
+            "tiêu đen",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "giúp kiểm soát lượng đường trong máu",
+            "cung cấp chất xơ dồi dào",
+            "phù hợp cho người mắc bệnh tiểu đường"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102945"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f51102942"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 12,
+      "title": "Day 12",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh cuốn yến mạch với đậu lăng và rau cải",
+          "description": "Một bữa sáng cân bằng và nhẹ nhàng để giúp kiểm soát đường huyết",
+          "ingredients": [
+            "yến mạch cán dẹt",
+            "gạo lứt",
+            "đậu lăng",
+            "rau cải",
+            "hành lá",
+            "quế"
+          ],
+          "benefits": [
+            "giúp kiểm soát đường huyết",
+            "cung cấp chất xơ và tinh bột phức tạp"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102947"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Bún riêu cua với rau muống và cà chua",
+          "description": "Một món bún riêu đơn giản nhưng ngon miệng, kết hợp giữa thịt cua tươi và các loại rau xanh như rau muống và cà chua.",
+          "ingredients": [
+            "bún tươi",
+            "thịt cua",
+            "rau muống",
+            "cà chua",
+            "hành tây",
+            "ớt sừng",
+            "gừng"
+          ],
+          "benefits": [
+            "giúp giảm cân",
+            "cung cấp chất xơ và vitamin cho cơ thể"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102948"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Cá Chép Xào Rau Củ và Đậu Lăng",
+          "description": "Món cá chép xào rau củ và đậu lăng là một lựa chọn tuyệt vời cho người mắc bệnh tiểu đường. Cá chép giàu protein, thấp mỡ và có chỉ số đường huyết thấp.",
+          "ingredients": [
+            "cá chép",
+            "đậu lăng",
+            "rau bina",
+            "hành tây",
+            "tỏi",
+            "gừng tươi",
+            "dầu ô liu"
+          ],
+          "benefits": [
+            "giúp kiểm soát lượng đường trong máu",
+            "cung cấp protein và chất xơ cần thiết"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102949"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f51102946"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 13,
+      "title": "Day 13",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh khoai lang nướng với quả mọng và quế",
+          "description": "Một món ăn sáng ngon miệng và giàu chất xơ giúp hỗ trợ kiểm soát đường huyết và giảm cân.",
+          "ingredients": [
+            "khoai lang",
+            "quả mọng",
+            "quế"
+          ],
+          "benefits": [
+            "hỗ trợ kiểm soát đường huyết",
+            "cung cấp chất xơ và vitamin"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110294b"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm gạo lứt chiên đậu gà với rau củ",
+          "description": "Món cơm gạo lứt chiên đậu gà với rau củ là một bữa ăn cân bằng và ngon miệng. Gạo lứt được nấu chín với nước và sau đó chiên với đậu gà và các loại rau củ.",
+          "ingredients": [
+            "gạo lứt",
+            "đậu gà",
+            "cà rốt",
+            "bông cải xanh",
+            "dưa chuột",
+            "hành tây",
+            "quế"
+          ],
+          "benefits": [
+            "giúp kiểm soát đường huyết",
+            "cung cấp chất xơ và vitamin cho cơ thể"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f5110294c"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Gà nướng với khoai lang và rau thơm",
+          "description": "Món gà nướng được kết hợp với khoai lang và các loại rau thơm tự nhiên, mang đến hương vị độc đáo và tốt cho sức khỏe",
+          "ingredients": [
+            "gà tây",
+            "khoai lang",
+            "rau mùi",
+            "rau ngò",
+            "cà rốt",
+            "hành lá"
+          ],
+          "benefits": [
+            "thay đổi thói quen ăn uống để kiểm soát đường huyết",
+            "tăng cường hệ miễn dịch"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110294d"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f5110294a"
+    },
+    {
+      "macros": {
+        "protein": 144,
+        "carbs": 143,
+        "fat": 53
+      },
+      "day": 14,
+      "title": "Day 14",
+      "theme": "",
+      "totalCalories": 1625,
+      "meals": [
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "breakfast",
+          "name": "Bánh khoai lang nướng với quế và quả mọng",
+          "description": "Một món bánh thơm ngon giúp kiểm soát lượng đường trong máu và giảm nguy cơ mắc bệnh tiểu đường. Bánh được làm từ khoai lang giàu chất xơ và quế có đặc tính chống oxy hóa.",
+          "ingredients": [
+            "khoai lang",
+            "quế",
+            "quả mọng"
+          ],
+          "benefits": [
+            "giúp kiểm soát lượng đường trong máu",
+            "cải thiện chức năng insulin"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f5110294f"
+        },
+        {
+          "macros": {
+            "protein": 58,
+            "carbs": 57,
+            "fat": 21
+          },
+          "mealType": "lunch",
+          "name": "Cơm chiên đỗ đen với rau bina và hạt điều",
+          "description": "Món cơm chiên được nấu từ gạo lứt, đỗ đen, rau bina và hạt điều. Đây là món ăn cân bằng và giàu chất xơ, giúp hỗ trợ sức khỏe tiêu hóa và kiểm soát lượng đường trong máu.",
+          "ingredients": [
+            "gạo lứt",
+            "đỗ đen",
+            "rau bina",
+            "hạt điều",
+            "dầu ô liu",
+            "tiêu"
+          ],
+          "benefits": [
+            "cân bằng lượng đường trong máu",
+            "hỗ trợ sức khỏe tiêu hóa",
+            "giàu chất xơ",
+            "kiểm soát lượng đường trong máu"
+          ],
+          "calories": 649,
+          "_id": "6a020660b1a5e35f51102950"
+        },
+        {
+          "macros": {
+            "protein": 43,
+            "carbs": 43,
+            "fat": 16
+          },
+          "mealType": "dinner",
+          "name": "Bún đậu lăng với rau cải xanh",
+          "description": "Món bún đậu lăng với rau cải xanh giúp giảm cân và kiểm soát đường huyết. Bún được làm từ gạo lứt, đậu lăng cung cấp protein và chất xơ, rau cải xanh giàu vitamin và khoáng chất.",
+          "ingredients": [
+            "gạo lứt",
+            "đậu lăng",
+            "rau cải xanh",
+            "quả mọng",
+            "cà chua bi",
+            "hành tây",
+            "tỏi"
+          ],
+          "benefits": [
+            "giảm cân",
+            "kiểm soát đường huyết",
+            "cung cấp protein và chất xơ",
+            "giàu vitamin và khoáng chất"
+          ],
+          "calories": 488,
+          "_id": "6a020660b1a5e35f51102951"
+        }
+      ],
+      "tips": [],
+      "_id": "6a020660b1a5e35f5110294e"
+    }
+  ],
+  "aiModel": "lm-studio",
+  "prompt": "per-meal-generation",
+  "rawAiResponse": null,
+  "createdAt": "2026-05-11T16:40:00.543Z",
+  "updatedAt": "2026-05-11T16:40:00.543Z",
+  "__v": 0
+}

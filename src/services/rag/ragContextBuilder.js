@@ -88,8 +88,10 @@ export function buildMealContext(retrievedMeals, retrievedGuidelines) {
   if (mealEntries.length > 0) {
     lines.push('Reference meals (use as inspiration, do NOT copy exactly):');
     mealEntries.forEach((entry, i) => {
-      const line = `${i + 1}. ${entry.name}: ${entry.doc}`;
-      lines.push(line.slice(0, MAX_MEAL_ENTRY_LENGTH));
+      // Do NOT re-slice here: entry.doc is already sanitized to MAX_MEAL_ENTRY_LENGTH.
+      // Re-slicing the formatted line would cut at the wrong offset (including the
+      // prefix "N. Name: " in the char count) and produce mid-word truncation.
+      lines.push(`${i + 1}. ${entry.name}: ${entry.doc}`);
     });
   }
 
