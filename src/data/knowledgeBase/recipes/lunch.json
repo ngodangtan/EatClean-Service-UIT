@@ -24,12 +24,13 @@
       "tỏi",
       "thì là"
     ],
-    "description": "Bữa ăn nhẹ giàu protein với axit béo omega-3 và rau họ cải.",
     "tags": [
       "high-protein",
       "low-carb",
       "gluten-free"
-    ]
+    ],
+    "description": "Bữa ăn nhẹ giàu protein với axit béo omega-3 và rau họ cải.",
+    "estimatedCalories": 420
   },
   {
     "id": "rec_010",
@@ -57,12 +58,13 @@
       "nước cốt chanh",
       "nước mắm pha loãng"
     ],
-    "description": "Bún gà mát lạnh kiểu Việt với ức gà nạc và nhiều rau thơm tươi.",
     "tags": [
       "high-protein",
       "fresh",
       "low-fat"
-    ]
+    ],
+    "description": "Bún gà mát lạnh kiểu Việt với ức gà nạc và nhiều rau thơm tươi.",
+    "estimatedCalories": 400
   },
   {
     "id": "rec_011",
@@ -90,12 +92,13 @@
       "sốt tahini",
       "nước cốt chanh"
     ],
-    "description": "Tô ngũ cốc với protein hoàn chỉnh, đậu gà giàu chất xơ, chất béo tốt và rau xanh.",
     "tags": [
       "high-fiber",
       "complete-protein",
       "vegan"
-    ]
+    ],
+    "description": "Tô ngũ cốc với protein hoàn chỉnh, đậu gà giàu chất xơ, chất béo tốt và rau xanh.",
+    "estimatedCalories": 480
   },
   {
     "id": "rec_012",
@@ -121,12 +124,13 @@
       "dầu mè",
       "gạo lứt"
     ],
-    "description": "Món gà xào giàu protein với rau củ nhiều màu trên cơm gạo lứt, dùng gia vị ít muối.",
     "tags": [
       "high-protein",
       "low-sodium",
       "colorful"
-    ]
+    ],
+    "description": "Món gà xào giàu protein với rau củ nhiều màu trên cơm gạo lứt, dùng gia vị ít muối.",
+    "estimatedCalories": 520
   },
   {
     "id": "rec_013",
@@ -155,12 +159,13 @@
       "ngò tây",
       "lá oregano"
     ],
-    "description": "Salad Địa Trung Hải giàu chất xơ với đạm thực vật, dầu ô liu tốt cho tim và rau thơm tươi.",
     "tags": [
       "high-fiber",
       "plant-protein",
       "low-sodium"
-    ]
+    ],
+    "description": "Salad Địa Trung Hải giàu chất xơ với đạm thực vật, dầu ô liu tốt cho tim và rau thơm tươi.",
+    "estimatedCalories": 380
   },
   {
     "id": "rec_014",
@@ -187,12 +192,13 @@
       "cà rốt",
       "tương hoisin"
     ],
-    "description": "Gỏi cuốn tươi không chiên với nhiều rau và đạm nạc, ít purin.",
     "tags": [
       "low-calorie",
       "fresh",
       "low-purine"
-    ]
+    ],
+    "description": "Gỏi cuốn tươi không chiên với nhiều rau và đạm nạc, ít purin.",
+    "estimatedCalories": 280
   },
   {
     "id": "rec_015",
@@ -222,12 +228,13 @@
       "nước cốt chanh",
       "dầu ô liu"
     ],
-    "description": "Súp thực vật no lâu, giàu chất xơ và đạm thực vật cùng gia vị kháng viêm.",
     "tags": [
       "high-fiber",
       "plant-protein",
       "anti-inflammatory"
-    ]
+    ],
+    "description": "Súp thực vật no lâu, giàu chất xơ và đạm thực vật cùng gia vị kháng viêm.",
+    "estimatedCalories": 360
   },
   {
     "id": "rec_016",
@@ -253,12 +260,13 @@
       "rượu gạo",
       "cải thìa"
     ],
-    "description": "Cá hấp thanh đạm với gừng và hành thơm, giữ trọn vị tự nhiên mà không cần thêm muối.",
     "tags": [
       "low-sodium",
       "high-protein",
       "light"
-    ]
+    ],
+    "description": "Cá hấp thanh đạm với gừng và hành thơm, giữ trọn vị tự nhiên mà không cần thêm muối.",
+    "estimatedCalories": 280
   },
   {
     "id": "rec_017",
@@ -285,12 +293,13 @@
       "chanh",
       "ngò tây"
     ],
-    "description": "Cơm súp lơ ít carb với ức gà nạc, lý tưởng cho người kiểm soát đường huyết và bệnh thận.",
     "tags": [
       "low-carb",
       "low-potassium",
       "high-protein"
-    ]
+    ],
+    "description": "Cơm súp lơ ít carb với ức gà nạc, lý tưởng cho người kiểm soát đường huyết và bệnh thận.",
+    "estimatedCalories": 350
   },
   {
     "id": "rec_035",
@@ -319,12 +328,13 @@
       "nước cốt chanh",
       "dầu ô liu"
     ],
-    "description": "Salad ngũ cốc chủ yếu là rau thơm, ít carb, giàu chất chống oxy hóa từ rau thơm tươi.",
     "tags": [
       "high-fiber",
       "antioxidant-rich",
       "fresh"
-    ]
+    ],
+    "description": "Salad ngũ cốc chủ yếu là rau thơm, ít carb, giàu chất chống oxy hóa từ rau thơm tươi.",
+    "estimatedCalories": 290
   },
   {
     "id": "rec_036",
@@ -348,12 +358,13 @@
       "gạo lứt",
       "ngò rí"
     ],
-    "description": "Món bò xào giàu sắt heme kết hợp ớt chuông đỏ giàu vitamin C giúp tăng hấp thu sắt 2-3 lần, lý tưởng cho người thiếu máu.",
     "tags": [
       "iron-rich",
       "high-protein",
       "vitamin-c-pairing"
-    ]
+    ],
+    "description": "Món bò xào giàu sắt heme kết hợp ớt chuông đỏ giàu vitamin C giúp tăng hấp thu sắt 2-3 lần, lý tưởng cho người thiếu máu.",
+    "estimatedCalories": 520
   },
   {
     "id": "rec_040",
@@ -374,12 +385,13 @@
       "sữa hạnh nhân",
       "ngò tây"
     ],
-    "description": "Súp nghiền mịn dễ nuốt, không kích thích, phù hợp giai đoạn viêm dạ dày cấp hoặc sau khi đau dạ dày.",
     "tags": [
       "easy-to-digest",
       "bland",
       "soft-texture"
-    ]
+    ],
+    "description": "Súp nghiền mịn dễ nuốt, không kích thích, phù hợp giai đoạn viêm dạ dày cấp hoặc sau khi đau dạ dày.",
+    "estimatedCalories": 280
   },
   {
     "id": "rec_042",
@@ -404,12 +416,13 @@
       "chanh",
       "hành lá"
     ],
-    "description": "Bữa trưa cân bằng với cá hồi giàu vitamin D và omega-3 hỗ trợ điều hòa melatonin, cơm gạo lứt tryptophan, rau xanh magie.",
     "tags": [
       "omega-3",
       "vitamin-d",
       "sleep-supporting"
-    ]
+    ],
+    "description": "Bữa trưa cân bằng với cá hồi giàu vitamin D và omega-3 hỗ trợ điều hòa melatonin, cơm gạo lứt tryptophan, rau xanh magie.",
+    "estimatedCalories": 480
   },
   {
     "id": "rec_053",
@@ -434,14 +447,15 @@
       "rau thơm",
       "chanh"
     ],
-    "description": "Phở bò truyền thống với thịt bò nạm giàu sắt heme và vitamin B12, nước dùng hầm xương khoáng chất — lý tưởng cho người thiếu máu cần phục hồi nhanh.",
     "tags": [
       "iron-rich",
       "b12-rich",
       "traditional",
       "warming",
       "high-protein"
-    ]
+    ],
+    "description": "Phở bò truyền thống với thịt bò nạm giàu sắt heme và vitamin B12, nước dùng hầm xương khoáng chất — lý tưởng cho người thiếu máu cần phục hồi nhanh.",
+    "estimatedCalories": 520
   },
   {
     "id": "rec_054",
@@ -466,13 +480,14 @@
       "tiêu đen",
       "cơm gạo lứt"
     ],
-    "description": "Canh khổ qua nhồi thịt nạc — khổ qua chứa charantin và polypeptide-p giúp hạ đường huyết tự nhiên, thịt nạc cung cấp đạm không tăng mỡ.",
     "tags": [
       "blood-sugar-lowering",
       "low-fat",
       "traditional",
       "high-fiber"
-    ]
+    ],
+    "description": "Canh khổ qua nhồi thịt nạc — khổ qua chứa charantin và polypeptide-p giúp hạ đường huyết tự nhiên, thịt nạc cung cấp đạm không tăng mỡ.",
+    "estimatedCalories": 380
   },
   {
     "id": "rec_055",
@@ -498,13 +513,14 @@
       "chanh",
       "dầu ô liu"
     ],
-    "description": "Cá thu giàu omega-3 EPA/DHA bậc nhất trong các loại cá, nướng với nghệ kháng viêm và sả thơm — kết hợp cơm gạo lứt nguyên cám giúp kiểm soát cholesterol và bảo vệ tim.",
     "tags": [
       "omega-3",
       "heart-healthy",
       "anti-inflammatory",
       "high-protein"
-    ]
+    ],
+    "description": "Cá thu giàu omega-3 EPA/DHA bậc nhất trong các loại cá, nướng với nghệ kháng viêm và sả thơm — kết hợp cơm gạo lứt nguyên cám giúp kiểm soát cholesterol và bảo vệ tim.",
+    "estimatedCalories": 460
   },
   {
     "id": "rec_056",
@@ -534,14 +550,15 @@
       "chanh",
       "ngò tây"
     ],
-    "description": "Salad Địa Trung Hải giàu protein nạc, omega-3, chất xơ và chất chống oxy hóa lycopene — không thêm muối, ít calo nhưng no lâu, hỗ trợ giảm cân và bảo vệ tim mạch.",
     "tags": [
       "omega-3",
       "high-protein",
       "low-calorie",
       "low-sodium",
       "mediterranean"
-    ]
+    ],
+    "description": "Salad Địa Trung Hải giàu protein nạc, omega-3, chất xơ và chất chống oxy hóa lycopene — không thêm muối, ít calo nhưng no lâu, hỗ trợ giảm cân và bảo vệ tim mạch.",
+    "estimatedCalories": 320
   },
   {
     "id": "rec_057",
@@ -565,13 +582,14 @@
       "gừng tươi",
       "hành lá"
     ],
-    "description": "Mì udon trong nước dashi nhạt ấm nóng với gà hấp mềm và rau củ — ít muối, dễ tiêu hóa, không kích thích dạ dày, giúp phục hồi sức khỏe.",
     "tags": [
       "easy-to-digest",
       "low-sodium",
       "warming",
       "stomach-friendly"
-    ]
+    ],
+    "description": "Mì udon trong nước dashi nhạt ấm nóng với gà hấp mềm và rau củ — ít muối, dễ tiêu hóa, không kích thích dạ dày, giúp phục hồi sức khỏe.",
+    "estimatedCalories": 380
   },
   {
     "id": "rec_058",
@@ -596,13 +614,14 @@
       "gừng tươi",
       "dầu ô liu"
     ],
-    "description": "Canh rau củ hầm nhạt, không nêm muối — bí đao lợi tiểu nhẹ, cà rốt beta-carotene, cải thìa ít kali — phù hợp người bệnh thận cần kiểm soát natri và kali.",
     "tags": [
       "low-sodium",
       "low-potassium",
       "light",
       "kidney-friendly"
-    ]
+    ],
+    "description": "Canh rau củ hầm nhạt, không nêm muối — bí đao lợi tiểu nhẹ, cà rốt beta-carotene, cải thìa ít kali — phù hợp người bệnh thận cần kiểm soát natri và kali.",
+    "estimatedCalories": 150
   },
   {
     "id": "rec_059",
@@ -630,13 +649,14 @@
       "nước tương nhạt",
       "chanh"
     ],
-    "description": "Bún chay thanh đạm với đậu hũ ít purin và rau củ tươi — không dầu mỡ nặng, không hải sản, phù hợp người tăng axit uric và cần giảm cân.",
     "tags": [
       "vegan",
       "low-purine",
       "low-calorie",
       "fresh"
-    ]
+    ],
+    "description": "Bún chay thanh đạm với đậu hũ ít purin và rau củ tươi — không dầu mỡ nặng, không hải sản, phù hợp người tăng axit uric và cần giảm cân.",
+    "estimatedCalories": 320
   },
   {
     "id": "rec_060",
@@ -663,13 +683,14 @@
       "dầu mè",
       "hành lá"
     ],
-    "description": "Cơm chiên gạo lứt với rau củ nhiều màu và trứng gà — giàu chất xơ, beta-carotene, sắt heme; chỉ số đường huyết thấp hơn cơm chiên gạo trắng thông thường.",
     "tags": [
       "low-glycemic",
       "colorful",
       "high-fiber",
       "iron-rich"
-    ]
+    ],
+    "description": "Cơm chiên gạo lứt với rau củ nhiều màu và trứng gà — giàu chất xơ, beta-carotene, sắt heme; chỉ số đường huyết thấp hơn cơm chiên gạo trắng thông thường.",
+    "estimatedCalories": 420
   },
   {
     "id": "rec_061",
@@ -699,13 +720,14 @@
       "ngò tây",
       "chanh"
     ],
-    "description": "Súp đậu lăng hầm rau củ kiểu Địa Trung Hải — giàu sắt phi-heme, folate, chất xơ hòa tan và beta-carotene; no lâu và hỗ trợ kiểm soát đường huyết.",
     "tags": [
       "iron-rich",
       "high-fiber",
       "plant-protein",
       "anti-inflammatory"
-    ]
+    ],
+    "description": "Súp đậu lăng hầm rau củ kiểu Địa Trung Hải — giàu sắt phi-heme, folate, chất xơ hòa tan và beta-carotene; no lâu và hỗ trợ kiểm soát đường huyết.",
+    "estimatedCalories": 380
   },
   {
     "id": "rec_062",
@@ -734,13 +756,14 @@
       "ngò tây",
       "óc chó"
     ],
-    "description": "Ngũ cốc nguyên cám kết hợp rau củ nướng thơm và óc chó omega-3 — chỉ số đường huyết thấp, giàu chất xơ và chất chống oxy hóa, hỗ trợ kiểm soát cân nặng.",
     "tags": [
       "high-fiber",
       "low-glycemic",
       "omega-3",
       "plant-based"
-    ]
+    ],
+    "description": "Ngũ cốc nguyên cám kết hợp rau củ nướng thơm và óc chó omega-3 — chỉ số đường huyết thấp, giàu chất xơ và chất chống oxy hóa, hỗ trợ kiểm soát cân nặng.",
+    "estimatedCalories": 380
   },
   {
     "id": "rec_080",
@@ -769,13 +792,14 @@
       "ngò tây",
       "hạt bí ngô"
     ],
-    "description": "Súp bí đỏ nghiền mịn ấm nóng với nghệ curcumin kháng viêm, tryptophan từ bí đỏ và hạt bí ngô hỗ trợ sản xuất melatonin, dùng sữa hạnh nhân thay kem béo.",
     "tags": [
       "anti-inflammatory",
       "tryptophan-rich",
       "dairy-free",
       "easy-to-digest"
-    ]
+    ],
+    "description": "Súp bí đỏ nghiền mịn ấm nóng với nghệ curcumin kháng viêm, tryptophan từ bí đỏ và hạt bí ngô hỗ trợ sản xuất melatonin, dùng sữa hạnh nhân thay kem béo.",
+    "estimatedCalories": 220
   },
   {
     "id": "rec_082",
@@ -802,13 +826,14 @@
       "dầu ô liu",
       "tỏi băm"
     ],
-    "description": "Đậu bắp chứa chất nhầy pectin giúp làm chậm hấp thu đường và cholesterol vào máu — ăn ghém cùng cà chua lycopene và rau thơm tươi, không thêm muối.",
     "tags": [
       "blood-sugar-lowering",
       "cholesterol-lowering",
       "low-sodium",
       "fresh"
-    ]
+    ],
+    "description": "Đậu bắp chứa chất nhầy pectin giúp làm chậm hấp thu đường và cholesterol vào máu — ăn ghém cùng cà chua lycopene và rau thơm tươi, không thêm muối.",
+    "estimatedCalories": 160
   },
   {
     "id": "rec_089",
@@ -837,14 +862,15 @@
       "cà rốt bào sợi",
       "ngò rí"
     ],
-    "description": "Gà nướng sả thơm trộn cùng rau xanh và nước sốt tắc chanh không dầu — bữa trưa cao đạm, ít carb, ít calo nhưng đầy đủ vi chất từ rau củ nhiều màu sắc, no lâu mà không tăng cân.",
     "tags": [
       "high-protein",
       "low-carb",
       "low-calorie",
       "fresh",
       "traditional"
-    ]
+    ],
+    "description": "Gà nướng sả thơm trộn cùng rau xanh và nước sốt tắc chanh không dầu — bữa trưa cao đạm, ít carb, ít calo nhưng đầy đủ vi chất từ rau củ nhiều màu sắc, no lâu mà không tăng cân.",
+    "estimatedCalories": 330
   },
   {
     "id": "rec_090",
@@ -869,14 +895,15 @@
       "hành lá",
       "dầu ô liu"
     ],
-    "description": "Canh bầu thanh mát ít natri — bầu có hàm lượng nước trên 95%, giàu kali và kẽm; kết hợp thịt nạc cung cấp đạm đầy đủ; tổng calo toàn bữa rất thấp nhưng vẫn no lâu.",
     "tags": [
       "low-calorie",
       "hydrating",
       "light",
       "low-sodium",
       "traditional"
-    ]
+    ],
+    "description": "Canh bầu thanh mát ít natri — bầu có hàm lượng nước trên 95%, giàu kali và kẽm; kết hợp thịt nạc cung cấp đạm đầy đủ; tổng calo toàn bữa rất thấp nhưng vẫn no lâu.",
+    "estimatedCalories": 180
   },
   {
     "id": "rec_091",
@@ -906,14 +933,15 @@
       "cà chua bi",
       "chanh"
     ],
-    "description": "Đậu gà rang giòn gia vị cà ri — giàu chất xơ hòa tan và đạm thực vật, chỉ số đường huyết thấp, no lâu; ăn kèm salad kale tươi tạo bữa trưa đủ vi chất và hỗ trợ đốt mỡ.",
     "tags": [
       "plant-protein",
       "high-fiber",
       "low-glycemic",
       "satisfying",
       "crunchy"
-    ]
+    ],
+    "description": "Đậu gà rang giòn gia vị cà ri — giàu chất xơ hòa tan và đạm thực vật, chỉ số đường huyết thấp, no lâu; ăn kèm salad kale tươi tạo bữa trưa đủ vi chất và hỗ trợ đốt mỡ.",
+    "estimatedCalories": 350
   },
   {
     "id": "rec_084",
@@ -941,14 +969,15 @@
       "chanh",
       "đậu phộng rang"
     ],
-    "description": "Gỏi bưởi tươi mát truyền thống Việt — bưởi giàu naringenin và vitamin C, tôm nạc ít calo, không chiên rán, ít dầu mỡ — hỗ trợ hạ cholesterol và thanh lọc cơ thể.",
     "tags": [
       "traditional",
       "fresh",
       "low-calorie",
       "vitamin-c-rich",
       "cholesterol-lowering"
-    ]
+    ],
+    "description": "Gỏi bưởi tươi mát truyền thống Việt — bưởi giàu naringenin và vitamin C, tôm nạc ít calo, không chiên rán, ít dầu mỡ — hỗ trợ hạ cholesterol và thanh lọc cơ thể.",
+    "estimatedCalories": 280
   },
   {
     "id": "rec_109",
@@ -969,14 +998,15 @@
       "ớt vảy",
       "chanh"
     ],
-    "description": "Bộ ba tăng cơ kinh điển — ức gà nướng cung cấp trên 40g protein nạc, khoai lang cung cấp carb phức hợp bổ sung glycogen cho cơ bắp, gạo lứt và bông cải xanh tạo nền tảng vi chất và chất xơ hoàn chỉnh.",
     "tags": [
       "high-protein",
       "muscle-building",
       "complex-carbs",
       "post-workout",
       "meal-prep"
-    ]
+    ],
+    "description": "Bộ ba tăng cơ kinh điển — ức gà nướng cung cấp trên 40g protein nạc, khoai lang cung cấp carb phức hợp bổ sung glycogen cho cơ bắp, gạo lứt và bông cải xanh tạo nền tảng vi chất và chất xơ hoàn chỉnh.",
+    "estimatedCalories": 580
   },
   {
     "id": "rec_110",
@@ -1002,14 +1032,15 @@
       "đậu phộng rang",
       "nước mắm pha"
     ],
-    "description": "Bún bò nướng sả thơm phức truyền thống Việt — thịt bò nạc giàu sắt heme, kẽm và creatine tự nhiên hỗ trợ tổng hợp cơ; bún cung cấp carb nhanh phục hồi năng lượng sau tập.",
     "tags": [
       "high-protein",
       "iron-rich",
       "muscle-building",
       "traditional",
       "post-workout"
-    ]
+    ],
+    "description": "Bún bò nướng sả thơm phức truyền thống Việt — thịt bò nạc giàu sắt heme, kẽm và creatine tự nhiên hỗ trợ tổng hợp cơ; bún cung cấp carb nhanh phục hồi năng lượng sau tập.",
+    "estimatedCalories": 550
   },
   {
     "id": "rec_111",
@@ -1036,14 +1067,15 @@
       "giấm balsamic",
       "ngò tây"
     ],
-    "description": "Salad protein kép với cá ngừ và trứng cung cấp amino acid hoàn chỉnh, đậu đen bổ sung đạm thực vật và chất xơ — bữa trưa tăng cơ không cần nấu nướng phức tạp.",
     "tags": [
       "high-protein",
       "muscle-building",
       "omega-3",
       "fiber-rich",
       "no-cook"
-    ]
+    ],
+    "description": "Salad protein kép với cá ngừ và trứng cung cấp amino acid hoàn chỉnh, đậu đen bổ sung đạm thực vật và chất xơ — bữa trưa tăng cơ không cần nấu nướng phức tạp.",
+    "estimatedCalories": 420
   },
   {
     "id": "rec_112",
@@ -1065,14 +1097,15 @@
       "nước mắm pha",
       "mỡ hành"
     ],
-    "description": "Cơm tấm sườn nướng kinh điển miền Nam — sườn nạc ướp thảo mộc và nướng không chiên giữ đủ đạm và kẽm, cơm tấm cung cấp carb tinh bột nhanh phục hồi sau tập, trứng ốp la thêm đạm và choline.",
     "tags": [
       "high-protein",
       "high-calorie",
       "muscle-building",
       "traditional",
       "southern-vietnamese"
-    ]
+    ],
+    "description": "Cơm tấm sườn nướng kinh điển miền Nam — sườn nạc ướp thảo mộc và nướng không chiên giữ đủ đạm và kẽm, cơm tấm cung cấp carb tinh bột nhanh phục hồi sau tập, trứng ốp la thêm đạm và choline.",
+    "estimatedCalories": 620
   },
   {
     "id": "rec_113",
@@ -1098,14 +1131,15 @@
       "dầu ô liu",
       "nước tương nhạt"
     ],
-    "description": "Cơm chiên hải sản kiểu Việt với tôm tươi và trứng — bữa trưa giàu năng lượng từ cơm, đạm từ tôm và trứng, cùng rau củ nhiều màu cung cấp vitamin A và sắt — thích hợp người cần tăng cân lành mạnh.",
     "tags": [
       "high-calorie",
       "high-protein",
       "colorful",
       "traditional",
       "iron-rich"
-    ]
+    ],
+    "description": "Cơm chiên hải sản kiểu Việt với tôm tươi và trứng — bữa trưa giàu năng lượng từ cơm, đạm từ tôm và trứng, cùng rau củ nhiều màu cung cấp vitamin A và sắt — thích hợp người cần tăng cân lành mạnh.",
+    "estimatedCalories": 560
   },
   {
     "id": "rec_114",
@@ -1131,14 +1165,15 @@
       "nước tương",
       "hạt mè"
     ],
-    "description": "Mì bò xào rau củ đậm đà theo phong cách châu Á — mì trứng cung cấp carb và đạm, thịt bò giàu sắt heme và kẽm thúc đẩy sản sinh hồng cầu, rau củ nhiều màu bổ sung vitamin và chất chống oxy hóa.",
     "tags": [
       "high-calorie",
       "high-protein",
       "iron-rich",
       "energizing",
       "asian-style"
-    ]
+    ],
+    "description": "Mì bò xào rau củ đậm đà theo phong cách châu Á — mì trứng cung cấp carb và đạm, thịt bò giàu sắt heme và kẽm thúc đẩy sản sinh hồng cầu, rau củ nhiều màu bổ sung vitamin và chất chống oxy hóa.",
+    "estimatedCalories": 580
   },
   {
     "id": "rec_115",
@@ -1159,14 +1194,15 @@
       "sốt mù tạt mật ong",
       "tiêu đen"
     ],
-    "description": "Bánh mì sandwich phong phú với gà nướng, phô mai mozzarella chảy và bơ trái — cung cấp trên 600 kcal từ đạm, chất béo lành mạnh và carb; bữa trưa lý tưởng cho người cần nạp nhiều năng lượng để tăng cân.",
     "tags": [
       "high-calorie",
       "high-protein",
       "healthy-fats",
       "filling",
       "satisfying"
-    ]
+    ],
+    "description": "Bánh mì sandwich phong phú với gà nướng, phô mai mozzarella chảy và bơ trái — cung cấp trên 600 kcal từ đạm, chất béo lành mạnh và carb; bữa trưa lý tưởng cho người cần nạp nhiều năng lượng để tăng cân.",
+    "estimatedCalories": 650
   },
   {
     "id": "rec_116",
@@ -1192,14 +1228,15 @@
       "dầu mè",
       "tiêu đen"
     ],
-    "description": "Cháo thịt heo hạt sen bổ dưỡng Việt Nam — hạt sen giàu magie và tryptophan giúp thư giãn thần kinh, thịt heo nạc cung cấp đạm dồi dào và vitamin B1; bữa trưa no lâu, dễ tiêu và giúp tăng cân ổn định.",
     "tags": [
       "high-calorie",
       "high-protein",
       "easy-to-digest",
       "traditional",
       "magnesium-rich"
-    ]
+    ],
+    "description": "Cháo thịt heo hạt sen bổ dưỡng Việt Nam — hạt sen giàu magie và tryptophan giúp thư giãn thần kinh, thịt heo nạc cung cấp đạm dồi dào và vitamin B1; bữa trưa no lâu, dễ tiêu và giúp tăng cân ổn định.",
+    "estimatedCalories": 480
   },
   {
     "id": "rec_117",
@@ -1228,14 +1265,15 @@
       "dầu ô liu",
       "thảo mộc khô"
     ],
-    "description": "Salad gà nướng nhiều màu sắc với rau xanh và rau củ — mỗi suất trên 35g protein, dưới 350 kcal; không dùng sốt kem béo, thay bằng nước cốt chanh và dầu ô liu giúp hấp thu vitamin tan trong dầu.",
     "tags": [
       "high-protein",
       "low-calorie",
       "low-carb",
       "colorful",
       "satisfying"
-    ]
+    ],
+    "description": "Salad gà nướng nhiều màu sắc với rau xanh và rau củ — mỗi suất trên 35g protein, dưới 350 kcal; không dùng sốt kem béo, thay bằng nước cốt chanh và dầu ô liu giúp hấp thu vitamin tan trong dầu.",
+    "estimatedCalories": 320
   },
   {
     "id": "rec_118",
@@ -1260,14 +1298,15 @@
       "hành lá",
       "dầu ô liu"
     ],
-    "description": "Canh bí đao tôm nhẹ nhàng — bí đao trên 96% là nước, ít calo và lợi tiểu tự nhiên; tôm cung cấp đạm chất lượng cao và iốt; toàn bộ bữa trưa dưới 200 kcal và không thêm muối — lý tưởng cho chế độ giảm cân.",
     "tags": [
       "low-calorie",
       "low-sodium",
       "hydrating",
       "light",
       "traditional"
-    ]
+    ],
+    "description": "Canh bí đao tôm nhẹ nhàng — bí đao trên 96% là nước, ít calo và lợi tiểu tự nhiên; tôm cung cấp đạm chất lượng cao và iốt; toàn bộ bữa trưa dưới 200 kcal và không thêm muối — lý tưởng cho chế độ giảm cân.",
+    "estimatedCalories": 180
   },
   {
     "id": "rec_119",
@@ -1296,14 +1335,15 @@
       "tiêu đen",
       "cơm gạo lứt"
     ],
-    "description": "Đậu hũ sốt cà chua thơm ngon — đạm thực vật từ đậu hũ ít purin và ít calo, lycopene trong cà chua nấu chín tăng gấp đôi khả năng hấp thu chống oxy hóa; ăn cùng gạo lứt tạo bữa trưa chay giảm cân hoàn chỉnh.",
     "tags": [
       "vegan",
       "low-calorie",
       "low-purine",
       "lycopene-rich",
       "plant-protein"
-    ]
+    ],
+    "description": "Đậu hũ sốt cà chua thơm ngon — đạm thực vật từ đậu hũ ít purin và ít calo, lycopene trong cà chua nấu chín tăng gấp đôi khả năng hấp thu chống oxy hóa; ăn cùng gạo lứt tạo bữa trưa chay giảm cân hoàn chỉnh.",
+    "estimatedCalories": 280
   },
   {
     "id": "rec_120",
@@ -1330,13 +1370,518 @@
       "chanh",
       "dầu ô liu"
     ],
-    "description": "Bữa trưa giảm cân cân đối — cá hồi hấp bảo toàn omega-3 EPA/DHA tốt cho tim mạch và não bộ, gạo lứt chỉ số đường huyết thấp, cải xanh giàu canxi và vitamin K; tổng calo vừa phải và no lâu.",
     "tags": [
       "omega-3",
       "heart-healthy",
       "low-glycemic",
       "high-protein",
       "balanced"
-    ]
+    ],
+    "description": "Bữa trưa giảm cân cân đối — cá hồi hấp bảo toàn omega-3 EPA/DHA tốt cho tim mạch và não bộ, gạo lứt chỉ số đường huyết thấp, cải xanh giàu canxi và vitamin K; tổng calo vừa phải và no lâu.",
+    "estimatedCalories": 450
+  },
+  {
+    "id": "rec_160",
+    "name": "Bún cá ngừ sốt cà chua rau thơm",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "bún tươi",
+      "cá ngừ tươi",
+      "cà chua",
+      "sả",
+      "thì là",
+      "hành lá",
+      "gừng",
+      "nước mắm nhạt",
+      "rau sống"
+    ],
+    "tags": [
+      "high-protein",
+      "omega-3",
+      "traditional"
+    ],
+    "description": "Bún cá ngừ sốt cà chua đậm đà thơm thì là, giàu omega-3 và protein nạc, phù hợp tăng cơ và bảo vệ tim mạch.",
+    "estimatedCalories": 500
+  },
+  {
+    "id": "rec_161",
+    "name": "Mì Quảng gà tôm truyền thống",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "gastritis"
+    ],
+    "ingredients": [
+      "mì Quảng",
+      "ức gà",
+      "tôm tươi",
+      "trứng cút",
+      "đậu phộng rang",
+      "bánh tráng nướng",
+      "rau sống",
+      "nước dùng gà"
+    ],
+    "tags": [
+      "high-protein",
+      "traditional",
+      "balanced"
+    ],
+    "description": "Mì Quảng đặc sản miền Trung với gà tôm thơm béo, giòn bánh tráng và rau sống đa dạng, cung cấp năng lượng cao và đủ chất.",
+    "estimatedCalories": 560
+  },
+  {
+    "id": "rec_162",
+    "name": "Canh chua cá bông lau cơm gạo lứt",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "cá bông lau",
+      "cà chua",
+      "dứa",
+      "giá đỗ",
+      "rau muống",
+      "me chua",
+      "cơm gạo lứt",
+      "hành lá"
+    ],
+    "tags": [
+      "low-fat",
+      "vitamin-c",
+      "traditional"
+    ],
+    "description": "Canh chua cá bông lau thanh mát với dứa và me, ăn kèm cơm gạo lứt, cung cấp vitamin C và protein nạc, ít chất béo.",
+    "estimatedCalories": 400
+  },
+  {
+    "id": "rec_163",
+    "name": "Gỏi ngó sen tôm thịt nạc",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "heart-disease",
+      "high-cholesterol",
+      "obesity",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "ngó sen",
+      "tôm luộc",
+      "thịt heo nạc luộc",
+      "cà rốt bào",
+      "rau thơm",
+      "đậu phộng rang ít",
+      "nước mắm pha nhạt",
+      "chanh"
+    ],
+    "tags": [
+      "low-calorie",
+      "high-fiber",
+      "refreshing"
+    ],
+    "description": "Gỏi ngó sen giòn cùng tôm và thịt nạc, nước sốt chanh mắm nhạt thanh mát, ít calorie nhưng giàu chất xơ và khoáng chất.",
+    "estimatedCalories": 280
+  },
+  {
+    "id": "rec_164",
+    "name": "Tôm sú nướng sả ớt cơm gạo lứt",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "tôm sú",
+      "sả băm",
+      "ớt",
+      "tỏi",
+      "nước mắm nhạt",
+      "cơm gạo lứt",
+      "rau cải luộc",
+      "chanh"
+    ],
+    "tags": [
+      "high-protein",
+      "low-fat",
+      "grilled"
+    ],
+    "description": "Tôm sú nướng sả ớt thơm, ăn kèm cơm gạo lứt và rau cải luộc, cung cấp protein cao và chất béo lành mạnh cho tăng cơ hiệu quả.",
+    "estimatedCalories": 520
+  },
+  {
+    "id": "rec_165",
+    "name": "Gỏi bắp cải gà xé sốt chanh mắm nhạt",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "heart-disease",
+      "high-cholesterol",
+      "obesity",
+      "kidney-disease"
+    ],
+    "ingredients": [
+      "bắp cải tím",
+      "bắp cải trắng",
+      "gà luộc xé",
+      "cà rốt bào",
+      "rau thơm",
+      "ớt",
+      "chanh",
+      "nước mắm pha loãng",
+      "mè trắng"
+    ],
+    "tags": [
+      "low-calorie",
+      "high-fiber",
+      "refreshing"
+    ],
+    "description": "Gỏi bắp cải hai màu giòn tươi với gà xé thơm, sốt chanh mắm nhạt thanh mát, rất ít calorie và giàu vitamin C, kali.",
+    "estimatedCalories": 260
+  },
+  {
+    "id": "rec_166",
+    "name": "Đậu hũ nhồi thịt hấp sốt cà chua",
+    "mealType": "lunch",
+    "cuisine": "vietnamese",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease"
+    ],
+    "ingredients": [
+      "đậu hũ cứng",
+      "thịt heo nạc xay",
+      "nấm rơm",
+      "cà chua",
+      "hành tây",
+      "nước mắm nhạt",
+      "dầu ô liu",
+      "hành lá"
+    ],
+    "tags": [
+      "high-protein",
+      "plant-protein",
+      "steamed"
+    ],
+    "description": "Đậu hũ nhồi thịt nạc hấp mềm trong sốt cà chua tươi, kết hợp protein thực vật và động vật, ít chất béo bão hòa.",
+    "estimatedCalories": 320
+  },
+  {
+    "id": "rec_167",
+    "name": "Cơm chiên kimchi ức gà nạc",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "gain-weight",
+      "muscle-gain"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "gastritis"
+    ],
+    "ingredients": [
+      "cơm gạo trắng",
+      "kimchi",
+      "ức gà",
+      "trứng gà",
+      "hành lá",
+      "dầu mè",
+      "nước tương nhạt",
+      "mè trắng"
+    ],
+    "tags": [
+      "high-protein",
+      "probiotic",
+      "energizing"
+    ],
+    "description": "Cơm chiên kimchi cay nồng kết hợp ức gà nạc và trứng, giàu protein và lợi khuẩn từ kimchi lên men, cung cấp năng lượng dồi dào.",
+    "estimatedCalories": 560
+  },
+  {
+    "id": "rec_168",
+    "name": "Bibimbap bò rau củ đa dạng",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "gastritis"
+    ],
+    "ingredients": [
+      "gạo Nhật",
+      "thịt bò thăn",
+      "giá đỗ",
+      "cải bó xôi",
+      "cà rốt",
+      "nấm đông cô",
+      "trứng gà",
+      "sốt gochujang nhẹ",
+      "dầu mè"
+    ],
+    "tags": [
+      "high-protein",
+      "iron-rich",
+      "balanced"
+    ],
+    "description": "Bibimbap cơm trộn Hàn Quốc đầy đủ thịt bò, rau củ tươi và trứng, giàu sắt và protein, cân bằng dinh dưỡng trong một tô.",
+    "estimatedCalories": 580
+  },
+  {
+    "id": "rec_169",
+    "name": "Đậu hũ áp chảo sốt teriyaki cơm gạo lứt",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "improve-health",
+      "lose-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "fatty-liver",
+      "high-cholesterol",
+      "heart-disease",
+      "hypertension"
+    ],
+    "ingredients": [
+      "đậu hũ cứng",
+      "cơm gạo lứt",
+      "bông cải xanh hấp",
+      "nước tương nhạt",
+      "mật ong",
+      "gừng",
+      "tỏi",
+      "mè trắng",
+      "dầu mè"
+    ],
+    "tags": [
+      "plant-protein",
+      "low-fat",
+      "japanese-style"
+    ],
+    "description": "Đậu hũ áp chảo giòn phủ sốt teriyaki ngọt thơm ăn kèm cơm gạo lứt và bông cải xanh, cân bằng dinh dưỡng và tốt cho tim mạch.",
+    "estimatedCalories": 420
+  },
+  {
+    "id": "rec_170",
+    "name": "Mì udon thịt bò nấm shiitake",
+    "mealType": "lunch",
+    "cuisine": "asian",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "anemia",
+      "gastritis"
+    ],
+    "ingredients": [
+      "mì udon",
+      "thịt bò thăn mỏng",
+      "nấm shiitake",
+      "hành lá",
+      "gừng",
+      "nước dashi",
+      "nước tương nhạt",
+      "mirin",
+      "rau cải"
+    ],
+    "tags": [
+      "high-protein",
+      "iron-rich",
+      "warming"
+    ],
+    "description": "Tô mì udon dai mềm trong nước dashi thơm nhẹ với thịt bò và nấm shiitake giàu umami, ấm bụng và cung cấp đạm chất lượng cao.",
+    "estimatedCalories": 540
+  },
+  {
+    "id": "rec_171",
+    "name": "Salad quinoa thịt bò nướng rau củ",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "muscle-gain",
+      "gain-weight"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "heart-disease",
+      "high-cholesterol",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "quinoa",
+      "thịt bò thăn nướng",
+      "ớt chuông",
+      "dưa leo",
+      "cà chua bi",
+      "hành tây tím",
+      "rau bina",
+      "dầu ô liu",
+      "chanh"
+    ],
+    "tags": [
+      "high-protein",
+      "complete-protein",
+      "iron-rich"
+    ],
+    "description": "Salad quinoa giàu protein hoàn chỉnh với thịt bò nướng và rau củ tươi, hoàn hảo cho tăng cơ và cung cấp axit amin thiết yếu.",
+    "estimatedCalories": 560
+  },
+  {
+    "id": "rec_172",
+    "name": "Súp đậu lăng gà hầm cải kale",
+    "mealType": "lunch",
+    "cuisine": "western",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "hypertension",
+      "heart-disease",
+      "high-cholesterol",
+      "obesity",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "đậu lăng đỏ",
+      "ức gà",
+      "cải kale",
+      "cà rốt",
+      "cần tây",
+      "hành tây",
+      "tỏi",
+      "nghệ",
+      "nước dùng gà ít muối"
+    ],
+    "tags": [
+      "high-fiber",
+      "high-protein",
+      "low-fat"
+    ],
+    "description": "Súp đậu lăng gà hầm cùng cải kale và rau củ, giàu protein, chất xơ và folate, ít calorie nhưng no lâu, tốt cho tim mạch.",
+    "estimatedCalories": 380
+  },
+  {
+    "id": "rec_173",
+    "name": "Pasta cá ngừ ô liu sốt cà chua Địa Trung Hải",
+    "mealType": "lunch",
+    "cuisine": "mediterranean",
+    "goal": [
+      "gain-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "heart-disease",
+      "high-cholesterol",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "mì ý nguyên cám",
+      "cá ngừ đóng hộp nước",
+      "ô liu đen",
+      "cà chua bi",
+      "tỏi",
+      "hương thảo",
+      "dầu ô liu",
+      "ngò tây"
+    ],
+    "tags": [
+      "omega-3",
+      "high-fiber",
+      "mediterranean-diet"
+    ],
+    "description": "Pasta nguyên cám với cá ngừ và ô liu trong sốt cà chua thảo mộc Địa Trung Hải, giàu omega-3 và chất xơ, tốt cho tim mạch.",
+    "estimatedCalories": 520
+  },
+  {
+    "id": "rec_174",
+    "name": "Salad đậu gà ớt chuông hạt dẻ cười phô mai feta",
+    "mealType": "lunch",
+    "cuisine": "mediterranean",
+    "goal": [
+      "lose-weight",
+      "improve-health"
+    ],
+    "diseaseCompatible": [
+      "diabetes",
+      "heart-disease",
+      "hypertension",
+      "high-cholesterol",
+      "obesity",
+      "fatty-liver"
+    ],
+    "ingredients": [
+      "đậu gà nấu chín",
+      "ớt chuông vàng đỏ",
+      "dưa leo",
+      "hạt dẻ cười",
+      "phô mai feta ít béo",
+      "rau bina",
+      "chanh",
+      "dầu ô liu",
+      "húng quế"
+    ],
+    "tags": [
+      "plant-protein",
+      "high-fiber",
+      "mediterranean-diet"
+    ],
+    "description": "Salad đậu gà nhiều màu sắc với ớt chuông, hạt dẻ cười giòn và feta mặn nhẹ, cung cấp protein thực vật và chất xơ dồi dào.",
+    "estimatedCalories": 360
   }
 ]

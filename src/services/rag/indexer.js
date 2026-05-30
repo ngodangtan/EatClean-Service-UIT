@@ -29,18 +29,16 @@ async function readKnowledgeBaseDir(dirName) {
 }
 
 /**
- * Index all three knowledge base collections.
- * @returns {Promise<{ recipes: number, guidelines: number, ingredients: number, errors: number }>}
+ * Index all knowledge base collections.
+ * @returns {Promise<{ recipes: number, guidelines: number, errors: number }>}
  */
 export async function indexAllCollections() {
   const r = await indexRecipes();
   const g = await indexGuidelines();
-  const i = await indexIngredients();
   return {
     recipes: r.indexed,
     guidelines: g.indexed,
-    ingredients: i.indexed,
-    errors: r.errors + g.errors + i.errors
+    errors: r.errors + g.errors
   };
 }
 
@@ -60,7 +58,7 @@ export async function indexRecipes() {
     const batch = recipes.slice(i, i + 10);
 
     const documentStrings = batch.map(r =>
-      `${r.name}. ${r.mealType} for ${r.goal.join(', ')}. Ingredients: ${r.ingredients.join(', ')}. ${r.description}`
+      `${r.name}. ${r.mealType} for ${r.goal.join(', ')}. Ingredients: ${r.ingredients.join(', ')}. ${r.description}${r.estimatedCalories ? ` Estimated calories: ${r.estimatedCalories} kcal.` : ''}`
     );
 
     const embeddings = await getEmbeddingBatch(documentStrings);
@@ -84,7 +82,8 @@ export async function indexRecipes() {
             cuisine: recipe.cuisine,
             goal: recipe.goal.join(','),
             diseaseCompatible: recipe.diseaseCompatible.join(','),
-            tags: recipe.tags.join(',')
+            tags: recipe.tags.join(','),
+            estimatedCalories: recipe.estimatedCalories ?? 0
           },
           document: documentStrings[j]
         }]);
@@ -146,60 +145,3 @@ export async function indexGuidelines() {
   return { indexed, errors };
 }
 
-/**
- * Index ingredients.json into the INGREDIENTS collection.
- */
-export async function indexIngredients() {
-  await deleteCollection(COLLECTIONS.INGREDIENTS).catch(() => {});
-  await initializeCollection(COLLECTIONS.INGREDIENTS);
-  const ingredients = await readKnowledgeBaseDir('ingredients');
-
-  let indexed = 0;
-  let errors = 0;
-
-  // Process in batches of 10
-  for (let i = 0; i < ingredients.length; i += 10) {
-    const batch = ingredients.slice(i, i + 10);
-
-    const documentStrings = batch.map(ing => {
-      const aliasesPart = ing.aliases.length > 0 ? ` (${ing.aliases.join(', ')})` : '';
-      const safeForPart = ing.safeFor.length > 0 ? ` Safe for: ${ing.safeFor.join(', ')}.` : '';
-      return `${ing.name}${aliasesPart}. ${ing.nutritionProfile}.${safeForPart}`;
-    });
-
-    const embeddings = await getEmbeddingBatch(documentStrings);
-
-    for (let j = 0; j < batch.length; j++) {
-      const ing = batch[j];
-
-      if (!embeddings || !embeddings[j]) {
-        logger.warn(`RAG Indexer: Failed to embed ingredient "${ing.name}" — skipping`);
-        errors++;
-        continue;
-      }
-
-      try {
-        await upsertDocuments(COLLECTIONS.INGREDIENTS, [{
-          id: ing.id,
-          embedding: embeddings[j],
-          metadata: {
-            name: ing.name,
-            category: ing.category,
-            safeFor: ing.safeFor.join(','),
-            avoidFor: ing.avoidFor.join(',')
-          },
-          document: documentStrings[j]
-        }]);
-        indexed++;
-      } catch (err) {
-        logger.warn(`RAG Indexer: Failed to upsert ingredient "${ing.name}":`, err.message);
-        errors++;
-      }
-    }
-
-    logger.info(`RAG Indexer: Ingredients progress ${Math.min(i + 10, ingredients.length)}/${ingredients.length}`);
-  }
-
-  logger.info(`RAG Indexer: Ingredients done — indexed ${indexed}, errors ${errors}`);
-  return { indexed, errors };
-}

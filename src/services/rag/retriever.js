@@ -126,21 +126,3 @@ export async function retrieveDiseaseGuidelines(diseases) {
   return results;
 }
 
-/**
- * Retrieve ingredient reference information from the vector store.
- * @param {string[]} ingredientNames
- * @returns {Promise<object|null>} Raw ChromaDB results or null
- */
-export async function retrieveIngredientInfo(ingredientNames) {
-  if (!isRagEnabled()) return null;
-  if (!Array.isArray(ingredientNames) || ingredientNames.length === 0) return null;
-
-  const queryString = ingredientNames.join(', ');
-  const embedding = await getEmbedding(queryString);
-  if (!embedding) {
-    logger.warn('RAG: Could not get embedding for ingredient retrieval — skipping');
-    return null;
-  }
-
-  return queryDocuments(COLLECTIONS.INGREDIENTS, embedding, { nResults: 5 });
-}

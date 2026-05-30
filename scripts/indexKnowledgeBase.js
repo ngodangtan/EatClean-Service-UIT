@@ -16,7 +16,6 @@ async function main() {
   console.log('\nIndexing complete:');
   console.log(`  Recipes:     ${summary.recipes} indexed`);
   console.log(`  Guidelines:  ${summary.guidelines} indexed`);
-  console.log(`  Ingredients: ${summary.ingredients} indexed`);
   console.log(`  Errors:      ${summary.errors}`);
 
   if (summary.errors > 0) {

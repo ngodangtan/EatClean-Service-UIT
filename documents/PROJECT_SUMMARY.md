@@ -12,6 +12,8 @@
 >
 > **2026-04-27 update notes:** Knowledge base split into subdirectories — `recipes/` now contains 4 files by mealType (`breakfast.json`, `lunch.json`, `dinner.json`, `snack.json`); `ingredients/` now contains 5 files by category (`dairy.json`, `grains.json`, `pantry.json`, `produce.json`, `protein.json`). Total recipe count grew from 40 to 96 (11 new `lose-weight` dishes added). Ingredient count grew from 52 to 85. Directory listing in §2 updated accordingly.
 >
+> **2026-05-24 update notes:** **KB-selection architecture** — `kbSampler.js` now exports `getEligibleRecipes({ mealType, diseases, cuisines, goal, excludeIds })` as the primary function. The controller builds a per-day pool of unused KB recipes (filtered by disease/goal/cuisine, tracked by `usedRecipeIdsByMealType` Set) and passes it to the LLM as an approved selection list. LLM outputs `{ name, benefits }` only — `name`/`description`/`ingredients` are injected from KB authoritatively (LLM fallback: `eligibleRecipes[0]` if name not matched). ChromaDB RAG **not called** during generation (retriever/ragContextBuilder/embeddingClient not invoked by controller). Removed: `dayMealInspiration`, `avoidMealNames`, `avoidPrimaryIngredients`, `SEASONING_WHITELIST`, deduplication pass. Added: recipe-pool pre-check (HTTP 400 + `reason: insufficient_recipes` if eligible pool < templateDays), recipe ID no-repeat guarantee. Total KB recipes: breakfast=50, lunch=56, dinner=54, snack=44.
+>
 > **2026-04-12 update notes (v2):** **Removed `goal` from HealthProfile entirely** — `goal` is no longer stored on the profile, the Mongoose schema, the Joi validator, the Swagger spec, or the controller. The nutrition engine now defaults to `'improve-health'` when no `goalOverride` is supplied (previously fell back to `healthProfile.goal`). `goalOverride` is only used by `weight_management` to inject the request-scoped `weightGoal`. The `swapMeal` controller now hardcodes `goal: 'improve-health'` instead of reading from the profile. **RAG indexer now deletes collections before re-indexing** for clean re-index behavior (new `deleteCollection()` export in `vectorStore.js`). ChromaDB `embeddingFunction` changed from a no-op wrapper to `null`. Fixed `getEmbeddingBatch` default model from `nomic-embed-text` to `bge-m3`.
 
 ---
@@ -50,13 +52,13 @@ Nutrition Engine (deterministic: BMR → TDEE → calories → macros → meal d
      ↓
 Disease Engine (cap macros for active diseases, build ingredient restriction lists)
      ↓
-RAG Retriever (query ChromaDB for similar reference meals + disease guidelines per mealType)
+getEligibleRecipes() (per-day pool from KB JSON: filter by disease/goal/cuisine, exclude used IDs)
      ↓
-Prompt Builder (inject nutrition targets + restrictions + retrieved context)
+Prompt Builder (inject approved recipe list → LLM selects one, generates benefits)
      ↓
-LM Studio / LLM (generates name, description, ingredients, benefits ONLY — grounded by context)
+LM Studio / LLM (outputs { name, benefits } — name/description/ingredients injected from KB)
      ↓
-Safety Validator (word-boundary ingredient scan, reject forbidden items, retry up to 2×)
+Safety Validator (word-boundary ingredient scan on KB ingredients, retry up to 2× with different recipe)
      ↓
 Schema + Logical Validator (AJV schema, calorie/macro consistency checks)
      ↓
@@ -185,15 +187,11 @@ eat-clean-api/
      │
      ├─→ [Nutrition Engine]    — pure functions, no side effects
      ├─→ [Disease Engine]      — caps macros, builds ingredient lists
-     ├─→ [RAG Retriever]       — queries ChromaDB for similar meals + guidelines
-     │       │
-     │       ├─→ [embeddingClient] — LM Studio /v1/embeddings
-     │       └─→ [vectorStore]    — ChromaDB query
+     ├─→ [kbSampler]           — getEligibleRecipes() per day/mealType (reads KB JSON directly)
      │
-     ├─→ [ragContextBuilder]   — formats retrieved docs into prompt string
-     ├─→ [AI Layer]            — prompts LLM with context, sanitizes response
+     ├─→ [AI Layer]            — LLM selects recipe from approved list, generates benefits
      │       │
-     │       ├─→ [promptBuilder]  — injects nutrients + restrictions + RAG context
+     │       ├─→ [promptBuilder]  — builds KB-selection prompt (approved recipe list → { name, benefits })
      │       └─→ [aiClient]      — LM Studio /v1/chat/completions
      │
      ├─→ [Validators]          — AJV schema + logical consistency
@@ -203,7 +201,7 @@ eat-clean-api/
 [errorHandler middleware] ← catches all thrown AppError / unexpected errors
 ```
 
-**Important:** RAG failure at any point does NOT block generation. `ragContextByMealType` falls back to `{}` silently and meals are generated without retrieved context.
+**Note:** ChromaDB/RAG infrastructure (retriever, embeddingClient, vectorStore) is available for the `rag:index` admin script but is **not called** during meal plan generation.
 
 ---
 
@@ -1037,11 +1035,12 @@ export function sanitizePromptInput(value, maxLen = 100) {
 | **Prompt Templates** | ✅ Yes | `buildMealPrompt()` with parameterized slots for nutrition targets, restrictions, preferences, RAG context |
 | **Prompt Injection Prevention** | ✅ Yes | User input sanitized before insertion; RAG content additionally checked for adversarial keywords |
 | **Error-Feedback Prompting** | ✅ Yes | Failed validation reasons injected into retry prompts via `errorFeedback` param |
-| **Retrieval-Augmented Generation (RAG)** | ✅ Yes | ChromaDB vector search retrieves similar reference meals + disease guidelines; injected as prompt context |
-| **Embeddings** | ✅ Yes | `bge-m3` (multilingual) via LM Studio generates 1024-dim vectors for semantic similarity search |
+| **KB-Selection (Recipe Approval List)** | ✅ Yes | Controller builds per-day eligible recipe pool from KB JSON files; LLM must select one by exact name from the approved list — guarantees meals are real, curated recipes |
+| **Retrieval-Augmented Generation (RAG)** | ⚠️ Available, not active in main flow | ChromaDB infra and retriever exist; used by `rag:index` admin script. Not called during plan generation since KB-selection replaced it |
+| **Embeddings** | ⚠️ Available for indexing | `bge-m3` via LM Studio; still used by `npm run rag:index` to populate ChromaDB. Not called during plan generation |
 | **Fine-tuning** | ❌ No | No model training or adaptation |
-| **Few-shot Examples** | ✅ Partial | RAG effectively provides dynamic few-shot examples drawn from the knowledge base |
-| **Chain-of-Thought** | ✅ Selective | When diseases are present, the prompt asks the model to reason step-by-step through ingredient safety (forbidden/limited/preferred lists) before generating JSON. Skipped for non-disease meals to preserve speed. CoT preamble is ignored by `parseAIResponse` (brace-counting extraction) |
+| **Few-shot Examples** | ✅ Yes (via KB list) | Approved recipe list in each prompt provides concrete examples of valid meals for the user's profile |
+| **Chain-of-Thought** | ✅ Selective (fallback mode) | Active when `eligibleRecipes` is absent and diseases are present — injects step-by-step reasoning block before JSON. Skipped in KB-selection mode since recipes are pre-filtered. CoT preamble ignored by `parseAIResponse` |
 | **Tool Use / Function Calling** | ❌ No | Raw text completion, JSON parsed manually |
 | **Streaming** | ❌ No | `stream: false`, synchronous response |
 
@@ -1125,43 +1124,40 @@ Step 3: Meal Plan Generation
        Recalculate meal distribution from adjusted macros
        Build forbiddenIngredients[], limitedIngredients[], preferredIngredients[]
 
-  [3d] RAG Retrieval (fully parallel):
-       Collect unique mealTypes from nutritionPlan.mealDistribution
-       Fetch disease guidelines ONCE + all per-mealType meal retrievals in a single Promise.all():
-         → retrieveDiseaseGuidelines(diseases) — called once, reused for all mealTypes
-         → retrieveRelevantMeals({ mealType, ... }) — one call per unique mealType, all in parallel
-       Each retrieval builds a Vietnamese query string via internal EN→VI maps:
-         "món bữa sáng cho mục tiêu lose-weight ẩm thực Việt Nam pho"
-         → getEmbedding(queryString) via LM Studio /v1/embeddings (bge-m3, 1024-dim)
-         → queryDocuments(RECIPES, vector, { nResults: 3, where: { mealType } })
-       For each mealType: buildMealContext(meals, guidelines)
-         → sanitize, strip adversarial content, cap at 1500 chars
-         → result: ragContextByMealType["breakfast"] = "Reference meals: ..."
-       If any step throws → log warning, ragContextByMealType = {} (generation continues)
+  [3d] Recipe Pool Pre-check:
+       For each unique mealType in nutritionPlan.mealDistribution:
+         getEligibleRecipes({ mealType, diseases: allDiseaseKeys, cuisines, goal, excludeIds: new Set() })
+         If eligible.length < templateDays → HTTP 400 {
+           reason: "insufficient_recipes", mealType, available, needed: templateDays
+         }
+       (Fails fast before any LLM calls)
 
-  [3e] Concurrent AI Generation (per meal, up to 3 concurrent):
-       For each day (1–7) × each meal:
-         Build prompt: buildMealPrompt({
-           mealType, calories, protein, carbs, fat, goal,
-           dietPreference, cuisinePreference, diseases,
-           forbiddenIngredients, limitedIngredients, preferredIngredients,
-           retrievedContext: ragContextByMealType[mealType] ?? null  ← RAG injection
-         })
-         Call LM Studio: POST /v1/chat/completions (30s timeout)
-         Parse response: strip markdown → extract JSON
-         Sanitize: reject any numeric fields
+  [3e] KB-Selection AI Generation (sequential days, concurrent meals per day):
+       Initialize usedRecipeIdsByMealType = { [mealType]: new Set() } for each mealType
+
+       For each day (1 to templateDays):
+         Build dayEligiblePools: per mealType, call getEligibleRecipes({ excludeIds: usedRecipeIdsByMealType[mealType] })
+         For each meal (parallel via runWithConcurrency, CONCURRENCY_LIMIT=1):
+           Build prompt: buildMealPrompt({
+             mealType, calories, protein, carbs, fat, goal,
+             dietPreference, cuisinePreference, diseases,
+             forbiddenIngredients, limitedIngredients, preferredIngredients,
+             eligibleRecipes: dayEligiblePools[mealType].slice(0, 20)  ← approved recipe list
+           })
+           LLM outputs: { "name": "exact recipe name", "benefits": ["...", "..."] }
+           Backend injects: name/description/ingredients from matched KB recipe
+           (Fallback: eligibleRecipes[0] if name not matched, with warning log)
+           Mark selectedRecipe.id in usedRecipeIdsByMealType[mealType]
 
          [3e-retry] If generation fails:
-           Inject errorFeedback into prompt, retry (max 2 attempts)
+           Inject errorFeedback into prompt, retry with same eligibleRecipes (max 2 attempts)
 
   [3f] Safety Validation (per meal):
-       For each ingredient in AI response:
+       For each ingredient (from KB, not LLM):
          Check against forbiddenIngredients using Unicode-aware lookaround regex
-         (?<![\p{L}\p{N}])sugar(?![\p{L}\p{N}]) with iu flags
-         — "đường" matches but "đường phèn" still tokenizes correctly across diacritics
-         — Critical: JS \b is ASCII-only and silently breaks on Vietnamese chars,
-           so the previous \b implementation was replaced with Unicode property escapes
-       If unsafe: regenerate meal (up to 2 regen attempts per meal)
+         (?<![\p{L}\p{N}])term(?![\p{L}\p{N}]) with iu flags
+         — Safe for Vietnamese diacritics; JS \b is ASCII-only and was replaced
+       If unsafe: regen with eligibleRecipes excluding the failed recipe name (up to 2 attempts)
 
   [3g] Schema Validation (AJV):
        Validate assembled plan against strict mealPlan.schema.js

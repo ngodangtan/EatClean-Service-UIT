@@ -3,8 +3,7 @@ import logger from '../../utils/logger.js';
 
 export const COLLECTIONS = {
   RECIPES: 'recipes',
-  GUIDELINES: 'guidelines',
-  INGREDIENTS: 'ingredients'
+  GUIDELINES: 'guidelines'
 };
 
 /**

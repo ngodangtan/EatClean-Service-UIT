@@ -1,3 +1,5 @@
+import { getDiseaseGuidelines } from '../rag/kbSampler.js';
+
 const MAX_STRING_LENGTH = 100;
 const MAX_ARRAY_ITEMS = 10;
 
@@ -46,8 +48,62 @@ export function buildMealPrompt({
   dayNumber,
   avoidMealNames,
   dayMealInspiration,
-  avoidPrimaryIngredients
+  avoidPrimaryIngredients,
+  eligibleRecipes = null
 }) {
+  // KB-selection mode: give LLM an approved recipe list, have it pick one and generate benefits only.
+  // name, description, and ingredients are injected from KB data by the caller after this returns.
+  if (eligibleRecipes && eligibleRecipes.length > 0) {
+    const safeMealType = sanitizePromptInput(mealType, 20);
+    const safeGoal = sanitizePromptInput(goal);
+    const safeCuisines = sanitizePromptArray(cuisinePreference);
+    const safeDiseases = sanitizePromptArray(diseases);
+    const cuisineList = safeCuisines.length > 0 ? safeCuisines.join(', ') : 'đa dạng';
+    const diseasesList = safeDiseases.length > 0 ? safeDiseases.join(', ') : 'không có';
+
+    const recipeList = eligibleRecipes.slice(0, 20)
+      .map((r, i) => `${i + 1}. "${sanitizePromptInput(r.name, 100)}" — ${sanitizePromptArray(r.ingredients, 6, 50).join(', ')}`)
+      .join('\n');
+
+    const guidelineLines = safeDiseases.length > 0
+      ? getDiseaseGuidelines(diseases)
+          .map(g => {
+            const tips = g.mealTips.slice(0, 3).map(t => sanitizePromptInput(t, 150)).join(' | ');
+            return `• ${g.disease}: ${sanitizePromptInput(g.summary, 200)} Gợi ý: ${tips}`;
+          })
+          .join('\n')
+      : '';
+
+    let prompt = `Bạn là chuyên gia dinh dưỡng Việt Nam. Hãy chọn MỘT công thức phù hợp nhất từ danh sách dưới đây cho bữa ${safeMealType}.
+
+DANH SÁCH CÔNG THỨC ĐƯỢC PHÊ DUYỆT:
+${recipeList}
+
+Tiêu chí lựa chọn:
+- Mục tiêu sức khỏe: ${safeGoal}
+- Ẩm thực ưa thích: ${cuisineList}
+- Điều kiện sức khỏe: ${diseasesList}
+- Lượng calo tham khảo: ~${calories} kcal
+${guidelineLines ? `\nHƯỚNG DẪN DINH DƯỠNG THEO BỆNH LÝ (dùng để viết "benefits" chính xác, có căn cứ y tế):\n${guidelineLines}\n` : ''}
+YÊU CẦU: Chọn đúng 1 công thức và tạo 2-3 lợi ích sức khỏe bằng tiếng Việt cho công thức đó. Lợi ích PHẢI liên hệ cụ thể đến bệnh lý của người dùng dựa trên hướng dẫn dinh dưỡng ở trên.
+
+Output JSON:
+{
+  "name": "tên chính xác từ danh sách",
+  "benefits": ["lợi ích sức khỏe 1", "lợi ích sức khỏe 2"]
+}
+
+RULES:
+1. Return JSON ONLY — no code blocks, no markdown, no extra text
+2. "name" PHẢI là tên được sao chép CHÍNH XÁC từ danh sách trên, không thêm bớt ký tự
+3. "benefits" PHẢI bằng tiếng Việt có dấu đầy đủ`;
+
+    if (errorFeedback) {
+      prompt += `\n\nLưu ý: Lần trước có lỗi sau, hãy sửa: ${sanitizePromptInput(errorFeedback, 300)}`;
+    }
+
+    return prompt;
+  }
   const safeMealType = sanitizePromptInput(mealType, 20);
   const safeGoal = sanitizePromptInput(goal);
   const safeDiet = sanitizePromptInput(dietPreference) || 'balanced';
@@ -72,7 +128,7 @@ User Preferences:
 - Diet: ${safeDiet}
 - Cuisines: ${cuisineList}
 - Health conditions: ${diseasesList}
-${safeInspiration ? `\nCOOKING STYLE INSTRUCTION: Today's required dish format is based on: "${safeInspiration}". You MUST create a meal using the SAME cooking method and main ingredient category. Examples: if the reference is a cháo/porridge → make a porridge; if it uses eggs/trứng → build around eggs; if it is a salad → make a salad; if it uses fish/cá → use fish; if it uses tofu/đậu hũ → use tofu. Adapt specific seasonings and accompaniments freely, but DO NOT replace the core dish format with something unrelated like bánh or a generic rice bowl.\n` : ''}${safeAvoidNames.length > 0 ? `\nVARIETY REQUIREMENT: This is Day ${dayNumber}. You MUST generate a completely DIFFERENT meal — do NOT use any of these already-used names: ${safeAvoidNames.join(', ')}. Pick a distinct dish with different main ingredients.\n` : ''}${safeAvoidIngredients.length > 0 ? `\nINGREDIENT OVERUSE RESTRICTION: The following ingredients have already appeared too many times in this meal plan. Do NOT use them as the PRIMARY or MAIN ingredient in this meal: ${safeAvoidIngredients.join(', ')}. You MUST choose a completely different protein source, carb base, or vegetable as the star of the dish.\n` : ''}
+${safeInspiration ? `\nCOOKING STYLE INSTRUCTION: Today's required dish format is based on: "${safeInspiration}". You MUST create a meal using the SAME cooking method and main ingredient category. Examples: if the reference is a cháo/porridge → make a porridge; if it uses eggs/trứng → build around eggs; if it is a salad → make a salad; if it uses fish/cá → use fish; if it uses tofu/đậu hũ → use tofu. Adapt specific seasonings and accompaniments freely, but DO NOT replace the core dish format with something unrelated like bánh or a generic rice bowl. Create a COMPLETELY ORIGINAL Vietnamese name — do NOT reuse the reference name.\n` : ''}${safeAvoidNames.length > 0 ? `\nVARIETY REQUIREMENT: This is Day ${dayNumber}. You MUST generate a completely DIFFERENT meal — do NOT use any of these already-used names: ${safeAvoidNames.join(', ')}. Pick a distinct dish with different main ingredients.\n` : ''}${safeAvoidIngredients.length > 0 ? `\nINGREDIENT OVERUSE RESTRICTION: The following ingredients have already appeared too many times in this meal plan. Do NOT use them as the PRIMARY or MAIN ingredient in this meal: ${safeAvoidIngredients.join(', ')}. You MUST choose a completely different protein source, carb base, or vegetable as the star of the dish.\n` : ''}
 Output this JSON with ALL string values in Vietnamese:
 {
   "name": "Tên món ăn",

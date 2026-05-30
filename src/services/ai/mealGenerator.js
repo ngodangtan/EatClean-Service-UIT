@@ -52,7 +52,7 @@ function isNetworkError(err) {
   return err.message === 'fetch failed' || err.name === 'AbortError' || err.message.includes('ECONNREFUSED') || err.message.includes('ECONNRESET');
 }
 
-export async function generateMeal({ retrievedContext = null, ...mealInput }, callBudget) {
+export async function generateMeal({ retrievedContext = null, eligibleRecipes = null, ...mealInput }, callBudget) {
   let lastError = null;
 
   for (let attempt = 0; attempt <= MAX_MEAL_RETRIES; attempt++) {
@@ -72,11 +72,27 @@ export async function generateMeal({ retrievedContext = null, ...mealInput }, ca
     }
 
     const errorFeedback = lastError && !isNetworkError(lastError) ? lastError.message : null;
-    const prompt = buildMealPrompt({ ...mealInput, errorFeedback, retrievedContext });
+    const prompt = buildMealPrompt({ ...mealInput, errorFeedback, retrievedContext, eligibleRecipes });
 
     try {
       const rawResponse = await callLMStudio(prompt);
       const parsed = parseAIResponse(rawResponse);
+
+      if (eligibleRecipes && eligibleRecipes.length > 0) {
+        // KB-selection mode: LLM picks a recipe name; backend injects authoritative KB data.
+        const selectedRecipe = eligibleRecipes.find(r => r.name === parsed.name);
+        if (!selectedRecipe) {
+          logger.warn(`[KB] LLM selected unknown recipe "${parsed.name}", falling back to first eligible`);
+        }
+        const recipe = selectedRecipe ?? eligibleRecipes[0];
+        return {
+          name: recipe.name,
+          description: recipe.description || '',
+          ingredients: Array.isArray(recipe.ingredients) ? recipe.ingredients : [],
+          benefits: Array.isArray(parsed.benefits) ? parsed.benefits.filter(b => typeof b === 'string' && b.trim()) : []
+        };
+      }
+
       const sanitized = sanitizeResponse(parsed);
       return sanitized;
     } catch (error) {
