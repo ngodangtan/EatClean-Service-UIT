@@ -4,6 +4,7 @@ import { validateMealPlan } from '../validators/mealPlan.schema.js';
 import { validateFullMealPlan } from '../services/mealValidationService.js';
 import { generateNutritionPlan } from '../services/nutrition/nutritionEngine.js';
 import { calculatePlanDuration } from '../services/nutrition/durationCalculator.js';
+import { distributeMacros } from '../services/nutrition/mealMacroDistributor.js';
 import { generateMeal } from '../services/ai/mealGenerator.js';
 import { runWithConcurrency } from '../services/ai/concurrency.js';
 import { applyDiseaseAdjustments, validateGeneratedMeal } from '../services/disease/diseaseEngine.js';
@@ -238,9 +239,20 @@ export async function generateMealPlan(req, res) {
             break;
           }
 
+          // Apply ±5% daily variation to macros so each day has realistic calorie diversity.
+          // Scale all macros by the same factor so macro-derived calories stay consistent
+          // (protein*4 + carbs*4 + fat*9 ≈ totalCalories) and the 1% validator still passes.
+          const variation = 0.95 + Math.random() * 0.10;
+          const dayProtein = Math.round(nutritionPlan.macros.protein * variation);
+          const dayFat = Math.round(nutritionPlan.macros.fat * variation);
+          const dayCarbs = Math.round(nutritionPlan.macros.carbs * variation);
+          const dayCalories = dayProtein * 4 + dayCarbs * 4 + dayFat * 9;
+          const dayMacros = { calories: dayCalories, protein: dayProtein, carbs: dayCarbs, fat: dayFat };
+          const dayDistribution = distributeMacros(dayMacros, mealsPerDay);
+
           // Build eligible recipe pool per mealType for this day (unused recipes only)
           const dayEligiblePools = {};
-          for (const dist of nutritionPlan.mealDistribution) {
+          for (const dist of dayDistribution) {
             dayEligiblePools[dist.mealType] = getEligibleRecipes({
               mealType: dist.mealType,
               diseases: allDiseaseKeys,
@@ -250,7 +262,7 @@ export async function generateMealPlan(req, res) {
             });
           }
 
-          const dayTasks = nutritionPlan.mealDistribution.map(dist => () => {
+          const dayTasks = dayDistribution.map(dist => () => {
             logger.info(`Generating Day ${dayIndex + 1} ${dist.mealType}...`);
             return generateMeal({
               mealType: dist.mealType,
@@ -274,7 +286,7 @@ export async function generateMealPlan(req, res) {
           // Step 6: Post-AI safety validation + recipe ID tracking
           for (let mealIdx = 0; mealIdx < dayResults.length; mealIdx++) {
             let mealContent = dayResults[mealIdx];
-            const dist = nutritionPlan.mealDistribution[mealIdx];
+            const dist = dayDistribution[mealIdx];
 
             if (hasDiseases) {
               let mealSafe = false;
@@ -331,7 +343,7 @@ export async function generateMealPlan(req, res) {
               usedRecipeIdsByMealType[dist.mealType].add(selectedRecipe.id);
             }
 
-            mealMeta.push({ dayIndex, dist });
+            mealMeta.push({ dayIndex, dist, dayMacros });
             validatedMeals.push(mealContent);
           }
 
@@ -365,12 +377,17 @@ export async function generateMealPlan(req, res) {
             });
           }
 
+          const firstMealMeta = mealMeta[dayIndex * mealsPerDay];
           templateDayObjs.push({
             day: dayIndex + 1,
             title: `Day ${dayIndex + 1}`,
             theme: '',
-            totalCalories: nutritionPlan.calorieTarget,
-            macros: { ...nutritionPlan.macros },
+            totalCalories: firstMealMeta.dayMacros.calories,
+            macros: {
+              protein: firstMealMeta.dayMacros.protein,
+              carbs: firstMealMeta.dayMacros.carbs,
+              fat: firstMealMeta.dayMacros.fat
+            },
             meals: dayMeals,
             tips: []
           });
