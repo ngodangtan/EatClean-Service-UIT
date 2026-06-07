@@ -156,7 +156,7 @@ All content is **Vietnamese**. Filter metadata fields (`mealType`, `cuisine`, `g
 - **Database** — MongoDB via Mongoose 8.x with `strictQuery: true`; schemas use timestamps and cross-collection references
 - **Rate limiting** — 100 requests/minute on `/api` routes
 - **Disease validation** — `HealthProfile.diseases` is **not** a Mongoose enum. It is `[diseaseEntrySchema]` where each entry is `{ key, diagnosedAt, indicators: [{ key, value, unit, measuredAt, note }] }`. Disease keys, indicator keys, duplicates, and indicator-belongs-to-disease are cross-checked against `src/data/diseaseCatalog.js` in the controller after Joi validation. Indicator units are snapshotted from the catalog at write time so historical records stay interpretable if catalog units change
-- **Health profile fields** — `desiredWeight` is **not** stored on the profile. It is request-scoped and supplied to `POST /api/meal-plans/generate` (purpose=weight_management). `gender`, `birthday`, `height`, `currentWeight` come from the user account at registration time
+- **Health profile fields** — `desiredWeight` is **not** stored on the profile. It is request-scoped and supplied to `POST /api/meal-plans/generate` (purpose=weight_management). `gender`, `birthday`, `height`, `currentWeight` come from the User account and are **not** editable on the health profile; `height` and `currentWeight` are also updatable via `PUT /api/auth/profile` (which now accepts `{ username, fullName, phone, birthday, gender, height, currentWeight }`); `GET /api/auth/profile` also returns `height` and `currentWeight`
 - **Medical disclaimer** — API response includes disclaimer when diseases are present
 
 ## Environment Variables

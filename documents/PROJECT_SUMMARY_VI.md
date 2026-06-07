@@ -1,6 +1,6 @@
 # Eat Clean API — Tổng Quan Kỹ Thuật Toàn Diện
 
-> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-04-27 | Dựa trên tất cả tài liệu yêu cầu và phân tích toàn bộ mã nguồn
+> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-05-24 | Dựa trên tất cả tài liệu yêu cầu và phân tích toàn bộ mã nguồn
 >
 > **Cập nhật 2026-04-21:** Danh mục bệnh mở rộng từ 10 lên 11 — thêm `insomnia` (`supported: false`). Cập nhật đếm bệnh trong `diseaseGuidelines.json`, `recipes.json`, `ingredients.json`. Sửa params chat LM Studio (`temperature: 0.7 → 0.2`, `max_tokens: 800 → 2000`, thêm system message). Sửa kích thước vector embedding (`768 → 1024 chiều`). Sửa mô tả regex ingredient filter (`\b` → Unicode-aware lookaround). Xóa dòng inconsistency `temperature: 0.2` (đã được fix). Thêm section triết lý thiết kế DISEASE_RULES vs DISEASE_CATALOG vào §10.2.
 >
@@ -9,6 +9,8 @@
 > **Cập nhật 2026-04-27:** Cơ sở kiến thức chia thành thư mục con — `recipes/` giờ chứa 4 file theo mealType (`breakfast.json`, `lunch.json`, `dinner.json`, `snack.json`); `ingredients/` giờ chứa 5 file theo danh mục (`dairy.json`, `grains.json`, `pantry.json`, `produce.json`, `protein.json`). Tổng số công thức tăng từ 40 lên 96 (thêm 11 món `lose-weight` mới). Số nguyên liệu tăng từ 52 lên 85. Cập nhật cấu trúc thư mục ở §2 và mô tả `indexer.js` ở §5 và §11.3.
 >
 > **Cập nhật 2026-04-12 (v2):** **Xóa hoàn toàn `goal` khỏi HealthProfile** — `goal` không còn lưu trên profile, Mongoose schema, Joi validator, Swagger spec, hay controller. Nutrition engine mặc định `'improve-health'` khi không có `goalOverride` (trước đó dùng `healthProfile.goal`). `goalOverride` chỉ được dùng bởi `weight_management` để inject `weightGoal` theo từng request. `swapMeal` controller hardcode `goal: 'improve-health'` thay vì đọc từ profile. **RAG indexer giờ xóa collection trước khi re-index** để đảm bảo clean re-index (export `deleteCollection()` mới trong `vectorStore.js`). ChromaDB `embeddingFunction` đổi từ no-op wrapper sang `null`. Sửa `getEmbeddingBatch` default model từ `nomic-embed-text` sang `bge-m3`.
+>
+> **Cập nhật 2026-05-24:** **Kiến trúc KB-selection** — `kbSampler.js` export `getEligibleRecipes({ mealType, diseases, cuisines, goal, excludeIds })` là hàm chính. Controller xây dựng pool công thức KB chưa dùng theo từng ngày (lọc theo disease/goal/cuisine, theo dõi bằng `usedRecipeIdsByMealType` Set) và truyền cho LLM dưới dạng danh sách được duyệt. LLM chỉ xuất `{ name, benefits }` — `name`/`description`/`ingredients` được lấy từ KB một cách có thẩm quyền (fallback: `eligibleRecipes[0]` nếu tên không khớp). ChromaDB RAG **không được gọi** trong quá trình tạo (retriever/ragContextBuilder/embeddingClient không được controller gọi). Đã xóa: `dayMealInspiration`, `avoidMealNames`, `avoidPrimaryIngredients`, `SEASONING_WHITELIST`, deduplication pass. Đã thêm: kiểm tra pool công thức trước (HTTP 400 + `reason: insufficient_recipes` nếu pool < templateDays), đảm bảo không lặp lại ID công thức. Tổng KB: breakfast=50, lunch=56, dinner=54, snack=44 (tổng 204 công thức). `CONCURRENCY_LIMIT=1` (các bữa trong ngày chạy tuần tự). Call budget: `min(200, templateDays × mealsPerDay × 3 + 10)`.
 
 ---
 
@@ -45,13 +47,13 @@ Nutrition Engine (tất định: BMR → TDEE → calories → macros → phân 
      ↓
 Disease Engine (giới hạn macros theo bệnh, xây dựng danh sách hạn chế nguyên liệu)
      ↓
-RAG Retriever (truy vấn ChromaDB tìm bữa ăn tham khảo tương tự + hướng dẫn bệnh lý theo mealType)
+getEligibleRecipes() (pool công thức theo ngày từ KB JSON: lọc theo disease/goal/cuisine, loại trừ ID đã dùng)
      ↓
-Prompt Builder (đưa vào mục tiêu dinh dưỡng + hạn chế + ngữ cảnh truy xuất)
+Prompt Builder (đưa danh sách công thức được duyệt → LLM chọn một theo tên chính xác, tạo benefits)
      ↓
-LM Studio / LLM (tạo name, description, ingredients, benefits — được hỗ trợ bởi ngữ cảnh)
+LM Studio / LLM (xuất { name, benefits } — name/description/ingredients được lấy từ KB có thẩm quyền)
      ↓
-Safety Validator (quét nguyên liệu theo word-boundary, từ chối item bị cấm, thử lại tối đa 2 lần)
+Safety Validator (quét nguyên liệu KB bằng Unicode-aware regex, thử lại tối đa 2 lần với công thức khác)
      ↓
 Schema + Logical Validator (AJV schema, kiểm tra tính nhất quán calorie/macro)
      ↓
@@ -106,7 +108,7 @@ eat-clean-api/
 │   ├── data/
 │   │   ├── diseaseCatalog.js               # Danh mục 11 bệnh (4 hỗ trợ macro + 7 chưa hỗ trợ), indicators, cờ supported
 │   │   └── knowledgeBase/                  # Dữ liệu tham khảo được tuyển chọn (quản lý phiên bản)
-│   │       ├── recipes/                    # 96 công thức tham khảo Việt Nam chia theo mealType (breakfast, lunch, dinner, snack)
+│   │       ├── recipes/                    # 204 công thức tham khảo Việt Nam chia theo mealType (breakfast=50, lunch=56, dinner=54, snack=44)
 │   │       ├── diseaseGuidelines.json      # 11 hướng dẫn chế độ ăn theo bệnh (tiếng Việt)
 │   │       └── ingredients/                # 85 nguyên liệu chia theo danh mục (dairy, grains, pantry, produce, protein)
 │   ├── services/
@@ -180,15 +182,11 @@ eat-clean-api/
      │
      ├─→ [Nutrition Engine]    — hàm thuần túy, không có side effects
      ├─→ [Disease Engine]      — giới hạn macros, xây dựng danh sách nguyên liệu
-     ├─→ [RAG Retriever]       — truy vấn ChromaDB tìm bữa ăn tương tự + hướng dẫn
-     │       │
-     │       ├─→ [embeddingClient] — LM Studio /v1/embeddings
-     │       └─→ [vectorStore]    — Truy vấn ChromaDB
+     ├─→ [kbSampler]           — getEligibleRecipes() theo ngày/mealType (đọc KB JSON trực tiếp)
      │
-     ├─→ [ragContextBuilder]   — định dạng tài liệu truy xuất thành chuỗi prompt
-     ├─→ [AI Layer]            — gửi prompt với ngữ cảnh cho LLM, làm sạch phản hồi
+     ├─→ [AI Layer]            — LLM chọn công thức từ danh sách được duyệt, tạo benefits
      │       │
-     │       ├─→ [promptBuilder]  — đưa vào dinh dưỡng + hạn chế + ngữ cảnh RAG
+     │       ├─→ [promptBuilder]  — xây dựng prompt KB-selection (danh sách công thức → { name, benefits })
      │       └─→ [aiClient]      — LM Studio /v1/chat/completions
      │
      ├─→ [Validators]          — AJV schema + kiểm tra tính nhất quán logic
@@ -198,7 +196,7 @@ eat-clean-api/
 [errorHandler middleware] ← bắt tất cả AppError / lỗi không mong đợi
 ```
 
-**Quan trọng:** Lỗi RAG tại bất kỳ điểm nào KHÔNG chặn quá trình tạo. `ragContextByMealType` sẽ fallback về `{}` một cách im lặng và bữa ăn được tạo mà không có ngữ cảnh truy xuất.
+**Lưu ý:** Hạ tầng ChromaDB/RAG (retriever, embeddingClient, vectorStore) có sẵn cho script admin `rag:index` nhưng **không được gọi** trong quá trình tạo kế hoạch bữa ăn.
 
 ---
 
@@ -376,7 +374,7 @@ Pipeline RAG theo từng MealType:
 
 Đây là các **file JSON được quản lý phiên bản** — nguồn sự thật cho cơ sở kiến thức. Bất kỳ cập nhật nào cũng yêu cầu chạy lại `npm run rag:index` để đồng bộ ChromaDB.
 
-#### `recipes/` — 96 công thức tham khảo (chia theo mealType)
+#### `recipes/` — 204 công thức tham khảo (chia theo mealType: breakfast=50, lunch=56, dinner=54, snack=44)
 
 Mỗi công thức có (toàn bộ nội dung bằng **tiếng Việt**; khóa metadata giữ nguyên tiếng Anh):
 ```json
@@ -393,7 +391,7 @@ Mỗi công thức có (toàn bộ nội dung bằng **tiếng Việt**; khóa m
 }
 ```
 
-Phạm vi bao phủ: tất cả 4 mealTypes, tất cả 3 goals (`lose-weight`, `gain-weight`, `improve-health`), tất cả 11 bệnh trong catalog, 4 phong cách ẩm thực (western, vietnamese, asian, mediterranean).
+Phạm vi bao phủ: tất cả 4 mealTypes (breakfast=50, lunch=56, dinner=54, snack=44), tất cả 3 goals (`lose-weight`, `gain-weight`, `improve-health`), tất cả 11 bệnh trong catalog, 4 phong cách ẩm thực (western, vietnamese, asian, mediterranean).
 
 #### `diseaseGuidelines.json` — 11 hướng dẫn bệnh lý
 
@@ -862,14 +860,15 @@ export function sanitizePromptInput(value, maxLen = 100) {
 | Kỹ thuật | Sử dụng? | Chi tiết |
 |----------|----------|----------|
 | **Prompt Engineering** | ✅ Có | Kỹ thuật chính. Mẫu có cấu trúc với ràng buộc rõ ràng và hướng dẫn định dạng JSON |
-| **Prompt Templates** | ✅ Có | `buildMealPrompt()` với các slot tham số cho mục tiêu dinh dưỡng, hạn chế, sở thích, ngữ cảnh RAG |
+| **Prompt Templates** | ✅ Có | `buildMealPrompt()` với các slot tham số cho mục tiêu dinh dưỡng, hạn chế, sở thích, danh sách công thức được duyệt |
 | **Phòng chống Prompt Injection** | ✅ Có | Đầu vào người dùng được làm sạch trước khi chèn; nội dung RAG được kiểm tra thêm từ khóa tấn công |
 | **Error-Feedback Prompting** | ✅ Có | Lý do xác thực thất bại được đưa vào prompt thử lại qua tham số `errorFeedback` |
-| **Retrieval-Augmented Generation (RAG)** | ✅ Có | Tìm kiếm vector ChromaDB truy xuất bữa ăn tham khảo tương tự + hướng dẫn bệnh lý; đưa vào làm ngữ cảnh prompt |
-| **Embeddings** | ✅ Có | `bge-m3` qua LM Studio tạo vector 1024 chiều cho tìm kiếm tương đồng ngữ nghĩa |
+| **KB-Selection (Danh sách công thức được duyệt)** | ✅ Có | Controller xây dựng pool công thức KB chưa dùng theo từng ngày; LLM phải chọn một theo tên chính xác từ danh sách được duyệt — đảm bảo bữa ăn là công thức thực tế, được tuyển chọn |
+| **Retrieval-Augmented Generation (RAG)** | ⚠️ Có sẵn, không hoạt động trong luồng chính | Hạ tầng ChromaDB và retriever tồn tại; dùng bởi script admin `rag:index`. Không được gọi trong quá trình tạo kế hoạch vì KB-selection đã thay thế |
+| **Embeddings** | ⚠️ Có sẵn cho việc đánh chỉ mục | `bge-m3` qua LM Studio; vẫn dùng bởi `npm run rag:index` để điền vào ChromaDB. Không được gọi trong quá trình tạo kế hoạch |
 | **Fine-tuning** | ❌ Không | Không huấn luyện hay điều chỉnh mô hình |
-| **Few-shot Examples** | ✅ Một phần | RAG hiệu quả cung cấp few-shot examples động được rút từ cơ sở kiến thức |
-| **Chain-of-Thought** | ✅ Có chọn lọc | Khi có bệnh lý, prompt yêu cầu mô hình suy luận từng bước qua danh sách nguyên liệu cấm/hạn chế/ưu tiên trước khi sinh JSON. Bỏ qua cho bữa ăn không có bệnh để giữ tốc độ. Phần suy luận CoT được bỏ qua bởi `parseAIResponse` (trích xuất JSON bằng đếm ngoặc) |
+| **Few-shot Examples** | ✅ Có (qua danh sách KB) | Danh sách công thức được duyệt trong mỗi prompt cung cấp ví dụ cụ thể về bữa ăn hợp lệ cho hồ sơ người dùng |
+| **Chain-of-Thought** | ✅ Có chọn lọc (chế độ fallback) | Hoạt động khi `eligibleRecipes` không có và có bệnh lý — chèn khối suy luận từng bước trước JSON. Bỏ qua trong chế độ KB-selection vì công thức đã được lọc sẵn. Phần suy luận CoT được bỏ qua bởi `parseAIResponse` |
 | **Tool Use / Function Calling** | ❌ Không | Hoàn thành văn bản thô, JSON được phân tích thủ công |
 | **Streaming** | ❌ Không | `stream: false`, phản hồi đồng bộ |
 
@@ -948,41 +947,41 @@ Bước 3: Tạo Kế Hoạch Bữa Ăn
        Tính lại phân phối bữa ăn từ macros đã điều chỉnh
        Xây dựng forbiddenIngredients[], limitedIngredients[], preferredIngredients[]
 
-  [3d] Truy xuất RAG (song song hoàn toàn):
-       Thu thập mealTypes duy nhất từ nutritionPlan.mealDistribution
-       Gọi một Promise.all() duy nhất để lấy tất cả cùng lúc:
-         → retrieveDiseaseGuidelines(diseases) — gọi MỘT lần, tái sử dụng cho tất cả mealTypes
-         → retrieveRelevantMeals({ mealType, ... }) — một lần cho mỗi mealType, tất cả song song
-       Mỗi truy xuất xây dựng chuỗi truy vấn tiếng Việt qua bản đồ EN→VI:
-         "món bữa sáng cho mục tiêu lose-weight ẩm thực Việt Nam phở"
-         → getEmbedding(queryString) qua LM Studio /v1/embeddings (bge-m3, vector 1024 chiều)
-         → queryDocuments(RECIPES, vector, { nResults: 3, where: { mealType } })
-       Với mỗi mealType: buildMealContext(meals, guidelines)
-         → làm sạch, loại bỏ nội dung tấn công, giới hạn 1500 ký tự
-         → kết quả: ragContextByMealType["breakfast"] = "Reference meals: ..."
-       Nếu bất kỳ bước nào throw → ghi log cảnh báo, ragContextByMealType = {} (tiếp tục tạo không có ngữ cảnh)
+  [3d] Kiểm tra pool công thức trước (fail-fast):
+       Với mỗi mealType duy nhất trong nutritionPlan.mealDistribution:
+         getEligibleRecipes({ mealType, diseases: allDiseaseKeys, cuisines, goal, excludeIds: new Set() })
+         Nếu eligible.length < templateDays → HTTP 400 {
+           reason: "insufficient_recipes", mealType, available, needed: templateDays
+         }
+       (Thất bại ngay trước bất kỳ lần gọi LLM nào)
 
-  [3e] Tạo AI đồng thời (mỗi bữa ăn, tối đa 3 đồng thời):
-       Với mỗi ngày (1–7) × mỗi bữa ăn:
-         Xây dựng prompt: buildMealPrompt({
-           mealType, calories, protein, carbs, fat, goal,
-           dietPreference, cuisinePreference, diseases,
-           forbiddenIngredients, limitedIngredients, preferredIngredients,
-           retrievedContext: ragContextByMealType[mealType] ?? null  ← Đưa RAG vào
-         })
-         Gọi LM Studio: POST /v1/chat/completions (timeout 30 giây)
-         Phân tích phản hồi: loại bỏ markdown → trích xuất JSON
-         Làm sạch: từ chối bất kỳ trường số nào
+  [3e] Tạo AI KB-selection (ngày tuần tự, các bữa trong ngày song song):
+       Khởi tạo usedRecipeIdsByMealType = { [mealType]: new Set() } cho mỗi mealType
+
+       Với mỗi ngày (1–templateDays):
+         dayEligiblePools: mỗi mealType gọi getEligibleRecipes({ excludeIds: usedRecipeIdsByMealType[mealType] })
+         dayTasks = mỗi bữa:
+           task = () => generateMeal({
+             mealType, calories, protein, carbs, fat, goal,
+             dietPreference, cuisinePreference, diseases,
+             forbiddenIngredients, limitedIngredients, preferredIngredients,
+             eligibleRecipes: dayEligiblePools[mealType].slice(0, 20)  ← danh sách công thức được duyệt
+           })
+         dayResults = runWithConcurrency(dayTasks, CONCURRENCY_LIMIT=1)
+         → LLM xuất: { "name": "tên công thức chính xác", "benefits": ["...", "..."] }
+         → Backend lấy: name/description/ingredients từ công thức KB khớp tên
+         (Fallback: eligibleRecipes[0] nếu tên không khớp, kèm log cảnh báo)
+         → Đánh dấu recipe.id đã dùng trong usedRecipeIdsByMealType[mealType]
 
          [3e-retry] Nếu tạo thất bại:
-           Đưa errorFeedback vào prompt, thử lại (tối đa 2 lần)
+           Đưa errorFeedback vào prompt, thử lại với cùng eligibleRecipes (tối đa 2 lần)
 
   [3f] Xác thực an toàn (mỗi bữa ăn):
-       Với mỗi nguyên liệu trong phản hồi AI:
+       Với mỗi nguyên liệu (từ KB, không phải LLM):
          Kiểm tra với forbiddenIngredients sử dụng Unicode-aware lookaround regex
          ví dụ: /(?<![\p{L}\p{N}])đường(?![\p{L}\p{N}])/iu — an toàn với dấu tiếng Việt
          (JS \b chỉ xử lý ASCII nên không dùng được cho tiếng Việt)
-       Nếu không an toàn: tạo lại bữa ăn (tối đa 2 lần tạo lại mỗi bữa)
+       Nếu không an toàn: tạo lại bữa ăn với công thức thất bại bị loại khỏi pool (tối đa 2 lần)
 
   [3g] Xác thực Schema (AJV):
        Xác thực kế hoạch đã lắp ráp theo mealPlan.schema.js nghiêm ngặt
@@ -1244,7 +1243,9 @@ Kết quả: { safe: bool, reasons: ["Forbidden ingredients found: X, Y"] }
 
 ---
 
-### 10.3 Lớp RAG (`src/services/rag/`)
+### 10.3 Lớp RAG (`src/services/rag/`) — Có sẵn cho rag:index, không hoạt động trong luồng tạo chính
+
+> **Lưu ý quan trọng:** Kể từ 2026-05-24, ChromaDB RAG (retriever, embeddingClient, vectorStore) **không được gọi** trong quá trình tạo kế hoạch bữa ăn. Kiến trúc KB-selection (`kbSampler.js`) đã thay thế nó. Hạ tầng RAG dưới đây vẫn được dùng bởi script admin `npm run rag:index` để điền dữ liệu vào ChromaDB.
 
 ```
 Đầu vào: { mealType, goal, diseases[], cuisine }  theo mỗi mealType duy nhất
@@ -1369,7 +1370,7 @@ indexAllCollections() chạy song song:
         │                 │                   │
         └─────────────────┴───────────────────┘
         Xóa rồi re-index mỗi collection (clean re-index, không phải idempotent upsert)
-        Trả về: { recipes: 96, guidelines: 11, ingredients: 85, errors: 0 }
+        Trả về: { recipes: 204, guidelines: 11, ingredients: 85, errors: 0 }
 ```
 
 ---
@@ -1380,7 +1381,9 @@ indexAllCollections() chạy song song:
 Đầu vào: mealInput { mealType, calories, protein, carbs, fat, goal,
                    dietPreference, cuisinePreference, diseases,
                    forbiddenIngredients, limitedIngredients,
-                   preferredIngredients, retrievedContext }
+                   preferredIngredients,
+                   eligibleRecipes: [{ id, name, description, ingredients }] }
+                   (retrievedContext=null trong chế độ KB-selection)
 callBudget: { remaining: N }
                                     │
          ┌──────────────────────────▼──────────────────────────┐
@@ -1494,22 +1497,27 @@ callBudget: { remaining: N }
          │                  ingredients, benefits }            │
          └──────────────────────────┬──────────────────────────┘
                                     │
-Đầu ra: { name, description, ingredients[], benefits[] }
+Đầu ra (chế độ KB-selection):
+  LLM xuất: { name: "tên công thức chính xác", benefits: ["..."] }
+  Backend lấy: { name, description, ingredients } từ công thức KB khớp tên
+  Fallback: eligibleRecipes[0] nếu LLM hallucinate tên không khớp (kèm log cảnh báo)
+  Kết quả cuối: { name, description, ingredients[], benefits[] } — description/ingredients từ KB
 ```
 
 **Xử lý đồng thời** (`concurrency.js`):
 ```
-runWithConcurrency(tasks[], limit=3):
+runWithConcurrency(tasks[], limit):
   Tạo min(limit, tasks.length) worker coroutines
   Mỗi worker lặp: chọn task tiếp theo chưa bắt đầu → await → lưu kết quả
   Tất cả workers chạy song song qua Promise.all()
   Kết quả trả về theo thứ tự task gốc
 
-Ví dụ: 21 tasks (7 ngày × 3 bữa), limit=3
-  Worker-1: task0, task3, task6, task9, task12, task15, task18
-  Worker-2: task1, task4, task7, task10, task13, task16, task19
-  Worker-3: task2, task5, task8, task11, task14, task17, task20
-  (xấp xỉ — phụ thuộc vào thời gian)
+Trong luồng chính: CONCURRENCY_LIMIT=1
+  (các bữa trong cùng một ngày chạy tuần tự để tránh xung đột usedRecipeIds)
+
+Ví dụ: 3 bữa trong ngày 1, limit=1:
+  Lần lượt: breakfast → lunch → dinner
+  (ngày chạy tuần tự; các bữa trong ngày chạy với limit=1)
 ```
 
 ---
@@ -1609,43 +1617,51 @@ POST /api/meal-plans/generate
          getPreferredIngredients(diseases)
                                     │
          ┌──────────────────────────▼──────────────────────────┐
-         │            BƯỚC 3: Truy Xuất RAG (song song)            │
-         │  uniqueMealTypes = Set của mealTypes trong phân phối │
-         │  try:                                                │
-         │    Một Promise.all() duy nhất lấy tất cả:           │
-         │      - retrieveDiseaseGuidelines(diseases) — 1 lần  │
-         │      - retrieveRelevantMeals({ mealType, goal,      │
-         │          diseases, cuisine })                        │
-         │          — mỗi mealType, tất cả song song           │
-         │    với mỗi mealType:                                │
-         │      ragContextByMealType[mealType] =               │
-         │        buildMealContext(meals, guidelines)           │
-         │  catch bất kỳ lỗi nào:                              │
-         │    ghi log cảnh báo, ragContextByMealType = {}      │
-         │    (tiếp tục tạo mà không có ngữ cảnh)             │
+         │      BƯỚC 3: Kiểm tra Pool Công Thức (fail-fast)    │
+         │  Với mỗi mealType duy nhất trong mealDistribution:  │
+         │    getEligibleRecipes({ mealType, diseases,          │
+         │      cuisines, goal, excludeIds: new Set() })        │
+         │    nếu eligible.length < templateDays →              │
+         │      HTTP 400 { reason: "insufficient_recipes",      │
+         │        mealType, available, needed: templateDays }   │
+         │  (Thất bại trước bất kỳ lần gọi LLM nào)           │
          └──────────────────────────┬──────────────────────────┘
                                     │
-         aiCallBudget = min(60, templateDays × mealsPerDay × 2 + 10)
+         aiCallBudget = min(200, templateDays × mealsPerDay × 3 + 10)
          callBudget = { remaining: aiCallBudget }
+         Khởi tạo usedRecipeIdsByMealType = { [mealType]: new Set() }
          (templateDays = 1 cho daily_health_based, 7 cho các purpose khác)
                                     │
-         ┌─────────── VÒNG LẶP THỬ LẠI (tối đa 3 lần) ───────┐
+         ┌─────────── VÒNG LẶP CÁC NGÀY (tuần tự) ───────────┐
          │                                                     │
-         │  BƯỚC 4: Xây dựng task bữa ăn                      │
-         │  với dayIndex 0..(templateDays-1) × mỗi dist:       │
+         │  Với mỗi ngày (1 đến templateDays):                 │
+         │                                                     │
+         │  BƯỚC 4: Xây dựng pool công thức theo ngày         │
+         │  dayEligiblePools: mỗi mealType gọi                │
+         │    getEligibleRecipes({                             │
+         │      mealType, diseases: allDiseaseKeys,            │
+         │      cuisines, goal,                                │
+         │      excludeIds: usedRecipeIdsByMealType[mealType]  │
+         │    })                                               │
+         │                                                     │
+         │  BƯỚC 5: Tạo bữa ăn đồng thời (trong ngày)        │
+         │  dayTasks = mỗi mealType:                          │
          │    task = () => generateMeal({                      │
-         │      mealType: dist.mealType,                       │
-         │      calories, protein, carbs, fat,                 │
+         │      mealType, calories, protein, carbs, fat,       │
          │      goal: nutritionPlan.goal,  ← effective goal    │
          │      dietPreference, cuisinePreference,             │
          │      diseases,                                      │
          │      forbiddenIngredients, limitedIngredients,      │
          │      preferredIngredients,                          │
-         │      retrievedContext: ragContextByMealType[mealType]│
+         │      eligibleRecipes:                               │
+         │        dayEligiblePools[mealType].slice(0, 20)      │
          │    }, callBudget)                                   │
-         │                                                     │
-         │  BƯỚC 5: Tạo đồng thời                             │
-         │  mealResults = runWithConcurrency(tasks, limit=3)   │
+         │  dayResults = runWithConcurrency(dayTasks,          │
+         │    CONCURRENCY_LIMIT=1)                             │
+         │  → LLM xuất { name, benefits } chỉ vậy thôi        │
+         │  → Backend lấy name/description/ingredients         │
+         │    từ công thức KB khớp tên (fallback: pool[0])    │
+         │  → Đánh dấu recipe.id trong usedRecipeIdsByMealType │
          │                                                     │
          │  BƯỚC 6: Xác thực an toàn (mỗi bữa ăn)            │
          │  với mỗi mealResult:                                │
@@ -1653,22 +1669,20 @@ POST /api/meal-plans/generate
          │      với regenAttempt 0..2:                         │
          │        result = validateGeneratedMeal(meal, diseases)│
          │        nếu an toàn → break                          │
-         │        nếu !an toàn && budget > 0 → tạo lại        │
+         │        nếu !an toàn && budget > 0 → tạo lại với    │
+         │          công thức thất bại bị loại khỏi pool       │
          │      nếu vẫn không an toàn → safetyFailed = true → break│
          │                                                     │
-         │  BƯỚC 7: Lắp ráp mẫu 7 ngày                        │
-         │  templateDays = nhóm mealResults theo dayIndex      │
-         │  hợp nhất nội dung AI + dinh dưỡng backend vào mỗi bữa│
-         │                                                     │
-         │  BƯỚC 8: Xác thực Schema (AJV)                     │
+         │  Lắp ráp templateDayObjs[] từ kết quả ngày         │
+         │  Hợp nhất nội dung AI + dinh dưỡng backend vào mỗi bữa│
+         └─────────────────────────────────────────────────────┘
+                                    │
+         ┌─────────── XÁC THỰC ───────────────────────────────┐
+         │  BƯỚC 7: Xác thực Schema (AJV)                     │
          │  validateMealPlan(templatePlan)                     │
-         │  nếu không hợp lệ → lastErrors = errors, tiếp tục thử lại│
          │                                                     │
-         │  BƯỚC 9: Xác thực Logic                             │
+         │  BƯỚC 8: Xác thực Logic                            │
          │  validateFullMealPlan(templatePlan, healthProfile)  │
-         │  nếu không hợp lệ → lastErrors = errors, tiếp tục thử lại│
-         │                                                     │
-         │  mẫu hợp lệ → thoát vòng lặp thử lại              │
          └─────────────────────────────────────────────────────┘
                                     │
          Nhân bản mẫu qua duration:
@@ -1704,17 +1718,17 @@ Eat Clean API là một **hệ thống lập kế hoạch bữa ăn ưu tiên an
 - Xác thực schema dữ liệu
 - Tuyển chọn cơ sở kiến thức và đánh chỉ mục vector
 
-**Lớp RAG cung cấp (nền tảng):**
-- Bữa ăn tham khảo có ngữ nghĩa tương tự từ cơ sở kiến thức được tuyển chọn
-- Hướng dẫn chế độ ăn theo bệnh được truy xuất bằng tương đồng ngữ nghĩa
-- Được định dạng là "ngữ cảnh cảm hứng" — LLM được yêu cầu rõ ràng không sao chép
+**Lớp KB-Selection cung cấp (nền tảng):**
+- Pool công thức được tuyển chọn theo từng ngày, lọc theo disease/goal/cuisine từ file JSON KB
+- Đảm bảo không lặp lại công thức qua các ngày trong cùng kế hoạch (theo dõi bằng `usedRecipeIdsByMealType`)
+- LLM chọn từ danh sách công thức được duyệt sẵn — không thể bịa đặt công thức không tồn tại
 
 **AI sở hữu (sáng tạo):**
-- Tên và mô tả bữa ăn
-- Gợi ý nguyên liệu (chịu lọc an toàn, lấy cảm hứng từ ngữ cảnh truy xuất)
-- Mô tả lợi ích sức khỏe
+- Chọn công thức theo tên chính xác từ danh sách được duyệt
+- Mô tả lợi ích sức khỏe (`benefits`) bằng tiếng Việt
+- Backend lấy tên/mô tả/nguyên liệu từ KB một cách có thẩm quyền — LLM không cung cấp các thông tin này
 
-Kiến trúc này đảm bảo **an toàn y tế không bao giờ được ủy thác cho AI**. Ngay cả khi LLM gợi ý bữa ăn có nguyên liệu bị cấm, bộ xác thực an toàn sẽ bắt và từ chối nó. Tất cả giá trị dinh dưỡng dạng số trong kế hoạch cuối cùng đều chứng minh được là do backend tính — LLM không thể tăng hoặc giảm lượng calorie. Cơ sở kiến thức cũng không chứa dữ liệu dinh dưỡng dạng số, nên ngữ cảnh RAG không thể đưa số liệu vào qua cửa sau.
+Kiến trúc này đảm bảo **an toàn y tế không bao giờ được ủy thác cho AI**. Ngay cả khi LLM gợi ý bữa ăn có nguyên liệu bị cấm, bộ xác thực an toàn sẽ bắt và từ chối nó. Tất cả giá trị dinh dưỡng dạng số trong kế hoạch cuối cùng đều chứng minh được là do backend tính — LLM không thể tăng hoặc giảm lượng calorie. Cơ sở kiến thức không chứa dữ liệu dinh dưỡng dạng số, và LLM bị cấm xuất ra bất kỳ trường số nào.
 
 ### Các Điểm Không Nhất Quán Đã Biết
 

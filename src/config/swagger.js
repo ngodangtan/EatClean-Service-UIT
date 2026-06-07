@@ -34,6 +34,8 @@ const swaggerSpec = {
           phone: { type: 'string' },
           birthday: { type: 'string', format: 'date' },
           gender: { type: 'string', enum: ['male', 'female', 'other'] },
+          height: { type: 'number', description: 'Height in cm' },
+          currentWeight: { type: 'number', description: 'Current weight in kg' },
           role: { type: 'string', enum: ['user', 'admin'] },
           createdAt: { type: 'string', format: 'date-time' },
           updatedAt: { type: 'string', format: 'date-time' }
@@ -396,7 +398,9 @@ const swaggerSpec = {
                   username: { type: 'string', maxLength: 50 },
                   phone: { type: 'string', maxLength: 20 },
                   birthday: { type: 'string', format: 'date' },
-                  gender: { type: 'string', enum: ['male', 'female', 'other'] }
+                  gender: { type: 'string', enum: ['male', 'female', 'other'] },
+                  height: { type: 'number', minimum: 1, maximum: 300, description: 'Height in cm' },
+                  currentWeight: { type: 'number', minimum: 1, maximum: 500, description: 'Current weight in kg' }
                 }
               }
             }

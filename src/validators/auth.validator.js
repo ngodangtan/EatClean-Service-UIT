@@ -27,5 +27,7 @@ export const updateProfileSchema = Joi.object({
   phone: Joi.string().trim().max(20),
   birthday: Joi.date().iso(),
   gender: Joi.string().valid('male', 'female', 'other'),
-  username: Joi.string().trim().max(50)
+  username: Joi.string().trim().max(50),
+  height: Joi.number().min(1).max(300),
+  currentWeight: Joi.number().min(1).max(500)
 }).min(1);

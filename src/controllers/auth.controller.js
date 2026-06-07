@@ -145,6 +145,8 @@ export async function getProfile(req, res) {
       phone: user.phone,
       birthday: user.birthday,
       gender: user.gender,
+      height: user.height,
+      currentWeight: user.currentWeight,
       role: user.role,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt
@@ -160,7 +162,7 @@ export async function updateProfile(req, res) {
     const userId = req.user?.id;
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
-    const { fullName, phone, birthday, gender, username } = req.body;
+    const { fullName, phone, birthday, gender, username, height, currentWeight } = req.body;
 
     // Check username uniqueness if changing
     if (username) {
@@ -174,6 +176,8 @@ export async function updateProfile(req, res) {
     if (birthday !== undefined) updates.birthday = birthday;
     if (gender !== undefined) updates.gender = gender;
     if (username !== undefined) updates.username = username;
+    if (height !== undefined) updates.height = height;
+    if (currentWeight !== undefined) updates.currentWeight = currentWeight;
 
     const user = await User.findByIdAndUpdate(userId, updates, { new: true }).select('-password -refreshTokens');
     if (!user) return res.status(404).json({ message: 'User not found' });
@@ -186,6 +190,8 @@ export async function updateProfile(req, res) {
       phone: user.phone,
       birthday: user.birthday,
       gender: user.gender,
+      height: user.height,
+      currentWeight: user.currentWeight,
       role: user.role,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt

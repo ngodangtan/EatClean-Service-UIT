@@ -1,6 +1,6 @@
 # Eat Clean API — Comprehensive Technical Summary
 
-> Generated: 2026-03-12 | Last updated: 2026-04-27 | Based on all requirement documents and full source code analysis
+> Generated: 2026-03-12 | Last updated: 2026-05-24 | Based on all requirement documents and full source code analysis
 >
 > **2026-04-11 update notes:** Vietnamese-only product (LM Studio embedding model: `bge-m3`, knowledge base + prompts in Vietnamese). `POST /api/meal-plans/generate` is now **purpose-driven** (`daily_health_based | weight_management | disease_based`). `desiredWeight` is no longer stored on the health profile — it is request-scoped on `/generate`. The orphaned `/api/recipes` resource and its model/controller/routes/validator/tests have been removed. `HealthProfile.diseases` is now a structured subdocument array (`{ key, diagnosedAt, indicators[] }`) backed by the disease catalog.
 >
@@ -142,7 +142,7 @@ eat-clean-api/
 │   ├── data/
 │   │   ├── diseaseCatalog.js               # 11 diseases (4 supported + 7 unsupported), indicators, supported flag
 │   │   └── knowledgeBase/                  # Curated reference data (Vietnamese, version controlled)
-│   │       ├── recipes/                    # 96 Vietnamese reference recipes split by mealType (breakfast, lunch, dinner, snack)
+│   │       ├── recipes/                    # 204 Vietnamese reference recipes split by mealType (breakfast=50, lunch=56, dinner=54, snack=44)
 │   │       ├── diseaseGuidelines.json      # 11 disease dietary guidelines (Vietnamese)
 │   │       └── ingredients/                # 85 ingredients split by category (dairy, grains, pantry, produce, protein)
 │   └── utils/
@@ -379,7 +379,7 @@ Per-MealType RAG Pipeline:
 
 These are **version-controlled JSON files** — the source of truth for the knowledge base. Any update to them requires re-running `npm run rag:index` to sync ChromaDB.
 
-#### `recipes/` — 96 reference recipes (split by mealType)
+#### `recipes/` — 204 reference recipes (split by mealType: breakfast=50, lunch=56, dinner=54, snack=44)
 
 Each recipe has (all content in **Vietnamese**; metadata keys remain English):
 ```json
@@ -396,7 +396,7 @@ Each recipe has (all content in **Vietnamese**; metadata keys remain English):
 }
 ```
 
-Coverage: all 4 mealTypes, all 3 goals (`lose-weight`, `gain-weight`, `improve-health`), all 11 catalog diseases, 4 cuisines (western, vietnamese, asian, mediterranean).
+Coverage: all 4 mealTypes (breakfast=50, lunch=56, dinner=54, snack=44), all 3 goals (`lose-weight`, `gain-weight`, `improve-health`), all 11 catalog diseases, 4 cuisines (western, vietnamese, asian, mediterranean).
 
 #### `diseaseGuidelines.json` — 11 disease guidelines
 
@@ -1424,7 +1424,9 @@ Extending support to a new disease requires only two changes: add a `macroAdjust
 
 ---
 
-### 10.3 RAG Layer (`src/services/rag/`)
+### 10.3 RAG Layer (`src/services/rag/`) — Available for rag:index admin script; NOT called during meal plan generation
+
+> **Note:** Since 2026-05-24, ChromaDB RAG (retriever, embeddingClient, vectorStore) is **not called** during meal plan generation. The KB-selection architecture (`kbSampler.js`) replaced it. The infrastructure below is still used by the `npm run rag:index` admin script to populate ChromaDB.
 
 ```
 Input: { mealType, goal, diseases[], cuisine }  per unique mealType
@@ -1549,7 +1551,7 @@ indexAllCollections() runs these in parallel:
         │                 │                   │
         └─────────────────┴───────────────────┘
         Delete then re-index each collection (clean re-index, not idempotent upsert)
-        Returns: { recipes: 96, guidelines: 11, ingredients: 85, errors: 0 }
+        Returns: { recipes: 204, guidelines: 11, ingredients: 85, errors: 0 }
 ```
 
 ---
@@ -1679,17 +1681,20 @@ Output: { name, description, ingredients[], benefits[] }
 
 **Concurrency** (`concurrency.js`):
 ```
-runWithConcurrency(tasks[], limit=3):
+runWithConcurrency(tasks[], limit):
   Spawns min(limit, tasks.length) worker coroutines
   Each worker loops: pick next unstarted task → await it → store result
   All workers run in parallel via Promise.all()
   Results returned in original task order
 
-Example: 21 tasks (7 days × 3 meals), limit=3
-  Worker-1: task0, task3, task6, task9, task12, task15, task18
-  Worker-2: task1, task4, task7, task10, task13, task16, task19
-  Worker-3: task2, task5, task8, task11, task14, task17, task20
-  (approximate — depends on timing)
+In the main generation flow: CONCURRENCY_LIMIT=1
+  (meals within a day run sequentially to avoid usedRecipeIds conflicts)
+
+Example with limit=3 for reference (not used in main flow):
+  21 tasks, limit=3:
+  Worker-1: task0, task3, task6, ...
+  Worker-2: task1, task4, task7, ...
+  Worker-3: task2, task5, task8, ...
 ```
 
 ---
@@ -1789,43 +1794,51 @@ POST /api/meal-plans/generate
          getPreferredIngredients(diseases)
                                     │
          ┌──────────────────────────▼──────────────────────────┐
-         │            STEP 3: RAG Retrieval (parallel)             │
-         │  uniqueMealTypes = Set of mealTypes in distribution  │
-         │  try:                                                │
-         │    Single Promise.all() fetches everything:          │
-         │      - retrieveDiseaseGuidelines(diseases) — once    │
-         │      - retrieveRelevantMeals({ mealType, goal,      │
-         │          diseases, cuisine })                        │
-         │          — one per unique mealType, all in parallel  │
-         │    for each mealType:                               │
-         │      ragContextByMealType[mealType] =               │
-         │        buildMealContext(meals, guidelines)           │
-         │  catch any error:                                   │
-         │    log warning, ragContextByMealType = {}           │
-         │    (generation continues without context)           │
+         │      STEP 3: Recipe Pool Pre-check (fast-fail)       │
+         │  For each unique mealType in mealDistribution:       │
+         │    getEligibleRecipes({ mealType, diseases,          │
+         │      cuisines, goal, excludeIds: new Set() })        │
+         │    if eligible.length < templateDays →               │
+         │      HTTP 400 { reason: "insufficient_recipes",      │
+         │        mealType, available, needed: templateDays }   │
+         │  (Fails fast before any LLM calls)                   │
          └──────────────────────────┬──────────────────────────┘
                                     │
-         aiCallBudget = min(60, templateDays × mealsPerDay × 2 + 10)
+         aiCallBudget = min(200, templateDays × mealsPerDay × 3 + 10)
          callBudget = { remaining: aiCallBudget }
+         Initialize usedRecipeIdsByMealType = { [mealType]: new Set() }
          (templateDays = 1 for daily_health_based, 7 otherwise)
                                     │
-         ┌─────────── RETRY LOOP (max 3 attempts) ────────────┐
+         ┌─────────── SEQUENTIAL DAYS LOOP ───────────────────┐
          │                                                     │
-         │  STEP 4: Build meal tasks                           │
-         │  for dayIndex 0..(templateDays-1) × each dist:      │
+         │  For each day (1 to templateDays):                  │
+         │                                                     │
+         │  STEP 4: Build per-day eligible pools               │
+         │  dayEligiblePools: per mealType, call               │
+         │    getEligibleRecipes({                             │
+         │      mealType, diseases: allDiseaseKeys,            │
+         │      cuisines, goal,                                │
+         │      excludeIds: usedRecipeIdsByMealType[mealType]  │
+         │    })                                               │
+         │                                                     │
+         │  STEP 5: Concurrent meal generation (within day)    │
+         │  dayTasks = per mealType:                           │
          │    task = () => generateMeal({                      │
-         │      mealType: dist.mealType,                       │
-         │      calories, protein, carbs, fat,                 │
+         │      mealType, calories, protein, carbs, fat,       │
          │      goal: nutritionPlan.goal,  ← effective goal    │
          │      dietPreference, cuisinePreference,             │
          │      diseases,                                      │
          │      forbiddenIngredients, limitedIngredients,      │
          │      preferredIngredients,                          │
-         │      retrievedContext: ragContextByMealType[mealType]│
+         │      eligibleRecipes:                               │
+         │        dayEligiblePools[mealType].slice(0, 20)      │
          │    }, callBudget)                                   │
-         │                                                     │
-         │  STEP 5: Concurrent generation                      │
-         │  mealResults = runWithConcurrency(tasks, limit=3)   │
+         │  dayResults = runWithConcurrency(dayTasks,          │
+         │    CONCURRENCY_LIMIT=1)                             │
+         │  → LLM outputs { name, benefits } only              │
+         │  → Backend injects name/description/ingredients     │
+         │    from matched KB recipe (fallback: pool[0])       │
+         │  → Mark recipe.id in usedRecipeIdsByMealType        │
          │                                                     │
          │  STEP 6: Safety validation (per meal)               │
          │  for each mealResult:                               │
@@ -1833,22 +1846,20 @@ POST /api/meal-plans/generate
          │      for regenAttempt 0..2:                         │
          │        result = validateGeneratedMeal(meal, diseases)│
          │        if safe → break                              │
-         │        if !safe && budget > 0 → regenerate          │
+         │        if !safe && budget > 0 → regenerate with     │
+         │          failed recipe excluded from eligible pool  │
          │      if still unsafe → safetyFailed = true → break  │
          │                                                     │
-         │  STEP 7: Assemble template (templateDayObjs[])      │
-         │  group mealResults by dayIndex                      │
-         │  merge AI content + backend nutrition into each meal │
-         │                                                     │
-         │  STEP 8: Schema validation (AJV)                    │
+         │  Assemble templateDayObjs[] from day results        │
+         │  Merge AI content + backend nutrition into each meal │
+         └─────────────────────────────────────────────────────┘
+                                    │
+         ┌─────────── VALIDATION ─────────────────────────────┐
+         │  STEP 7: Schema validation (AJV)                    │
          │  validateMealPlan(templatePlan)                     │
-         │  if invalid → lastErrors = errors, continue retry   │
          │                                                     │
-         │  STEP 9: Logical validation                         │
+         │  STEP 8: Logical validation                         │
          │  validateFullMealPlan(templatePlan, healthProfile)  │
-         │  if invalid → lastErrors = errors, continue retry   │
-         │                                                     │
-         │  template valid → break out of retry loop           │
          └─────────────────────────────────────────────────────┘
                                     │
          Replicate template across duration:
