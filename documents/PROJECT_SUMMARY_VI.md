@@ -1,6 +1,6 @@
 # Eat Clean API — Tổng Quan Kỹ Thuật Toàn Diện
 
-> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-05-24 | Dựa trên tất cả tài liệu yêu cầu và phân tích toàn bộ mã nguồn
+> Ngày tạo: 2026-03-12 | Cập nhật lần cuối: 2026-06-12 | Dựa trên tất cả tài liệu yêu cầu và phân tích toàn bộ mã nguồn
 >
 > **Cập nhật 2026-04-21:** Danh mục bệnh mở rộng từ 10 lên 11 — thêm `insomnia` (`supported: false`). Cập nhật đếm bệnh trong `diseaseGuidelines.json`, `recipes.json`, `ingredients.json`. Sửa params chat LM Studio (`temperature: 0.7 → 0.2`, `max_tokens: 800 → 2000`, thêm system message). Sửa kích thước vector embedding (`768 → 1024 chiều`). Sửa mô tả regex ingredient filter (`\b` → Unicode-aware lookaround). Xóa dòng inconsistency `temperature: 0.2` (đã được fix). Thêm section triết lý thiết kế DISEASE_RULES vs DISEASE_CATALOG vào §10.2.
 >
@@ -9,6 +9,8 @@
 > **Cập nhật 2026-04-27:** Cơ sở kiến thức chia thành thư mục con — `recipes/` giờ chứa 4 file theo mealType (`breakfast.json`, `lunch.json`, `dinner.json`, `snack.json`); `ingredients/` giờ chứa 5 file theo danh mục (`dairy.json`, `grains.json`, `pantry.json`, `produce.json`, `protein.json`). Tổng số công thức tăng từ 40 lên 96 (thêm 11 món `lose-weight` mới). Số nguyên liệu tăng từ 52 lên 85. Cập nhật cấu trúc thư mục ở §2 và mô tả `indexer.js` ở §5 và §11.3.
 >
 > **Cập nhật 2026-04-12 (v2):** **Xóa hoàn toàn `goal` khỏi HealthProfile** — `goal` không còn lưu trên profile, Mongoose schema, Joi validator, Swagger spec, hay controller. Nutrition engine mặc định `'improve-health'` khi không có `goalOverride` (trước đó dùng `healthProfile.goal`). `goalOverride` chỉ được dùng bởi `weight_management` để inject `weightGoal` theo từng request. `swapMeal` controller hardcode `goal: 'improve-health'` thay vì đọc từ profile. **RAG indexer giờ xóa collection trước khi re-index** để đảm bảo clean re-index (export `deleteCollection()` mới trong `vectorStore.js`). ChromaDB `embeddingFunction` đổi từ no-op wrapper sang `null`. Sửa `getEmbeddingBatch` default model từ `nomic-embed-text` sang `bge-m3`.
+>
+> **Cập nhật 2026-06-12:** Sửa các thông tin lỗi thời: (1) `PUT /api/auth/profile` cũng nhận `height` và `currentWeight`; (2) Xóa toàn bộ tham chiếu đến `ingredients/` — thư mục này không tồn tại trong KB; `COLLECTIONS` chỉ có `RECIPES` và `GUIDELINES`; `retrieveIngredientInfo()` và `indexIngredients()` không tồn tại; `indexAllCollections()` trả về `{recipes, guidelines, errors}` không có `ingredients`; (3) §5.4 sửa `recipes.json` → `recipes/` (thư mục); (4) §5.5 bổ sung ghi chú route `/api/favorites` chưa được mount; (5) Sửa số thứ tự mục con trong §11 từ `10.x` thành `11.x`.
 >
 > **Cập nhật 2026-05-24:** **Kiến trúc KB-selection** — `kbSampler.js` export `getEligibleRecipes({ mealType, diseases, cuisines, goal, excludeIds })` là hàm chính. Controller xây dựng pool công thức KB chưa dùng theo từng ngày (lọc theo disease/goal/cuisine, theo dõi bằng `usedRecipeIdsByMealType` Set) và truyền cho LLM dưới dạng danh sách được duyệt. LLM chỉ xuất `{ name, benefits }` — `name`/`description`/`ingredients` được lấy từ KB một cách có thẩm quyền (fallback: `eligibleRecipes[0]` nếu tên không khớp). ChromaDB RAG **không được gọi** trong quá trình tạo (retriever/ragContextBuilder/embeddingClient không được controller gọi). Đã xóa: `dayMealInspiration`, `avoidMealNames`, `avoidPrimaryIngredients`, `SEASONING_WHITELIST`, deduplication pass. Đã thêm: kiểm tra pool công thức trước (HTTP 400 + `reason: insufficient_recipes` nếu pool < templateDays), đảm bảo không lặp lại ID công thức. Tổng KB: breakfast=50, lunch=56, dinner=54, snack=44 (tổng 204 công thức). `CONCURRENCY_LIMIT=1` (các bữa trong ngày chạy tuần tự). Call budget: `min(200, templateDays × mealsPerDay × 3 + 10)`.
 
@@ -109,8 +111,7 @@ eat-clean-api/
 │   │   ├── diseaseCatalog.js               # Danh mục 11 bệnh (4 hỗ trợ macro + 7 chưa hỗ trợ), indicators, cờ supported
 │   │   └── knowledgeBase/                  # Dữ liệu tham khảo được tuyển chọn (quản lý phiên bản)
 │   │       ├── recipes/                    # 204 công thức tham khảo Việt Nam chia theo mealType (breakfast=50, lunch=56, dinner=54, snack=44)
-│   │       ├── diseaseGuidelines.json      # 11 hướng dẫn chế độ ăn theo bệnh (tiếng Việt)
-│   │       └── ingredients/                # 85 nguyên liệu chia theo danh mục (dairy, grains, pantry, produce, protein)
+│   │       └── diseaseGuidelines.json      # 11 hướng dẫn chế độ ăn theo bệnh (tiếng Việt)
 │   ├── services/
 │   │   ├── mealPlanPurposeService.js       # Bảo vệ purpose: chống chỉ định, ánh xạ goal, TDEE từ HealthKit
 │   │   ├── nutrition/                      # Tính toán dinh dưỡng tất định
@@ -413,24 +414,6 @@ Mỗi tài liệu:
 
 Bao phủ tất cả 11 bệnh trong catalog: `diabetes`, `kidney-disease`, `high-uric-acid`, `hypertension`, `fatty-liver`, `high-cholesterol`, `heart-disease`, `obesity`, `anemia`, `gastritis`, `insomnia`.
 
-#### `ingredients/` — 85 mục nguyên liệu tham khảo (chia theo danh mục)
-
-Mỗi nguyên liệu (tên và mô tả bằng tiếng Việt; khóa metadata giữ nguyên tiếng Anh):
-```json
-{
-  "id": "ing_001",
-  "name": "diêm mạch",
-  "category": "grains",              // produce | protein | dairy | grains | pantry | other
-  "aliases": ["quinoa"],
-  "safeFor": ["diabetes", "hypertension", "high-uric-acid", "fatty-liver", "high-cholesterol", "heart-disease", "obesity", "anemia"],
-  "avoidFor": [],
-  "nutritionProfile": "ngũ cốc cung cấp đạm hoàn chỉnh với đầy đủ axit amin thiết yếu, giàu chất xơ, chỉ số đường huyết thấp",
-  "substitutes": ["gạo lứt", "kiều mạch", "lúa mì bulgur"]
-}
-```
-
-Bao phủ tất cả danh mục thực phẩm. Tất cả giá trị `safeFor`/`avoidFor` tham chiếu đến tên bệnh từ catalog đầy đủ 11 bệnh.
-
 ### File Dịch Vụ RAG (`src/services/rag/`)
 
 #### `embeddingClient.js`
@@ -466,7 +449,7 @@ healthCheck()                                       // trả về boolean
 // - Truyền embeddingFunction: null để ChromaDB bỏ qua DefaultEmbeddingFunction
 //   (chúng ta luôn cung cấp embeddings riêng qua LM Studio)
 // - ChromaDB v1.0.0 (v2 API) — triển khai qua docker-compose.rag.yml
-// - Hằng số COLLECTIONS: { RECIPES: 'recipes', GUIDELINES: 'guidelines', INGREDIENTS: 'ingredients' }
+// - Hằng số COLLECTIONS: { RECIPES: 'recipes', GUIDELINES: 'guidelines' }
 ```
 
 #### `retriever.js`
@@ -482,10 +465,6 @@ retrieveRelevantMeals({ mealType, goal, diseases, cuisine, nResults })
 retrieveDiseaseGuidelines(diseases)
 // → một truy vấn cho mỗi bệnh duy nhất, lọc theo { disease: name }
 // → trả về mảng kết quả ChromaDB thô (một cho mỗi bệnh)
-
-retrieveIngredientInfo(ingredientNames)
-// → embed tên nguyên liệu đã nối, truy vấn INGREDIENTS
-// → trả về kết quả ChromaDB thô | null
 
 // Kiểm tra RAG_ENABLED: nếu process.env.RAG_ENABLED === 'false', tất cả hàm trả về [] hoặc null ngay lập tức
 ```
@@ -524,20 +503,17 @@ Trách nhiệm: đánh chỉ mục một lần và gia tăng các file JSON vào
 
 ```javascript
 // Exports:
-indexAllCollections()    // đánh chỉ mục cả ba collection đồng thời, trả về { recipes, guidelines, ingredients, errors }
+indexAllCollections()    // đánh chỉ mục cả hai collection đồng thời, trả về { recipes, guidelines, errors }
 indexRecipes()           // xóa collection RECIPES, đọc thư mục recipes/ (tất cả file JSON), batch 10, upsert
 indexGuidelines()        // xóa collection GUIDELINES, đọc diseaseGuidelines.json, upsert
-indexIngredients()       // xóa collection INGREDIENTS, đọc thư mục ingredients/ (tất cả file JSON), batch 10, upsert
 
 // Định dạng chuỗi tài liệu (cái được embed + lưu trữ):
 // Recipe:    "{name}. {mealType} for {goal}. Ingredients: {ingredients}. {description}"
 // Guideline: "{disease}: {summary}. Tips: {mealTips}"
-// Ingredient: "{name} ({aliases}). {nutritionProfile}. Safe for: {safeFor}."
 
 // Metadata được lưu (phẳng, yêu cầu của ChromaDB — không có object hay array lồng nhau):
 // Recipe:    { name, mealType, cuisine, goal: "lose-weight,improve-health", diseaseCompatible: "diabetes,hypertension", tags: "..." }
 // Guideline: { disease, type: 'guideline' }
-// Ingredient:{ name, category, safeFor: "diabetes,hypertension", avoidFor: "" }
 ```
 
 ### Ngữ Cảnh RAG Xuất Hiện Trong Prompt Như Thế Nào
@@ -619,7 +595,7 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 - **Phản hồi:** `{ id, email, username, fullName, phone, birthday, gender, height, currentWeight, role, createdAt }`
 
 #### PUT `/api/auth/profile`
-- **Đầu vào:** Bất kỳ tập con nào của `{ username, fullName, phone, birthday, gender }`
+- **Đầu vào:** Bất kỳ tập con nào của `{ username, fullName, phone, birthday, gender, height, currentWeight }`
 
 #### POST `/api/auth/refresh-token`
 - **Đầu vào:** `{ refreshToken }`
@@ -725,11 +701,13 @@ npm run rag:index   # node scripts/indexKnowledgeBase.js
 
 ### 5.4 API Công Thức — ĐÃ XÓA
 
-Resource `/api/recipes` mồ côi (model, controller, routes, validator, tests) đã bị xóa vào tháng 04/2026. Nó không có dữ liệu production, không được frontend sử dụng và không có roadmap. Các "recipe" được tham chiếu ở nơi khác trong tài liệu này (cơ sở kiến thức, collection của RAG indexer, v.v.) đề cập đến `src/data/knowledgeBase/recipes.json`, một mối quan tâm tách biệt.
+Resource `/api/recipes` mồ côi (model, controller, routes, validator, tests) đã bị xóa vào tháng 04/2026. Nó không có dữ liệu production, không được frontend sử dụng và không có roadmap. Các "recipe" được tham chiếu ở nơi khác trong tài liệu này (cơ sở kiến thức, collection của RAG indexer, v.v.) đề cập đến thư mục `src/data/knowledgeBase/recipes/`, một mối quan tâm tách biệt.
 
 ---
 
 ### 5.5 API Yêu Thích
+
+> **Chưa được mount:** `favorite.controller.js` và `favorite.routes.js` tồn tại nhưng **chưa được import/mount** trong `src/routes/index.js`. Các endpoint dưới đây mô tả giao diện đã cài đặt nhưng hiện tại không hoạt động.
 
 #### POST `/api/favorites` — `{ targetType: "meal-plan", targetId, note? }`
 #### GET `/api/favorites` — `?targetType=&page=&limit=`
@@ -761,13 +739,13 @@ Resource `/api/recipes` mồ côi (model, controller, routes, validator, tests) 
 1. **Xác thực đầu vào (Joi):** Các trường hồ sơ sức khỏe được xác thực theo schema
 2. **Tính toán dinh dưỡng:** Các hàm thuần túy tạo ra `{ calorieTarget, macros, mealDistribution }`
 3. **Điều chỉnh bệnh lý:** Macros bị giới hạn; danh sách hạn chế nguyên liệu được xây dựng
-4. **Truy xuất RAG:** Theo mealType — embed truy vấn → tra cứu ChromaDB → định dạng chuỗi ngữ cảnh
-5. **Tạo AI:** LLM nhận prompts với ngữ cảnh nền tảng, trả về văn bản thô chứa nội dung dạng JSON
+4. **Xây dựng pool công thức (KB-selection):** `getEligibleRecipes()` đọc trực tiếp file JSON KB — lọc theo disease/goal/cuisine, loại trừ ID đã dùng; không gọi ChromaDB
+5. **Tạo AI:** LLM nhận danh sách công thức được duyệt sẵn, chọn một theo tên và trả về `{ name, benefits }`; `name/description/ingredients` được lấy từ KB có thẩm quyền
 6. **Làm sạch phản hồi:** `sanitizeResponse()` loại bỏ tất cả trường số từ đầu ra AI
 7. **Xác thực Schema (AJV):** Schema JSON nghiêm ngặt xác nhận cấu trúc và các trường bắt buộc
 8. **Xác thực logic:** Tổng calorie và phép tính macro được kiểm tra với dung sai 1%
 9. **Hợp nhất:** Macros tính bởi backend được hợp nhất vào nội dung sáng tạo do AI tạo
-10. **Xác thực an toàn:** Mỗi bữa ăn được quét nguyên liệu bị cấm; bữa ăn không an toàn được tạo lại
+10. **Xác thực an toàn:** Mỗi bữa ăn được quét nguyên liệu bị cấm (nguyên liệu từ KB); bữa ăn không an toàn được tạo lại
 11. **Lưu trữ:** Kế hoạch hoàn chỉnh được lưu vào MongoDB với đầy đủ metadata
 
 ### Xử Lý Danh Sách Mua Sắm
@@ -1016,7 +994,7 @@ Phần này truy vết logic chính xác bên trong mỗi lớp dịch vụ — 
 
 ---
 
-### 10.1 Nutrition Engine (`src/services/nutrition/`)
+### 11.1 Nutrition Engine (`src/services/nutrition/`)
 
 `generateNutritionPlan(healthProfile, { goalOverride, tdeeOverride })`. Hai tùy chọn là cách controller meal-plan inject hành vi theo purpose:
 - `goalOverride` — ghi đè goal mặc định `'improve-health'` (dùng bởi `weight_management` để inject `weightGoal` theo từng request).
@@ -1139,7 +1117,7 @@ bỏ qua calculator này hoàn toàn (templateDays=1, lưu là { weeks: 0, total
 
 ---
 
-### 10.2 Disease Engine (`src/services/disease/`)
+### 11.2 Disease Engine (`src/services/disease/`)
 
 ```
 Đầu vào: nutritionPlan (từ NutritionEngine), healthProfile.diseases[]
@@ -1243,7 +1221,7 @@ Kết quả: { safe: bool, reasons: ["Forbidden ingredients found: X, Y"] }
 
 ---
 
-### 10.3 Lớp RAG (`src/services/rag/`) — Có sẵn cho rag:index, không hoạt động trong luồng tạo chính
+### 11.3 Lớp RAG (`src/services/rag/`) — Có sẵn cho rag:index, không hoạt động trong luồng tạo chính
 
 > **Lưu ý quan trọng:** Kể từ 2026-05-24, ChromaDB RAG (retriever, embeddingClient, vectorStore) **không được gọi** trong quá trình tạo kế hoạch bữa ăn. Kiến trúc KB-selection (`kbSampler.js`) đã thay thế nó. Hạ tầng RAG dưới đây vẫn được dùng bởi script admin `npm run rag:index` để điền dữ liệu vào ChromaDB.
 
@@ -1347,35 +1325,35 @@ npm run rag:index
         │
         ▼
 indexAllCollections() chạy song song:
-  ┌─────────────────┬──────────────────┬──────────────────┐
-  │  indexRecipes() │ indexGuidelines()│indexIngredients()│
-  │                 │                  │                  │
-  │ kích thước batch: 10│ tất cả cùng lúc│ kích thước batch: 10│
-  │                 │                  │                  │
-  │ chuỗi doc:      │ chuỗi doc:       │ chuỗi doc:       │
-  │ "{name}.        │ "{disease}:      │ "{name}          │
-  │  {mealType}     │  {summary}.      │  ({aliases}).    │
-  │  for {goal}.    │  Tips:           │  {nutritionProf} │
-  │  Ingredients:   │  {tips.join}"    │  Safe for:       │
-  │  {ingredients}. │                  │  {safeFor}"      │
-  │  {description}" │                  │                  │
-  │                 │                  │                  │
-  │ metadata:       │ metadata:        │ metadata:        │
-  │  name,mealType, │  disease,        │  name, category, │
-  │  cuisine,       │  type:'guideline'│  safeFor,        │
-  │  goal(csv),     │                  │  avoidFor        │
-  │  diseaseComp(csv│                  │  (tất cả csv)    │
-  │  tags(csv)      │                  │                  │
-  └─────────────────┴──────────────────┴──────────────────┘
-        │                 │                   │
-        └─────────────────┴───────────────────┘
+  ┌─────────────────┬──────────────────┐
+  │  indexRecipes() │ indexGuidelines()│
+  │                 │                  │
+  │ kích thước batch: 10│ tất cả cùng lúc│
+  │                 │                  │
+  │ chuỗi doc:      │ chuỗi doc:       │
+  │ "{name}.        │ "{disease}:      │
+  │  {mealType}     │  {summary}.      │
+  │  for {goal}.    │  Tips:           │
+  │  Ingredients:   │  {tips.join}"    │
+  │  {ingredients}. │                  │
+  │  {description}" │                  │
+  │                 │                  │
+  │ metadata:       │ metadata:        │
+  │  name,mealType, │  disease,        │
+  │  cuisine,       │  type:'guideline'│
+  │  goal(csv),     │                  │
+  │  diseaseComp(csv│                  │
+  │  tags(csv)      │                  │
+  └─────────────────┴──────────────────┘
+        │                 │
+        └─────────────────┘
         Xóa rồi re-index mỗi collection (clean re-index, không phải idempotent upsert)
-        Trả về: { recipes: 204, guidelines: 11, ingredients: 85, errors: 0 }
+        Trả về: { recipes: 204, guidelines: 11, errors: 0 }
 ```
 
 ---
 
-### 10.4 Lớp AI (`src/services/ai/`)
+### 11.4 Lớp AI (`src/services/ai/`)
 
 ```
 Đầu vào: mealInput { mealType, calories, protein, carbs, fat, goal,
@@ -1522,7 +1500,7 @@ Ví dụ: 3 bữa trong ngày 1, limit=1:
 
 ---
 
-### 10.5 Dịch Vụ Xác Thực Bữa Ăn (`src/services/mealValidationService.js`)
+### 11.5 Dịch Vụ Xác Thực Bữa Ăn (`src/services/mealValidationService.js`)
 
 ```
 Đầu vào: plan { days[] }, healthProfile { mealsPerDay }
@@ -1551,7 +1529,7 @@ Ghi chú: xác thực logic thất bại gây thử lại kế hoạch (không p
 
 ---
 
-### 10.6 Điều Phối Đầy Đủ (`src/controllers/mealplan.controller.js`)
+### 11.6 Điều Phối Đầy Đủ (`src/controllers/mealplan.controller.js`)
 
 ```
 POST /api/meal-plans/generate

@@ -40,7 +40,8 @@
       "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); ids=[d['id'] for d in data]; print\\('Max ID:', max\\(ids\\), 'Count:', len\\(ids\\)\\)\")",
       "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\([d['id'] for d in data]\\)\")",
       "Bash(python3 -c ' *)",
-      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(f'Count: {len\\(data\\)}'\\); print\\(json.dumps\\(data[0], ensure_ascii=False, indent=2\\)\\)\")"
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(f'Count: {len\\(data\\)}'\\); print\\(json.dumps\\(data[0], ensure_ascii=False, indent=2\\)\\)\")",
+      "Bash(ipconfig getifaddr *)"
     ]
   }
 }
