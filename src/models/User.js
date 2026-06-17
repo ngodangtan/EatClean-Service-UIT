@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-      password: { type: String, required: true, minlength: 6 },
+      password: { type: String, required: true, minlength: 8 },
       // username replaces previous `name` field
       username: { type: String, trim: true, unique: true, sparse: true },
       // full name and phone for customers
@@ -12,7 +12,14 @@ const userSchema = new mongoose.Schema(
       phone: { type: String, trim: true },
       birthday: { type: Date },
       gender: { type: String, enum: ['male', 'female', 'other'] },
-      role: { type: String, enum: ['user', 'admin'], default: 'user' }
+      height: { type: Number },        // in cm
+      currentWeight: { type: Number }, // in kg
+      role: { type: String, enum: ['user', 'admin'], default: 'user' },
+      refreshTokens: [{
+        token: { type: String, required: true },
+        expiresAt: { type: Date, required: true },
+        createdAt: { type: Date, default: Date.now }
+      }]
   },
   { timestamps: true }
 );

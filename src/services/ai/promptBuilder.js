@@ -1,0 +1,205 @@
+import { getDiseaseGuidelines } from '../rag/kbSampler.js';
+
+const MAX_STRING_LENGTH = 100;
+const MAX_ARRAY_ITEMS = 10;
+
+/**
+ * Sanitize a user-controlled string before prompt interpolation.
+ * Strips newlines, limits length, removes instruction-like patterns.
+ */
+export function sanitizePromptInput(value, maxLen = MAX_STRING_LENGTH) {
+  if (typeof value !== 'string') return '';
+  return value
+    .replace(/[\n\r\t]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .slice(0, maxLen)
+    .trim();
+}
+
+/**
+ * Sanitize an array of user-controlled strings.
+ * Caps item count and sanitizes each string.
+ */
+function sanitizePromptArray(arr, maxItems = MAX_ARRAY_ITEMS, maxLen = MAX_STRING_LENGTH) {
+  if (!Array.isArray(arr)) return [];
+  return arr.slice(0, maxItems).map(v => sanitizePromptInput(v, maxLen)).filter(Boolean);
+}
+
+/**
+ * Build a per-meal prompt for AI content generation.
+ * AI produces only: name, description, ingredients, benefits.
+ * All numeric nutrition values are injected by the backend.
+ */
+export function buildMealPrompt({
+  mealType,
+  calories,
+  protein,
+  carbs,
+  fat,
+  goal,
+  dietPreference,
+  cuisinePreference,
+  diseases,
+  forbiddenIngredients,
+  limitedIngredients,
+  preferredIngredients,
+  errorFeedback,
+  retrievedContext,
+  dayNumber,
+  avoidMealNames,
+  dayMealInspiration,
+  avoidPrimaryIngredients,
+  eligibleRecipes = null
+}) {
+  // KB-selection mode: give LLM an approved recipe list, have it pick one and generate benefits only.
+  // name, description, and ingredients are injected from KB data by the caller after this returns.
+  if (eligibleRecipes && eligibleRecipes.length > 0) {
+    const safeMealType = sanitizePromptInput(mealType, 20);
+    const safeGoal = sanitizePromptInput(goal);
+    const safeCuisines = sanitizePromptArray(cuisinePreference);
+    const safeDiseases = sanitizePromptArray(diseases);
+    const cuisineList = safeCuisines.length > 0 ? safeCuisines.join(', ') : 'đa dạng';
+    const diseasesList = safeDiseases.length > 0 ? safeDiseases.join(', ') : 'không có';
+
+    const recipeList = eligibleRecipes.slice(0, 20)
+      .map((r, i) => `${i + 1}. "${sanitizePromptInput(r.name, 100)}" — ${sanitizePromptArray(r.ingredients, 6, 50).join(', ')}`)
+      .join('\n');
+
+    const guidelineLines = safeDiseases.length > 0
+      ? getDiseaseGuidelines(diseases)
+          .map(g => {
+            const tips = g.mealTips.slice(0, 3).map(t => sanitizePromptInput(t, 150)).join(' | ');
+            return `• ${g.disease}: ${sanitizePromptInput(g.summary, 200)} Gợi ý: ${tips}`;
+          })
+          .join('\n')
+      : '';
+
+    let prompt = `Bạn là chuyên gia dinh dưỡng Việt Nam. Hãy chọn MỘT công thức phù hợp nhất từ danh sách dưới đây cho bữa ${safeMealType}.
+
+DANH SÁCH CÔNG THỨC ĐƯỢC PHÊ DUYỆT:
+${recipeList}
+
+Tiêu chí lựa chọn:
+- Mục tiêu sức khỏe: ${safeGoal}
+- Ẩm thực ưa thích: ${cuisineList}
+- Điều kiện sức khỏe: ${diseasesList}
+- Lượng calo tham khảo: ~${calories} kcal
+${guidelineLines ? `\nHƯỚNG DẪN DINH DƯỠNG THEO BỆNH LÝ (dùng để viết "benefits" chính xác, có căn cứ y tế):\n${guidelineLines}\n` : ''}
+YÊU CẦU: Chọn đúng 1 công thức và tạo 2-3 lợi ích sức khỏe bằng tiếng Việt cho công thức đó. Lợi ích PHẢI liên hệ cụ thể đến bệnh lý của người dùng dựa trên hướng dẫn dinh dưỡng ở trên.
+
+Output JSON:
+{
+  "name": "tên chính xác từ danh sách",
+  "benefits": ["lợi ích sức khỏe 1", "lợi ích sức khỏe 2"]
+}
+
+RULES:
+1. Return JSON ONLY — no code blocks, no markdown, no extra text
+2. "name" PHẢI là tên được sao chép CHÍNH XÁC từ danh sách trên, không thêm bớt ký tự
+3. "benefits" PHẢI bằng tiếng Việt có dấu đầy đủ`;
+
+    if (errorFeedback) {
+      prompt += `\n\nLưu ý: Lần trước có lỗi sau, hãy sửa: ${sanitizePromptInput(errorFeedback, 300)}`;
+    }
+
+    return prompt;
+  }
+  const safeMealType = sanitizePromptInput(mealType, 20);
+  const safeGoal = sanitizePromptInput(goal);
+  const safeDiet = sanitizePromptInput(dietPreference) || 'balanced';
+  const safeCuisines = sanitizePromptArray(cuisinePreference);
+  const safeDiseases = sanitizePromptArray(diseases);
+
+  const cuisineList = safeCuisines.length > 0 ? safeCuisines.join(', ') : 'diverse';
+  const diseasesList = safeDiseases.length > 0 ? safeDiseases.join(', ') : 'none';
+  const safeAvoidNames = sanitizePromptArray(avoidMealNames || [], 20, 80);
+  const safeInspiration = sanitizePromptInput(dayMealInspiration || '', 120);
+  const safeAvoidIngredients = sanitizePromptArray(avoidPrimaryIngredients || [], 8, 40);
+
+  let prompt = `You are a professional Vietnamese nutritionist. Generate ONE creative ${safeMealType} meal suitable for Vietnamese users.
+
+LANGUAGE REQUIREMENT: All text fields (name, description, ingredients, benefits) MUST be written in Vietnamese (tiếng Việt) with proper Vietnamese diacritics. Do NOT use English. Prefer common Vietnamese dishes and ingredients familiar to the Vietnamese market.
+
+Target context (for meal suitability only — do NOT include these numbers in your output):
+- Approximate calories: ${calories}, Protein: ${protein}g, Carbs: ${carbs}g, Fat: ${fat}g
+
+User Preferences:
+- Goal: ${safeGoal}
+- Diet: ${safeDiet}
+- Cuisines: ${cuisineList}
+- Health conditions: ${diseasesList}
+${safeInspiration ? `\nCOOKING STYLE INSTRUCTION: Today's required dish format is based on: "${safeInspiration}". You MUST create a meal using the SAME cooking method and main ingredient category. Examples: if the reference is a cháo/porridge → make a porridge; if it uses eggs/trứng → build around eggs; if it is a salad → make a salad; if it uses fish/cá → use fish; if it uses tofu/đậu hũ → use tofu. Adapt specific seasonings and accompaniments freely, but DO NOT replace the core dish format with something unrelated like bánh or a generic rice bowl. Create a COMPLETELY ORIGINAL Vietnamese name — do NOT reuse the reference name.\n` : ''}${safeAvoidNames.length > 0 ? `\nVARIETY REQUIREMENT: This is Day ${dayNumber}. You MUST generate a completely DIFFERENT meal — do NOT use any of these already-used names: ${safeAvoidNames.join(', ')}. Pick a distinct dish with different main ingredients.\n` : ''}${safeAvoidIngredients.length > 0 ? `\nINGREDIENT OVERUSE RESTRICTION: The following ingredients have already appeared too many times in this meal plan. Do NOT use them as the PRIMARY or MAIN ingredient in this meal: ${safeAvoidIngredients.join(', ')}. You MUST choose a completely different protein source, carb base, or vegetable as the star of the dish.\n` : ''}
+Output this JSON with ALL string values in Vietnamese:
+{
+  "name": "Tên món ăn",
+  "description": "Mô tả ngắn gọn về món ăn",
+  "ingredients": ["nguyên liệu 1", "nguyên liệu 2"],
+  "benefits": ["lợi ích sức khỏe 1", "lợi ích sức khỏe 2"]
+}
+`;
+
+  // Inject RAG context only when there is NO COOKING STYLE INSTRUCTION.
+  // When a KB-sampled dish format is already provided, the RAG context repeats
+  // the same 3 top-matching meals every day (the query never changes), adding
+  // noise that competes with and often overwrites the day-specific COOKING STYLE.
+  // For Day 1 (no KB sample yet) or if the KB sample was null, RAG still grounds
+  // the model in relevant examples.
+  if (retrievedContext && retrievedContext.trim() && !safeInspiration) {
+    prompt += `
+REFERENCE CONTEXT (inspiration only — do not copy):
+${retrievedContext}
+
+`;
+  }
+
+  // Selective Chain-of-Thought: when diseases are present, ask the model to
+  // reason through ingredient safety before generating JSON. This reduces
+  // forbidden-ingredient violations and cuts regeneration attempts.
+  // The CoT text preceding the JSON is harmless — parseAIResponse uses
+  // extractBalancedJSON (brace-counting) which skips non-JSON preamble.
+  const safeForbidden = sanitizePromptArray(forbiddenIngredients, 50);
+  const safeLimited = sanitizePromptArray(limitedIngredients, 30);
+  const safePreferred = sanitizePromptArray(preferredIngredients, 30);
+
+  if (safeDiseases.length > 0) {
+    prompt += `IMPORTANT — THINK STEP-BY-STEP before generating JSON:
+1. The user has these health conditions: ${diseasesList}
+2. FORBIDDEN ingredients (NEVER use): ${safeForbidden.length > 0 ? safeForbidden.join(', ') : 'none'}
+3. LIMITED ingredients (use sparingly only): ${safeLimited.length > 0 ? safeLimited.join(', ') : 'none'}
+4. PREFERRED ingredients (prioritize these): ${safePreferred.length > 0 ? safePreferred.join(', ') : 'none'}
+5. Choose ingredients that are SAFE and beneficial for the above conditions
+6. Verify that NONE of the forbidden ingredients appear in your ingredient list
+7. Now output the JSON
+
+`;
+  }
+
+  prompt += `STRICT RULES:
+1. Return JSON ONLY — no code blocks, no markdown, no extra text
+2. Do NOT include calories, macros, protein, carbs, fat, totalCalories, or any numeric nutrition fields
+3. ingredients must be a non-empty array of strings
+4. name must be a non-empty string
+5. Ensure complete, valid JSON — no truncated strings, no trailing commas
+6. ALL text output (name, description, ingredients, benefits) MUST be in Vietnamese with proper diacritics — no English words except for unavoidable loanwords`;
+
+  if (safeDiseases.length === 0) {
+    // Without diseases, inject ingredient lists in the simpler flat format
+    if (safeForbidden.length > 0) {
+      prompt += `\n\nDo NOT use these ingredients (they are unsafe for the user's health conditions): ${safeForbidden.join(', ')}`;
+    }
+
+    if (safeLimited.length > 0) {
+      prompt += `\n\nUse these ingredients sparingly or in small portions only: ${safeLimited.join(', ')}`;
+    }
+
+    if (safePreferred.length > 0) {
+      prompt += `\n\nPrefer these ingredients when possible (they are beneficial for the user's health conditions): ${safePreferred.join(', ')}`;
+    }
+  }
+
+  if (errorFeedback) {
+    prompt += `\n\nIMPORTANT: Your previous response had these errors. Fix them:\n${sanitizePromptInput(errorFeedback, 500)}`;
+  }
+
+  return prompt;
+}

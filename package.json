@@ -4,23 +4,34 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "dev": "nodemon --inspect src/index.js",
+    "start": "node src/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "rag:index": "node scripts/indexKnowledgeBase.js",
+    "rag:start": "docker-compose -f docker-compose.rag.yml up -d",
+    "rag:stop": "docker-compose -f docker-compose.rag.yml down",
+    "logs:clean": "bash scripts/cleanLogs.sh"
   },
   "dependencies": {
+    "ajv": "^8.17.1",
     "bcrypt": "^5.1.0",
+    "chromadb": "^3.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.0",
     "express": "^4.19.0",
     "express-rate-limit": "^7.0.0",
     "helmet": "^7.0.0",
+    "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.0",
     "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
-    "swagger-jsdoc": "^6.2.8"
+    "winston": "^3.19.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "vitest": "^4.0.18"
   }
 }
